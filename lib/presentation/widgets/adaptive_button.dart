@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:flutter/widgets.dart';
-
-// Aliased imports to avoid name collisions
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:macos_ui/macos_ui.dart' as mac;
 
@@ -22,14 +19,9 @@ class AdaptiveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.macOS:
-        return _buildMacOsButton();
-      case TargetPlatform.windows:
-        return _buildWindowsButton();
-      default:
-        return _buildWindowsButton();
-    }
+    return PlatformResolver.isMacOS
+        ? _buildMacOsButton()
+        : _buildWindowsButton();
   }
 
   Widget _buildWindowsButton() {
