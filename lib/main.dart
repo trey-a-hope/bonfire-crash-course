@@ -8,7 +8,7 @@ import 'package:window_manager/window_manager.dart';
 Future<void> main() async {
   // Ensure Flutter engine bindings are initialized before async calls
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Set up desktop window properties (size, center, title bar)
   await _initializeDesktopWindow();
 

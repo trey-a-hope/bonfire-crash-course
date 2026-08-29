@@ -15,6 +15,7 @@ dependencies:
   fluent_ui: ^4.16.1
   macos_ui: ^2.2.2
   window_manager: ^0.5.2
+  signals: ^7.1.0
 
 dev_dependencies:
   flutter_test:
