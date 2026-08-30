@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
+import 'package:bonfire_crash_course/presentation/widgets/dartpad.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
 
@@ -22,7 +23,9 @@ class ContentPageWidget extends StatelessWidget {
       panes: [
         PaneInfo(
           icon: Icon(Icons.settings),
-          child: Placeholder(color: Colors.green),
+          child: DartPadExerciseScreen(
+            gistId: '7d641e0c5b15d2d303096289511e0a96',
+          ),
           title: 'Green',
         ),
         PaneInfo(

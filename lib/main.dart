@@ -24,8 +24,8 @@ Future<void> _initializeDesktopWindow() async {
   await windowManager.ensureInitialized();
 
   const windowOptions = WindowOptions(
-    size: Size(1280, 720),
-    minimumSize: Size(800, 600),
+    size: Size(1400, 900),
+    minimumSize: Size(1200, 720),
     center: true,
     titleBarStyle: TitleBarStyle.hidden,
   );

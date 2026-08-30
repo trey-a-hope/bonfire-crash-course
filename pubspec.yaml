@@ -16,6 +16,7 @@ dependencies:
   macos_ui: ^2.2.2
   window_manager: ^0.5.2
   signals: ^7.1.0
+  flutter_dartpad: ^0.0.3
 
 dev_dependencies:
   flutter_test:

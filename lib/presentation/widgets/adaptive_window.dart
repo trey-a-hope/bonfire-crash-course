@@ -23,6 +23,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
   Widget build(BuildContext context) {
     if (PlatformResolver.isWindows) {
       // Windows / Fluent UI navigation pane
+      final children = widget.panes.map((p) => p.child).toList();
       return NavigationView(
         pane: NavigationPane(
           selected: _index.value,
@@ -34,14 +35,21 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
                 (pane) => PaneItem(
                   icon: pane.icon,
                   title: Text(pane.title),
-                  body: pane.child,
+                  // body is omitted; content will be rendered via IndexedStack below
+                  body: const SizedBox.shrink(),
                 ),
               )
               .toList(),
         ),
+        // Preserve state of each pane child using IndexedStack
+        content: IndexedStack(
+          index: _index.value,
+          children: children,
+        ),
       );
     } else {
       // macOS sidebar
+      final children = widget.panes.map((p) => p.child).toList();
       return MacosWindow(
         sidebar: Sidebar(
           builder: (c, s) {
@@ -57,7 +65,11 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
           },
           minWidth: 300,
         ),
-        child: widget.panes[_index.value].child,
+        // Preserve state of each pane child using IndexedStack
+        child: IndexedStack(
+          index: _index.value,
+          children: children,
+        ),
       );
     }
   }
