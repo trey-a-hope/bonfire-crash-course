@@ -3,14 +3,23 @@ import 'package:bonfire_crash_course/presentation/pages/home_page.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:window_manager/window_manager.dart';
+
+late final PackageInfo packageInfo;
 
 Future<void> main() async {
   // Ensure Flutter engine bindings are initialized before async calls
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize MediaKit
+  MediaKit.ensureInitialized();
+
   // Set up desktop window properties (size, center, title bar)
   await _initializeDesktopWindow();
+
+  packageInfo = await PackageInfo.fromPlatform();
 
   runApp(const DesktopApp());
 }
@@ -28,6 +37,7 @@ Future<void> _initializeDesktopWindow() async {
     minimumSize: Size(1200, 720),
     center: true,
     titleBarStyle: TitleBarStyle.hidden,
+    fullScreen: true,
   );
 
   await windowManager.waitUntilReadyToShow(windowOptions, () async {

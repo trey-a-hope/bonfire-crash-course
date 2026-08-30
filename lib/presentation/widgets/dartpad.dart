@@ -1,9 +1,15 @@
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
+import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dartpad/flutter_dartpad.dart';
 
+const _horizontalPadding = 32.0;
+
 class DartPadExerciseScreen extends StatelessWidget {
-  // Replace with your GitHub Gist ID containing main.dart / test.dart
+  // Replace with your GitHub Gist ID containing main.dart / test.dart / solution.dart
   final String gistId;
+
   const DartPadExerciseScreen({required this.gistId, super.key});
 
   @override
@@ -12,9 +18,12 @@ class DartPadExerciseScreen extends StatelessWidget {
 
     return Column(
       children: [
+        GapSizes.xlGap,
         Expanded(
           child: Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(16, 16, 16, 0),
+            padding: EdgeInsetsGeometry.symmetric(
+              horizontal: _horizontalPadding,
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -27,25 +36,83 @@ class DartPadExerciseScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
+                      GapSizes.xsGap,
                       Divider(),
-                      Text(
-                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset\'s Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.',
-                        style: textTheme.bodyLarge!.copyWith(
-                          color: Colors.white,
+                      GapSizes.xsGap,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              Text(
+                                'To spawn a playable character into your game world using the Bonfire RPG engine, extend the SimplePlayer class with sprite animations and assign it to the player property of the BonfireWidget.',
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              GapSizes.mediumGap,
+                              Text(
+                                'Create your player component with positional coordinates, collision hitboxes, and directional sprites:',
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              GapSizes.mediumGap,
+                              Card(
+                                child: ListTile(
+                                  leading: Icon(Icons.warning),
+                                  title: Text(
+                                    'NOTE: This is where the first place goes.',
+                                  ),
+                                ),
+                              ),
+                              GapSizes.mediumGap,
+                              Text(
+                                'To spawn a playable character into your game world using the Bonfire RPG engine, extend the SimplePlayer class with sprite animations and assign it to the player property of the BonfireWidget.',
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              GapSizes.mediumGap,
+                              Text(
+                                'Create your player component with positional coordinates, collision hitboxes, and directional sprites:',
+                                style: textTheme.bodyLarge!.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              GapSizes.mediumGap,
+                              Card(
+                                child: ListTile(
+                                  leading: Icon(Icons.warning),
+                                  title: Text(
+                                    'NOTE: This is where the first place goes.',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Expanded(child: Container()),
+                GapSizes.largeGap,
+                Expanded(
+                  child: CourseVideoPlayer(
+                    videoUrl:
+                        'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 16),
+        GapSizes.mediumGap,
         Expanded(
           child: Padding(
-            padding: EdgeInsetsGeometry.fromLTRB(16, 0, 16, 16),
+            padding: EdgeInsetsGeometry.symmetric(
+              horizontal: _horizontalPadding,
+            ),
             child: Dartpad(
               key: const Key('exercise_dartpad'),
               embeddingChoice: EmbeddingChoice.flutter,
@@ -57,6 +124,9 @@ class DartPadExerciseScreen extends StatelessWidget {
             ),
           ),
         ),
+        GapSizes.mediumGap,
+        VersionLabel(),
+        GapSizes.mediumGap,
       ],
     );
   }

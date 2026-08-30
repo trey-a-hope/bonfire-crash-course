@@ -1,6 +1,6 @@
 name: bonfire_crash_course
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -17,6 +17,11 @@ dependencies:
   window_manager: ^0.5.2
   signals: ^7.1.0
   flutter_dartpad: ^0.0.3
+  media_kit: ^1.2.6
+  media_kit_video: ^2.0.1
+  media_kit_libs_macos_video: ^1.1.4
+  gap: ^3.0.1
+  package_info_plus: ^10.2.1
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +31,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/videos/flight.mp4
