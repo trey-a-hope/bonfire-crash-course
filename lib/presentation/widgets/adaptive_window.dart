@@ -1,9 +1,27 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fluent_ui/fluent_ui.dart' hide Colors;
 
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:signals/signals_flutter.dart';
+
+final Map<PaneInfo, List<PaneInfo>> panessss = {
+  PaneInfo(icon: Icon(Icons.abc), title: 'Gettings Started', child: null): [],
+  PaneInfo(icon: Icon(Icons.abc), title: 'Players', child: null): [
+    PaneInfo(
+      icon: Icon(Icons.abc),
+      title: 'Simple PLayer',
+      child: Placeholder(color: Colors.green),
+    ),
+    PaneInfo(
+      icon: Icon(Icons.abc),
+      title: 'Simple PLayer',
+      child: Placeholder(color: Colors.red),
+    ),
+  ],
+  PaneInfo(icon: Icon(Icons.abc), title: 'Environment', child: null): [],
+};
 
 class AdaptiveWindow extends SignalStatefulWidget {
   final List<PaneInfo> panes;
@@ -44,7 +62,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
         // Preserve state of each pane child using IndexedStack
         content: IndexedStack(
           index: _index.value,
-          children: children,
+          children: children.where((p) => p != null).map((p) => p!).toList(),
         ),
       );
     } else {
@@ -56,7 +74,17 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
             return SidebarItems(
               items: widget.panes
                   .map(
-                    (e) => SidebarItem(leading: e.icon, label: Text(e.title)),
+                    (e) => SidebarItem(
+                      leading: e.icon,
+                      label: Text(e.title),
+                      disclosureItems: [
+                        SidebarItem(
+                          leading: e.icon,
+                          label: Text(e.title),
+                          disclosureItems: [],
+                        ),
+                      ],
+                    ),
                   )
                   .toList(),
               currentIndex: _index.value,
@@ -68,7 +96,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
         // Preserve state of each pane child using IndexedStack
         child: IndexedStack(
           index: _index.value,
-          children: children,
+          children: children.where((p) => p != null).map((p) => p!).toList(),
         ),
       );
     }

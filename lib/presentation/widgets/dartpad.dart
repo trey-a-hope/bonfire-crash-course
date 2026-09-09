@@ -1,4 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,8 @@ class DartPadExerciseScreen extends StatelessWidget {
     return Column(
       children: [
         GapSizes.xlGap,
-        Expanded(
+        Flexible(
+          flex: 1,
           child: Padding(
             padding: EdgeInsetsGeometry.symmetric(
               horizontal: _horizontalPadding,
@@ -30,12 +32,37 @@ class DartPadExerciseScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Adding a player',
-                        style: textTheme.headlineLarge!.copyWith(
-                          color: Colors.white,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            'Adding a player now nigga!',
+                            style: textTheme.headlineSmall!.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Spacer(),
+                          AdaptiveButton(
+                            type: AdaptiveButtonType.filled,
+                            onPressed: () {
+                              CourseVideoPlayer.showModal(
+                                context,
+                                videoUrl:
+                                    'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                                title: 'Course Lesson Video',
+                              );
+                            },
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.play_arrow_rounded),
+                                SizedBox(width: 8),
+                                Text('Watch Video Lesson'),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
+
                       GapSizes.xsGap,
                       Divider(),
                       GapSizes.xsGap,
@@ -89,6 +116,7 @@ class DartPadExerciseScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              GapSizes.largeGap,
                             ],
                           ),
                         ),
@@ -96,19 +124,20 @@ class DartPadExerciseScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                GapSizes.largeGap,
-                Expanded(
-                  child: CourseVideoPlayer(
-                    videoUrl:
-                        'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
-                  ),
-                ),
+                // GapSizes.largeGap,
+                // Expanded(
+                //   child: CourseVideoPlayer(
+                //     videoUrl:
+                //         'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                //   ),
+                // ),
               ],
             ),
           ),
         ),
         GapSizes.mediumGap,
-        Expanded(
+        Flexible(
+          flex: 2,
           child: Padding(
             padding: EdgeInsetsGeometry.symmetric(
               horizontal: _horizontalPadding,
@@ -120,7 +149,7 @@ class DartPadExerciseScreen extends StatelessWidget {
               darkMode: true,
               split: 60, // Split ratio between editor and output (60% editor)
               runImmediately: false, // Wait for user to finish and hit Run
-              onProgress: (val) => debugPrint(val.toString()),
+              onProgress: (val) => debugPrint('Dartpad progress: $val'),
             ),
           ),
         ),

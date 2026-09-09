@@ -26,7 +26,7 @@ class ContentPageWidget extends StatelessWidget {
           child: DartPadExerciseScreen(
             gistId: '7d641e0c5b15d2d303096289511e0a96',
           ),
-          title: 'Green',
+          title: 'Setup',
         ),
         PaneInfo(
           icon: Icon(Icons.house),

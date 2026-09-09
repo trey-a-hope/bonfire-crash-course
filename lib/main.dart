@@ -69,12 +69,30 @@ class DesktopApp extends StatelessWidget {
     if (PlatformResolver.isMacOS) {
       return const MacosApp(
         debugShowCheckedModeBanner: false,
-        title: 'macOS App',
+        title: 'Bonfire Crash Course',
         home: HomePage(),
       );
     }
 
     // Fallback for Linux or unexpected desktop targets
     return const SizedBox.shrink();
+  }
+}
+
+// Practice enums and switch expressions (Flutter 3.6 +)
+enum DemoShit {
+  video(name: 'Video'),
+  audio(name: 'Audio');
+
+  const DemoShit({required this.name});
+
+  final String name;
+}
+
+class Practice {
+  void test(DemoShit demoShit) {
+    if (demoShit case DemoShit(:final name) when name == 'Video') {
+      debugPrint('It is Video with name: $name');
+    }
   }
 }

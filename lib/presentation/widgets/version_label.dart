@@ -15,3 +15,12 @@ class VersionLabel extends StatelessWidget {
     );
   }
 }
+
+class VersionLabel2 extends StatelessWidget {
+  const VersionLabel2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
