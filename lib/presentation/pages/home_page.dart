@@ -1,6 +1,4 @@
-import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
-import 'package:bonfire_crash_course/presentation/widgets/dartpad.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
 
@@ -19,26 +17,6 @@ class ContentPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveWindow(
-      panes: [
-        PaneInfo(
-          icon: Icon(Icons.settings),
-          child: DartPadExerciseScreen(
-            gistId: '7d641e0c5b15d2d303096289511e0a96',
-          ),
-          title: 'Setup',
-        ),
-        PaneInfo(
-          icon: Icon(Icons.house),
-          child: Placeholder(color: Colors.red),
-          title: 'Red',
-        ),
-        PaneInfo(
-          icon: Icon(Icons.account_balance),
-          child: Placeholder(color: Colors.blue),
-          title: 'Blue',
-        ),
-      ],
-    );
+    return AdaptiveWindow();
   }
 }

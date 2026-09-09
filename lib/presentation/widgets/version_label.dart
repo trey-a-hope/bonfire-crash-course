@@ -9,18 +9,9 @@ class VersionLabel extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Text(
-      'Bonfire Crash Course v${packageInfo.version} (build ${packageInfo.buildNumber})',
+      'Bonfire Crash Course v${packageInfo.version}+${packageInfo.buildNumber}',
       textAlign: TextAlign.center,
       style: textTheme.bodyMedium?.copyWith(color: Colors.white),
     );
-  }
-}
-
-class VersionLabel2 extends StatelessWidget {
-  const VersionLabel2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

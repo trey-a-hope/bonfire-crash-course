@@ -22,6 +22,7 @@ dependencies:
   media_kit_libs_macos_video: ^1.1.4
   gap: ^3.0.1
   package_info_plus: ^10.2.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
