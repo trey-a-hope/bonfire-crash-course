@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/getting_started_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/map/loading_the_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -25,8 +26,8 @@ final List<PaneInfo> panes = [
     children: [
       PaneInfo(
         icon: Icon(Icons.map_outlined),
-        title: 'Tiled',
-        child: Placeholder(color: Colors.green),
+        title: 'Loading the Map',
+        child: LoadingTheMap(),
       ),
     ],
   ),

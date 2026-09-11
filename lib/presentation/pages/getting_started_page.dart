@@ -12,30 +12,27 @@ class GettingStartedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: .start,
-        children: [
-          Text(
-            'Getting Started',
-            style: textTheme.headlineSmall!.copyWith(color: Colors.white),
+    return Column(
+      crossAxisAlignment: .start,
+      children: [
+        Text(
+          'Getting Started',
+          style: textTheme.headlineSmall!.copyWith(color: Colors.white),
+        ),
+        GapSizes.smallGap,
+        Text(
+          'Open the Code Spaces enviroment. This is where users will be coding along to the project.',
+          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
+        ),
+        GapSizes.smallGap,
+        AdaptiveButton(
+          child: Text(
+            'Open',
+            style: textTheme.labelLarge!.copyWith(color: Colors.white),
           ),
-          GapSizes.smallGap,
-          Text(
-            'Open the Code Spaces enviroment. This is where users will be coding along to the project.',
-            style: textTheme.bodyLarge!.copyWith(color: Colors.white),
-          ),
-          GapSizes.smallGap,
-          AdaptiveButton(
-            child: Text(
-              'Open',
-              style: textTheme.labelLarge!.copyWith(color: Colors.white),
-            ),
-            onPressed: () => launchUrl(Uri.parse(CODE_SPACES_URL)),
-          ),
-        ],
-      ),
+          onPressed: () => launchUrl(Uri.parse(CODE_SPACES_URL)),
+        ),
+      ],
     );
   }
 }

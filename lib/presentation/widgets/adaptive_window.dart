@@ -1,10 +1,10 @@
-import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/panes.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
-import 'package:fluent_ui/fluent_ui.dart' hide Colors;
 
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -49,6 +49,52 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
   @override
   Widget build(BuildContext context) {
     final activeScreens = _extractScreens(panes);
+
+    final textTheme = Theme.of(context).textTheme;
+
+    final endSidebar = Sidebar(
+      top: Text(
+        'Live Chat',
+        style: textTheme.titleLarge!.copyWith(color: Colors.white),
+      ),
+      isResizable: false,
+      dragClosed: false,
+      minWidth: 200,
+      builder: (context, scrollController) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            MacosTextField(
+              placeholder: 'Type some text here',
+              maxLines: 25,
+              maxLengthEnforcement: MaxLengthEnforcement.none,
+              clearButtonMode: OverlayVisibilityMode.always,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    final sidebar = Sidebar(
+      top: Text(
+        'Overview',
+        style: textTheme.titleLarge!.copyWith(color: Colors.white),
+      ),
+      bottom: const VersionLabel(),
+      isResizable: false,
+      dragClosed: false,
+      minWidth: 300,
+      builder: (context, scrollController) => SidebarItems(
+        items: _buildSidebarItems(panes),
+        currentIndex: _index.value,
+        onChanged: (newIndex) {
+          if (newIndex < activeScreens.length) {
+            _index.value = newIndex;
+          }
+        },
+      ),
+    );
+
     if (PlatformResolver.isWindows) {
       // // Windows / Fluent UI navigation pane
       // final children = widget.panes.map((p) => p.child).toList();
@@ -79,29 +125,12 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
     } else {
       // macOS sidebar
       return MacosWindow(
-        sidebar: Sidebar(
-          minWidth: 300,
-          builder: (context, scrollController) {
-            return Column(
-              children: [
-                Expanded(
-                  child: SidebarItems(
-                    items: _buildSidebarItems(panes),
-                    currentIndex: _index.value,
-                    onChanged: (newIndex) {
-                      if (newIndex < activeScreens.length) {
-                        _index.value = newIndex;
-                      }
-                    },
-                  ),
-                ),
-                const VersionLabel(),
-                GapSizes.smallGap,
-              ],
-            );
-          },
+        endSidebar: endSidebar,
+        sidebar: sidebar,
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: IndexedStack(index: _index.value, children: activeScreens),
         ),
-        child: IndexedStack(index: _index.value, children: activeScreens),
       );
     }
   }
