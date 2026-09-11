@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -5,6 +6,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Welcome Page'));
+    return Column(
+      children: [Text('Welcome to Bonfire Engine!'), PageIndexWidget()],
+    );
   }
 }

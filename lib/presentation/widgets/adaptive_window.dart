@@ -1,4 +1,4 @@
-import 'package:bonfire_crash_course/core/panes.dart';
+import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
 
@@ -18,22 +18,6 @@ class AdaptiveWindow extends SignalStatefulWidget {
 /// A platform‑adaptive sidebar that shows a Fluent UI NavigationPane on
 /// Windows and a macOS UI Sidebar on macOS.
 class _AdaptiveWindowState extends State<AdaptiveWindow> {
-  late final Signal<int> _index = signal(0);
-
-  // Recursively extract only items that have content/screens
-  List<Widget> _extractScreens(List<PaneInfo> items) {
-    final List<Widget> screens = [];
-    for (final item in items) {
-      if (item.child != null) {
-        screens.add(item.child!);
-      }
-      if (item.children.isNotEmpty) {
-        screens.addAll(_extractScreens(item.children));
-      }
-    }
-    return screens;
-  }
-
   List<SidebarItem> _buildSidebarItems(List<PaneInfo> items) => items
       .map(
         (e) => SidebarItem(
@@ -48,7 +32,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
 
   @override
   Widget build(BuildContext context) {
-    final activeScreens = _extractScreens(panes);
+    final activeScreens = PageIndexController.screens;
 
     final textTheme = Theme.of(context).textTheme;
 
@@ -86,10 +70,10 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       minWidth: 300,
       builder: (context, scrollController) => SidebarItems(
         items: _buildSidebarItems(panes),
-        currentIndex: _index.value,
+        currentIndex: PageIndexController.index,
         onChanged: (newIndex) {
           if (newIndex < activeScreens.length) {
-            _index.value = newIndex;
+            PageIndexController.index = newIndex;
           }
         },
       ),
@@ -129,7 +113,10 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
         sidebar: sidebar,
         child: Padding(
           padding: const EdgeInsets.all(32.0),
-          child: IndexedStack(index: _index.value, children: activeScreens),
+          child: IndexedStack(
+            index: PageIndexController.index,
+            children: activeScreens,
+          ),
         ),
       );
     }

@@ -1,6 +1,7 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
+import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
 import 'package:url_launcher/url_launcher.dart';
@@ -32,6 +33,8 @@ class GettingStartedPage extends StatelessWidget {
           ),
           onPressed: () => launchUrl(Uri.parse(CODE_SPACES_URL)),
         ),
+        GapSizes.xlGap,
+        PageIndexWidget(),
       ],
     );
   }
