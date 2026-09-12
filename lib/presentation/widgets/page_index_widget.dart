@@ -18,11 +18,12 @@ class PageIndexWidget extends StatelessWidget {
         // Previous page button
         AdaptiveButton(
           child: const Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: .center,
             children: [
               Icon(Icons.chevron_left),
               GapSizes.xsGap,
               Text('Previous'),
+              GapSizes.smallGap,
             ],
           ),
           onPressed: () => PageIndexController.decrement(),
@@ -32,8 +33,13 @@ class PageIndexWidget extends StatelessWidget {
         AdaptiveButton(
           type: AdaptiveButtonType.filled,
           child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [Icon(Icons.chevron_right), GapSizes.xsGap, Text('Next')],
+            mainAxisAlignment: .center,
+            mainAxisSize: .min,
+            children: [
+              Icon(Icons.chevron_right, color: Colors.white),
+              GapSizes.xsGap,
+              Text('Next'),
+            ],
           ),
           onPressed: () => PageIndexController.increment(),
         ),
