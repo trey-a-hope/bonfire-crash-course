@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/presentation/pages/home_page.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -48,51 +48,35 @@ Future<void> _initializeDesktopWindow() async {
 
 /// Root app widget that selects the design system framework (Fluent UI vs macos_ui) by platform.
 class DesktopApp extends StatelessWidget {
+  final _title = 'Bonfire Crash Course';
+  final _debugShowCheckedModeBanner = false;
+
   const DesktopApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Windows UI implementation using FluentApp
-    if (PlatformResolver.isWindows) {
-      return fluent.FluentApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Windows App',
-        theme: fluent.FluentThemeData(
-          brightness: fluent.Brightness.dark,
-          accentColor: fluent.Colors.blue,
-        ),
-        home: const HomePage(),
-      );
-    }
+    final windowsApp = fluent.FluentApp(
+      debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+      title: _title,
+      theme: fluent.FluentThemeData(
+        brightness: fluent.Brightness.dark,
+        accentColor: fluent.Colors.blue,
+      ),
+      home: const AdaptiveWindow(),
+    );
 
     // macOS UI implementation using MacosApp
-    if (PlatformResolver.isMacOS) {
-      return const MacosApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Bonfire Crash Course',
-        home: HomePage(),
-      );
-    }
+    final macosApp = MacosApp(
+      debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+      title: _title,
+      theme: MacosThemeData(
+        brightness: Brightness.dark,
+        accentColor: AccentColor.blue,
+      ),
+      home: const AdaptiveWindow(),
+    );
 
-    // Fallback for Linux or unexpected desktop targets
-    return const SizedBox.shrink();
-  }
-}
-
-// Practice enums and switch expressions (Flutter 3.6 +)
-enum DemoShit {
-  video(name: 'Video'),
-  audio(name: 'Audio');
-
-  const DemoShit({required this.name});
-
-  final String name;
-}
-
-class Practice {
-  void test(DemoShit demoShit) {
-    if (demoShit case DemoShit(:final name) when name == 'Video') {
-      debugPrint('It is Video with name: $name');
-    }
+    return PlatformResolver.isWindows ? windowsApp : macosApp;
   }
 }

@@ -1,8 +1,8 @@
-import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
-import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
-
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
+import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
+import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
+import 'package:fluent_ui/fluent_ui.dart' hide Colors;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -18,18 +18,6 @@ class AdaptiveWindow extends SignalStatefulWidget {
 /// A platform‑adaptive sidebar that shows a Fluent UI NavigationPane on
 /// Windows and a macOS UI Sidebar on macOS.
 class _AdaptiveWindowState extends State<AdaptiveWindow> {
-  List<SidebarItem> _buildSidebarItems(List<PaneInfo> items) => items
-      .map(
-        (e) => SidebarItem(
-          leading: e.icon,
-          label: Text(e.title),
-          disclosureItems: e.children.isNotEmpty
-              ? _buildSidebarItems(e.children)
-              : null,
-        ),
-      )
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     final activeScreens = PageIndexController.screens;
@@ -52,7 +40,6 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
               placeholder: 'Type some text here',
               maxLines: 25,
               maxLengthEnforcement: MaxLengthEnforcement.none,
-              clearButtonMode: OverlayVisibilityMode.always,
             ),
           ],
         ),
@@ -69,7 +56,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       dragClosed: false,
       minWidth: 300,
       builder: (context, scrollController) => SidebarItems(
-        items: _buildSidebarItems(panes),
+        items: panes.toSidebarItems(),
         currentIndex: PageIndexController.index,
         onChanged: (newIndex) {
           if (newIndex < activeScreens.length) {
@@ -79,39 +66,44 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       ),
     );
 
+    final pane = NavigationPane(
+      selected: PageIndexController.index,
+      onChanged: (newIndex) {
+        if (newIndex < activeScreens.length) {
+          PageIndexController.index = newIndex;
+        }
+      },
+      displayMode: PaneDisplayMode.auto,
+      header: const Text('Bonfire Crash Course'),
+      items: panes.toNavigationPaneItems(),
+      footerItems: [
+        PaneItemSeparator(),
+        PaneItem(
+          icon: const WindowsIcon(WindowsIcons.settings),
+          title: const Text('Settings'),
+          body: const SizedBox.shrink(),
+          onTap: () => debugPrint('Settings clicked'),
+        ),
+      ],
+    );
+
     if (PlatformResolver.isWindows) {
-      // // Windows / Fluent UI navigation pane
-      // final children = widget.panes.map((p) => p.child).toList();
-      // return NavigationView(
-      //   pane: NavigationPane(
-      //     selected: _index.value,
-      //     onChanged: (index) => _index.value = index,
-      //     displayMode: PaneDisplayMode.auto,
-      //     header: const Text('Pane Header'),
-      //     items: widget.panes
-      //         .map(
-      //           (pane) => PaneItem(
-      //             icon: pane.icon,
-      //             title: Text(pane.title),
-      //             // body is omitted; content will be rendered via IndexedStack below
-      //             body: const SizedBox.shrink(),
-      //           ),
-      //         )
-      //         .toList(),
-      //   ),
-      //   // Preserve state of each pane child using IndexedStack
-      //   content: IndexedStack(
-      //     index: _index.value,
-      //     children: children.where((p) => p != null).map((p) => p!).toList(),
-      //   ),
-      // );
-      return Placeholder();
+      // Windows / Fluent UI navigation pane
+      return NavigationView(
+        pane: pane,
+        paneBodyBuilder: (item, body) => Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: IndexedStack(
+            index: PageIndexController.index,
+            children: activeScreens,
+          ),
+        ),
+      );
     } else {
       // macOS sidebar
       return MacosWindow(
         endSidebar: endSidebar,
         sidebar: sidebar,
-
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: IndexedStack(
