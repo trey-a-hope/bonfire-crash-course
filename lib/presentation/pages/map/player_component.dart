@@ -13,6 +13,7 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
     final textTheme = Theme.of(context).textTheme;
 
     return PageOutline(
+      title: 'Creating the Player Component',
       objective: Text(
         'Define a custom character component that extends SimplePlayer and configure its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),

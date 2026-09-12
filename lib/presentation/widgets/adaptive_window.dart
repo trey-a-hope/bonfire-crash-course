@@ -111,6 +111,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       return MacosWindow(
         endSidebar: endSidebar,
         sidebar: sidebar,
+
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: IndexedStack(

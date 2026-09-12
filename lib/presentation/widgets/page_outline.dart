@@ -16,6 +16,8 @@ mixin iPageOutline {
 /// Displays the lesson's [objective], [concepts], [example], and [yourTurn]
 /// sections, followed by bottom [PageIndexWidget] navigation controls.
 class PageOutline extends StatelessWidget {
+  final String title;
+
   /// 1–2 sentences explaining what mechanic is being built.
   final Widget objective;
 
@@ -30,6 +32,7 @@ class PageOutline extends StatelessWidget {
 
   const PageOutline({
     super.key,
+    required this.title,
     required this.objective,
     required this.concepts,
     required this.example,
@@ -43,6 +46,12 @@ class PageOutline extends StatelessWidget {
     return Column(
       crossAxisAlignment: .start,
       children: [
+        Text(
+          title,
+          style: textTheme.displaySmall!.copyWith(color: Colors.white),
+        ),
+        GapSizes.largeGap,
+
         // Objective: 1–2 sentences explaining what mechanic they are building.
         Text(
           'Objective',
