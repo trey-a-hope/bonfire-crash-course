@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -57,6 +57,9 @@ class DesktopApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Windows UI implementation using FluentApp
     final windowsApp = fluent.FluentApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        scrollbars: false,
+      ),
       debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
       title: _title,
       theme: fluent.FluentThemeData(
@@ -68,6 +71,9 @@ class DesktopApp extends StatelessWidget {
 
     // macOS UI implementation using MacosApp
     final macosApp = MacosApp(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        scrollbars: false,
+      ),
       debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
       title: _title,
       theme: MacosThemeData(

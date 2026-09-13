@@ -1,8 +1,8 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/pages/map/player_component.dart';
+import 'package:bonfire_crash_course/presentation/pages/map/_map.dart';
+import 'package:bonfire_crash_course/presentation/pages/player/player_component.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:bonfire_crash_course/presentation/pages/getting_started_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/map/loading_the_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +75,11 @@ final List<PaneInfo> panes = [
         icon: Icon(Icons.map_outlined),
         title: 'Loading the Map',
         child: LoadingTheMap(),
+      ),
+      PaneInfo(
+        icon: Icon(Icons.map_outlined),
+        title: 'Apply a Custom Background',
+        child: ApplyCustomBackground(),
       ),
     ],
   ),

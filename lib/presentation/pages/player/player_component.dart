@@ -22,56 +22,53 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
         'Components are the fundamental building blocks in Bonfire. SimplePlayer provides the base physics, keyboard input handling, and direction logic; you customize assets, animations, and collision shapes.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
       ),
-      example: Column(
-        crossAxisAlignment: .start,
-        children: [
-          Text(
-            'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',
-            style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-          ),
-          GapSizes.smallGap,
-          CodeSnippetCard(fileName: 'main.dart', code: snippet),
-          GapSizes.smallGap,
-          Row(
-            children: [
-              Spacer(),
-              AdaptiveButton(
-                type: AdaptiveButtonType.filled,
-                onPressed: () {
-                  CourseVideoPlayer.showModal(
-                    context,
-                    videoUrl: videoUrl,
-                    title: 'Course Lesson Video',
-                  );
-                },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.play_arrow_rounded),
-                    SizedBox(width: 8),
-                    Text('Watch Video Lesson'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+      example: [
+        Text(
+          'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',
+          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+        ),
+        GapSizes.smallGap,
+        CodeSnippetCard(
+          fileName: 'main.dart',
+          code: '''BonfireWidget(
+    map: WorldMapByTiled(
+      WorldMapByTiledLoader(
+        asset: 'maps/dungeon_map.tmx',
       ),
+    ),
+  );''',
+        ),
+        GapSizes.smallGap,
+        Row(
+          children: [
+            Spacer(),
+            AdaptiveButton(
+              type: AdaptiveButtonType.filled,
+              onPressed: () {
+                CourseVideoPlayer.showModal(
+                  context,
+                  videoUrl: videoUrl,
+                  title: 'Course Lesson Video',
+                );
+              },
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.play_arrow_rounded),
+                  SizedBox(width: 8),
+                  Text('Watch Video Lesson'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
       yourTurn: Text(
         'Open lib/game/game_view.dart in your Codespace. Create a new class that extends SimplePlayer, configure the assets/player.png spritesheet, set a collision box of (8, 8) and add the player component to the BonfireWidget, then verify the character appears and moves on the map.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
       ),
     );
   }
-
-  @override
-  String get snippet => '''BonfireWidget(
-    map: WorldMapByTiled(
-      WorldMapByTiledLoader(
-        asset: 'maps/dungeon_map.tmx',
-      ),
-    ),
-  );''';
 
   @override
   String get videoUrl =>

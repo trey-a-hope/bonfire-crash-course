@@ -22,56 +22,53 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
         'WorldMapByTiled is Bonfire\'s map loader that parses .tmx data and manages layer rendering, camera culling, and tile asset pipelines.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
       ),
-      example: Column(
-        crossAxisAlignment: .start,
-        children: [
-          Text(
-            'To initialize a map, pass a configured WorldMapByTiledLoader instance into the map argument of your BonfireWidget:',
-            style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-          ),
-          GapSizes.smallGap,
-          CodeSnippetCard(fileName: 'main.dart', code: snippet),
-          GapSizes.smallGap,
-          Row(
-            children: [
-              Spacer(),
-              AdaptiveButton(
-                type: AdaptiveButtonType.filled,
-                onPressed: () {
-                  CourseVideoPlayer.showModal(
-                    context,
-                    videoUrl: videoUrl,
-                    title: 'Course Lesson Video',
-                  );
-                },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.play_arrow_rounded),
-                    SizedBox(width: 8),
-                    Text('Watch Video Lesson'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+      example: [
+        Text(
+          'To initialize a map, pass a configured WorldMapByTiledLoader instance into the map argument of your BonfireWidget:',
+          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+        ),
+        GapSizes.smallGap,
+        CodeSnippetCard(
+          fileName: 'main.dart',
+          code: '''BonfireWidget(
+    map: WorldMapByTiled(
+      WorldMapByTiledLoader(
+        asset: 'maps/dungeon_map.tmx',
       ),
+    ),
+  );''',
+        ),
+        GapSizes.smallGap,
+        Row(
+          children: [
+            Spacer(),
+            AdaptiveButton(
+              type: AdaptiveButtonType.filled,
+              onPressed: () {
+                CourseVideoPlayer.showModal(
+                  context,
+                  videoUrl: videoUrl,
+                  title: 'Course Lesson Video',
+                );
+              },
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.play_arrow_rounded),
+                  SizedBox(width: 8),
+                  Text('Watch Video Lesson'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
       yourTurn: Text(
         'Open lib/game/game_view.dart in your Codespace. Replace the placeholder container inside BonfireWidget with WorldMapByTiled, point the loader to maps/starter_map.tmx, and verify the map renders in your live preview.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
       ),
     );
   }
-
-  @override
-  String get snippet => '''BonfireWidget(
-    map: WorldMapByTiled(
-      WorldMapByTiledLoader(
-        asset: 'maps/dungeon_map.tmx',
-      ),
-    ),
-  );''';
 
   @override
   String get videoUrl =>

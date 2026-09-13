@@ -29,7 +29,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   /// Copies the code snippet to the system clipboard and temporarily shows
   /// confirmation feedback for 2 seconds.
   void _copyCode() async {
-    await Clipboard.setData(ClipboardData(text: widget.code));
+    await Clipboard.setData(ClipboardData(text: widget.code.trim()));
     setState(() => _copied = true);
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) setState(() => _copied = false);
@@ -112,7 +112,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
             ),
             // Code Area: Syntax-highlighted Dart source code
             HighlightView(
-              widget.code,
+              widget.code.trim(),
               language: 'dart',
               theme: atomOneDarkTheme,
               padding: const EdgeInsets.all(16),
