@@ -58,7 +58,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       ),
       isResizable: false,
       dragClosed: false,
-      minWidth: 300,
+      minWidth: 275,
       builder: (context, scrollController) => macos.SidebarItems(
         items: panes.toSidebarItems(),
         currentIndex: PageIndexController.index,

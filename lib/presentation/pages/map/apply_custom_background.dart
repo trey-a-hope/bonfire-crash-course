@@ -77,7 +77,7 @@ static const _hillsUrl = 'background/hills.png';
 // 1. Static/auto-scrolling background layers
 final skyAndClouds = await loadParallaxComponent(
     [
-          ParallaxImageData(_skyUrl),
+        ParallaxImageData(_skyUrl),
         ParallaxImageData(_cloudsUrl),
     ],
     baseVelocity: Vector2(10, 0),
@@ -97,14 +97,16 @@ as the player navigates the world. Setting a higher velocityMultiplierDelta of (
         const CodeSnippetCard(
           fileName: 'parallax_background.dart',
           code: '''
-// 2. Camera-tracked foreground parallax layers
+// Camera-tracked foreground parallax layers
 final mountainsAndHills = await loadCameraParallaxComponent(
-  [
-    ParallaxImageData(_mountainsUrl),
-    ParallaxImageData(_hillsUrl),
-  ],
-  baseVelocity: Vector2(10, 0),
-  velocityMultiplierDelta: Vector2(3, 1),
+    [
+        ParallaxImageData(_mountainsUrl),
+        ParallaxImageData(_hillsUrl),
+    ],
+    // How fast the layers scroll
+    baseVelocity: Vector2(10, 0),
+    // How fast the layers scroll relative to each other
+    velocityMultiplierDelta: Vector2(3, 1),
 );
 ''',
         ),

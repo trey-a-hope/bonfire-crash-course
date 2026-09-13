@@ -36,13 +36,15 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
         GapSizes.smallGap,
         const CodeSnippetCard(
           fileName: 'main.dart',
-          code: '''BonfireWidget(
+          code: '''
+BonfireWidget(
     map: WorldMapByTiled(
-      WorldMapByTiledLoader(
-        asset: 'maps/dungeon_map.tmx',
-      ),
+        WorldMapByTiledLoader(
+            asset: 'maps/dungeon_map.tmx',
+        ),
     ),
-  );''',
+);
+''',
         ),
         GapSizes.smallGap,
         Row(
