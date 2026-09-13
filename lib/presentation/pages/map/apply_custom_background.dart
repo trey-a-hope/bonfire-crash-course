@@ -1,4 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/domain/models/concept.dart';
+import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
@@ -14,14 +16,18 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
 
     return PageOutline(
       title: 'Apply a Custom Background',
+      lottie: const MapLottie(),
       objective: Text(
         'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using loadParallaxComponent.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
       ),
-      concepts: Text(
-        'WorldMapByTiled is Bonfire\'s map loader that parses .tmx data and manages layer rendering, camera culling, and tile asset pipelines.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
+      concepts: const [
+        Concept(
+          title: 'Parallax Background',
+          subtitle:
+              'A background component that uses loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement.',
+        ),
+      ],
       example: [
         // Step 1
         Text(
@@ -29,7 +35,7 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
         GapSizes.smallGap,
-        CodeSnippetCard(
+        const CodeSnippetCard(
           fileName: 'parallax_background.dart',
           code: '''
 class ParallaxBackground extends GameBackground {
@@ -48,7 +54,7 @@ class ParallaxBackground extends GameBackground {
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
         GapSizes.smallGap,
-        CodeSnippetCard(
+        const CodeSnippetCard(
           fileName: 'parallax_background.dart',
           code: '''
 static const _skyUrl = 'background/sky.png';
@@ -65,7 +71,7 @@ static const _hillsUrl = 'background/hills.png';
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
         GapSizes.smallGap,
-        CodeSnippetCard(
+        const CodeSnippetCard(
           fileName: 'parallax_background.dart',
           code: '''
 // 1. Static/auto-scrolling background layers
@@ -88,7 +94,7 @@ as the player navigates the world. Setting a higher velocityMultiplierDelta of (
 (3,1) ensures the nearby hills scroll significantly faster than distant mountains, producing a strong 3D depth effect.
 ''', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
         GapSizes.smallGap,
-        CodeSnippetCard(
+        const CodeSnippetCard(
           fileName: 'parallax_background.dart',
           code: '''
 // 2. Camera-tracked foreground parallax layers
@@ -106,7 +112,7 @@ final mountainsAndHills = await loadCameraParallaxComponent(
 
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             AdaptiveButton(
               type: AdaptiveButtonType.filled,
               onPressed: () {

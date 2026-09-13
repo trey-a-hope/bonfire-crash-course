@@ -14,7 +14,7 @@ class PageIndexController {
   /// The reactive signal holding the current page index.
   static final Signal<int> _index = signal(
     0,
-    options: SignalOptions(name: 'PageIndexController.index'),
+    options: const SignalOptions(name: 'PageIndexController.index'),
   );
 
   /// Gets the current active page index.

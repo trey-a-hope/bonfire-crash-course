@@ -5,11 +5,11 @@ class PlatformResolver {
 
   /// Checks if the current target platform is Windows.
   static bool get isWindows =>
-      debugOn; // defaultTargetPlatform == TargetPlatform.windows;
+      !debugOn; // defaultTargetPlatform == TargetPlatform.windows;
 
   /// Checks if the current target platform is macOS.
   static bool get isMacOS =>
-      !debugOn; //defaultTargetPlatform == TargetPlatform.macOS;
+      debugOn; //defaultTargetPlatform == TargetPlatform.macOS;
 
   /// Checks if the app is running on a supported desktop platform (Windows or macOS).
   static bool get isDesktop => isWindows || isMacOS;

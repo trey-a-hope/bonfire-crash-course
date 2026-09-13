@@ -7,6 +7,7 @@ import 'package:flutter_dartpad/flutter_dartpad.dart';
 
 const _horizontalPadding = 32.0;
 
+@Deprecated('Use the CodespaceWebView instead')
 class DartPadExerciseScreen extends StatelessWidget {
   // Replace with your GitHub Gist ID containing main.dart / test.dart / solution.dart
   final String gistId;
@@ -23,7 +24,7 @@ class DartPadExerciseScreen extends StatelessWidget {
         Flexible(
           flex: 1,
           child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(
+            padding: const EdgeInsetsGeometry.symmetric(
               horizontal: _horizontalPadding,
             ),
             child: Row(
@@ -40,7 +41,7 @@ class DartPadExerciseScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           AdaptiveButton(
                             type: AdaptiveButtonType.filled,
                             onPressed: () {
@@ -64,7 +65,7 @@ class DartPadExerciseScreen extends StatelessWidget {
                       ),
 
                       GapSizes.xsGap,
-                      Divider(),
+                      const Divider(),
                       GapSizes.xsGap,
                       Expanded(
                         child: SingleChildScrollView(
@@ -85,7 +86,7 @@ class DartPadExerciseScreen extends StatelessWidget {
                                 ),
                               ),
                               GapSizes.mediumGap,
-                              Card(
+                              const Card(
                                 child: ListTile(
                                   leading: Icon(Icons.warning),
                                   title: Text(
@@ -108,7 +109,7 @@ class DartPadExerciseScreen extends StatelessWidget {
                                 ),
                               ),
                               GapSizes.mediumGap,
-                              Card(
+                              const Card(
                                 child: ListTile(
                                   leading: Icon(Icons.warning),
                                   title: Text(
@@ -139,7 +140,7 @@ class DartPadExerciseScreen extends StatelessWidget {
         Flexible(
           flex: 2,
           child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(
+            padding: const EdgeInsetsGeometry.symmetric(
               horizontal: _horizontalPadding,
             ),
             child: Dartpad(
@@ -154,7 +155,7 @@ class DartPadExerciseScreen extends StatelessWidget {
           ),
         ),
         GapSizes.mediumGap,
-        VersionLabel(),
+        const VersionLabel(),
         GapSizes.mediumGap,
       ],
     );

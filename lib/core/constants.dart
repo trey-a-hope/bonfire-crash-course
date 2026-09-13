@@ -1,2 +1,2 @@
-const CODE_SPACES_URL =
-    'https://ominous-xylophone-gv7rx4gv6w62vjw4.github.dev/';
+const CODE_SPACES_TEMPLATE_URL =
+    'https://github.com/codespaces/new?template_repository=trey-a-hope/Bonfire-Crash-Course-Template';

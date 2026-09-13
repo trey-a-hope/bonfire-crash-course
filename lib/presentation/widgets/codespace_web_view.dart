@@ -1,10 +1,9 @@
+import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CodespaceWebView extends StatefulWidget {
-  final String codespaceUrl;
-
-  const CodespaceWebView({super.key, required this.codespaceUrl});
+  const CodespaceWebView({super.key});
 
   @override
   State<CodespaceWebView> createState() => _CodespaceWebViewState();
@@ -33,7 +32,7 @@ class _CodespaceWebViewState extends State<CodespaceWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.codespaceUrl));
+      ..loadRequest(Uri.parse(CODE_SPACES_TEMPLATE_URL));
   }
 
   @override
