@@ -28,7 +28,7 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
               'A background component that uses loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement.',
         ),
       ],
-      example: [
+      steps: [
         // Step 1
         Text(
           'Create a new class that extends the GameBackground class.',
@@ -134,10 +134,8 @@ final mountainsAndHills = await loadCameraParallaxComponent(
           ],
         ),
       ],
-      yourTurn: Text(
-        'Open lib/game/game_view.dart in your Codespace. Replace the placeholder container inside BonfireWidget with WorldMapByTiled, point the loader to maps/starter_map.tmx, and verify the map renders in your live preview.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
+      timeToCodeStatement:
+          'In the `parallax_background.dart` file, define `_skyUrl`, `_cloudsUrl`, `_mountainsUrl`, `_hillsUrl` as constants. Create a `ParallaxBackground` class extending `GameBackground` and use `loadParallaxComponent` with these paths to build the auto-scrolling background.',
     );
   }
 

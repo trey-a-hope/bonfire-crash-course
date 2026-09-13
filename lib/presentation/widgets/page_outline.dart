@@ -27,10 +27,10 @@ class PageOutline extends StatelessWidget {
   final List<Concept> concepts;
 
   /// Code snippets and video demonstrations showcasing the lesson concepts.
-  final List<Widget> example;
+  final List<Widget> steps;
 
   /// Actionable checkpoint or coding exercise for the learner to verify.
-  final Widget yourTurn;
+  final String timeToCodeStatement;
 
   const PageOutline({
     super.key,
@@ -38,8 +38,8 @@ class PageOutline extends StatelessWidget {
     required this.lottie,
     required this.objective,
     required this.concepts,
-    required this.example,
-    required this.yourTurn,
+    required this.steps,
+    required this.timeToCodeStatement,
   });
 
   @override
@@ -75,27 +75,27 @@ class PageOutline extends StatelessWidget {
                 ),
                 GapSizes.xsGap,
                 ...concepts.map(
-                  (concept) => Padding(
-                    padding: const EdgeInsetsGeometry.symmetric(vertical: 8),
-                    child: AdaptiveListTile(concept: concept),
-                  ),
+                  (concept) => AdaptiveListTile(concept: concept),
                 ),
                 GapSizes.largeGap,
                 // Example: What visual result or interaction to verify in their running app before moving to the next section.
                 Text(
-                  'Example',
+                  'Steps',
                   style: textTheme.titleLarge!.copyWith(color: Colors.white),
                 ),
                 GapSizes.xsGap,
-                ...example,
+                ...steps,
                 GapSizes.largeGap,
                 // Checkpoint: What visual result or interaction to verify in their running app before moving to the next section.
                 Text(
-                  'Your Turn',
+                  'Time to Code',
                   style: textTheme.titleLarge!.copyWith(color: Colors.white),
                 ),
                 GapSizes.xsGap,
-                yourTurn,
+                Text(
+                  timeToCodeStatement,
+                  style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+                ),
               ],
             ),
           ),

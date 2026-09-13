@@ -28,7 +28,7 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
               'A custom character component that extends SimplePlayer and configures its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
         ),
       ],
-      example: [
+      steps: [
         Text(
           'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
@@ -69,10 +69,7 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
           ],
         ),
       ],
-      yourTurn: Text(
-        'Open lib/game/game_view.dart in your Codespace. Create a new class that extends SimplePlayer, configure the assets/player.png spritesheet, set a collision box of (8, 8) and add the player component to the BonfireWidget, then verify the character appears and moves on the map.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
+      timeToCodeStatement: 'Approx. 10 minutes',
     );
   }
 

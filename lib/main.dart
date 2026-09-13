@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:window_manager/window_manager.dart';
+import 'presentation/services/window_service.dart';
 
 late final PackageInfo packageInfo;
 
@@ -17,33 +17,11 @@ Future<void> main() async {
   MediaKit.ensureInitialized();
 
   // Set up desktop window properties (size, center, title bar)
-  await _initializeDesktopWindow();
+  await WindowService.initializeDesktopWindow();
 
   packageInfo = await PackageInfo.fromPlatform();
 
   runApp(const DesktopApp());
-}
-
-/// Initializes window options and window manager settings for desktop platforms.
-Future<void> _initializeDesktopWindow() async {
-  if (!PlatformResolver.isDesktop) {
-    throw UnsupportedError('This app only supports desktop platforms.');
-  }
-
-  await windowManager.ensureInitialized();
-
-  const windowOptions = WindowOptions(
-    size: Size(1400, 900),
-    minimumSize: Size(1200, 720),
-    center: true,
-    titleBarStyle: TitleBarStyle.hidden,
-    fullScreen: true,
-  );
-
-  await windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
 }
 
 /// Root app widget that selects the design system framework (Fluent UI vs macos_ui) by platform.

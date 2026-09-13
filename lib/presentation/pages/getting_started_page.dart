@@ -19,9 +19,22 @@ class GettingStartedPage extends StatelessWidget {
         ),
         GapSizes.smallGap,
         Text(
-          'Open the Code Spaces enviroment. This is where users will be coding along to the project.',
+          'What is Flutter?',
           style: textTheme.bodyLarge!.copyWith(color: Colors.white),
         ),
+        const Expanded(child: Placeholder()),
+        GapSizes.smallGap,
+        Text(
+          'What is Bonfire?',
+          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
+        ),
+        const Expanded(child: Placeholder()),
+        GapSizes.smallGap,
+        Text(
+          "What you'll be building today!",
+          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
+        ),
+        const Expanded(child: Placeholder()),
         GapSizes.smallGap,
         const PageIndexWidget(),
       ],

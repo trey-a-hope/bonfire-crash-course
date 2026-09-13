@@ -9,7 +9,6 @@ extension PaneInfoListX on List<PaneInfo> {
   List<SidebarItem> toSidebarItems() {
     return map(
       (e) => SidebarItem(
-        leading: e.icon,
         label: Text(e.title),
         disclosureItems: e.children.isNotEmpty
             ? e.children.toSidebarItems()

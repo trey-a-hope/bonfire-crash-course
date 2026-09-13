@@ -2,11 +2,13 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
 import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal.dart';
 import 'package:bonfire_crash_course/presentation/widgets/codespace_web_view.dart';
-import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
+import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
+import 'package:macos_ui/macos_ui.dart' as macos;
 import 'package:signals/signals_flutter.dart';
 
 /// The primary desktop window shell for the application.
@@ -31,19 +33,33 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
   @override
   Widget build(BuildContext context) {
     final activeScreens = PageIndexController.screens;
-
+    final showEditor = PageIndexController.index > 1;
     final textTheme = Theme.of(context).textTheme;
 
-    final sidebar = Sidebar(
+    final macosSidebar = macos.Sidebar(
       top: Text(
         'Overview',
         style: textTheme.titleLarge!.copyWith(color: Colors.white),
       ),
-      bottom: const VersionLabel(),
+      bottom: macos.MacosListTile(
+        leading: const Icon(CupertinoIcons.settings, color: Colors.yellow),
+        title: Text(
+          'Settings',
+          style: macos.MacosTheme.of(context).typography.headline,
+        ),
+        subtitle: Text(
+          'Configure application settings',
+          style: macos.MacosTheme.of(context).typography.subheadline.copyWith(
+            color: macos.MacosColors.systemGrayColor,
+          ),
+        ),
+        onClick: () =>
+            AdaptiveModalService.showSheet(context, SheetType.settings),
+      ),
       isResizable: false,
       dragClosed: false,
       minWidth: 300,
-      builder: (context, scrollController) => SidebarItems(
+      builder: (context, scrollController) => macos.SidebarItems(
         items: panes.toSidebarItems(),
         currentIndex: PageIndexController.index,
         onChanged: (newIndex) {
@@ -54,13 +70,12 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       ),
     );
 
-    final pane = NavigationPane(
+    final windowsPane = NavigationPane(
+      toggleButton: null,
       selected: PageIndexController.index,
-      onChanged: (newIndex) {
-        if (newIndex < activeScreens.length) {
-          PageIndexController.index = newIndex;
-        }
-      },
+      onChanged: (newIndex) => newIndex < activeScreens.length
+          ? PageIndexController.index = newIndex
+          : null,
       displayMode: PaneDisplayMode.auto,
       header: const Text('Bonfire Crash Course'),
       items: panes.toNavigationPaneItems(),
@@ -70,12 +85,13 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
           icon: const WindowsIcon(WindowsIcons.settings),
           title: const Text('Settings'),
           body: const SizedBox.shrink(),
-          onTap: () => debugPrint('Settings clicked'),
+          onTap: () async =>
+              AdaptiveModalService.showSheet(context, SheetType.settings),
         ),
       ],
     );
 
-    final contentBody = Padding(
+    final codeEditor = Padding(
       padding: const EdgeInsets.all(32.0),
       child: Row(
         children: [
@@ -86,8 +102,11 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
               children: activeScreens,
             ),
           ),
-          GapSizes.xlGap,
-          const Flexible(flex: 2, child: CodespaceWebView()),
+          if (showEditor) ...[
+            GapSizes.xlGap,
+            const Flexible(flex: 2, child: CodespaceWebView()),
+          ] else
+            const SizedBox.shrink(),
         ],
       ),
     );
@@ -95,12 +114,12 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
     if (PlatformResolver.isWindows) {
       // Windows / Fluent UI navigation pane
       return NavigationView(
-        pane: pane,
-        paneBodyBuilder: (item, body) => contentBody,
+        pane: windowsPane,
+        paneBodyBuilder: (item, body) => codeEditor,
       );
     } else {
       // macOS sidebar
-      return MacosWindow(sidebar: sidebar, child: contentBody);
+      return macos.MacosWindow(sidebar: macosSidebar, child: codeEditor);
     }
   }
 }

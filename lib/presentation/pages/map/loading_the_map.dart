@@ -28,7 +28,7 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
               'WorldMapByTiled is Bonfire\'s map loader that parses .tmx data and manages layer rendering, camera culling, and tile asset pipelines.',
         ),
       ],
-      example: [
+      steps: [
         Text(
           'To initialize a map, pass a configured WorldMapByTiledLoader instance into the map argument of your BonfireWidget:',
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
@@ -69,10 +69,8 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
           ],
         ),
       ],
-      yourTurn: Text(
-        'Open lib/game/game_view.dart in your Codespace. Replace the placeholder container inside BonfireWidget with WorldMapByTiled, point the loader to maps/starter_map.tmx, and verify the map renders in your live preview.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
+      timeToCodeStatement:
+          'In the editor, open the maps/ folder and double-click starter_map.tmx. You should see a 2D grid with walls, a floor, and some decorations. This is your game world.',
     );
   }
 
