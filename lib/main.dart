@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
+import 'package:macos_ui/macos_ui.dart' as macos;
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'presentation/services/window_service.dart';
@@ -34,33 +34,33 @@ class DesktopApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Windows UI implementation using FluentApp
-    final windowsApp = fluent.FluentApp(
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        scrollbars: false,
-      ),
-      debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
-      title: _title,
-      theme: fluent.FluentThemeData(
-        brightness: fluent.Brightness.dark,
-        accentColor: fluent.Colors.blue,
-      ),
-      home: const AdaptiveWindow(),
-    );
+    if (PlatformResolver.isWindows) {
+      return fluent.FluentApp(
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          scrollbars: false,
+        ),
+        debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+        title: _title,
+        theme: fluent.FluentThemeData(
+          brightness: fluent.Brightness.dark,
+          accentColor: fluent.Colors.blue,
+        ),
+        home: const AdaptiveWindow(),
+      );
+    }
 
     // macOS UI implementation using MacosApp
-    final macosApp = MacosApp(
+    return macos.MacosApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
       debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
       title: _title,
-      theme: MacosThemeData(
+      theme: macos.MacosThemeData(
         brightness: Brightness.dark,
-        accentColor: AccentColor.blue,
+        accentColor: macos.AccentColor.blue,
       ),
       home: const AdaptiveWindow(),
     );
-
-    return PlatformResolver.isWindows ? windowsApp : macosApp;
   }
 }
