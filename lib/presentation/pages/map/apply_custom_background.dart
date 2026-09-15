@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
@@ -36,7 +37,7 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
         ),
         GapSizes.smallGap,
         const CodeSnippetCard(
-          fileName: 'parallax_background.dart',
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           code: '''
 class ParallaxBackground extends GameBackground {
     @override
@@ -55,7 +56,7 @@ class ParallaxBackground extends GameBackground {
         ),
         GapSizes.smallGap,
         const CodeSnippetCard(
-          fileName: 'parallax_background.dart',
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           code: '''
 static const _skyUrl = 'background/sky.png';
 static const _cloudsUrl = 'background/clouds.png';
@@ -72,7 +73,7 @@ static const _hillsUrl = 'background/hills.png';
         ),
         GapSizes.smallGap,
         const CodeSnippetCard(
-          fileName: 'parallax_background.dart',
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           code: '''
 // 1. Static/auto-scrolling background layers
 final skyAndClouds = await loadParallaxComponent(
@@ -95,7 +96,7 @@ as the player navigates the world. Setting a higher velocityMultiplierDelta of (
 ''', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
         GapSizes.smallGap,
         const CodeSnippetCard(
-          fileName: 'parallax_background.dart',
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           code: '''
 // Camera-tracked foreground parallax layers
 final mountainsAndHills = await loadCameraParallaxComponent(
@@ -103,11 +104,41 @@ final mountainsAndHills = await loadCameraParallaxComponent(
         ParallaxImageData(_mountainsUrl),
         ParallaxImageData(_hillsUrl),
     ],
-    // How fast the layers scroll
     baseVelocity: Vector2(10, 0),
-    // How fast the layers scroll relative to each other
     velocityMultiplierDelta: Vector2(3, 1),
 );
+''',
+        ),
+        GapSizes.mediumGap,
+
+        // Step 4
+        Text('''
+Use addAll to attach both parallax components to your GameBackground, registering them into the game loop for rendering and updates. This composites the auto-scrolling sky behind the camera-tracked mountains, completing your multi-layered backdrop.
+''', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
+        GapSizes.smallGap,
+        const CodeSnippetCard(
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          code: '''
+addAll([skyAndClouds, mountainsAndHills]);
+''',
+        ),
+        GapSizes.mediumGap,
+
+        // Step 5
+        Text('''
+Apply the parallax background component to the game by setting the `background` property of the BonfireWidget to an instance of your ParallaxBackground class. This seamlessly integrates the auto-scrolling layers with the main game, giving your world immediate atmospheric depth.
+''', style: textTheme.bodyMedium!.copyWith(color: Colors.white)),
+        GapSizes.smallGap,
+        const CodeSnippetCard(
+          fileName: DART_FILE_GAME_SCREEN,
+          code: '''
+@override
+Widget build(BuildContext context) {
+    return BonfireWidget(
+        background: ParallaxBackground(),
+        ...
+    );
+}
 ''',
         ),
         GapSizes.mediumGap,
