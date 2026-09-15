@@ -1,7 +1,12 @@
+import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
+import 'package:url_launcher/url_launcher.dart';
 
 class GettingStartedPage extends StatelessWidget {
   const GettingStartedPage({super.key});
@@ -14,28 +19,26 @@ class GettingStartedPage extends StatelessWidget {
       crossAxisAlignment: .start,
       children: [
         Text(
-          'Getting Started',
-          style: textTheme.headlineSmall!.copyWith(color: Colors.white),
+          "Setup Github",
+          style: textTheme.titleLarge!.copyWith(color: Colors.white),
         ),
         GapSizes.smallGap,
-        Text(
-          'What is Flutter?',
-          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
+        AdaptiveButton(
+          type: .filled,
+          child: const Text('Open in Github Codespaces'),
+          onPressed: () async {
+            final uri = Uri.parse(CODE_SPACES_TEMPLATE_URL);
+            if (await canLaunchUrl(uri)) {
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
+            } else {
+              if (!context.mounted) return;
+              // TODO (Trey) - Use an alert dialog instead of a sheet.
+              AdaptiveModalService.showSheet(context, SheetType.settings);
+            }
+          },
         ),
-        const Expanded(child: Placeholder()),
         GapSizes.smallGap,
-        Text(
-          'What is Bonfire?',
-          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
-        ),
-        const Expanded(child: Placeholder()),
-        GapSizes.smallGap,
-        Text(
-          "What you'll be building today!",
-          style: textTheme.bodyLarge!.copyWith(color: Colors.white),
-        ),
-        const Expanded(child: Placeholder()),
-        GapSizes.smallGap,
+
         const PageIndexWidget(),
       ],
     );

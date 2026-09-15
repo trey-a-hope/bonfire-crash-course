@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
+import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class PageIndexWidget extends StatelessWidget {
               GapSizes.smallGap,
             ],
           ),
-          onPressed: () => PageIndexController.decrement(),
+          onPressed: () => ProgressNavigationController.decrement(),
         ),
         const Spacer(),
         // Next page button
@@ -41,7 +41,7 @@ class PageIndexWidget extends StatelessWidget {
               Text('Next'),
             ],
           ),
-          onPressed: () => PageIndexController.increment(),
+          onPressed: () => ProgressNavigationController.increment(),
         ),
       ],
     );

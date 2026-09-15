@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+@Deprecated('CodespaceWebView is no longer needed; being displayed externally.')
 class CodespaceWebView extends StatefulWidget {
   const CodespaceWebView({super.key});
 
@@ -50,6 +51,10 @@ class _CodespaceWebViewState extends State<CodespaceWebView> {
       body: Stack(
         children: [
           WebViewWidget(controller: _controller),
+          if (_isLoading)
+            const IgnorePointer(
+              child: Center(child: CircularProgressIndicator()),
+            ),
           if (_isLoading) const Center(child: CircularProgressIndicator()),
         ],
       ),

@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
+import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
 import 'package:bonfire_crash_course/presentation/lotties/flutter_lottie.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
@@ -33,7 +33,7 @@ class WelcomePage extends StatelessWidget {
         ),
         GapSizes.xlGap,
         AdaptiveButton(
-          onPressed: () => PageIndexController.increment(),
+          onPressed: () => ProgressNavigationController.increment(),
           type: AdaptiveButtonType.filled,
           child: const Text('Get Started'),
         ),

@@ -17,6 +17,7 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
     return PageOutline(
       title: 'Loading the Map',
       lottie: const MapLottie(),
+
       objective: Text(
         'Load an exported Tiled map file into your Flutter application and render your game world\'s initial base layers on screen using Bonfire.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),

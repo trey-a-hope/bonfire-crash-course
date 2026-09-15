@@ -1,8 +1,7 @@
-import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/domain/controllers/page_index_controller.dart';
+import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/codespace_web_view.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
@@ -32,8 +31,7 @@ class AdaptiveWindow extends SignalStatefulWidget {
 class _AdaptiveWindowState extends State<AdaptiveWindow> {
   @override
   Widget build(BuildContext context) {
-    final activeScreens = PageIndexController.screens;
-    final showEditor = PageIndexController.index > 1;
+    final activeScreens = ProgressNavigationController.screens;
     final textTheme = Theme.of(context).textTheme;
 
     final macosSidebar = macos.Sidebar(
@@ -61,10 +59,10 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       minWidth: 275,
       builder: (context, scrollController) => macos.SidebarItems(
         items: panes.toSidebarItems(),
-        currentIndex: PageIndexController.index,
+        currentIndex: ProgressNavigationController.index,
         onChanged: (newIndex) {
           if (newIndex < activeScreens.length) {
-            PageIndexController.index = newIndex;
+            ProgressNavigationController.index = newIndex;
           }
         },
       ),
@@ -72,9 +70,9 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
 
     final windowsPane = NavigationPane(
       toggleButton: null,
-      selected: PageIndexController.index,
+      selected: ProgressNavigationController.index,
       onChanged: (newIndex) => newIndex < activeScreens.length
-          ? PageIndexController.index = newIndex
+          ? ProgressNavigationController.index = newIndex
           : null,
       displayMode: PaneDisplayMode.auto,
       header: const Text('Bonfire Crash Course'),
@@ -93,21 +91,9 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
 
     final codeEditor = Padding(
       padding: const EdgeInsets.all(32.0),
-      child: Row(
-        children: [
-          Flexible(
-            flex: 1,
-            child: IndexedStack(
-              index: PageIndexController.index,
-              children: activeScreens,
-            ),
-          ),
-          if (showEditor) ...[
-            GapSizes.xlGap,
-            const Flexible(flex: 2, child: CodespaceWebView()),
-          ] else
-            const SizedBox.shrink(),
-        ],
+      child: IndexedStack(
+        index: ProgressNavigationController.index,
+        children: activeScreens,
       ),
     );
 

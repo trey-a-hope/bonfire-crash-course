@@ -1,5 +1,7 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
+import 'package:bonfire_crash_course/presentation/pages/congrats.dart';
 import 'package:bonfire_crash_course/presentation/pages/map/_map.dart';
+import 'package:bonfire_crash_course/presentation/pages/overview_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/player/player_component.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:bonfire_crash_course/presentation/pages/getting_started_page.dart';
@@ -10,7 +12,7 @@ import 'package:flutter/material.dart';
 ///
 /// Uses [Signal] to provide reactive state management, keeping navigation elements
 /// like sidebars and next/previous page controls in sync.
-class PageIndexController {
+class ProgressNavigationController {
   /// The reactive signal holding the current page index.
   static final Signal<int> _index = signal(
     0,
@@ -32,6 +34,22 @@ class PageIndexController {
   static void decrement() {
     if (_index.value > 0) _index.value--;
   }
+
+  static double get progress {
+    final currentIndex = _index.value;
+    final total = screens.length - 1;
+
+    // As a fraction between 0.0 and 1.0 (ideal for LinearProgressIndicator):
+    double progress = total > 0 ? currentIndex / total : 0.0; // 0.5
+
+    // As a percentage value (0 to 100):
+    double percentage = progress * 100; // 50.0
+
+    // Formatted as a string:
+    return percentage;
+  }
+
+  static String get progressAsString => '${progress.toStringAsFixed(0)}%';
 
   /// The list of screens to navigate through.
   static List<Widget> get screens => _extractScreens(panes);
@@ -57,6 +75,13 @@ final List<PaneInfo> panes = [
     icon: Icon(Icons.home),
     title: 'Welcome',
     child: WelcomePage(),
+  ),
+
+  // Overview
+  const PaneInfo(
+    icon: Icon(Icons.info_outline),
+    title: 'Overview',
+    child: OverviewPage(),
   ),
 
   // Getting Started
@@ -95,5 +120,12 @@ final List<PaneInfo> panes = [
         child: PlayerComponentPage(),
       ),
     ],
+  ),
+
+  // Congrats
+  const PaneInfo(
+    icon: Icon(Icons.check_circle),
+    title: 'Congrats',
+    child: CongratsPage(),
   ),
 ];
