@@ -1,11 +1,6 @@
+import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/pages/congrats.dart';
-import 'package:bonfire_crash_course/presentation/pages/map/_map.dart';
-import 'package:bonfire_crash_course/presentation/pages/overview_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/player/player_component.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:bonfire_crash_course/presentation/pages/getting_started_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 /// A controller managing the active page/screen navigation index across the app.
@@ -68,64 +63,3 @@ class ProgressNavigationController {
     return screens;
   }
 }
-
-final List<PaneInfo> panes = [
-  // Welcome
-  const PaneInfo(
-    icon: Icon(Icons.home),
-    title: 'Welcome',
-    child: WelcomePage(),
-  ),
-
-  // Overview
-  const PaneInfo(
-    icon: Icon(Icons.info_outline),
-    title: 'Overview',
-    child: OverviewPage(),
-  ),
-
-  // Getting Started
-  const PaneInfo(
-    icon: Icon(Icons.open_in_browser),
-    title: 'Getting Started',
-    child: GettingStartedPage(),
-  ),
-
-  // Map
-  const PaneInfo(
-    icon: Icon(Icons.map),
-    title: 'Map',
-    children: [
-      PaneInfo(
-        icon: Icon(Icons.map_outlined),
-        title: 'Loading the Map',
-        child: LoadingTheMap(),
-      ),
-      PaneInfo(
-        icon: Icon(Icons.map_outlined),
-        title: 'Apply a Custom Background',
-        child: ApplyCustomBackground(),
-      ),
-    ],
-  ),
-
-  // Player
-  const PaneInfo(
-    icon: Icon(Icons.person),
-    title: 'Player',
-    children: [
-      PaneInfo(
-        icon: Icon(Icons.person_outline),
-        title: 'Creating the Player Component',
-        child: PlayerComponentPage(),
-      ),
-    ],
-  ),
-
-  // Congrats
-  const PaneInfo(
-    icon: Icon(Icons.check_circle),
-    title: 'Congrats',
-    child: CongratsPage(),
-  ),
-];

@@ -64,3 +64,11 @@ class DesktopApp extends StatelessWidget {
     );
   }
 }
+
+/*
+  display - Hero text, splash screens, massive numbers, or promotional banner headlines.
+  headline - High-emphasis headers marking major sections or screen-level views.
+  title - Medium-emphasis text such as app bar titles, card headers, list tiles, and dialog titles.
+  body - Longer-form passages of reading text, paragraphs, descriptions, and default form fields.
+  label - Actionable text, button labels, tabs, floating chips, and caption badges.
+*/

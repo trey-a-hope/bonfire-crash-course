@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
@@ -74,7 +75,7 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
       onChanged: (newIndex) => newIndex < activeScreens.length
           ? ProgressNavigationController.index = newIndex
           : null,
-      displayMode: PaneDisplayMode.auto,
+      displayMode: PaneDisplayMode.expanded,
       header: const Text('Bonfire Crash Course'),
       items: panes.toNavigationPaneItems(),
       footerItems: [
