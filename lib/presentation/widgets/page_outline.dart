@@ -96,8 +96,11 @@ class PageOutline extends SignalWidget {
                       ),
                       GapSizes.xsGap,
                       objective,
-                      GapSizes.largeGap,
-
+                      const Divider(
+                        color: Colors.grey,
+                        height: 64,
+                        thickness: 1,
+                      ),
                       // Example: What visual result or interaction to verify in their running app before moving to the next section.
                       Text(
                         'Steps',
@@ -107,7 +110,12 @@ class PageOutline extends SignalWidget {
                       ),
                       GapSizes.xsGap,
                       ...steps,
-                      GapSizes.largeGap,
+                      const Divider(
+                        color: Colors.grey,
+                        height: 64,
+                        thickness: 1,
+                      ),
+
                       // Checkpoint: What visual result or interaction to verify in their running app before moving to the next section.
                       Text(
                         'Time to Code',

@@ -1,9 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
-import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
 import 'package:flutter/material.dart';
 
@@ -43,30 +41,6 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
       ),
     ),
   );''',
-        ),
-        GapSizes.smallGap,
-        Row(
-          children: [
-            const Spacer(),
-            AdaptiveButton(
-              type: AdaptiveButtonType.filled,
-              onPressed: () {
-                CourseVideoPlayer.showModal(
-                  context,
-                  videoUrl: videoUrl,
-                  title: 'Course Lesson Video',
-                );
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.play_arrow_rounded),
-                  SizedBox(width: 8),
-                  Text('Watch Video Lesson'),
-                ],
-              ),
-            ),
-          ],
         ),
       ],
       timeToCodeStatement: 'Approx. 10 minutes',

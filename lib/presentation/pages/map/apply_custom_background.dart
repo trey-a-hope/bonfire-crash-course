@@ -2,9 +2,7 @@ import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
-import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
 import 'package:flutter/material.dart';
 
@@ -122,8 +120,6 @@ Use addAll to attach both parallax components to your GameBackground, registe
 addAll([skyAndClouds, mountainsAndHills]);
 ''',
         ),
-        GapSizes.mediumGap,
-
         // Step 5
         Text('''
 Apply the parallax background component to the game by setting the `background` property of the BonfireWidget to an instance of your ParallaxBackground class. This seamlessly integrates the auto-scrolling layers with the main game, giving your world immediate atmospheric depth.
@@ -141,34 +137,9 @@ Widget build(BuildContext context) {
 }
 ''',
         ),
-        GapSizes.mediumGap,
-
-        Row(
-          children: [
-            const Spacer(),
-            AdaptiveButton(
-              type: AdaptiveButtonType.filled,
-              onPressed: () {
-                CourseVideoPlayer.showModal(
-                  context,
-                  videoUrl: videoUrl,
-                  title: 'Course Lesson Video',
-                );
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.play_arrow_rounded),
-                  SizedBox(width: 8),
-                  Text('Watch Video Lesson'),
-                ],
-              ),
-            ),
-          ],
-        ),
       ],
       timeToCodeStatement:
-          'In the `parallax_background.dart` file, define `_skyUrl`, `_cloudsUrl`, `_mountainsUrl`, `_hillsUrl` as constants. Create a `ParallaxBackground` class extending `GameBackground` and use `loadParallaxComponent` with these paths to build the auto-scrolling background.',
+          'Now it\'s your turn to build the atmosphere! Head over to parallax_background.dart to create your ParallaxBackground class, assemble the layered scrolling components, and plug it into your BonfireWidget.',
     );
   }
 
