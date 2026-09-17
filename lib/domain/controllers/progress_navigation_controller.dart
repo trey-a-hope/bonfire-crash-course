@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
+import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -8,30 +9,20 @@ import 'package:flutter/material.dart';
 /// Uses [Signal] to provide reactive state management, keeping navigation elements
 /// like sidebars and next/previous page controls in sync.
 class ProgressNavigationController {
-  /// The reactive signal holding the current page index.
-  static final Signal<int> _index = signal(
-    0,
-    options: const SignalOptions(name: 'PageIndexController.index'),
-  );
-
-  /// Gets the current active page index.
-  static int get index => _index.value;
-
-  /// Sets the active page index to [value].
-  static set index(int value) => _index.value = value;
-
-  /// Advances to the next page index.
-  static void increment() {
-    if (_index.value < screens.length - 1) _index.value++;
+  static void increment(StatefulNavigationShell shell) {
+    if (shell.currentIndex < screens.length - 1) {
+      shell.goBranch(shell.currentIndex + 1);
+    }
   }
 
-  /// Navigates back to the previous page index.
-  static void decrement() {
-    if (_index.value > 0) _index.value--;
+  static void decrement(StatefulNavigationShell shell) {
+    if (shell.currentIndex > 0) {
+      shell.goBranch(shell.currentIndex - 1);
+    }
   }
 
-  static double get progress {
-    final currentIndex = _index.value;
+  static double progress(StatefulNavigationShell shell) {
+    final currentIndex = shell.currentIndex;
     final total = screens.length - 1;
 
     // As a fraction between 0.0 and 1.0 (ideal for LinearProgressIndicator):
@@ -44,22 +35,25 @@ class ProgressNavigationController {
     return percentage;
   }
 
-  static String get progressAsString => '${progress.toStringAsFixed(0)}%';
+  /// Flattened list of all pane items that have a screen (child != null).
+  static List<PaneInfo> get navigateablePanes =>
+      _extractNavigateablePanes(panes);
 
   /// The list of screens to navigate through.
-  static List<Widget> get screens => _extractScreens(panes);
+  static List<Widget> get screens =>
+      navigateablePanes.map((pane) => pane.child!).toList();
 
   /// Recursively extract only items that have content/screens
-  static List<Widget> _extractScreens(List<PaneInfo> items) {
-    final List<Widget> screens = [];
+  static List<PaneInfo> _extractNavigateablePanes(List<PaneInfo> items) {
+    final List<PaneInfo> result = [];
     for (final item in items) {
       if (item.child != null) {
-        screens.add(item.child!);
+        result.add(item);
       }
       if (item.children.isNotEmpty) {
-        screens.addAll(_extractScreens(item.children));
+        result.addAll(_extractNavigateablePanes(item.children));
       }
     }
-    return screens;
+    return result;
   }
 }

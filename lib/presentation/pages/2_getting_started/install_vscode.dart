@@ -31,9 +31,15 @@ class InstallVSCode extends StatelessWidget {
               type: .filled,
               child: const Row(
                 children: [
-                  Icon(FluentIcons.visual_studio_for_windows),
+                  Icon(
+                    FluentIcons.visual_studio_for_windows,
+                    color: Colors.white,
+                  ),
                   GapSizes.smallGap,
-                  Text('Download for Windows'),
+                  Text(
+                    'Download for Windows',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
               onPressed: () async {
@@ -51,9 +57,15 @@ class InstallVSCode extends StatelessWidget {
               type: .filled,
               child: const Row(
                 children: [
-                  Icon(FluentIcons.visual_studio_for_windows),
+                  Icon(
+                    FluentIcons.visual_studio_for_windows,
+                    color: Colors.white,
+                  ),
                   GapSizes.smallGap,
-                  Text('Download for MacOS'),
+                  Text(
+                    'Download for MacOS',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
               onPressed: () async {

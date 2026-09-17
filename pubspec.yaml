@@ -26,6 +26,7 @@ dependencies:
   window_manager: ^0.5.2
   webview_flutter: ^4.7.0
   lottie: ^3.5.1
+  go_router: ^18.0.1
 
 dev_dependencies:
   flutter_test:

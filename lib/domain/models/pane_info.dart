@@ -17,6 +17,9 @@ class PaneInfo {
   /// Can be `null` if this item acts purely as a parent container with [children].
   final Widget? child;
 
+  /// The route path for this navigation item in GoRouter (e.g. `/intro/what-is-flame`).
+  final String path;
+
   /// Nested child navigation items grouped beneath this entry.
   final List<PaneInfo> children;
 
@@ -25,6 +28,7 @@ class PaneInfo {
     this.icon,
     required this.title,
     this.child,
+    required this.path,
     this.children = const [],
   });
 

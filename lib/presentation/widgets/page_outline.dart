@@ -1,9 +1,8 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_list_tile.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_progress_bar.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
 import 'package:flutter/material.dart';
@@ -60,18 +59,7 @@ class PageOutline extends SignalWidget {
               style: textTheme.headlineLarge!.copyWith(color: Colors.white),
             ),
             const Spacer(),
-            Column(
-              children: [
-                Text(
-                  'Overall Course Progress: ${ProgressNavigationController.progressAsString}',
-                  style: textTheme.titleSmall!.copyWith(color: Colors.white),
-                ),
-                GapSizes.xsGap,
-                AdaptiveProgressBar(
-                  progress: ProgressNavigationController.progress,
-                ),
-              ],
-            ),
+            AdaptiveButton(child: const Text('Follow Here'), onPressed: () {}),
           ],
         ),
 
@@ -165,9 +153,6 @@ class PageOutline extends SignalWidget {
             ],
           ),
         ),
-        GapSizes.mediumGap,
-
-        const PageIndexWidget(),
       ],
     );
   }

@@ -8,6 +8,7 @@ class WhatTheCourseConvers extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Column(
+      crossAxisAlignment: .start,
       children: [
         Text(
           'What the Course Covers',

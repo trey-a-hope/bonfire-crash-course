@@ -1,8 +1,10 @@
 import 'package:bonfire_crash_course/core/constants.dart';
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart' hide Colors;
 import 'package:url_launcher/url_launcher.dart';
 
 class CreateACodespace extends StatelessWidget {
@@ -20,7 +22,17 @@ class CreateACodespace extends StatelessWidget {
         ),
         AdaptiveButton(
           type: .filled,
-          child: const Text('Open in Github Codespaces'),
+          child: const Row(
+            mainAxisSize: .min,
+            children: [
+              Icon(FluentIcons.git_graph, color: Colors.white),
+              GapSizes.xsGap,
+              Text(
+                'Open in Github Codespaces',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
           onPressed: () async {
             final uri = Uri.parse(CODE_SPACES_TEMPLATE_URL);
             if (await canLaunchUrl(uri)) {

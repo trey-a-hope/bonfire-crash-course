@@ -1,5 +1,4 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
 
@@ -30,9 +29,6 @@ class RunApp extends StatelessWidget {
             ),
           ),
         ),
-        GapSizes.xlGap,
-
-        const PageIndexWidget(),
       ],
     );
   }

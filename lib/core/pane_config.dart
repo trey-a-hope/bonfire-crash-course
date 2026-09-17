@@ -16,20 +16,24 @@ final List<PaneInfo> panes = [
   const PaneInfo(
     icon: Icon(Icons.home),
     title: 'Introduction',
+    path: '/intro',
     children: [
       PaneInfo(
         icon: Icon(Icons.home_outlined),
         title: 'What is Flame & Bonfire',
+        path: '/intro/what-is-flame-and-bonfire',
         child: WhatIsTheFlameEngine(),
       ),
       PaneInfo(
         icon: Icon(Icons.home_outlined),
         title: 'What The Course Covers',
+        path: '/intro/what-the-course-covers',
         child: WhatTheCourseConvers(),
       ),
       PaneInfo(
         icon: Icon(Icons.home_outlined),
         title: 'What You Will Need',
+        path: '/intro/what-you-will-need',
         child: WhatYouWillNeed(),
       ),
     ],
@@ -39,25 +43,30 @@ final List<PaneInfo> panes = [
   const PaneInfo(
     icon: Icon(Icons.open_in_browser),
     title: 'Getting Started',
+    path: '/getting-started',
     children: [
       PaneInfo(
         icon: Icon(Icons.open_in_browser_outlined),
         title: 'Create Account on Github',
+        path: '/getting-started/create-account-on-github',
         child: CreateAccountOnGithub(),
       ),
       PaneInfo(
         icon: Icon(Icons.open_in_browser_outlined),
         title: 'Create a Codespace',
+        path: '/getting-started/create-a-codespace',
         child: CreateACodespace(),
       ),
       PaneInfo(
         icon: Icon(Icons.open_in_browser_outlined),
         title: 'Install VSCode (Optional)',
+        path: '/getting-started/install-vscode',
         child: InstallVSCode(),
       ),
       PaneInfo(
         icon: Icon(Icons.open_in_browser_outlined),
         title: 'Run the App',
+        path: '/getting-started/run-app',
         child: RunApp(),
       ),
     ],
@@ -67,20 +76,24 @@ final List<PaneInfo> panes = [
   const PaneInfo(
     icon: Icon(Icons.map),
     title: 'Map',
+    path: '/map',
     children: [
       PaneInfo(
         icon: Icon(Icons.map_outlined),
         title: 'Loading the Map',
+        path: '/map/loading-the-map',
         child: LoadingTheMap(),
       ),
       PaneInfo(
         icon: Icon(Icons.map_outlined),
         title: 'Apply a Custom Background',
+        path: '/map/apply-a-custom-background',
         child: ApplyCustomBackground(),
       ),
       PaneInfo(
         icon: Icon(Icons.map_outlined),
-        title: 'Congrats',
+        title: 'Map Finished!',
+        path: '/map/congrats',
         child: CongratsPage(),
       ),
     ],
@@ -90,15 +103,18 @@ final List<PaneInfo> panes = [
   const PaneInfo(
     icon: Icon(Icons.person),
     title: 'Player',
+    path: '/player',
     children: [
       PaneInfo(
         icon: Icon(Icons.person_outline),
         title: 'Creating the Player Component',
+        path: '/player/player-component',
         child: PlayerComponentPage(),
       ),
       PaneInfo(
         icon: Icon(Icons.person_outline),
-        title: 'Congrats',
+        title: 'Player Finished!',
+        path: '/player/congrats',
         child: CongratsPage(),
       ),
     ],
@@ -107,7 +123,8 @@ final List<PaneInfo> panes = [
   // Congrats
   const PaneInfo(
     icon: Icon(Icons.check_circle),
-    title: 'Congrats',
+    title: 'Bonfire Crash Course Finished!',
+    path: '/congrats',
     child: CongratsPage(),
   ),
 ];

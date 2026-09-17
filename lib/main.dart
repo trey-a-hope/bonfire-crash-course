@@ -1,5 +1,5 @@
+import 'package:bonfire_crash_course/core/app_router.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart' as macos;
@@ -35,7 +35,7 @@ class DesktopApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // Windows UI implementation using FluentApp
     if (PlatformResolver.isWindows) {
-      return fluent.FluentApp(
+      return fluent.FluentApp.router(
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           scrollbars: false,
         ),
@@ -45,12 +45,12 @@ class DesktopApp extends StatelessWidget {
           brightness: fluent.Brightness.dark,
           accentColor: fluent.Colors.blue,
         ),
-        home: const AdaptiveWindow(),
+        routerConfig: appRouter,
       );
     }
 
     // macOS UI implementation using MacosApp
-    return macos.MacosApp(
+    return macos.MacosApp.router(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),
@@ -60,7 +60,7 @@ class DesktopApp extends StatelessWidget {
         brightness: Brightness.dark,
         accentColor: macos.AccentColor.blue,
       ),
-      home: const AdaptiveWindow(),
+      routerConfig: appRouter,
     );
   }
 }
