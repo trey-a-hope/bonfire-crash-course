@@ -26,7 +26,7 @@ class WindowService {
       minimumSize: Size(1200, 720),
       center: true,
       titleBarStyle: TitleBarStyle.hidden,
-      fullScreen: true,
+      fullScreen: false,
     );
 
     await windowManager.waitUntilReadyToShow(windowOptions, () async {
