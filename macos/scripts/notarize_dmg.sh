@@ -1,3 +1,9 @@
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Load local .env if present
+if [ -f "$SCRIPT_DIR/.env" ]; then
+  source "$SCRIPT_DIR/.env"
+fi
+
 # Use Codemagic's build dir if available, otherwise resolve from script location
 if [ -n "$CM_BUILD_DIR" ]; then
   PROJECT_DIR="$CM_BUILD_DIR"
