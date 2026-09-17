@@ -1,4 +1,5 @@
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:macos_ui/macos_ui.dart' as mac;

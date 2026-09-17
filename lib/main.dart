@@ -1,11 +1,11 @@
+import 'package:bonfire_crash_course/core/app_router.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/presentation/pages/home_page.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
-import 'package:flutter/widgets.dart';
-import 'package:macos_ui/macos_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart' as macos;
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:window_manager/window_manager.dart';
+import 'presentation/services/window_service.dart';
 
 late final PackageInfo packageInfo;
 
@@ -17,64 +17,58 @@ Future<void> main() async {
   MediaKit.ensureInitialized();
 
   // Set up desktop window properties (size, center, title bar)
-  await _initializeDesktopWindow();
+  await WindowService.initializeDesktopWindow();
 
   packageInfo = await PackageInfo.fromPlatform();
 
   runApp(const DesktopApp());
 }
 
-/// Initializes window options and window manager settings for desktop platforms.
-Future<void> _initializeDesktopWindow() async {
-  if (!PlatformResolver.isDesktop) {
-    throw UnsupportedError('This app only supports desktop platforms.');
-  }
-
-  await windowManager.ensureInitialized();
-
-  const windowOptions = WindowOptions(
-    size: Size(1400, 900),
-    minimumSize: Size(1200, 720),
-    center: true,
-    titleBarStyle: TitleBarStyle.hidden,
-    fullScreen: true,
-  );
-
-  await windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
-}
-
 /// Root app widget that selects the design system framework (Fluent UI vs macos_ui) by platform.
 class DesktopApp extends StatelessWidget {
+  final _title = 'Bonfire Crash Course';
+  final _debugShowCheckedModeBanner = false;
+
   const DesktopApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Windows UI implementation using FluentApp
     if (PlatformResolver.isWindows) {
-      return fluent.FluentApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Windows App',
+      return fluent.FluentApp.router(
+        scrollBehavior: const MaterialScrollBehavior().copyWith(
+          scrollbars: false,
+        ),
+        debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+        title: _title,
         theme: fluent.FluentThemeData(
           brightness: fluent.Brightness.dark,
           accentColor: fluent.Colors.blue,
         ),
-        home: const HomePage(),
+        routerConfig: appRouter,
       );
     }
 
     // macOS UI implementation using MacosApp
-    if (PlatformResolver.isMacOS) {
-      return const MacosApp(
-        debugShowCheckedModeBanner: false,
-        title: 'macOS App',
-        home: HomePage(),
-      );
-    }
-
-    // Fallback for Linux or unexpected desktop targets
-    return const SizedBox.shrink();
+    return macos.MacosApp.router(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        scrollbars: false,
+      ),
+      debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+      title: _title,
+      theme: macos.MacosThemeData(
+        brightness: Brightness.dark,
+        accentColor: macos.AccentColor.blue,
+      ),
+      routerConfig: appRouter,
+    );
   }
 }
+
+/*
+  display - Hero text, splash screens, massive numbers, or promotional banner headlines.
+  headline - High-emphasis headers marking major sections or screen-level views.
+  title - Medium-emphasis text such as app bar titles, card headers, list tiles, and dialog titles.
+  body - Longer-form passages of reading text, paragraphs, descriptions, and default form fields.
+  label - Actionable text, button labels, tabs, floating chips, and caption badges.
+*/

@@ -1,76 +1,122 @@
-import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:fluent_ui/fluent_ui.dart';
-
+import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:macos_ui/macos_ui.dart';
+import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
+import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
+import 'package:bonfire_crash_course/presentation/widgets/codespace_web_view.dart';
+import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
+import 'package:fluent_ui/fluent_ui.dart' hide Colors;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:macos_ui/macos_ui.dart' as macos;
 import 'package:signals/signals_flutter.dart';
 
+/// The primary desktop window shell for the application.
+///
+/// Implements a responsive split-view desktop layout adapted to the host platform:
+/// - On macOS: Renders a [MacosWindow] with a native [Sidebar].
+/// - On Windows: Renders a [NavigationView] with a Fluent UI [NavigationPane].
+///
+/// Reactively observes [PageIndexController.index] via [SignalStatefulWidget] to update
+/// sidebar selection and swap lesson content on the left panel, while preserving the
+/// live [CodespaceWebView] editor session on the right.
 class AdaptiveWindow extends SignalStatefulWidget {
-  final List<PaneInfo> panes;
+  final StatefulNavigationShell navigationShell;
 
-  const AdaptiveWindow({super.key, required this.panes});
+  /// Creates the [AdaptiveWindow] shell widget.
+  const AdaptiveWindow({super.key, required this.navigationShell});
 
   @override
   State<AdaptiveWindow> createState() => _AdaptiveWindowState();
 }
 
-/// A platform‑adaptive sidebar that shows a Fluent UI NavigationPane on
-/// Windows and a macOS UI Sidebar on macOS.
+/// State implementation managing platform-adaptive navigation and layout.
 class _AdaptiveWindowState extends State<AdaptiveWindow> {
-  late final Signal<int> _index = signal(0);
-
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    final macosSidebar = macos.Sidebar(
+      top: Text(
+        'Overview',
+        style: textTheme.titleLarge!.copyWith(color: Colors.white),
+      ),
+      bottom: macos.MacosListTile(
+        leading: const Icon(CupertinoIcons.settings, color: Colors.yellow),
+        title: Text(
+          'Settings',
+          style: macos.MacosTheme.of(context).typography.headline,
+        ),
+        subtitle: Text(
+          'Configure application settings',
+          style: macos.MacosTheme.of(context).typography.subheadline.copyWith(
+            color: macos.MacosColors.systemGrayColor,
+          ),
+        ),
+        onClick: () =>
+            AdaptiveModalService.showSheet(context, SheetType.settings),
+      ),
+      isResizable: false,
+      dragClosed: false,
+      minWidth: 275,
+      builder: (context, scrollController) => macos.SidebarItems(
+        items: panes.toSidebarItems(),
+        currentIndex: widget.navigationShell.currentIndex,
+        onChanged: _onChanged,
+      ),
+    );
+
+    final windowsPane = NavigationPane(
+      toggleButton: null,
+      selected: widget.navigationShell.currentIndex,
+      onChanged: _onChanged,
+      displayMode: PaneDisplayMode.expanded,
+      header: const Text('Bonfire Crash Course'),
+      items: panes.toNavigationPaneItems(),
+      footerItems: [
+        PaneItemSeparator(),
+        PaneItemAction(
+          icon: const WindowsIcon(WindowsIcons.settings),
+          title: const Text('Settings'),
+          onTap: () async =>
+              AdaptiveModalService.showSheet(context, SheetType.settings),
+        ),
+      ],
+    );
+
+    // Redundant IndexedStack is removed!
+    // Simply render navigationShell + your persistent bottom widget:
+    final content = Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: widget.navigationShell,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 32.0),
+          child: PageIndexWidget(navigationShell: widget.navigationShell),
+        ),
+      ],
+    );
+
     if (PlatformResolver.isWindows) {
       // Windows / Fluent UI navigation pane
-      final children = widget.panes.map((p) => p.child).toList();
       return NavigationView(
-        pane: NavigationPane(
-          selected: _index.value,
-          onChanged: (index) => _index.value = index,
-          displayMode: PaneDisplayMode.auto,
-          header: const Text('Pane Header'),
-          items: widget.panes
-              .map(
-                (pane) => PaneItem(
-                  icon: pane.icon,
-                  title: Text(pane.title),
-                  // body is omitted; content will be rendered via IndexedStack below
-                  body: const SizedBox.shrink(),
-                ),
-              )
-              .toList(),
-        ),
-        // Preserve state of each pane child using IndexedStack
-        content: IndexedStack(
-          index: _index.value,
-          children: children,
-        ),
+        pane: windowsPane,
+        paneBodyBuilder: (item, body) => content,
       );
     } else {
       // macOS sidebar
-      final children = widget.panes.map((p) => p.child).toList();
-      return MacosWindow(
-        sidebar: Sidebar(
-          builder: (c, s) {
-            return SidebarItems(
-              items: widget.panes
-                  .map(
-                    (e) => SidebarItem(leading: e.icon, label: Text(e.title)),
-                  )
-                  .toList(),
-              currentIndex: _index.value,
-              onChanged: (index) => _index.value = index,
-            );
-          },
-          minWidth: 300,
-        ),
-        // Preserve state of each pane child using IndexedStack
-        child: IndexedStack(
-          index: _index.value,
-          children: children,
-        ),
-      );
+      return macos.MacosWindow(sidebar: macosSidebar, child: content);
     }
   }
+
+  /// Handles navigation pane selection changes across platforms.
+  void _onChanged(int val) => widget.navigationShell.goBranch(
+    val,
+    initialLocation: val == widget.navigationShell.currentIndex,
+  );
 }

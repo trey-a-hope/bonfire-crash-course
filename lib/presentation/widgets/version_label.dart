@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/main.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,17 @@ class VersionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Text(
-      'Bonfire Crash Course v${packageInfo.version} (build ${packageInfo.buildNumber})',
-      textAlign: TextAlign.center,
-      style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+    return Column(
+      children: [
+        Text(
+          'Bonfire Crash Course v${packageInfo.version}+${packageInfo.buildNumber} ',
+          style: textTheme.bodyMedium?.copyWith(color: Colors.white),
+        ),
+        Text(
+          'for ${PlatformResolver.isMacOS ? 'macOS' : 'Windows'}',
+          style: textTheme.bodySmall?.copyWith(color: Colors.grey),
+        ),
+      ],
     );
   }
 }
