@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
@@ -29,20 +30,45 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
       ],
       steps: [
         Text(
-          'To initialize a map, pass a configured WorldMapByTiledLoader instance into the map argument of your BonfireWidget:',
+          'Replace the Placeholder widget with a BonfireWidget.',
           style: textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
         GapSizes.smallGap,
         const CodeSnippetCard(
-          fileName: 'main.dart',
+          fileName: DART_FILE_GAME_SCREEN,
           code: '''
-BonfireWidget(
-    map: WorldMapByTiled(
-        WorldMapByTiledLoader(
-            asset: 'maps/dungeon_map.tmx',
+@override
+Widget build(BuildContext context) {
+    return BonfireWidget(
+        map: WorldMapBySpritefusion(
+            WorldMapReader.fromAsset('map.json'),
         ),
-    ),
+    );
+}
+''',
+        ),
+        GapSizes.smallGap,
+
+        Text(
+          'Pass in a camera config',
+          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+        ),
+        GapSizes.smallGap,
+        const CodeSnippetCard(
+          fileName: DART_FILE_GAME_SCREEN,
+          code: '''
+final _cameraConfig = CameraConfig(
+    initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
+    moveOnlyMapArea: true,
 );
+
+@override
+Widget build(BuildContext context) {
+    return BonfireWidget(
+        ... // other args
+        cameraConfig: _cameraConfig,
+  );
+}
 ''',
         ),
       ],
