@@ -57,6 +57,6 @@ flutter_launcher_icons:
 msix_config:
   display_name: Bonfire Crash Course
   publisher_display_name: Trey Hope
-  identity_name: com.io.bonfire_crash_course
+  identity_name: com.io.bonfire-crash-course
   msix_version: 1.0.0.0
   logo_path: assets/app_icon.png
