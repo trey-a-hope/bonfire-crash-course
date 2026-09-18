@@ -1,7 +1,6 @@
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart' as mac;
 
@@ -11,11 +10,17 @@ import 'package:macos_ui/macos_ui.dart' as mac;
 /// a Windows Fluent UI [fluent.ListTile.selectable], rendering the concept's
 /// title, descriptive subtitle, and an accent lightbulb icon.
 class AdaptiveListTile extends StatelessWidget {
-  /// The lesson concept to display in this tile.
-  final Concept concept;
+  final String title;
+  final String subtitle;
+  final IconData icon;
 
   /// Creates a new [AdaptiveListTile] for the given [concept].
-  const AdaptiveListTile({super.key, required this.concept});
+  const AdaptiveListTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +33,12 @@ class AdaptiveListTile extends StatelessWidget {
   Widget _buildWindowsListTile(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return fluent.ListTile.selectable(
-      leading: Icon(fluent.FluentIcons.lightbulb, color: fluent.Colors.yellow),
+      leading: Icon(icon, color: fluent.Colors.yellow),
       title: Text(
-        concept.title,
+        title,
         style: textTheme.titleMedium?.copyWith(color: Colors.white),
       ),
-      subtitle: Text(concept.subtitle, style: textTheme.bodyMedium),
+      subtitle: Text(subtitle, style: textTheme.bodyMedium),
       onPressed: () {
         debugPrint('onTap');
       },
@@ -43,13 +48,10 @@ class AdaptiveListTile extends StatelessWidget {
   /// Builds the macOS-styled representation of the concept tile.
   Widget _buildMacOsListTile(BuildContext context) {
     return mac.MacosListTile(
-      leading: Icon(CupertinoIcons.lightbulb, color: fluent.Colors.yellow),
-      title: Text(
-        concept.title,
-        style: mac.MacosTheme.of(context).typography.headline,
-      ),
+      leading: Icon(icon, color: fluent.Colors.yellow),
+      title: Text(title, style: mac.MacosTheme.of(context).typography.headline),
       subtitle: Text(
-        concept.subtitle,
+        subtitle,
         style: mac.MacosTheme.of(context).typography.subheadline.copyWith(
           color: mac.MacosColors.systemGrayColor,
         ),

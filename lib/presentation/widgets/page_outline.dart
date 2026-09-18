@@ -145,7 +145,11 @@ class PageOutline extends SignalWidget {
                     ),
                     GapSizes.xsGap,
                     ...concepts.map(
-                      (concept) => AdaptiveListTile(concept: concept),
+                      (concept) => AdaptiveListTile(
+                        icon: Icons.lightbulb,
+                        title: concept.title,
+                        subtitle: concept.subtitle,
+                      ),
                     ),
                   ],
                 ),
