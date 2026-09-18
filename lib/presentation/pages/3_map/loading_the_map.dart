@@ -29,14 +29,21 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
         ),
       ],
       steps: [
-        Text(
-          'Replace the Placeholder widget with a BonfireWidget.',
-          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-        ),
-        GapSizes.smallGap,
-        const CodeSnippetCard(
-          fileName: DART_FILE_GAME_SCREEN,
-          code: '''
+        Card(
+          color: color,
+          child: Padding(
+            padding: const EdgeInsetsGeometry.all(8),
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  'Replace the Placeholder widget with a BonfireWidget.',
+                  style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+                ),
+                GapSizes.smallGap,
+                const CodeSnippetCard(
+                  fileName: DART_FILE_GAME_SCREEN,
+                  code: '''
 @override
 Widget build(BuildContext context) {
     return BonfireWidget(
@@ -46,17 +53,28 @@ Widget build(BuildContext context) {
     );
 }
 ''',
+                ),
+              ],
+            ),
+          ),
         ),
         GapSizes.smallGap,
 
-        Text(
-          'Pass in a camera config',
-          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-        ),
-        GapSizes.smallGap,
-        const CodeSnippetCard(
-          fileName: DART_FILE_GAME_SCREEN,
-          code: '''
+        Card(
+          color: color,
+          child: Padding(
+            padding: const EdgeInsetsGeometry.all(8),
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(
+                  'Pass in a camera config.',
+                  style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+                ),
+                GapSizes.smallGap,
+                const CodeSnippetCard(
+                  fileName: DART_FILE_GAME_SCREEN,
+                  code: '''
 final _cameraConfig = CameraConfig(
     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
     moveOnlyMapArea: true,
@@ -70,6 +88,10 @@ Widget build(BuildContext context) {
   );
 }
 ''',
+                ),
+              ],
+            ),
+          ),
         ),
       ],
       timeToCodeStatement:
@@ -80,6 +102,9 @@ Widget build(BuildContext context) {
   @override
   String get videoUrl =>
       'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4';
+
+  @override
+  Color get color => Colors.red.shade900;
 }
 
 // Recommended Course Structure

@@ -52,9 +52,9 @@ class AdaptiveListTile extends StatelessWidget {
       title: Text(title, style: mac.MacosTheme.of(context).typography.headline),
       subtitle: Text(
         subtitle,
-        style: mac.MacosTheme.of(context).typography.subheadline.copyWith(
-          color: mac.MacosColors.systemGrayColor,
-        ),
+        style: mac.MacosTheme.of(
+          context,
+        ).typography.subheadline.copyWith(color: mac.MacosColors.white),
       ),
       onClick: () {
         debugPrint('onClick');

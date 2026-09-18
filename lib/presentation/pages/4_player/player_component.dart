@@ -50,4 +50,7 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
   @override
   String get videoUrl =>
       'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4';
+
+  @override
+  Color get color => Colors.red.shade900;
 }

@@ -12,6 +12,7 @@ import 'package:signals/signals_flutter.dart';
 mixin iPageOutline {
   /// The remote URL of the video walkthrough for this lesson.
   String get videoUrl;
+  Color get color;
 }
 
 /// A standardized layout structure for course lesson pages.
