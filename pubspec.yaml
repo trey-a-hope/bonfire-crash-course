@@ -29,6 +29,7 @@ dependencies:
   go_router: ^18.0.1
   msix: ^3.16.8
   media_kit_libs_windows_video: ^1.0.11
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:
@@ -43,6 +44,7 @@ flutter:
   assets:
     - assets/videos/flight.mp4
     - assets/images/screenshots/2/run_app.png
+    - assets/images/images.jpeg
 
 flutter_launcher_icons:
   ios: true

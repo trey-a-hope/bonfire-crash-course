@@ -5,6 +5,7 @@ import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_list_tile.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -31,7 +32,7 @@ class PageOutline extends SignalWidget {
   final List<Concept> concepts;
 
   /// Code snippets and video demonstrations showcasing the lesson concepts.
-  final List<Widget> steps;
+  final List<CodeStep> codeSteps;
 
   /// Actionable checkpoint or coding exercise for the learner to verify.
   final String timeToCodeStatement;
@@ -42,7 +43,7 @@ class PageOutline extends SignalWidget {
     required this.lottie,
     required this.objective,
     required this.concepts,
-    required this.steps,
+    required this.codeSteps,
     required this.timeToCodeStatement,
   });
 
@@ -90,22 +91,27 @@ class PageOutline extends SignalWidget {
                         height: 64,
                         thickness: 1,
                       ),
-                      // Example: What visual result or interaction to verify in their running app before moving to the next section.
+                      // Concepts: Brief explanation of the Bonfire APIs introduced (e.g., SimplePlayer, Direction).
                       Text(
-                        'Steps',
+                        'Concepts',
                         style: textTheme.titleLarge!.copyWith(
                           color: Colors.white,
                         ),
                       ),
                       GapSizes.xsGap,
-                      ...steps,
+                      ...concepts.map(
+                        (concept) => AdaptiveListTile(
+                          icon: Icons.lightbulb,
+                          title: concept.title,
+                          subtitle: concept.subtitle,
+                        ),
+                      ),
                       const Divider(
                         color: Colors.grey,
                         height: 64,
                         thickness: 1,
                       ),
-
-                      // Checkpoint: What visual result or interaction to verify in their running app before moving to the next section.
+                      // Example: What visual result or interaction to verify in their running app before moving to the next section.
                       Text(
                         'Time to Code',
                         style: textTheme.titleLarge!.copyWith(
@@ -113,12 +119,7 @@ class PageOutline extends SignalWidget {
                         ),
                       ),
                       GapSizes.xsGap,
-                      Text(
-                        timeToCodeStatement,
-                        style: textTheme.bodyMedium!.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
+                      StepsWidget.code(codeSteps: codeSteps),
                     ],
                   ),
                 ),
@@ -136,22 +137,6 @@ class PageOutline extends SignalWidget {
                       isExpanded: false,
                     ),
                     GapSizes.largeGap,
-
-                    // Concepts: Brief explanation of the Bonfire APIs introduced (e.g., SimplePlayer, Direction).
-                    Text(
-                      'Concepts',
-                      style: textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                    GapSizes.xsGap,
-                    ...concepts.map(
-                      (concept) => AdaptiveListTile(
-                        icon: Icons.lightbulb,
-                        title: concept.title,
-                        subtitle: concept.subtitle,
-                      ),
-                    ),
                   ],
                 ),
               ),

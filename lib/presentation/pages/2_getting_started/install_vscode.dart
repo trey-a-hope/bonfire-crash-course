@@ -2,9 +2,9 @@ import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_list_tile.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
+import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Card;
 import 'package:flutter/material.dart' hide Colors;
 import 'package:url_launcher/url_launcher.dart';
@@ -53,7 +53,7 @@ class InstallVSCode extends StatelessWidget {
                       ),
                       GapSizes.largeGap,
                       Text(
-                        'Why is this step optional?',
+                        'Why this step optional',
                         style: textTheme.headlineSmall?.copyWith(
                           color: Colors.white,
                         ),
@@ -105,34 +105,14 @@ class MacosInstallationVSCodeCard extends StatelessWidget {
             ),
 
             GapSizes.mediumGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 1',
-              subtitle:
-                  'Click Download for macOS above to download the universal .zip archive.',
+            const StepsWidget.simple(
+              steps: [
+                'Click Download for macOS above to download the universal .zip archive.',
+                'Locate the downloaded file (usually in your Downloads folder) and double-click it to extract Visual Studio Code.app (if Safari hasn\'t already extracted it automatically).',
+                'Drag Visual Studio Code.app into your Applications folder so it is accessible from Launchpad and Spotlight.',
+                'Open VS Code from your Applications folder. If prompted by macOS with a security dialog, click Open.',
+              ],
             ),
-            GapSizes.smallGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 2',
-              subtitle:
-                  'Locate the downloaded file (usually in your Downloads folder) and double-click it to extract Visual Studio Code.app (if Safari hasn\'t already extracted it automatically).',
-            ),
-            GapSizes.smallGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 3',
-              subtitle:
-                  'Drag Visual Studio Code.app into your Applications folder so it is accessible from Launchpad and Spotlight.',
-            ),
-            GapSizes.smallGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 4',
-              subtitle:
-                  'Open VS Code from your Applications folder. If prompted by macOS with a security dialog, click Open.',
-            ),
-            GapSizes.largeGap,
             Row(
               mainAxisAlignment: .center,
               children: [
@@ -197,32 +177,13 @@ class WindowsInstallationVSCodeCard extends StatelessWidget {
             ),
 
             GapSizes.mediumGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 1',
-              subtitle:
-                  'Click Download for Windows above to download the .exe user installer.',
-            ),
-            GapSizes.xsGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 2',
-              subtitle:
-                  'Locate the downloaded setup file (usually in your Downloads folder) and double-click it to run the installer.',
-            ),
-            GapSizes.xsGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 3',
-              subtitle:
-                  'Accept the license agreement, choose your destination folder, and on the Select Additional Tasks screen, check "Add to PATH" (and optionally check both "Add \'Open with Code\' action" boxes).',
-            ),
-            GapSizes.xsGap,
-            const AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step 4',
-              subtitle:
-                  'Click Install, then click Finish once complete to launch Visual Studio Code.',
+            const StepsWidget.simple(
+              steps: [
+                'Click Download for Windows above to download the .exe user installer.',
+                'Locate the downloaded setup file (usually in your Downloads folder) and double-click it to run the installer.',
+                'Accept the license agreement, choose your destination folder, and on the Select Additional Tasks screen, check "Add to PATH" (and optionally check both "Add \'Open with Code\' action" boxes).',
+                'Click Install, then click Finish once complete to launch Visual Studio Code.',
+              ],
             ),
             GapSizes.mediumGap,
             Row(

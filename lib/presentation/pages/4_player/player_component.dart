@@ -1,8 +1,7 @@
-import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
-import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
+import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlayerComponentPage extends StatelessWidget implements iPageOutline {
@@ -26,15 +25,12 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
               'A custom character component that extends SimplePlayer and configures its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
         ),
       ],
-      steps: [
-        Text(
-          'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',
-          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-        ),
-        GapSizes.smallGap,
-        const CodeSnippetCard(
+      codeSteps: const [
+        CodeStep(
+          description:
+              'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',
           fileName: 'main.dart',
-          code: '''BonfireWidget(
+          codeSnippet: '''BonfireWidget(
     map: WorldMapByTiled(
       WorldMapByTiledLoader(
         asset: 'maps/dungeon_map.tmx',

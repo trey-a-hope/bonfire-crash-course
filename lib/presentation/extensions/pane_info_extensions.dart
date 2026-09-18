@@ -20,9 +20,13 @@ extension PaneInfoListX on List<PaneInfo> {
   /// Converts [PaneInfo] items into Windows Fluent [NavigationPaneItem]s.
   List<NavigationPaneItem> toNavigationPaneItems() {
     return map((item) {
+      if (item.icon == null) {
+        throw Exception('Icon is null');
+      }
+
       if (item.children.isNotEmpty) {
         return PaneItemExpander(
-          icon: item.icon ?? const SizedBox.shrink(),
+          icon: item.icon!,
           title: Text(item.title),
           initiallyExpanded: true,
           items: item.children.toNavigationPaneItems(),
@@ -31,7 +35,7 @@ extension PaneInfoListX on List<PaneInfo> {
       }
 
       return PaneItem(
-        icon: item.icon,
+        icon: const SizedBox.shrink(),
         title: Text(item.title),
         body: const SizedBox.shrink(),
       );

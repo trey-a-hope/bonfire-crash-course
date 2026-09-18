@@ -1,9 +1,8 @@
 import 'package:bonfire_crash_course/core/constants.dart';
-import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
-import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
+import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoadingTheMap extends StatelessWidget implements iPageOutline {
@@ -16,7 +15,6 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
     return PageOutline(
       title: 'Loading the Map',
       lottie: const MapLottie(),
-
       objective: Text(
         'Load an exported Tiled map file into your Flutter application and render your game world\'s initial base layers on screen using Bonfire.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
@@ -28,53 +26,30 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
               'WorldMapByTiled is Bonfire\'s map loader that parses .tmx data and manages layer rendering, camera culling, and tile asset pipelines.',
         ),
       ],
-      steps: [
-        Card(
-          color: color,
-          child: Padding(
-            padding: const EdgeInsetsGeometry.all(8),
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  'Replace the Placeholder widget with a BonfireWidget.',
-                  style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-                ),
-                GapSizes.smallGap,
-                const CodeSnippetCard(
-                  fileName: DART_FILE_GAME_SCREEN,
-                  code: '''
+      codeSteps: const [
+        CodeStep(
+          description: 'Replace the Placeholder widget with a BonfireWidget.',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
 @override
+// Builds the Bonfire game screen loaded with the Spritefusion tilemap.
 Widget build(BuildContext context) {
+    // Bonfire widget that manages the game loop, rendering, and components.
     return BonfireWidget(
+        // Represents a map (or world) where the game occurs.
         map: WorldMapBySpritefusion(
+            // Load the map from the specified asset.
             WorldMapReader.fromAsset('map.json'),
         ),
     );
 }
 ''',
-                ),
-              ],
-            ),
-          ),
         ),
-        GapSizes.smallGap,
+        CodeStep(
+          description: 'Pass in a camera config.',
 
-        Card(
-          color: color,
-          child: Padding(
-            padding: const EdgeInsetsGeometry.all(8),
-            child: Column(
-              crossAxisAlignment: .start,
-              children: [
-                Text(
-                  'Pass in a camera config.',
-                  style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-                ),
-                GapSizes.smallGap,
-                const CodeSnippetCard(
-                  fileName: DART_FILE_GAME_SCREEN,
-                  code: '''
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
 final _cameraConfig = CameraConfig(
     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
     moveOnlyMapArea: true,
@@ -88,12 +63,9 @@ Widget build(BuildContext context) {
   );
 }
 ''',
-                ),
-              ],
-            ),
-          ),
         ),
       ],
+
       timeToCodeStatement:
           'In the editor, open the maps/ folder and double-click starter_map.tmx. You should see a 2D grid with walls, a floor, and some decorations. This is your game world.',
     );
