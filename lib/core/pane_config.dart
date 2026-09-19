@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_is_the_flame_engine.dart';
+import 'package:bonfire_crash_course/presentation/pages/1_introduction/introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_you_will_need.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_a_codespace.dart';
