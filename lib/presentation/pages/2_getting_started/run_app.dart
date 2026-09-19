@@ -1,4 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' hide Colors;
 
@@ -20,13 +21,10 @@ class RunApp extends StatelessWidget {
           style: textTheme.bodyLarge?.copyWith(color: Colors.white),
         ),
         GapSizes.xlGap,
-        Expanded(
-          child: Center(
-            child: Image.asset(
-              'assets/images/screenshots/2/run_app.png',
-
-              fit: BoxFit.cover,
-            ),
+        const Expanded(
+          child: HeroImage(
+            imagePath: 'assets/images/screenshots/2/run_app.png',
+            caption: 'Default app running the browser',
           ),
         ),
       ],

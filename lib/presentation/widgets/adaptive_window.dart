@@ -2,7 +2,6 @@ import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
-import 'package:bonfire_crash_course/presentation/widgets/codespace_web_view.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;

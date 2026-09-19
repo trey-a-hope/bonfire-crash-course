@@ -45,6 +45,7 @@ flutter:
     - assets/videos/flight.mp4
     - assets/images/screenshots/2/run_app.png
     - assets/images/images.jpeg
+    - assets/images/getting_started/
 
 flutter_launcher_icons:
   ios: true

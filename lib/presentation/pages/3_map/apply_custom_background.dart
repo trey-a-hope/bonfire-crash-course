@@ -32,19 +32,19 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
               'Create a new class that extends the GameBackground class.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-import 'package:bonfire/bonfire.dart';
-
+// TODO
 class ParallaxBackground extends GameBackground {
-  @override
-  Future<void> onLoad() async {
-    await super.onLoad();
-  }
+    @override
+    // TODO
+    Future<void> onLoad() async {
+        await super.onLoad();
+    }
 }
 ''',
         ),
         CodeStep(
           description:
-              'Define constant image paths relative to your assets directory to keep asset references organized and reusable. These constants prevent typos and make it easy to manage all your parallax image layers in a single place.',
+              'Define constant image paths relative to your assets directory to keep asset references organized and reusable.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 static const _skyUrl = 'background/sky.png';
@@ -58,6 +58,7 @@ static const _hillsUrl = 'background/hills.png';
               'Use loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement. By configuring baseVelocity and velocityMultiplierDelta, you make foreground clouds drift faster than the distant sky to achieve a realistic sense of visual depth.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
+// TODO
 static const _skyUrl = 'background/sky.png';
 static const _cloudsUrl = 'background/clouds.png';
 static const _mountainsUrl = 'background/mountains.png';
@@ -67,16 +68,18 @@ static const _hillsUrl = 'background/hills.png';
 
         CodeStep(
           description:
-              'Use loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement. By configuring baseVelocity and velocityMultiplierDelta, you make foreground clouds drift faster than the distant sky to achieve a realistic sense of visual depth.',
+              'Use loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-// 1. Static/auto-scrolling background layers
+// TODO
 final skyAndClouds = await loadParallaxComponent(
     [
         ParallaxImageData(_skyUrl),
         ParallaxImageData(_cloudsUrl),
     ],
+    // TODO
     baseVelocity: Vector2(10, 0),
+    // TODO
     velocityMultiplierDelta: Vector2(1.5, 1),
 );
 ''',

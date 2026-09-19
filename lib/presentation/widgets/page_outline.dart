@@ -125,7 +125,7 @@ class PageOutline extends SignalWidget {
                 ),
               ),
               GapSizes.xlGap,
-              Flexible(
+              const Flexible(
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: .start,
@@ -133,8 +133,7 @@ class PageOutline extends SignalWidget {
                     CourseVideoPlayer(
                       videoUrl:
                           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
-                      onToggleExpand: () {},
-                      isExpanded: false,
+                      title: 'Flight Tutorial',
                     ),
                     GapSizes.largeGap,
                   ],

@@ -1,8 +1,9 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
+import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
+import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -27,64 +28,55 @@ class CreateACodespace extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Text(
-                      'What is Github Codespaces?',
-                      style: textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      const CourseVideoPlayer(
+                        videoUrl:
+                            'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                        title: 'Github Codespaces Overview',
                       ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'Think of Codespaces as a full developer computer running in the cloud. It launches Visual Studio Code directly inside your browser with all the compilers, extensions, and tools we need for this course already installed. Click the Code button on our GitHub repository, select Codespaces, and start coding immediately.',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
+                      GapSizes.mediumGap,
+                      Text(
+                        'What is Github Codespaces?',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    GapSizes.mediumGap,
-                    Image.asset(
-                      'assets/images/images.jpeg',
-                      fit: BoxFit.fitHeight,
-                    ),
-                    GapSizes.mediumGap,
-                    Text(
-                      'Create a Github CodeSpace',
-                      style: textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
+                      GapSizes.xsGap,
+                      Text(
+                        'Think of Codespaces as a full developer computer running in the cloud. It launches Visual Studio Code directly inside your browser with all the compilers, extensions, and tools we need for this course already installed. Click the Code button on our GitHub repository, select Codespaces, and start coding immediately.',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    const StepsWidget.simple(
-                      steps: [
-                        'Click Download for macOS above to download the universal .zip archive.',
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              GapSizes.largeGap,
-              Expanded(
-                child: Column(
-                  children: [
-                    Center(
-                      child: Image.asset(
-                        'assets/images/images.jpeg',
-                        fit: BoxFit.cover,
+                      GapSizes.mediumGap,
+                      Text(
+                        'Create a Github CodeSpace',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'Github codespaces running directly inside of a browser',
-                      style: textTheme.bodySmall?.copyWith(color: Colors.white),
-                    ),
-                    GapSizes.xsGap,
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: .center,
-                        children: [
-                          const PowerOffLottie(),
-                          AdaptiveButton(
+                      const StepsWidget.simple(
+                        steps: [
+                          'Select the \'Create a Codespace\' button at the bottom.',
+                          'When the \'Create a new codespace\' window appears, select the \'Create codespace\' button.',
+                        ],
+                      ),
+                      GapSizes.mediumGap,
+
+                      Text(
+                        'The codespace will create in a new tab, (it may take a few minutes to load).',
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      GapSizes.mediumGap,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsetsGeometry.all(16),
+                          child: AdaptiveButton(
                             type: .filled,
                             child: const Row(
                               mainAxisSize: .min,
@@ -116,10 +108,34 @@ class CreateACodespace extends StatelessWidget {
                               }
                             },
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+              ),
+              GapSizes.largeGap,
+              const Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      HeroImage(
+                        imagePath: 'assets/images/images.jpeg',
+                        caption:
+                            'Github codespaces running directly inside of a browser',
+                      ),
+                      GapSizes.mediumGap,
+                      HeroImage(
+                        imagePath: 'assets/images/getting_started/1.png',
+                        caption: '\'Create a new codespace\' window',
+                      ),
+                      GapSizes.mediumGap,
+                      HeroImage(
+                        imagePath: 'assets/images/getting_started/2.png',
+                        caption: 'Your new codespace running in the browser',
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
