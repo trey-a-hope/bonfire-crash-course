@@ -20,9 +20,9 @@ final List<PaneInfo> panes = [
     children: [
       PaneInfo(
         icon: Icon(Icons.home_outlined),
-        title: 'What is Flame & Bonfire',
-        path: '/intro/what-is-flame-and-bonfire',
-        child: WhatIsTheFlameEngine(),
+        title: 'Introduction',
+        path: '/intro/starting',
+        child: Introduction(),
       ),
       PaneInfo(
         icon: Icon(Icons.home_outlined),
