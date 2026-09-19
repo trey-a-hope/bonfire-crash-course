@@ -1,10 +1,8 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_list_tile.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
-import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -18,33 +16,33 @@ mixin iPageOutline {
 
 /// A standardized layout structure for course lesson pages.
 ///
-/// Displays the lesson's [objective], [concepts], [example], and [yourTurn]
-/// sections, followed by bottom [PageIndexWidget] navigation controls.
+/// Implements a responsive split-view desktop layout with a structured curriculum
+/// presentation (Objectives, Concepts, Code Steps, Verification) on the left,
+/// and multimedia walkthroughs (Video Player, Lottie animation, Tips) on the right.
 class PageOutline extends SignalWidget {
   final String title;
-
+  final String? unitBadge;
+  final String? subtitle;
   final ILottie lottie;
-
-  /// 1–2 sentences explaining what mechanic is being built.
   final Widget objective;
-
-  /// A brief explanation of the Bonfire APIs introduced in this section.
   final List<Concept> concepts;
-
-  /// Code snippets and video demonstrations showcasing the lesson concepts.
   final List<CodeStep> codeSteps;
-
-  /// Actionable checkpoint or coding exercise for the learner to verify.
   final String timeToCodeStatement;
+  final String? videoUrl;
+  final String? videoTitle;
 
   const PageOutline({
     super.key,
     required this.title,
+    this.unitBadge,
+    this.subtitle,
     required this.lottie,
     required this.objective,
     required this.concepts,
     required this.codeSteps,
     required this.timeToCodeStatement,
+    this.videoUrl,
+    this.videoTitle,
   });
 
   @override
@@ -52,91 +50,356 @@ class PageOutline extends SignalWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Column(
-      crossAxisAlignment: .start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: textTheme.headlineLarge!.copyWith(color: Colors.white),
+        // Unit Badge & Header
+        if (unitBadge != null) ...[
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.blueAccent.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: Colors.blueAccent.withValues(alpha: 0.35),
+              ),
             ),
-            const Spacer(),
-            AdaptiveButton(child: const Text('Follow Here'), onPressed: () {}),
-          ],
+            child: Text(
+              unitBadge!,
+              style: textTheme.labelSmall?.copyWith(
+                color: Colors.blueAccent,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+        Text(
+          title,
+          style: textTheme.headlineLarge?.copyWith(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        if (subtitle != null) ...[
+          GapSizes.xsGap,
+          Text(
+            subtitle!,
+            style: textTheme.bodyLarge?.copyWith(
+              color: Colors.white.withValues(alpha: 0.75),
+            ),
+          ),
+        ],
+        GapSizes.largeGap,
 
-        GapSizes.mediumGap,
-
+        // Main Split Content
         Expanded(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                flex: 1,
+              // Left Column: Objective, Concepts & Code Steps (Flex 3)
+              Expanded(
+                flex: 3,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(child: lottie),
-                      // Objective: 1–2 sentences explaining what mechanic they are building.
-                      Text(
-                        'Objective',
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
+                      // Learning Objective Card
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E1E2C),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.12),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.25),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blueAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.flag_rounded,
+                                    color: Colors.blueAccent,
+                                    size: 18,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Lesson Objective',
+                                  style: textTheme.titleMedium?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            GapSizes.smallGap,
+                            objective,
+                          ],
                         ),
                       ),
-                      GapSizes.xsGap,
-                      objective,
-                      const Divider(
-                        color: Colors.grey,
-                        height: 64,
-                        thickness: 1,
-                      ),
-                      // Concepts: Brief explanation of the Bonfire APIs introduced (e.g., SimplePlayer, Direction).
-                      Text(
-                        'Concepts',
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
+                      GapSizes.largeGap,
+
+                      // Key Concepts Section
+                      if (concepts.isNotEmpty) ...[
+                        Text(
+                          'Key Concepts',
+                          style: textTheme.headlineSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        GapSizes.smallGap,
+                        ...concepts.map(
+                          (concept) => Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E1E2C),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.1),
+                              ),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.amberAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.lightbulb_rounded,
+                                    color: Colors.amberAccent,
+                                    size: 18,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        concept.title,
+                                        style: textTheme.titleSmall?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        concept.subtitle,
+                                        style: textTheme.bodySmall?.copyWith(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.75,
+                                          ),
+                                          height: 1.45,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GapSizes.mediumGap,
+                      ],
+
+                      // Code Steps Section
+                      if (codeSteps.isNotEmpty) ...[
+                        Text(
+                          'Code Implementation',
+                          style: textTheme.headlineSmall?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        GapSizes.smallGap,
+                        StepsWidget.code(codeSteps: codeSteps),
+                        GapSizes.mediumGap,
+                      ],
+
+                      // Checkpoint / Verification Card
+                      Container(
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: Colors.greenAccent.withValues(alpha: 0.3),
+                          ),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.greenAccent.withValues(
+                                  alpha: 0.15,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.verified_rounded,
+                                color: Colors.greenAccent,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Verify in Your Running Game',
+                                    style: textTheme.titleSmall?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    timeToCodeStatement,
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.85,
+                                      ),
+                                      height: 1.45,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      GapSizes.xsGap,
-                      ...concepts.map(
-                        (concept) => AdaptiveListTile(
-                          icon: Icons.lightbulb,
-                          title: concept.title,
-                          subtitle: concept.subtitle,
-                        ),
-                      ),
-                      const Divider(
-                        color: Colors.grey,
-                        height: 64,
-                        thickness: 1,
-                      ),
-                      // Example: What visual result or interaction to verify in their running app before moving to the next section.
-                      Text(
-                        'Time to Code',
-                        style: textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
-                      GapSizes.xsGap,
-                      StepsWidget.code(codeSteps: codeSteps),
+                      GapSizes.largeGap,
                     ],
                   ),
                 ),
               ),
-              GapSizes.xlGap,
-              const Flexible(
+              GapSizes.largeGap,
+
+              // Right Column: Video Walkthrough, Lottie Visual & Pro-Tip (Flex 2)
+              Expanded(
                 flex: 2,
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    CourseVideoPlayer(
-                      videoUrl:
-                          'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
-                      title: 'Flight Tutorial',
-                    ),
-                    GapSizes.largeGap,
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Video Player Container
+                      CourseVideoPlayer(
+                        videoUrl:
+                            videoUrl ??
+                            'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                        title: videoTitle ?? '$title Tutorial',
+                      ),
+                      GapSizes.mediumGap,
+
+                      // Animated Visual Preview Card
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1E1E2C),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.12),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.auto_awesome_rounded,
+                                  color: Colors.cyanAccent,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'Interactive Visual',
+                                  style: textTheme.titleSmall?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            GapSizes.mediumGap,
+                            const HeroImage(
+                              imagePath: 'assets/images/images.jpeg',
+                              caption:
+                                  'GitHub codespaces running directly inside your browser',
+                            ),
+                          ],
+                        ),
+                      ),
+                      GapSizes.mediumGap,
+
+                      // Helpful Pro-Tip Card
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.1),
+                          ),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.tips_and_updates_rounded,
+                              color: Colors.amberAccent,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                'Pro-Tip: Ensure your map JSON/TMX assets are declared under the assets: section in pubspec.yaml so Bonfire can bundle and parse them properly.',
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.75),
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

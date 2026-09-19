@@ -14,31 +14,46 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
 
     return PageOutline(
       title: 'Loading the Map',
+      unitBadge: 'MODULE 3 • MAP & WORLD BUILDING',
+      subtitle:
+          'Initialize your Bonfire game canvas and load your tilemap world in Flutter.',
+      videoUrl: videoUrl,
+      videoTitle: 'Loading Tilemaps in Bonfire',
       lottie: const MapLottie(),
       objective: Text(
-        'Load an exported Tiled map file into your Flutter application and render your game world\'s initial base layers on screen using Bonfire.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+        'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
+        style: textTheme.bodyMedium!.copyWith(color: Colors.white, height: 1.5),
       ),
       concepts: const [
         Concept(
-          title: 'WorldMapByTiled',
+          title: 'BonfireWidget Canvas',
           subtitle:
-              'WorldMapByTiled is Bonfire\'s map loader that parses .tmx data and manages layer rendering, camera culling, and tile asset pipelines.',
+              'The central orchestrator widget that bridges Flame and Bonfire within your Flutter widget tree, running the 60 FPS game loop, tile culling, physics, components, and camera.',
+        ),
+        Concept(
+          title: 'WorldMapBySpritefusion',
+          subtitle:
+              'Bonfire\'s built-in map loader for Spritefusion maps. It reads map.json and its associated tileset to construct both visual floor tiles and collision boundary grids.',
+        ),
+        Concept(
+          title: 'CameraConfig',
+          subtitle:
+              'Configures viewport zoom levels (initialMapZoomFit) and clamps camera movement strictly to the map area (moveOnlyMapArea: true) so players cannot wander into empty space.',
         ),
       ],
       codeSteps: const [
         CodeStep(
-          description: 'Replace the Placeholder widget with a BonfireWidget.',
+          description:
+              'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
-// Builds the Bonfire game screen loaded with the Spritefusion tilemap.
 Widget build(BuildContext context) {
     // Bonfire widget that manages the game loop, rendering, and components.
     return BonfireWidget(
-        // Represents a map (or world) where the game occurs.
+        // Represents the 2D world where game entities interact.
         map: WorldMapBySpritefusion(
-            // Load the map from the specified asset.
+            // Load the map asset bundled with your project.
             WorldMapReader.fromAsset('map.json'),
         ),
     );
@@ -46,8 +61,8 @@ Widget build(BuildContext context) {
 ''',
         ),
         CodeStep(
-          description: 'Pass in a camera config.',
-
+          description:
+              'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 final _cameraConfig = CameraConfig(
@@ -58,16 +73,17 @@ final _cameraConfig = CameraConfig(
 @override
 Widget build(BuildContext context) {
     return BonfireWidget(
-        ... // other args
         cameraConfig: _cameraConfig,
-  );
+        map: WorldMapBySpritefusion(
+            WorldMapReader.fromAsset('map.json'),
+        ),
+    );
 }
 ''',
         ),
       ],
-
       timeToCodeStatement:
-          'In the editor, open the maps/ folder and double-click starter_map.tmx. You should see a 2D grid with walls, a floor, and some decorations. This is your game world.',
+          'Open lib/presentation/screens/game_screen.dart in your Codespace or VS Code. Replace the placeholder with BonfireWidget and CameraConfig, then save the file to trigger Hot Reload. You should see your 2D tilemap rendered immediately on screen!',
     );
   }
 

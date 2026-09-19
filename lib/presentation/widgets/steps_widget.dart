@@ -39,26 +39,67 @@ class StepsWidget extends StatelessWidget {
         // Code Steps
         if (_type == _StepType.code) ...[
           ...codeSteps!.mapIndexed((index, codeStep) {
-            return Card(
-              color: Colors.blue,
-              child: Padding(
-                padding: const EdgeInsetsGeometry.all(8),
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Text(
-                      'Step. ${index + 1} - ${codeStep.description}',
-                      style: textTheme.bodyMedium!.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                    GapSizes.smallGap,
-                    CodeSnippetCard(
-                      fileName: codeStep.fileName,
-                      code: codeStep.codeSnippet,
-                    ),
-                  ],
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1E1E2C),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.12),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.25),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.blueAccent.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: Colors.blueAccent.withValues(alpha: 0.35),
+                          ),
+                        ),
+                        child: Text(
+                          'STEP ${index + 1}',
+                          style: textTheme.labelSmall?.copyWith(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          codeStep.description,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  GapSizes.mediumGap,
+                  CodeSnippetCard(
+                    fileName: codeStep.fileName,
+                    code: codeStep.codeSnippet,
+                  ),
+                ],
               ),
             );
           }),
