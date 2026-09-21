@@ -65,8 +65,11 @@ Widget build(BuildContext context) {
               'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
+// Class use to configure camera behavior.
 final _cameraConfig = CameraConfig(
+    // Automatic zoom with base some configurations.
     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
+    // When this true the camera remains within the map area
     moveOnlyMapArea: true,
 );
 
@@ -74,9 +77,7 @@ final _cameraConfig = CameraConfig(
 Widget build(BuildContext context) {
     return BonfireWidget(
         cameraConfig: _cameraConfig,
-        map: WorldMapBySpritefusion(
-            WorldMapReader.fromAsset('map.json'),
-        ),
+        ... // Other parameters
     );
 }
 ''',
