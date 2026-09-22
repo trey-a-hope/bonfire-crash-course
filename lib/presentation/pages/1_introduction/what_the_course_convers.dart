@@ -1,5 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
+import 'package:bonfire_crash_course/presentation/widgets/check_list_item.dart';
+import 'package:bonfire_crash_course/presentation/widgets/module_card.dart';
 import 'package:flutter/material.dart';
 
 class WhatTheCourseConvers extends StatelessWidget {
@@ -33,13 +35,12 @@ class WhatTheCourseConvers extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Left Column: Curriculum Modules
-                Expanded(
+                const Expanded(
                   flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildModuleCard(
-                        context,
+                      ModuleCard(
                         stepNumber: '01',
                         icon: Icons.cloud_done_rounded,
                         accentColor: Colors.blueAccent,
@@ -48,8 +49,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                             'Launch your development environment directly in your browser with GitHub Codespaces. Learn how to run, debug, and preview Flutter games with zero local toolchain setup.',
                       ),
                       GapSizes.mediumGap,
-                      _buildModuleCard(
-                        context,
+                      ModuleCard(
                         stepNumber: '02',
                         icon: Icons.map_rounded,
                         accentColor: Colors.greenAccent,
@@ -58,8 +58,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                             'Import Tiled JSON maps into Bonfire, render multiple visual layers, configure collision geometry for walls and obstacles, and create layered parallax backgrounds.',
                       ),
                       GapSizes.mediumGap,
-                      _buildModuleCard(
-                        context,
+                      ModuleCard(
                         stepNumber: '03',
                         icon: Icons.sports_esports_rounded,
                         accentColor: Colors.orangeAccent,
@@ -68,8 +67,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                             'Build custom character components with 8-direction sprite sheet animations (idle and running). Integrate responsive virtual joysticks and keyboard controls.',
                       ),
                       GapSizes.mediumGap,
-                      _buildModuleCard(
-                        context,
+                      ModuleCard(
                         stepNumber: '04',
                         icon: Icons.shield_rounded,
                         accentColor: Colors.purpleAccent,
@@ -78,8 +76,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                             'Master precise collision detection, implement melee attacks, hitboxes, character life bars, enemy tracking, and interactive environment items.',
                       ),
                       GapSizes.mediumGap,
-                      _buildModuleCard(
-                        context,
+                      ModuleCard(
                         stepNumber: '05',
                         icon: Icons.rocket_launch_rounded,
                         accentColor: Colors.tealAccent,
@@ -123,7 +120,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                                   color: Colors.amberAccent,
                                   size: 24,
                                 ),
-                                const SizedBox(width: 8),
+                                GapSizes.smallGap,
                                 Text(
                                   "What You'll Build",
                                   style: textTheme.titleMedium?.copyWith(
@@ -142,25 +139,22 @@ class WhatTheCourseConvers extends StatelessWidget {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            const Center(
-                              child: BonfireLottie(height: 160),
-                            ),
+                            const Center(child: BonfireLottie(height: 160)),
                             GapSizes.mediumGap,
-                            _buildChecklistItem(
-                              context,
-                              'Tiled map integration with full collision detection',
+                            const CheckListItem(
+                              text:
+                                  'Tiled map integration with full collision detection',
                             ),
-                            _buildChecklistItem(
-                              context,
-                              '8-directional animated sprites and movement',
+                            const CheckListItem(
+                              text:
+                                  '8-directional animated sprites and movement',
                             ),
-                            _buildChecklistItem(
-                              context,
-                              'Parallax multi-layer scenic backgrounds',
+                            const CheckListItem(
+                              text: 'Parallax multi-layer scenic backgrounds',
                             ),
-                            _buildChecklistItem(
-                              context,
-                              'Clean, extensible Flutter & Flame architecture',
+                            const CheckListItem(
+                              text:
+                                  'Clean, extensible Flutter & Flame architecture',
                             ),
                           ],
                         ),
@@ -184,7 +178,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                               color: Colors.amberAccent,
                               size: 20,
                             ),
-                            const SizedBox(width: 12),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Text(
                                 'Every lesson is designed to be modular. You can follow sequentially or jump directly to specific topics like map loading or joystick setup.',
@@ -205,121 +199,6 @@ class WhatTheCourseConvers extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildModuleCard(
-    BuildContext context, {
-    required String stepNumber,
-    required IconData icon,
-    required Color accentColor,
-    required String title,
-    required String description,
-  }) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E1E2C),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: accentColor.withValues(alpha: 0.3),
-              ),
-            ),
-            child: Icon(
-              icon,
-              color: accentColor,
-              size: 22,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      stepNumber,
-                      style: textTheme.labelSmall?.copyWith(
-                        color: accentColor,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: textTheme.titleMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  description,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.75),
-                    height: 1.45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChecklistItem(BuildContext context, String text) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.check_circle_rounded,
-            color: Colors.greenAccent,
-            size: 16,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.85),
-                height: 1.3,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

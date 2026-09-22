@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
@@ -78,10 +79,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
   void initState() {
     super.initState();
     _player.setPlaylistMode(PlaylistMode.single);
-    _player.open(
-      Media(widget.videoUrl),
-      play: widget.autoplay,
-    );
+    _player.open(Media(widget.videoUrl), play: widget.autoplay);
     if (widget.initialPosition != null &&
         widget.initialPosition! > Duration.zero) {
       _player.seek(widget.initialPosition!);
@@ -149,16 +147,11 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
     Widget playerWidget = AspectRatio(
       aspectRatio: 16 / 9,
       child: MaterialVideoControlsTheme(
-        normal: MaterialVideoControlsThemeData(
-          bottomButtonBar: bottomControls,
-        ),
+        normal: MaterialVideoControlsThemeData(bottomButtonBar: bottomControls),
         fullscreen: MaterialVideoControlsThemeData(
           bottomButtonBar: bottomControls,
         ),
-        child: Video(
-          controller: _controller,
-          controls: MaterialVideoControls,
-        ),
+        child: Video(controller: _controller, controls: MaterialVideoControls),
       ),
     );
 
@@ -244,9 +237,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
         decoration: BoxDecoration(
           color: const Color(0xFF1E1E2C),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Colors.blueAccent.withValues(alpha: 0.5),
-          ),
+          border: Border.all(color: Colors.blueAccent.withValues(alpha: 0.5)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.5),
@@ -308,13 +299,12 @@ class _CourseVideoModalDialogState extends State<CourseVideoModalDialog> {
     final screenSize = MediaQuery.sizeOf(context);
 
     final maxWidth = _isExpanded ? screenSize.width * 0.95 : 920.0;
-    final maxHeight =
-        _isExpanded ? screenSize.height * 0.95 : screenSize.height * 0.85;
+    final maxHeight = _isExpanded
+        ? screenSize.height * 0.95
+        : screenSize.height * 0.85;
 
     return CallbackShortcuts(
-      bindings: {
-        const SingleActivator(LogicalKeyboardKey.escape): _close,
-      },
+      bindings: {const SingleActivator(LogicalKeyboardKey.escape): _close},
       child: Focus(
         autofocus: true,
         child: Scaffold(
@@ -338,39 +328,40 @@ class _CourseVideoModalDialogState extends State<CourseVideoModalDialog> {
               Center(
                 child: Hero(
                   tag: widget.heroTag,
-                  flightShuttleBuilder: (
-                    flightContext,
-                    animation,
-                    flightDirection,
-                    fromHeroContext,
-                    toHeroContext,
-                  ) {
-                    return Material(
-                      type: MaterialType.transparency,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1E1E2C),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.blueAccent.withValues(alpha: 0.5),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.5),
-                              blurRadius: 20,
+                  flightShuttleBuilder:
+                      (
+                        flightContext,
+                        animation,
+                        flightDirection,
+                        fromHeroContext,
+                        toHeroContext,
+                      ) {
+                        return Material(
+                          type: MaterialType.transparency,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1E1E2C),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.blueAccent.withValues(alpha: 0.5),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.5),
+                                  blurRadius: 20,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.play_circle_fill_rounded,
-                            color: Colors.blueAccent,
-                            size: 48,
+                            child: const Center(
+                              child: Icon(
+                                Icons.play_circle_fill_rounded,
+                                color: Colors.blueAccent,
+                                size: 48,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     curve: Curves.easeInOut,
@@ -411,15 +402,15 @@ class _CourseVideoModalDialogState extends State<CourseVideoModalDialog> {
                                   color: Colors.blueAccent,
                                   size: 24,
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Expanded(
                                   child: Text(
                                     widget.title,
-                                    style:
-                                        theme.textTheme.titleMedium?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),

@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
+import 'package:bonfire_crash_course/presentation/widgets/milestone_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class RunApp extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            GapSizes.smallGap,
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
@@ -52,7 +53,7 @@ class RunApp extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        GapSizes.smallGap,
         Text(
           'Run the Game Application',
           style: textTheme.headlineLarge?.copyWith(
@@ -106,8 +107,9 @@ class RunApp extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.greenAccent
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.greenAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(
@@ -116,7 +118,7 @@ class RunApp extends StatelessWidget {
                                     size: 20,
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                GapSizes.mediumGap,
                                 Text(
                                   'How to Launch the Game',
                                   style: textTheme.titleMedium?.copyWith(
@@ -160,7 +162,7 @@ class RunApp extends StatelessWidget {
                                   color: Colors.white60,
                                   size: 16,
                                 ),
-                                const SizedBox(width: 8),
+                                GapSizes.smallGap,
                                 Text(
                                   'QUICK TERMINAL COMMAND',
                                   style: textTheme.labelSmall?.copyWith(
@@ -171,7 +173,7 @@ class RunApp extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
+                            GapSizes.smallGap,
                             Container(
                               width: double.infinity,
                               padding: const EdgeInsets.symmetric(
@@ -182,8 +184,9 @@ class RunApp extends StatelessWidget {
                                 color: const Color(0xFF14141E),
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                  color:
-                                      Colors.greenAccent.withValues(alpha: 0.3),
+                                  color: Colors.greenAccent.withValues(
+                                    alpha: 0.3,
+                                  ),
                                 ),
                               ),
                               child: const Text(
@@ -217,7 +220,9 @@ class RunApp extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: Colors.cyanAccent.withValues(alpha: 0.15),
+                                color: Colors.cyanAccent.withValues(
+                                  alpha: 0.15,
+                                ),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -226,7 +231,7 @@ class RunApp extends StatelessWidget {
                                 size: 22,
                               ),
                             ),
-                            const SizedBox(width: 14),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,11 +243,13 @@ class RunApp extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  GapSizes.xsGap,
                                   Text(
                                     'One of Flutter’s greatest superpowers is Stateful Hot Reload. Whenever you edit game parameters, maps, or player logic, simply save your file (Ctrl/Cmd + S) or press "r" in your terminal. Your updates appear in the running game in under 1 second without restarting or losing character position!',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color: Colors.white.withValues(alpha: 0.85),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.85,
+                                      ),
                                       height: 1.45,
                                     ),
                                   ),
@@ -290,8 +297,9 @@ class RunApp extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.greenAccent
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.greenAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(
@@ -300,7 +308,7 @@ class RunApp extends StatelessWidget {
                                     size: 18,
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -316,8 +324,9 @@ class RunApp extends StatelessWidget {
                                       Text(
                                         'Click screenshot to zoom',
                                         style: textTheme.bodySmall?.copyWith(
-                                          color: Colors.white
-                                              .withValues(alpha: 0.5),
+                                          color: Colors.white.withValues(
+                                            alpha: 0.5,
+                                          ),
                                           fontSize: 12,
                                         ),
                                       ),
@@ -358,7 +367,7 @@ class RunApp extends StatelessWidget {
                                   color: Colors.greenAccent,
                                   size: 22,
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Text(
                                   'Getting Started Complete! 🎉',
                                   style: textTheme.titleSmall?.copyWith(
@@ -377,21 +386,17 @@ class RunApp extends StatelessWidget {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            _buildMilestoneRow(
-                              context,
-                              'GitHub template repository connected',
+                            const MilestoneRow(
+                              text: 'GitHub template repository connected',
                             ),
-                            _buildMilestoneRow(
-                              context,
-                              'Cloud or local VS Code environment active',
+                            const MilestoneRow(
+                              text: 'Cloud or local VS Code environment active',
                             ),
-                            _buildMilestoneRow(
-                              context,
-                              'Flutter & Bonfire compiling smoothly',
+                            const MilestoneRow(
+                              text: 'Flutter & Bonfire compiling smoothly',
                             ),
-                            _buildMilestoneRow(
-                              context,
-                              'Hot Reload verified and functional',
+                            const MilestoneRow(
+                              text: 'Hot Reload verified and functional',
                             ),
                             GapSizes.mediumGap,
                             Container(
@@ -407,12 +412,14 @@ class RunApp extends StatelessWidget {
                                     color: Colors.greenAccent,
                                     size: 16,
                                   ),
-                                  const SizedBox(width: 8),
+                                  GapSizes.smallGap,
                                   Expanded(
                                     child: Text(
                                       'Next Unit: Map & World Building! Advance to the next lesson to import your first tilemap.',
                                       style: textTheme.bodySmall?.copyWith(
-                                        color: Colors.white.withValues(alpha: 0.9),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.9,
+                                        ),
                                         fontSize: 12,
                                       ),
                                     ),
@@ -431,33 +438,6 @@ class RunApp extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildMilestoneRow(BuildContext context, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.done_all_rounded,
-            color: Colors.greenAccent,
-            size: 16,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-                height: 1.3,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

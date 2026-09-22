@@ -2,7 +2,10 @@ import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
+import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
+import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
+import 'package:bonfire_crash_course/presentation/widgets/platform_chip.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +48,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            GapSizes.smallGap,
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
@@ -63,7 +66,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        GapSizes.smallGap,
         Text(
           'Install VS Code (Optional)',
           style: textTheme.headlineLarge?.copyWith(
@@ -110,7 +113,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                               color: Colors.cyanAccent,
                               size: 22,
                             ),
-                            const SizedBox(width: 14),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,11 +125,13 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  GapSizes.xsGap,
                                   Text(
                                     'Installing VS Code locally is not required to complete this course. If you completed Step 2 (Create a Codespace), your browser already has full VS Code running in the cloud with Flutter and Bonfire pre-installed. Only follow this page if you want to develop offline.',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color: Colors.white.withValues(alpha: 0.85),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.85,
+                                      ),
                                       height: 1.45,
                                     ),
                                   ),
@@ -171,7 +176,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                       color: Colors.white,
                                       size: 22,
                                     ),
-                                    const SizedBox(width: 10),
+                                    GapSizes.smallGap,
                                     Text(
                                       _showMacOs
                                           ? 'macOS Installation Steps'
@@ -189,19 +194,21 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                     color: Colors.black.withValues(alpha: 0.4),
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: Colors.white.withValues(alpha: 0.1),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.1,
+                                      ),
                                     ),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      _buildPlatformChip(
+                                      PlatformChip(
                                         title: 'macOS',
                                         isSelected: _showMacOs,
                                         onTap: () =>
                                             setState(() => _showMacOs = true),
                                       ),
-                                      _buildPlatformChip(
+                                      PlatformChip(
                                         title: 'Windows',
                                         isSelected: !_showMacOs,
                                         onTap: () =>
@@ -301,7 +308,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                   color: Colors.blueAccent,
                                   size: 20,
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Text(
                                   'Required Local Extensions',
                                   style: textTheme.titleSmall?.copyWith(
@@ -320,16 +327,14 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            _buildExtensionRow(
-                              context,
+                            const ExtensionRow(
                               name: 'Flutter',
                               publisher: 'flutter.dev',
                               description:
                                   'Adds Flutter debugging, run without debug, and hot reload.',
                             ),
-                            const SizedBox(height: 10),
-                            _buildExtensionRow(
-                              context,
+                            GapSizes.smallGap,
+                            const ExtensionRow(
                               name: 'Dart',
                               publisher: 'dart-code.org',
                               description:
@@ -376,8 +381,9 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.purpleAccent
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.purpleAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(
@@ -386,7 +392,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                     size: 18,
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -402,8 +408,9 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                       Text(
                                         'Click screenshot to zoom',
                                         style: textTheme.bodySmall?.copyWith(
-                                          color: Colors.white
-                                              .withValues(alpha: 0.5),
+                                          color: Colors.white.withValues(
+                                            alpha: 0.5,
+                                          ),
                                           fontSize: 12,
                                         ),
                                       ),
@@ -445,26 +452,22 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                               ),
                             ),
                             GapSizes.smallGap,
-                            _buildComparisonRow(
-                              context,
+                            const ComparisonRow(
                               label: 'Setup Time',
                               cloud: 'Instant (0 mins)',
                               local: '~15-20 mins',
                             ),
-                            _buildComparisonRow(
-                              context,
+                            const ComparisonRow(
                               label: 'Disk Space',
                               cloud: '0 GB on your PC',
                               local: '~10-15 GB SDKs',
                             ),
-                            _buildComparisonRow(
-                              context,
+                            const ComparisonRow(
                               label: 'Offline Work',
                               cloud: 'Needs internet',
                               local: 'Fully offline',
                             ),
-                            _buildComparisonRow(
-                              context,
+                            const ComparisonRow(
                               label: 'Device Specs',
                               cloud: 'Any laptop/tablet',
                               local: 'Standard PC / Mac',
@@ -480,141 +483,6 @@ class _InstallVSCodeState extends State<InstallVSCode> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildPlatformChip({
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.blueAccent.withValues(alpha: 0.35)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.white60,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            fontSize: 12,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildExtensionRow(
-    BuildContext context, {
-    required String name,
-    required String publisher,
-    required String description,
-  }) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: Colors.blueAccent.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: const Icon(
-            Icons.extension_outlined,
-            color: Colors.blueAccent,
-            size: 16,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    name,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    'by $publisher',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.white54,
-                      fontSize: 11,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 2),
-              Text(
-                description,
-                style: textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.75),
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildComparisonRow(
-    BuildContext context, {
-    required String label,
-    required String cloud,
-    required String local,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              cloud,
-              style: const TextStyle(
-                color: Colors.cyanAccent,
-                fontSize: 12,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              local,
-              style: const TextStyle(
-                color: Colors.purpleAccent,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

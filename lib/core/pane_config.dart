@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
@@ -94,7 +95,7 @@ final List<PaneInfo> panes = [
         icon: Icon(Icons.map_outlined),
         title: 'Map Finished!',
         path: '/map/congrats',
-        child: UnitCompletionPage(unitName: 'Map'),
+        child: UnitCompletionPage(unitType: UnitType.map),
       ),
     ],
   ),
@@ -115,7 +116,7 @@ final List<PaneInfo> panes = [
         icon: Icon(Icons.person_outline),
         title: 'Player Finished!',
         path: '/player/congrats',
-        child: UnitCompletionPage(unitName: 'Player'),
+        child: UnitCompletionPage(unitType: UnitType.player),
       ),
     ],
   ),
@@ -125,6 +126,6 @@ final List<PaneInfo> panes = [
     icon: Icon(Icons.check_circle),
     title: 'Bonfire Crash Course Finished!',
     path: '/congrats',
-    child: UnitCompletionPage(unitName: 'Bonfire Crash Course'),
+    child: UnitCompletionPage(unitType: UnitType.bonfireCrashCourse),
   ),
 ];

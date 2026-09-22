@@ -1,5 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/lotties/flutter_lottie.dart';
+import 'package:bonfire_crash_course/presentation/widgets/benefit_item.dart';
+import 'package:bonfire_crash_course/presentation/widgets/requirement_card.dart';
 import 'package:flutter/material.dart';
 
 class WhatYouWillNeed extends StatelessWidget {
@@ -33,13 +35,12 @@ class WhatYouWillNeed extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Left Column: Requirements List
-                Expanded(
+                const Expanded(
                   flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildRequirementCard(
-                        context,
+                      RequirementCard(
                         icon: Icons.account_circle_rounded,
                         accentColor: Colors.blueAccent,
                         badge: 'REQUIRED',
@@ -48,8 +49,7 @@ class WhatYouWillNeed extends StatelessWidget {
                             'You will need a GitHub account to access the course repository, fork the game starter template, and launch your cloud development workspace.',
                       ),
                       GapSizes.mediumGap,
-                      _buildRequirementCard(
-                        context,
+                      RequirementCard(
                         icon: Icons.language_rounded,
                         accentColor: Colors.cyanAccent,
                         badge: 'REQUIRED',
@@ -58,8 +58,7 @@ class WhatYouWillNeed extends StatelessWidget {
                             'Chrome, Microsoft Edge, Brave, Safari, or Firefox. GitHub Codespaces runs full Visual Studio Code directly inside your browser tab with zero local installation.',
                       ),
                       GapSizes.mediumGap,
-                      _buildRequirementCard(
-                        context,
+                      RequirementCard(
                         icon: Icons.code_rounded,
                         accentColor: Colors.amberAccent,
                         badge: 'RECOMMENDED',
@@ -68,8 +67,7 @@ class WhatYouWillNeed extends StatelessWidget {
                             'Comfort with foundational Dart syntax (functions, classes, async) and Flutter widgets is helpful. No previous game development experience is required.',
                       ),
                       GapSizes.mediumGap,
-                      _buildRequirementCard(
-                        context,
+                      RequirementCard(
                         icon: Icons.wifi_rounded,
                         accentColor: Colors.greenAccent,
                         badge: 'REQUIRED',
@@ -78,8 +76,7 @@ class WhatYouWillNeed extends StatelessWidget {
                             'A stable internet connection to run Codespaces in the cloud, download game sprite assets, and stream course video walkthroughs.',
                       ),
                       GapSizes.mediumGap,
-                      _buildRequirementCard(
-                        context,
+                      RequirementCard(
                         icon: Icons.laptop_chromebook_rounded,
                         accentColor: Colors.purpleAccent,
                         badge: 'OPTIONAL',
@@ -123,7 +120,7 @@ class WhatYouWillNeed extends StatelessWidget {
                                   color: Colors.cyanAccent,
                                   size: 24,
                                 ),
-                                const SizedBox(width: 8),
+                                GapSizes.smallGap,
                                 Text(
                                   'Zero Local Setup',
                                   style: textTheme.titleMedium?.copyWith(
@@ -142,25 +139,23 @@ class WhatYouWillNeed extends StatelessWidget {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            const Center(
-                              child: FlutterLottie(height: 150),
-                            ),
+                            const Center(child: FlutterLottie(height: 150)),
                             GapSizes.mediumGap,
-                            _buildBenefitItem(
-                              context,
-                              'Flutter & Dart pre-installed and configured',
+                            const BenefitItem(
+                              text:
+                                  'Flutter & Dart pre-installed and configured',
                             ),
-                            _buildBenefitItem(
-                              context,
-                              'All game sprite assets and dependencies ready',
+                            const BenefitItem(
+                              text:
+                                  'All game sprite assets and dependencies ready',
                             ),
-                            _buildBenefitItem(
-                              context,
-                              'Runs seamlessly on Mac, Windows, Linux & Chromebooks',
+                            const BenefitItem(
+                              text:
+                                  'Runs seamlessly on Mac, Windows, Linux & Chromebooks',
                             ),
-                            _buildBenefitItem(
-                              context,
-                              'Automatic cloud saves synced to your GitHub repo',
+                            const BenefitItem(
+                              text:
+                                  'Automatic cloud saves synced to your GitHub repo',
                             ),
                           ],
                         ),
@@ -184,7 +179,7 @@ class WhatYouWillNeed extends StatelessWidget {
                               color: Colors.blueAccent,
                               size: 20,
                             ),
-                            const SizedBox(width: 12),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Text(
                                 'Next up: in the "Getting Started" section, we will walk you through creating your GitHub account and launching your codespace in just a few clicks!',
@@ -205,135 +200,6 @@ class WhatYouWillNeed extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildRequirementCard(
-    BuildContext context, {
-    required IconData icon,
-    required Color accentColor,
-    required String badge,
-    required String title,
-    required String description,
-  }) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E1E2C),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.1),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: accentColor.withValues(alpha: 0.3),
-              ),
-            ),
-            child: Icon(
-              icon,
-              color: accentColor,
-              size: 22,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        title,
-                        style: textTheme.titleMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: accentColor.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: accentColor.withValues(alpha: 0.3),
-                        ),
-                      ),
-                      child: Text(
-                        badge,
-                        style: textTheme.labelSmall?.copyWith(
-                          color: accentColor,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  description,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.75),
-                    height: 1.45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBenefitItem(BuildContext context, String text) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.check_circle_rounded,
-            color: Colors.cyanAccent,
-            size: 16,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.85),
-                height: 1.3,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

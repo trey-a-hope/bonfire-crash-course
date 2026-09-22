@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
+import 'package:bonfire_crash_course/presentation/widgets/benefit_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -147,7 +148,7 @@ class CreateAccountOnGithub extends StatelessWidget {
                                   color: Colors.blueAccent,
                                   size: 24,
                                 ),
-                                const SizedBox(width: 8),
+                                GapSizes.smallGap,
                                 Text(
                                   'Free Developer Tier',
                                   style: textTheme.titleMedium?.copyWith(
@@ -166,8 +167,7 @@ class CreateAccountOnGithub extends StatelessWidget {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            _buildBenefitRow(
-                              context,
+                            const BenefitRow(
                               icon: Icons.access_time_filled_rounded,
                               accentColor: Colors.blueAccent,
                               title: '60 Free Codespace Hours',
@@ -175,8 +175,7 @@ class CreateAccountOnGithub extends StatelessWidget {
                                   'Per month on a 2-core cloud machine—far more than needed for this course.',
                             ),
                             GapSizes.smallGap,
-                            _buildBenefitRow(
-                              context,
+                            const BenefitRow(
                               icon: Icons.cloud_sync_rounded,
                               accentColor: Colors.greenAccent,
                               title: 'Automatic Cloud Backup',
@@ -184,8 +183,7 @@ class CreateAccountOnGithub extends StatelessWidget {
                                   'Every line of code and custom map asset is safely backed up to your repo.',
                             ),
                             GapSizes.smallGap,
-                            _buildBenefitRow(
-                              context,
+                            const BenefitRow(
                               icon: Icons.devices_rounded,
                               accentColor: Colors.purpleAccent,
                               title: 'Code From Any Device',
@@ -214,7 +212,7 @@ class CreateAccountOnGithub extends StatelessWidget {
                               color: Colors.cyanAccent,
                               size: 20,
                             ),
-                            const SizedBox(width: 12),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,12 +224,13 @@ class CreateAccountOnGithub extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  GapSizes.xsGap,
                                   Text(
                                     'If you already have a GitHub account, you are all set! You can proceed directly to the next lesson: "Create a Codespace".',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color:
-                                          Colors.white.withValues(alpha: 0.75),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.75,
+                                      ),
                                       height: 1.4,
                                     ),
                                   ),
@@ -249,61 +248,6 @@ class CreateAccountOnGithub extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildBenefitRow(
-    BuildContext context, {
-    required IconData icon,
-    required Color accentColor,
-    required String title,
-    required String subtitle,
-  }) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: accentColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              icon,
-              color: accentColor,
-              size: 16,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.7),
-                    fontSize: 12,
-                    height: 1.3,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

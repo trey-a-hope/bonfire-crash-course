@@ -3,6 +3,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
+import 'package:bonfire_crash_course/presentation/widgets/screenshot_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,7 +39,7 @@ class CreateACodespace extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            GapSizes.smallGap,
             Text(
               '~2 MIN SETUP',
               style: textTheme.labelSmall?.copyWith(
@@ -49,7 +50,7 @@ class CreateACodespace extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        GapSizes.smallGap,
         Text(
           'Create a Codespace',
           style: textTheme.headlineLarge?.copyWith(
@@ -111,12 +112,14 @@ class CreateACodespace extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.blueAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
-                                      color: Colors.blueAccent
-                                          .withValues(alpha: 0.3),
+                                      color: Colors.blueAccent.withValues(
+                                        alpha: 0.3,
+                                      ),
                                     ),
                                   ),
                                   child: const Icon(
@@ -125,7 +128,7 @@ class CreateACodespace extends StatelessWidget {
                                     size: 20,
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                GapSizes.mediumGap,
                                 Text(
                                   'What is GitHub Codespaces?',
                                   style: textTheme.titleMedium?.copyWith(
@@ -166,8 +169,9 @@ class CreateACodespace extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Colors.greenAccent
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.greenAccent.withValues(
+                                      alpha: 0.15,
+                                    ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(
@@ -176,7 +180,7 @@ class CreateACodespace extends StatelessWidget {
                                     size: 20,
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                GapSizes.mediumGap,
                                 Text(
                                   'Launch Your Codespace',
                                   style: textTheme.titleMedium?.copyWith(
@@ -201,8 +205,9 @@ class CreateACodespace extends StatelessWidget {
                                   AdaptiveButton(
                                     type: AdaptiveButtonType.filled,
                                     onPressed: () async {
-                                      final uri =
-                                          Uri.parse(CODE_SPACES_TEMPLATE_URL);
+                                      final uri = Uri.parse(
+                                        CODE_SPACES_TEMPLATE_URL,
+                                      );
                                       if (await canLaunchUrl(uri)) {
                                         await launchUrl(
                                           uri,
@@ -229,12 +234,13 @@ class CreateACodespace extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                  GapSizes.smallGap,
                                   Text(
                                     'Opens GitHub in your default browser',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color:
-                                          Colors.white.withValues(alpha: 0.5),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.5,
+                                      ),
                                       fontSize: 12,
                                     ),
                                   ),
@@ -264,7 +270,7 @@ class CreateACodespace extends StatelessWidget {
                               color: Colors.amberAccent,
                               size: 20,
                             ),
-                            const SizedBox(width: 12),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,12 +282,13 @@ class CreateACodespace extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 3),
+                                  GapSizes.xsGap,
                                   Text(
                                     'The very first launch takes ~90 seconds while GitHub pulls the Docker container and downloads Flutter dependencies. Subsequent launches load in under 5 seconds!',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color:
-                                          Colors.white.withValues(alpha: 0.8),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.8,
+                                      ),
                                       height: 1.4,
                                     ),
                                   ),
@@ -327,8 +334,9 @@ class CreateACodespace extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color:
-                                    Colors.cyanAccent.withValues(alpha: 0.15),
+                                color: Colors.cyanAccent.withValues(
+                                  alpha: 0.15,
+                                ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Icon(
@@ -337,7 +345,7 @@ class CreateACodespace extends StatelessWidget {
                                 size: 18,
                               ),
                             ),
-                            const SizedBox(width: 10),
+                            GapSizes.smallGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,8 +360,9 @@ class CreateACodespace extends StatelessWidget {
                                   Text(
                                     'Click any screenshot to zoom',
                                     style: textTheme.bodySmall?.copyWith(
-                                      color:
-                                          Colors.white.withValues(alpha: 0.5),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.5,
+                                      ),
                                       fontSize: 12,
                                     ),
                                   ),
@@ -365,12 +374,11 @@ class CreateACodespace extends StatelessWidget {
                         GapSizes.mediumGap,
 
                         // Image 1
-                        _buildScreenshotHeader(
-                          context,
+                        const ScreenshotHeader(
                           step: '1',
                           title: 'Codespaces Browser Interface',
                         ),
-                        const SizedBox(height: 6),
+                        GapSizes.smallGap,
                         const HeroImage(
                           imagePath: 'assets/images/images.jpeg',
                           caption:
@@ -379,12 +387,11 @@ class CreateACodespace extends StatelessWidget {
                         GapSizes.largeGap,
 
                         // Image 2
-                        _buildScreenshotHeader(
-                          context,
+                        const ScreenshotHeader(
                           step: '2',
                           title: '\'Create a New Codespace\' Window',
                         ),
-                        const SizedBox(height: 6),
+                        GapSizes.smallGap,
                         const HeroImage(
                           imagePath: 'assets/images/getting_started/1.png',
                           caption:
@@ -393,12 +400,11 @@ class CreateACodespace extends StatelessWidget {
                         GapSizes.largeGap,
 
                         // Image 3
-                        _buildScreenshotHeader(
-                          context,
+                        const ScreenshotHeader(
                           step: '3',
                           title: 'VS Code Live & Ready',
                         ),
-                        const SizedBox(height: 6),
+                        GapSizes.smallGap,
                         const HeroImage(
                           imagePath: 'assets/images/getting_started/2.png',
                           caption:
@@ -410,49 +416,6 @@ class CreateACodespace extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildScreenshotHeader(
-    BuildContext context, {
-    required String step,
-    required String title,
-  }) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            color: Colors.blueAccent.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.blueAccent.withValues(alpha: 0.5),
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            step,
-            style: const TextStyle(
-              color: Colors.blueAccent,
-              fontSize: 11,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Text(
-            title,
-            style: textTheme.bodySmall?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
           ),
         ),
       ],

@@ -45,9 +45,7 @@ class StepsWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF1E1E2C),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.12),
-                ),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.25),
@@ -82,7 +80,7 @@ class StepsWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      GapSizes.smallGap,
                       Expanded(
                         child: Text(
                           codeStep.description,

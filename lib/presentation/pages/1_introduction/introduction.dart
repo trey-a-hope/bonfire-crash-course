@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -44,12 +45,10 @@ class _IntroductionState extends State<Introduction> {
     super.dispose();
   }
 
-  void _toggleMute() {
-    setState(() {
-      _isMuted = !_isMuted;
-      _player.setVolume(_isMuted ? 0 : 100);
-    });
-  }
+  void _toggleMute() => setState(() {
+    _isMuted = !_isMuted;
+    _player.setVolume(_isMuted ? 0 : 100);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +59,7 @@ class _IntroductionState extends State<Introduction> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.12),
-          ),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.5),
@@ -75,11 +72,7 @@ class _IntroductionState extends State<Introduction> {
           fit: StackFit.expand,
           children: [
             // Full background video without player controls
-            Video(
-              controller: _controller,
-              controls: null,
-              fit: BoxFit.cover,
-            ),
+            Video(controller: _controller, controls: null, fit: BoxFit.cover),
 
             // Dark opacity overlay to make the text pop
             Container(
@@ -129,7 +122,7 @@ class _IntroductionState extends State<Introduction> {
                             color: Colors.orangeAccent,
                             size: 16,
                           ),
-                          const SizedBox(width: 6),
+                          GapSizes.smallGap,
                           Text(
                             'FLUTTER & FLAME ENGINE',
                             style: textTheme.labelSmall?.copyWith(
@@ -141,7 +134,7 @@ class _IntroductionState extends State<Introduction> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    GapSizes.largeGap,
 
                     // Main Title
                     Text(
@@ -160,7 +153,7 @@ class _IntroductionState extends State<Introduction> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    GapSizes.mediumGap,
 
                     // Subtitle
                     ConstrainedBox(

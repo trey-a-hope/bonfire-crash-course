@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -64,7 +65,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                         size: 16,
                         color: Colors.blueAccent,
                       ),
-                      const SizedBox(width: 8),
+                      GapSizes.smallGap,
                       Text(
                         widget.fileName,
                         style: const TextStyle(
@@ -93,7 +94,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                                 ? Colors.greenAccent
                                 : Colors.white60,
                           ),
-                          const SizedBox(width: 4),
+                          GapSizes.xsGap,
                           Text(
                             _copied ? 'Copied' : 'Copy',
                             style: TextStyle(

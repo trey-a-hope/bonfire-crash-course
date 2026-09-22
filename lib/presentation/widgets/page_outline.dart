@@ -72,7 +72,7 @@ class PageOutline extends SignalWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          GapSizes.smallGap,
         ],
         Text(
           title,
@@ -140,7 +140,7 @@ class PageOutline extends SignalWidget {
                                     size: 18,
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                GapSizes.smallGap,
                                 Text(
                                   'Lesson Objective',
                                   style: textTheme.titleMedium?.copyWith(
@@ -195,7 +195,7 @@ class PageOutline extends SignalWidget {
                                     size: 18,
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                GapSizes.mediumGap,
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -208,7 +208,7 @@ class PageOutline extends SignalWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
+                                      GapSizes.xsGap,
                                       Text(
                                         concept.subtitle,
                                         style: textTheme.bodySmall?.copyWith(
@@ -269,7 +269,7 @@ class PageOutline extends SignalWidget {
                                 size: 20,
                               ),
                             ),
-                            const SizedBox(width: 14),
+                            GapSizes.mediumGap,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,7 +281,7 @@ class PageOutline extends SignalWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  GapSizes.xsGap,
                                   Text(
                                     timeToCodeStatement,
                                     style: textTheme.bodySmall?.copyWith(
@@ -346,7 +346,7 @@ class PageOutline extends SignalWidget {
                                   color: Colors.cyanAccent,
                                   size: 18,
                                 ),
-                                const SizedBox(width: 8),
+                                GapSizes.smallGap,
                                 Text(
                                   'Interactive Visual',
                                   style: textTheme.titleSmall?.copyWith(
@@ -385,7 +385,7 @@ class PageOutline extends SignalWidget {
                               color: Colors.amberAccent,
                               size: 18,
                             ),
-                            const SizedBox(width: 10),
+                            GapSizes.smallGap,
                             Expanded(
                               child: Text(
                                 'Pro-Tip: Ensure your map JSON/TMX assets are declared under the assets: section in pubspec.yaml so Bonfire can bundle and parse them properly.',

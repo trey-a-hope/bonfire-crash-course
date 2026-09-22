@@ -298,7 +298,7 @@ class EnlargedImageViewer extends StatelessWidget {
                           ),
                         ),
                         if (caption.trim().isNotEmpty) ...[
-                          const SizedBox(height: 16),
+                          GapSizes.mediumGap,
                           Container(
                             constraints: BoxConstraints(
                               maxWidth: size.width * 0.80,
@@ -383,7 +383,7 @@ class EnlargedImageViewer extends StatelessWidget {
                           size: 14,
                           color: Colors.white60,
                         ),
-                        SizedBox(width: 6),
+                        GapSizes.smallGap,
                         Text(
                           'Scroll / pinch to zoom',
                           style: TextStyle(fontSize: 12, color: Colors.white60),
