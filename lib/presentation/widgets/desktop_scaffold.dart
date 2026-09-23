@@ -4,7 +4,6 @@ import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/services/modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -206,55 +205,45 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
             // Bottom Footer: Settings
             const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Material(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(8.0),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8.0),
-                  hoverColor: Colors.white.withValues(alpha: 0.05),
-                  onTap: () => ModalService.showSheet(context),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 8.0,
+              padding: const EdgeInsetsGeometry.all(8),
+              child: Column(
+                children: [
+                  ListTile(
+                    dense: true,
+                    leading: const Icon(
+                      Icons.info_outline,
+                      color: Colors.amber,
                     ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          CupertinoIcons.settings,
-                          color: Colors.amber,
-                          size: 20.0,
-                        ),
-                        const Gap(12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Settings',
-                                style: textTheme.bodyMedium?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 13.0,
-                                ),
-                              ),
-                              Text(
-                                'Configure application settings',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: Colors.white38,
-                                  fontSize: 11.0,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    title: Text('About', style: textTheme.bodyMedium),
+                    subtitle: Text(
+                      'Version and licensing',
+                      style: textTheme.bodySmall,
+                    ),
+                    onTap: () => ModalService.showAbout(context),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: Color(0xFF26262B),
                     ),
                   ),
-                ),
+                  ListTile(
+                    dense: true,
+                    leading: const Icon(Icons.settings, color: Colors.amber),
+                    title: Text('Settings', style: textTheme.bodyMedium),
+                    subtitle: Text(
+                      'Configure application settings',
+                      style: textTheme.bodySmall,
+                    ),
+                    onTap: () => ModalService.showAlert(
+                      context,
+                      title: 'Settings',
+                      message: 'Coming soon...',
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
