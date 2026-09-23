@@ -33,6 +33,8 @@ class DesktopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO (Trey) - Remove macOS/Windows specific code and replace with a single design system.
+
     // Windows UI implementation using FluentApp
     if (PlatformResolver.isWindows) {
       return fluent.FluentApp.router(

@@ -1,5 +1,4 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_list_tile.dart';
 import 'package:bonfire_crash_course/presentation/widgets/code_snippet_card.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,13 @@ class StepsWidget extends StatelessWidget {
         // Simple Steps
         if (_type == _StepType.simple) ...[
           ...steps!.mapIndexed((index, step) {
-            return AdaptiveListTile(
-              icon: Icons.lightbulb,
-              title: 'Step ${index + 1}',
-              subtitle: step,
+            // TODO (Trey) - Remove Material here and place at the top of the app.
+            return Material(
+              child: ListTile(
+                leading: const Icon(Icons.lightbulb, color: Colors.amber),
+                title: Text('Step ${index + 1}'),
+                subtitle: Text(step),
+              ),
             );
           }),
         ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:macos_ui/macos_ui.dart' as mac;
 
+// TODO (Trey) - Remove Material here and place at the top of the app.
 class AdaptiveModalService {
   static void showSheet(BuildContext context, SheetType type) {
     if (PlatformResolver.isMacOS) {

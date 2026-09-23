@@ -122,3 +122,4 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
     initialLocation: val == widget.navigationShell.currentIndex,
   );
 }
+// TODO (Trey) - Remove Material here and place at the top of the app.
