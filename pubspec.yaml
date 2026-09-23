@@ -12,11 +12,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  fluent_ui: ^4.16.1
   flutter_dartpad: ^0.0.3
   flutter_highlight: ^0.7.0
   gap: ^3.0.1
-  macos_ui: ^2.2.2
   media_kit: ^1.2.6
   media_kit_libs_macos_video: ^1.1.4
   media_kit_video: ^2.0.1

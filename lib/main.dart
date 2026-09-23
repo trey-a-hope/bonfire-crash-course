@@ -1,8 +1,5 @@
 import 'package:bonfire_crash_course/core/app_router.dart';
-import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart' as macos;
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'presentation/services/window_service.dart';
@@ -32,39 +29,15 @@ class DesktopApp extends StatelessWidget {
   const DesktopApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO (Trey) - Remove macOS/Windows specific code and replace with a single design system.
-
-    // Windows UI implementation using FluentApp
-    if (PlatformResolver.isWindows) {
-      return fluent.FluentApp.router(
-        scrollBehavior: const MaterialScrollBehavior().copyWith(
-          scrollbars: false,
-        ),
-        debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
-        title: _title,
-        theme: fluent.FluentThemeData(
-          brightness: fluent.Brightness.dark,
-          accentColor: fluent.Colors.blue,
-        ),
-        routerConfig: appRouter,
-      );
-    }
-
-    // macOS UI implementation using MacosApp
-    return macos.MacosApp.router(
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        scrollbars: false,
-      ),
-      debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
-      title: _title,
-      theme: macos.MacosThemeData(
-        brightness: Brightness.dark,
-        accentColor: macos.AccentColor.blue,
-      ),
-      routerConfig: appRouter,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp.router(
+    scrollBehavior: const MaterialScrollBehavior().copyWith(scrollbars: false),
+    debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
+    title: _title,
+    theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
+    darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
+    themeMode: ThemeMode.dark,
+    routerConfig: appRouter,
+  );
 }
 
 /*

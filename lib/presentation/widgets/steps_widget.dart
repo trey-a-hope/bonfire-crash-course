@@ -26,16 +26,13 @@ class StepsWidget extends StatelessWidget {
       children: [
         // Simple Steps
         if (_type == _StepType.simple) ...[
-          ...steps!.mapIndexed((index, step) {
-            // TODO (Trey) - Remove Material here and place at the top of the app.
-            return Material(
-              child: ListTile(
-                leading: const Icon(Icons.lightbulb, color: Colors.amber),
-                title: Text('Step ${index + 1}'),
-                subtitle: Text(step),
-              ),
-            );
-          }),
+          ...steps!.mapIndexed(
+            (index, step) => ListTile(
+              leading: const Icon(Icons.lightbulb, color: Colors.amber),
+              title: Text('Step ${index + 1}'),
+              subtitle: Text(step),
+            ),
+          ),
         ],
 
         // Code Steps

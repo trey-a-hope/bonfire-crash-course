@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_window.dart';
+import 'package:bonfire_crash_course/presentation/widgets/desktop_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,20 +25,21 @@ final GoRouter appRouter = GoRouter(
       ),
 
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return AdaptiveWindow(navigationShell: navigationShell);
-      },
-      branches: ProgressNavigationController.navigateablePanes.map((pane) {
-        return StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: pane.path,
-              name: pane.title,
-              builder: (context, state) => pane.child!,
+      builder: (context, state, navigationShell) =>
+          DesktopScaffold(navigationShell: navigationShell),
+      branches: ProgressNavigationController.navigateablePanes
+          .map(
+            (pane) => StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: pane.path,
+                  name: pane.title,
+                  builder: (context, state) => pane.child!,
+                ),
+              ],
             ),
-          ],
-        );
-      }).toList(),
+          )
+          .toList(),
     ),
   ],
 );
