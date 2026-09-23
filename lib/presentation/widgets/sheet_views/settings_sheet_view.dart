@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
+import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/version_label.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +22,10 @@ class SettingsSheetView extends StatelessWidget {
           GapSizes.xlGap,
           const Center(child: VersionLabel()),
           GapSizes.xlGap,
-          AdaptiveButton(
-            child: const Text('Close'),
+          GlassButton(
+            title: 'Close',
             onPressed: () => Navigator.of(context).pop(),
+            prefixIconData: Icons.close_rounded,
           ),
         ],
       ),

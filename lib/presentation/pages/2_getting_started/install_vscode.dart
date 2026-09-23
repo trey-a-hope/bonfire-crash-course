@@ -1,12 +1,12 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/platform_chip.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,7 +18,7 @@ class InstallVSCode extends StatefulWidget {
 }
 
 class _InstallVSCodeState extends State<InstallVSCode> {
-  late bool _showMacOs = PlatformResolver.isMacOS;
+  late var _showMacOs = PlatformResolver.isMacOS;
 
   @override
   Widget build(BuildContext context) {
@@ -245,8 +245,13 @@ class _InstallVSCodeState extends State<InstallVSCode> {
 
                             // Download Action Button
                             Center(
-                              child: AdaptiveButton(
-                                type: AdaptiveButtonType.filled,
+                              child: GlassButton(
+                                prefixIconData: _showMacOs
+                                    ? Icons.apple
+                                    : Icons.desktop_windows_rounded,
+                                title: _showMacOs
+                                    ? 'Download for macOS'
+                                    : 'Download for Windows',
                                 onPressed: () async {
                                   final url = _showMacOs
                                       ? VSCODE_DOWNLOAD_MACOS
@@ -259,28 +264,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
                                     );
                                   }
                                 },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      _showMacOs
-                                          ? Icons.apple
-                                          : Icons.desktop_windows_rounded,
-                                      color: Colors.white,
-                                      size: 18,
-                                    ),
-                                    GapSizes.smallGap,
-                                    Text(
-                                      _showMacOs
-                                          ? 'Download for macOS'
-                                          : 'Download for Windows',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                color: Colors.tealAccent,
                               ),
                             ),
                           ],

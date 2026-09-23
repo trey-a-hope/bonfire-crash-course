@@ -1,10 +1,49 @@
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 import 'package:bonfire_crash_course/domain/models/unit_data.dart';
+import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:flutter/material.dart';
 
-enum UnitType { map, player, bonfireCrashCourse }
+enum UnitType { gettingStarted, map, player, bonfireCrashCourse }
 
 class UnitDatas {
+  static const gettingStartedUnitData = UnitData(
+    headline: 'Environment Ready!',
+    subtitle:
+        'Great start! Your development workspace is set up and ready for 2D game creation in Flutter.',
+    badgeText: 'ENVIRONMENT READY',
+    badgeIcon: Icons.terminal_rounded,
+    accentColor: Colors.lightGreenAccent,
+    achievements: [
+      MilestoneAchievement(
+        icon: Icons.code_rounded,
+        title: 'Developer Account',
+        description:
+            'Created and authenticated your GitHub workspace for cloud source control.',
+      ),
+      MilestoneAchievement(
+        icon: Icons.cloud_done_rounded,
+        title: 'Cloud Codespace',
+        description:
+            'Spun up a cloud-hosted development container configured with Flutter.',
+      ),
+      MilestoneAchievement(
+        icon: Icons.build_circle_rounded,
+        title: 'IDE Tooling',
+        description:
+            'Configured VS Code with Flutter and Dart tooling for seamless development.',
+      ),
+      MilestoneAchievement(
+        icon: Icons.play_arrow_rounded,
+        title: 'Project Bootstrapped',
+        description:
+            'Successfully launched and verified the Bonfire starter game loop.',
+      ),
+    ],
+    nextLottie: MapLottie(height: 100),
+    nextUnitTitle: 'Building the World Map',
+    nextUnitDescription:
+        'Import tilemaps, render interactive terrain, and configure dynamic parallax scenery.',
+  );
   static const bonfireCrashCourseUnitData = UnitData(
     headline: 'Crash Course Completed!',
     subtitle:
@@ -38,6 +77,7 @@ class UnitDatas {
             'Equipped with tools and patterns to launch 2D indie titles across desktop, mobile, and web.',
       ),
     ],
+    nextLottie: PlayerLottie(height: 100),
     nextUnitTitle: 'Your Next Adventure',
     nextUnitDescription:
         'Experiment with custom weapons, boss AI, sound effects, and ship your own unique game!',
@@ -75,6 +115,7 @@ class UnitDatas {
             'Configured precision hitboxes to interact with map obstacles.',
       ),
     ],
+    nextLottie: EnemyLottie(height: 100),
     nextUnitTitle: 'Enemies, Combat & NPC AI',
     nextUnitDescription:
         'Build enemy behavior trees, line-of-sight tracking, and attack mechanics.',
@@ -112,6 +153,7 @@ class UnitDatas {
             'Constructed collision obstacles to prevent characters from falling off.',
       ),
     ],
+    nextLottie: PlayerLottie(height: 100),
     nextUnitTitle: 'The Player Character',
     nextUnitDescription:
         'Configure spritesheets, idle/run animations, virtual joystick controls, and camera follow.',

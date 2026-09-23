@@ -5,5 +5,5 @@ class MapLottie extends ILottie {
 
   @override
   String get lottieUrl =>
-      'https://lottie.host/84e32075-c2d5-47b6-a41a-a029411d0f3a/fw36893c0r.json';
+      'https://lottie.host/b34fd63e-2d75-4b3d-9e66-b40b48e2c9f2/ov4uNqWrvi.json';
 }

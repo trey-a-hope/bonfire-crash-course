@@ -70,6 +70,12 @@ final List<PaneInfo> panes = [
         path: '/getting-started/run-app',
         child: RunApp(),
       ),
+      PaneInfo(
+        icon: Icon(Icons.open_in_browser_outlined),
+        title: 'Getting Started Finished!',
+        path: '/getting-started/congrats',
+        child: UnitCompletionPage(unitType: UnitType.gettingStarted),
+      ),
     ],
   ),
 

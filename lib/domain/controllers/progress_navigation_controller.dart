@@ -9,15 +9,23 @@ import 'package:flutter/material.dart';
 /// Uses [Signal] to provide reactive state management, keeping navigation elements
 /// like sidebars and next/previous page controls in sync.
 class ProgressNavigationController {
-  static void increment(StatefulNavigationShell shell) {
-    if (shell.currentIndex < screens.length - 1) {
-      shell.goBranch(shell.currentIndex + 1);
+  static void next(BuildContext context) {
+    final currentPath = GoRouterState.of(context).matchedLocation;
+    final currentIndex = navigateablePanes.indexWhere(
+      (pane) => pane.path == currentPath,
+    );
+    if (currentIndex != -1 && currentIndex < navigateablePanes.length - 1) {
+      context.go(navigateablePanes[currentIndex + 1].path);
     }
   }
 
-  static void decrement(StatefulNavigationShell shell) {
-    if (shell.currentIndex > 0) {
-      shell.goBranch(shell.currentIndex - 1);
+  static void previous(BuildContext context) {
+    final currentPath = GoRouterState.of(context).matchedLocation;
+    final currentIndex = navigateablePanes.indexWhere(
+      (pane) => pane.path == currentPath,
+    );
+    if (currentIndex > 0) {
+      context.go(navigateablePanes[currentIndex - 1].path);
     }
   }
 

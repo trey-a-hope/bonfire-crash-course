@@ -1,10 +1,10 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/screenshot_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -202,8 +202,9 @@ class CreateACodespace extends StatelessWidget {
                             Center(
                               child: Column(
                                 children: [
-                                  AdaptiveButton(
-                                    type: AdaptiveButtonType.filled,
+                                  GlassButton(
+                                    title: 'Create a Codespace',
+                                    prefixIconData: Icons.open_in_new_rounded,
                                     onPressed: () async {
                                       final uri = Uri.parse(
                                         CODE_SPACES_TEMPLATE_URL,
@@ -215,24 +216,7 @@ class CreateACodespace extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    child: const Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Icons.rocket_launch_rounded,
-                                          color: Colors.white,
-                                          size: 18,
-                                        ),
-                                        GapSizes.smallGap,
-                                        Text(
-                                          'Create a Codespace',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    color: Colors.purpleAccent,
                                   ),
                                   GapSizes.smallGap,
                                   Text(

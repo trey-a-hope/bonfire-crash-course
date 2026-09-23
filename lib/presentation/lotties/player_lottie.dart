@@ -5,5 +5,5 @@ class PlayerLottie extends ILottie {
 
   @override
   String get lottieUrl =>
-      'https://lottie.host/e71aff20-2719-4e30-b2c1-bdb7af050d11/Iwtn2z0pHh.json';
+      'https://lottie.host/c50f540f-fb14-4faa-98a4-7cf8212937b9/X6cVxVCYtR.json';
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
+import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -174,6 +176,13 @@ class _IntroductionState extends State<Introduction> {
                           ],
                         ),
                       ),
+                    ),
+                    GapSizes.mediumGap,
+                    GlassButton(
+                      title: 'Get Started',
+                      onPressed: () =>
+                          ProgressNavigationController.next(context),
+                      color: Colors.greenAccent,
                     ),
                   ],
                 ),

@@ -1,3 +1,4 @@
+import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 
@@ -8,6 +9,7 @@ class UnitData {
   final IconData badgeIcon;
   final Color accentColor;
   final List<MilestoneAchievement> achievements;
+  final ILottie nextLottie;
   final String nextUnitTitle;
   final String nextUnitDescription;
 
@@ -18,6 +20,7 @@ class UnitData {
     required this.badgeIcon,
     required this.accentColor,
     required this.achievements,
+    required this.nextLottie,
     required this.nextUnitTitle,
     required this.nextUnitDescription,
   });

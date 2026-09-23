@@ -18,6 +18,7 @@ class UnitCompletionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final unitData = switch (unitType) {
+      UnitType.gettingStarted => UnitDatas.gettingStartedUnitData,
       UnitType.map => UnitDatas.mapUnitData,
       UnitType.player => UnitDatas.playerUnitData,
       UnitType.bonfireCrashCourse => UnitDatas.bonfireCrashCourseUnitData,
@@ -226,37 +227,7 @@ class UnitCompletionPage extends StatelessWidget {
                       ),
                     ),
                     const Gap(16),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent.withValues(alpha: 0.25),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: Colors.blueAccent.withValues(alpha: 0.4),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Click Next',
-                            style: textTheme.labelMedium?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const Gap(6),
-                          const Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Colors.white,
-                            size: 16,
-                          ),
-                        ],
-                      ),
-                    ),
+                    unitData.nextLottie,
                   ],
                 ),
               ),

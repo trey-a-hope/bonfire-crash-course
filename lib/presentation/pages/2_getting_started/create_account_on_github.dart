@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/widgets/adaptive_button.dart';
 import 'package:bonfire_crash_course/presentation/widgets/benefit_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -78,8 +78,9 @@ class CreateAccountOnGithub extends StatelessWidget {
                       ),
                       GapSizes.largeGap,
                       Center(
-                        child: AdaptiveButton(
-                          type: AdaptiveButtonType.filled,
+                        child: GlassButton(
+                          title: 'Go to GitHub Sign Up',
+                          prefixIconData: Icons.open_in_new_rounded,
                           onPressed: () async {
                             final uri = Uri.parse(_githubSignupUrl);
                             if (await canLaunchUrl(uri)) {
@@ -89,27 +90,9 @@ class CreateAccountOnGithub extends StatelessWidget {
                               );
                             }
                           },
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.open_in_new_rounded,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                              GapSizes.smallGap,
-                              Text(
-                                'Go to GitHub Sign Up',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                          color: Colors.purpleAccent,
                         ),
                       ),
-                      GapSizes.largeGap,
                     ],
                   ),
                 ),

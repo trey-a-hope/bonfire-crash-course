@@ -1,6 +1,6 @@
 export 'bonfire_lottie.dart';
+export 'enemy_lottie.dart';
 export 'flutter_lottie.dart';
 export 'map_lottie.dart';
 export 'player_lottie.dart';
-export 'power_off_lottie.dart';
 export 'star_badge_lottie.dart';

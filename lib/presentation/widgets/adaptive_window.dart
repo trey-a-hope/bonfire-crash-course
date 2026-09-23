@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/extensions/pane_info_extensions.dart';
 import 'package:bonfire_crash_course/presentation/widgets/adaptive_modal_service.dart';
-import 'package:bonfire_crash_course/presentation/widgets/page_index_widget.dart';
+import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sheet_views/_sheet_views.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
 import 'package:flutter/cupertino.dart';
@@ -94,10 +94,13 @@ class _AdaptiveWindowState extends State<AdaptiveWindow> {
             child: widget.navigationShell,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 32.0),
-          child: PageIndexWidget(navigationShell: widget.navigationShell),
-        ),
+        // Hide prev/next nav on introduction page
+        if (widget.navigationShell.currentIndex > 0) ...[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 32.0),
+            child: PageNavigator(navigationShell: widget.navigationShell),
+          ),
+        ],
       ],
     );
 
