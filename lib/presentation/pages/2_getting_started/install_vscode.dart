@@ -5,6 +5,7 @@ import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/platform_chip.dart';
+import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
@@ -28,43 +29,12 @@ class _InstallVSCodeState extends State<InstallVSCode> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Step Badge & Header
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.purpleAccent.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                  color: Colors.purpleAccent.withValues(alpha: 0.35),
-                ),
-              ),
-              child: Text(
-                'GETTING STARTED • STEP 3 OF 4',
-                style: textTheme.labelSmall?.copyWith(
-                  color: Colors.purpleAccent,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-            GapSizes.smallGap,
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                'OPTIONAL LOCAL SETUP',
-                style: textTheme.labelSmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ),
-          ],
+        const StepBadgeHeader(
+          title: 'GETTING STARTED',
+          currentStep: 3,
+          totalSteps: 4,
+          color: Colors.purpleAccent,
+          extra: 'OPTIONAL LOCAL SETUP',
         ),
         GapSizes.smallGap,
         Text(
