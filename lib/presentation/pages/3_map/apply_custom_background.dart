@@ -1,22 +1,20 @@
 import 'package:bonfire_crash_course/core/constants.dart';
-import 'package:bonfire_crash_course/core/unit_datas.dart';
+import 'package:bonfire_crash_course/core/modules.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
+import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
-class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
+class ApplyCustomBackground extends StatelessWidget {
   const ApplyCustomBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return PageOutline(
-      unitName: 'Map',
+    return CodingScaffold(
+      module: Modules.MAP,
       unitStep: 2,
-      unitTotalSteps: 2,
-      color: UnitDatas.mapUnitData.accentColor,
       title: 'Apply a Custom Background',
       subtitle:
           'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
@@ -92,13 +90,8 @@ final skyAndClouds = await loadParallaxComponent(
       ],
       timeToCodeStatement:
           'Now it\'s your turn to build the atmosphere! Head over to parallax_background.dart to create your ParallaxBackground class, assemble the layered scrolling components, and plug it into your BonfireWidget.',
+      videoUrl:
+          'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
     );
   }
-
-  @override
-  String get videoUrl =>
-      'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4';
-
-  @override
-  Color get color => Colors.red.shade900;
 }

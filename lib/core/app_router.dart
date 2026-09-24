@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
-import 'package:bonfire_crash_course/presentation/widgets/desktop_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

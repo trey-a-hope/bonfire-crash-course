@@ -1,4 +1,4 @@
-import 'package:bonfire_crash_course/core/unit_datas.dart';
+import 'package:bonfire_crash_course/core/modules.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
@@ -7,7 +7,7 @@ import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_account_on_github.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/install_vscode.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/run_app.dart';
-import 'package:bonfire_crash_course/presentation/pages/unit_completion_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/player_component.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +20,16 @@ final List<PaneInfo> panes = [
     path: '/intro',
     children: [
       PaneInfo(
-        icon: Icon(Icons.home_outlined),
         title: 'Introduction',
         path: '/intro/starting',
         child: Introduction(),
       ),
       PaneInfo(
-        icon: Icon(Icons.home_outlined),
         title: 'What The Course Covers',
         path: '/intro/what-the-course-covers',
         child: WhatTheCourseConvers(),
       ),
       PaneInfo(
-        icon: Icon(Icons.home_outlined),
         title: 'What You Will Need',
         path: '/intro/what-you-will-need',
         child: WhatYouWillNeed(),
@@ -47,34 +44,29 @@ final List<PaneInfo> panes = [
     path: '/getting-started',
     children: [
       PaneInfo(
-        icon: Icon(Icons.open_in_browser_outlined),
         title: 'Create Account on Github',
         path: '/getting-started/create-account-on-github',
         child: CreateAccountOnGithub(),
       ),
       PaneInfo(
-        icon: Icon(Icons.open_in_browser_outlined),
         title: 'Create a Codespace',
         path: '/getting-started/create-a-codespace',
         child: CreateACodespace(),
       ),
       PaneInfo(
-        icon: Icon(Icons.open_in_browser_outlined),
         title: 'Install VSCode (Optional)',
         path: '/getting-started/install-vscode',
         child: InstallVSCode(),
       ),
       PaneInfo(
-        icon: Icon(Icons.open_in_browser_outlined),
         title: 'Run the App',
         path: '/getting-started/run-app',
         child: RunApp(),
       ),
       PaneInfo(
-        icon: Icon(Icons.open_in_browser_outlined),
         title: 'Getting Started Finished!',
         path: '/getting-started/congrats',
-        child: UnitCompletionPage(unitType: UnitType.gettingStarted),
+        child: ModuleCompletionPage(module: Modules.GETTING_STARTED),
       ),
     ],
   ),
@@ -86,22 +78,19 @@ final List<PaneInfo> panes = [
     path: '/map',
     children: [
       PaneInfo(
-        icon: Icon(Icons.map_outlined),
         title: 'Loading the Map',
         path: '/map/loading-the-map',
         child: LoadingTheMap(),
       ),
       PaneInfo(
-        icon: Icon(Icons.map_outlined),
         title: 'Apply a Custom Background',
         path: '/map/apply-a-custom-background',
         child: ApplyCustomBackground(),
       ),
       PaneInfo(
-        icon: Icon(Icons.map_outlined),
         title: 'Map Finished!',
         path: '/map/congrats',
-        child: UnitCompletionPage(unitType: UnitType.map),
+        child: ModuleCompletionPage(module: Modules.MAP),
       ),
     ],
   ),
@@ -113,16 +102,14 @@ final List<PaneInfo> panes = [
     path: '/player',
     children: [
       PaneInfo(
-        icon: Icon(Icons.person_outline),
         title: 'Creating the Player Component',
         path: '/player/player-component',
         child: PlayerComponentPage(),
       ),
       PaneInfo(
-        icon: Icon(Icons.person_outline),
         title: 'Player Finished!',
         path: '/player/congrats',
-        child: UnitCompletionPage(unitType: UnitType.player),
+        child: ModuleCompletionPage(module: Modules.PLAYER),
       ),
     ],
   ),
@@ -132,6 +119,6 @@ final List<PaneInfo> panes = [
     icon: Icon(Icons.check_circle),
     title: 'Bonfire Crash Course Finished!',
     path: '/congrats',
-    child: UnitCompletionPage(unitType: UnitType.bonfireCrashCourse),
+    child: ModuleCompletionPage(module: Modules.BONFIRE_CRASH_COURSE),
   ),
 ];

@@ -47,7 +47,7 @@ class StepBadgeHeader extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              extra!,
+              extra!.toUpperCase(),
               style: textTheme.labelSmall?.copyWith(
                 color: Colors.white.withValues(alpha: 0.6),
                 fontWeight: FontWeight.w600,

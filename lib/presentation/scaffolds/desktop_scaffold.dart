@@ -36,6 +36,10 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
       widget.navigationShell,
     );
     final progressFraction = (progressPercentage / 100.0).clamp(0.0, 1.0);
+    final isComplete = progressPercentage.toInt() >= 100;
+    final progressColor = isComplete
+        ? const Color(0xFFFFD700)
+        : Colors.blueAccent;
 
     // Left Sidebar
     final sidebar = SizedBox(
@@ -107,7 +111,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                       Text(
                         '${progressPercentage.toInt()}%',
                         style: textTheme.bodySmall?.copyWith(
-                          color: Colors.blueAccent,
+                          color: progressColor,
                           fontSize: 11.5,
                           fontWeight: FontWeight.bold,
                         ),
@@ -121,8 +125,8 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                       value: progressFraction,
                       minHeight: 5.0,
                       backgroundColor: Colors.white.withValues(alpha: 0.08),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Colors.blueAccent,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        progressColor,
                       ),
                     ),
                   ),
@@ -190,7 +194,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                         collapsedIconColor: Colors.white38,
                         children: [
                           for (final child in pane.children) ...[
-                            _buildChildItem(child),
+                            _buildChildItem(child, isChild: true),
                           ],
                         ],
                       );
@@ -297,14 +301,14 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
     );
   }
 
-  Widget _buildChildItem(PaneInfo pane) {
+  Widget _buildChildItem(PaneInfo pane, {bool isChild = false}) {
     final branchIndex = ProgressNavigationController.navigateablePanes.indexOf(
       pane,
     );
     final isSelected = branchIndex == widget.navigationShell.currentIndex;
 
     return SidebarItemTile(
-      icon: pane.icon,
+      icon: isChild ? null : pane.icon,
       title: pane.title,
       isSelected: isSelected,
       onTap: () {

@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
+import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
@@ -7,46 +8,57 @@ import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
-/// Interface defining lesson metadata requirements for course pages.
-mixin iPageOutline {
-  /// The remote URL of the video walkthrough for this lesson.
-  String get videoUrl;
-  Color get color;
-}
-
-/// A standardized layout structure for course lesson pages.
+/// A standardized split-pane layout scaffold for interactive coding lessons.
 ///
-/// Implements a responsive split-view desktop layout with a structured curriculum
-/// presentation (Objectives, Concepts, Code Steps, Verification) on the left,
-/// and multimedia walkthroughs (Video Player, Lottie animation, Tips) on the right.
-class PageOutline extends SignalWidget {
-  final String unitName;
-  final int unitTotalSteps;
-  final Color color;
-  // TODO (Trey) - Pass in UnitData object and remove props above.
+/// Implements a responsive desktop layout with structured curriculum
+/// presentation (Objectives, Concepts, Code Steps, Verification) on the left (flex 3),
+/// and multimedia walkthroughs (Video Player, Visual Preview, Pro-Tips) on the right (flex 2).
+class CodingScaffold extends SignalWidget {
+  /// The module metadata (module name, total steps, accent color).
+  final Module module;
+
+  /// Current step index within this module.
   final int unitStep;
+
+  /// Optional extra badge label displayed beside the step counter.
+  final String? unitExtra;
+
+  /// Main lesson title.
   final String title;
+
+  /// Optional subtitle or high-level overview.
   final String? subtitle;
+
+  /// Widget displaying the core objective of the lesson.
   final Widget objective;
+
+  /// Key conceptual breakdown cards for this lesson.
   final List<Concept> concepts;
+
+  /// Step-by-step code implementation instructions.
   final List<CodeStep> codeSteps;
+
+  /// Guidance statement and expected completion time for game verification.
   final String timeToCodeStatement;
-  final String? videoUrl;
+
+  /// URL for the embedded lesson video walkthrough.
+  final String videoUrl;
+
+  /// Optional title override for the video player header.
   final String? videoTitle;
 
-  const PageOutline({
+  const CodingScaffold({
     super.key,
-    required this.unitName,
+    required this.module,
     required this.unitStep,
-    required this.unitTotalSteps,
-    required this.color,
+    this.unitExtra,
     required this.title,
     this.subtitle,
     required this.objective,
     required this.concepts,
     required this.codeSteps,
     required this.timeToCodeStatement,
-    this.videoUrl,
+    required this.videoUrl,
     this.videoTitle,
   });
 
@@ -57,14 +69,17 @@ class PageOutline extends SignalWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Module progression badge & step tracker
         StepBadgeHeader(
-          title: unitName.toUpperCase(),
+          title: module.moduleName.toUpperCase(),
           currentStep: unitStep,
-          totalSteps: unitTotalSteps,
-          color: color,
-          extra: 'OPTIONAL LOCAL SETUP',
+          totalSteps: module.totalSteps,
+          color: module.accentColor,
+          extra: unitExtra,
         ),
         GapSizes.smallGap,
+
+        // Page title
         Text(
           title,
           style: textTheme.headlineLarge?.copyWith(
@@ -73,6 +88,8 @@ class PageOutline extends SignalWidget {
           ),
         ),
         GapSizes.smallGap,
+
+        // Optional subtitle
         if (subtitle != null) ...[
           GapSizes.xsGap,
           Text(
@@ -304,9 +321,7 @@ class PageOutline extends SignalWidget {
                     children: [
                       // Video Player Container
                       CourseVideoPlayer(
-                        videoUrl:
-                            videoUrl ??
-                            'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+                        videoUrl: videoUrl,
                         title: videoTitle ?? '$title Tutorial',
                       ),
                       GapSizes.mediumGap,

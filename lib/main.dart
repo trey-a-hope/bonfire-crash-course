@@ -23,16 +23,13 @@ Future<void> main() async {
 
 /// Root app widget that selects the design system framework (Fluent UI vs macos_ui) by platform.
 class DesktopApp extends StatelessWidget {
-  final _title = 'Bonfire Crash Course';
-  final _debugShowCheckedModeBanner = false;
-
   const DesktopApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
     scrollBehavior: const MaterialScrollBehavior().copyWith(scrollbars: false),
-    debugShowCheckedModeBanner: _debugShowCheckedModeBanner,
-    title: _title,
+    debugShowCheckedModeBanner: false,
+    title: 'Bonfire Crash Course',
     theme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
     darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
     themeMode: ThemeMode.dark,

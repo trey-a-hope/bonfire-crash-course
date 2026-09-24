@@ -1,26 +1,25 @@
 import 'package:bonfire_crash_course/core/constants.dart';
-import 'package:bonfire_crash_course/core/unit_datas.dart';
+import 'package:bonfire_crash_course/core/modules.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
+import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
-class LoadingTheMap extends StatelessWidget implements iPageOutline {
+class LoadingTheMap extends StatelessWidget {
   const LoadingTheMap({super.key});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return PageOutline(
-      unitName: 'Map',
+    return CodingScaffold(
+      module: Modules.MAP,
       unitStep: 1,
-      unitTotalSteps: 2,
-      color: UnitDatas.mapUnitData.accentColor,
       title: 'Loading the Map',
       subtitle:
           'Initialize your Bonfire game canvas and load your tilemap world in Flutter.',
-      videoUrl: videoUrl,
+      videoUrl:
+          'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
       videoTitle: 'Loading Tilemaps in Bonfire',
       objective: Text(
         'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
@@ -89,11 +88,4 @@ Widget build(BuildContext context) {
           'Open lib/presentation/screens/game_screen.dart in your Codespace or VS Code. Replace the placeholder with BonfireWidget and CameraConfig, then save the file to trigger Hot Reload. You should see your 2D tilemap rendered immediately on screen!',
     );
   }
-
-  @override
-  String get videoUrl =>
-      'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4';
-
-  @override
-  Color get color => Colors.red.shade900;
 }

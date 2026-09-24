@@ -1,28 +1,22 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/core/unit_datas.dart';
+import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/metric_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-/// A visually rewarding completion screen displayed when a user finishes a curriculum unit.
+/// A visually rewarding completion screen displayed when a user finishes a curriculum module.
 ///
 /// Features animated celebration lotties, dynamic milestone badges, unlocked skill cards,
-/// unit metrics, and a "Next Up" guidance banner.
-class UnitCompletionPage extends StatelessWidget {
-  final UnitType unitType;
+/// module metrics, and a "Next Up" guidance banner.
+class ModuleCompletionPage extends StatelessWidget {
+  final Module module;
 
-  const UnitCompletionPage({super.key, required this.unitType});
+  const ModuleCompletionPage({super.key, required this.module});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final unitData = switch (unitType) {
-      UnitType.gettingStarted => UnitDatas.gettingStartedUnitData,
-      UnitType.map => UnitDatas.mapUnitData,
-      UnitType.player => UnitDatas.playerUnitData,
-      UnitType.bonfireCrashCourse => UnitDatas.bonfireCrashCourseUnitData,
-    };
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
@@ -44,8 +38,8 @@ class UnitCompletionPage extends StatelessWidget {
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          unitData.accentColor.withValues(alpha: 0.28),
-                          unitData.accentColor.withValues(alpha: 0.08),
+                          module.accentColor.withValues(alpha: 0.28),
+                          module.accentColor.withValues(alpha: 0.08),
                           Colors.transparent,
                         ],
                       ),
@@ -67,25 +61,21 @@ class UnitCompletionPage extends StatelessWidget {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: unitData.accentColor.withValues(alpha: 0.15),
+                  color: module.accentColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: unitData.accentColor.withValues(alpha: 0.35),
+                    color: module.accentColor.withValues(alpha: 0.35),
                   ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      unitData.badgeIcon,
-                      color: unitData.accentColor,
-                      size: 15,
-                    ),
+                    Icon(module.badgeIcon, color: module.accentColor, size: 15),
                     const Gap(8),
                     Text(
-                      unitData.badgeText,
+                      module.badgeText,
                       style: textTheme.labelMedium?.copyWith(
-                        color: unitData.accentColor,
+                        color: module.accentColor,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
                       ),
@@ -97,7 +87,7 @@ class UnitCompletionPage extends StatelessWidget {
 
               // 3. Headline & Description
               Text(
-                unitData.headline,
+                module.completionHeadline,
                 textAlign: TextAlign.center,
                 style: textTheme.displaySmall?.copyWith(
                   color: Colors.white,
@@ -109,7 +99,7 @@ class UnitCompletionPage extends StatelessWidget {
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 620),
                 child: Text(
-                  unitData.subtitle,
+                  module.completionSubtitle,
                   textAlign: TextAlign.center,
                   style: textTheme.bodyLarge?.copyWith(
                     color: Colors.white.withValues(alpha: 0.8),
@@ -207,7 +197,7 @@ class UnitCompletionPage extends StatelessWidget {
                               ),
                               const Gap(6),
                               Text(
-                                unitData.nextUnitTitle,
+                                module.nextModuleTitle,
                                 style: textTheme.titleSmall?.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -217,7 +207,7 @@ class UnitCompletionPage extends StatelessWidget {
                           ),
                           const Gap(4),
                           Text(
-                            unitData.nextUnitDescription,
+                            module.nextModuleDescription,
                             style: textTheme.bodySmall?.copyWith(
                               color: Colors.white.withValues(alpha: 0.8),
                               height: 1.4,
@@ -227,7 +217,7 @@ class UnitCompletionPage extends StatelessWidget {
                       ),
                     ),
                     const Gap(16),
-                    unitData.nextLottie,
+                    module.nextLottie,
                   ],
                 ),
               ),
