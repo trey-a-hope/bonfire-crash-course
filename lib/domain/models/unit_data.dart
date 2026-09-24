@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 
+// TODO (Trey) - Change title to ModuleData.
 class UnitData {
   final String headline;
   final String subtitle;
@@ -12,7 +13,7 @@ class UnitData {
   final ILottie nextLottie;
   final String nextUnitTitle;
   final String nextUnitDescription;
-
+  // TODO (Trey) - Add unit totalSteps and unitName.
   const UnitData({
     required this.headline,
     required this.subtitle,

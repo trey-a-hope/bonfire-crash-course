@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/constants.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,15 @@ class LoadingTheMap extends StatelessWidget implements iPageOutline {
     final textTheme = Theme.of(context).textTheme;
 
     return PageOutline(
+      unitName: 'Map',
+      unitStep: 1,
+      unitTotalSteps: 2,
+      color: UnitDatas.mapUnitData.accentColor,
       title: 'Loading the Map',
-      unitBadge: 'MODULE 3 • MAP & WORLD BUILDING',
       subtitle:
           'Initialize your Bonfire game canvas and load your tilemap world in Flutter.',
       videoUrl: videoUrl,
       videoTitle: 'Loading Tilemaps in Bonfire',
-      lottie: const MapLottie(),
       objective: Text(
         'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white, height: 1.5),

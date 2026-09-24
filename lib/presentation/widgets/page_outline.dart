@@ -1,8 +1,8 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
+import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
@@ -20,10 +20,13 @@ mixin iPageOutline {
 /// presentation (Objectives, Concepts, Code Steps, Verification) on the left,
 /// and multimedia walkthroughs (Video Player, Lottie animation, Tips) on the right.
 class PageOutline extends SignalWidget {
+  final String unitName;
+  final int unitTotalSteps;
+  final Color color;
+  // TODO (Trey) - Pass in UnitData object and remove props above.
+  final int unitStep;
   final String title;
-  final String? unitBadge;
   final String? subtitle;
-  final ILottie lottie;
   final Widget objective;
   final List<Concept> concepts;
   final List<CodeStep> codeSteps;
@@ -33,10 +36,12 @@ class PageOutline extends SignalWidget {
 
   const PageOutline({
     super.key,
+    required this.unitName,
+    required this.unitStep,
+    required this.unitTotalSteps,
+    required this.color,
     required this.title,
-    this.unitBadge,
     this.subtitle,
-    required this.lottie,
     required this.objective,
     required this.concepts,
     required this.codeSteps,
@@ -52,28 +57,14 @@ class PageOutline extends SignalWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Unit Badge & Header
-        if (unitBadge != null) ...[
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.blueAccent.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: Colors.blueAccent.withValues(alpha: 0.35),
-              ),
-            ),
-            child: Text(
-              unitBadge!,
-              style: textTheme.labelSmall?.copyWith(
-                color: Colors.blueAccent,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-              ),
-            ),
-          ),
-          GapSizes.smallGap,
-        ],
+        StepBadgeHeader(
+          title: unitName.toUpperCase(),
+          currentStep: unitStep,
+          totalSteps: unitTotalSteps,
+          color: color,
+          extra: 'OPTIONAL LOCAL SETUP',
+        ),
+        GapSizes.smallGap,
         Text(
           title,
           style: textTheme.headlineLarge?.copyWith(
@@ -81,6 +72,7 @@ class PageOutline extends SignalWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        GapSizes.smallGap,
         if (subtitle != null) ...[
           GapSizes.xsGap,
           Text(

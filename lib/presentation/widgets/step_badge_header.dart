@@ -1,7 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
 
-// TODO (Trey) - Place this in other pages.
 class StepBadgeHeader extends StatelessWidget {
   final Color color;
   final String title;

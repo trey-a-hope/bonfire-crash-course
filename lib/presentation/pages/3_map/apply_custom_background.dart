@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/constants.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,13 @@ class ApplyCustomBackground extends StatelessWidget implements iPageOutline {
     final textTheme = Theme.of(context).textTheme;
 
     return PageOutline(
+      unitName: 'Map',
+      unitStep: 2,
+      unitTotalSteps: 2,
+      color: UnitDatas.mapUnitData.accentColor,
       title: 'Apply a Custom Background',
-      lottie: const MapLottie(),
+      subtitle:
+          'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
       objective: Text(
         'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using loadParallaxComponent.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),

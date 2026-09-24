@@ -1,6 +1,7 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
@@ -28,12 +29,11 @@ class _InstallVSCodeState extends State<InstallVSCode> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Step Badge & Header
-        const StepBadgeHeader(
+        StepBadgeHeader(
           title: 'GETTING STARTED',
           currentStep: 3,
           totalSteps: 4,
-          color: Colors.purpleAccent,
+          color: UnitDatas.gettingStartedUnitData.accentColor,
           extra: 'OPTIONAL LOCAL SETUP',
         ),
         GapSizes.smallGap,

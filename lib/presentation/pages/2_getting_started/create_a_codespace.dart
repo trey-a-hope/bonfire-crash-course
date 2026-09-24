@@ -1,8 +1,10 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/screenshot_header.dart';
+import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
@@ -18,39 +20,13 @@ class CreateACodespace extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Step Badge & Header
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.blueAccent.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                  color: Colors.blueAccent.withValues(alpha: 0.35),
-                ),
-              ),
-              child: Text(
-                'GETTING STARTED • STEP 2 OF 4',
-                style: textTheme.labelSmall?.copyWith(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-            GapSizes.smallGap,
-            Text(
-              '~2 MIN SETUP',
-              style: textTheme.labelSmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.5),
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-              ),
-            ),
-          ],
+        StepBadgeHeader(
+          title: 'GETTING STARTED',
+          currentStep: 2,
+          totalSteps: 4,
+          color: UnitDatas.gettingStartedUnitData.accentColor,
+          extra: '~2 MIN SETUP',
         ),
-        GapSizes.smallGap,
         Text(
           'Create a Codespace',
           style: textTheme.headlineLarge?.copyWith(

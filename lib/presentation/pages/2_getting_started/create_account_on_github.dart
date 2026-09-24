@@ -1,5 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/presentation/widgets/benefit_row.dart';
+import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,13 @@ class CreateAccountOnGithub extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        StepBadgeHeader(
+          title: 'GETTING STARTED',
+          currentStep: 1,
+          totalSteps: 4,
+          color: UnitDatas.gettingStartedUnitData.accentColor,
+          extra: '~2 MIN SETUP',
+        ),
         Text(
           'Create an Account on GitHub',
           style: textTheme.headlineLarge?.copyWith(
@@ -24,6 +33,7 @@ class CreateAccountOnGithub extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+
         GapSizes.xsGap,
         Text(
           'Set up your free GitHub account to access course templates and launch your cloud development environment.',

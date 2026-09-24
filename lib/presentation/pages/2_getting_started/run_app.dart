@@ -1,6 +1,8 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/milestone_row.dart';
+import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,44 +16,12 @@ class RunApp extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Step Badge & Header
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.greenAccent.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                  color: Colors.greenAccent.withValues(alpha: 0.35),
-                ),
-              ),
-              child: Text(
-                'GETTING STARTED • STEP 4 OF 4',
-                style: textTheme.labelSmall?.copyWith(
-                  color: Colors.greenAccent,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ),
-            GapSizes.smallGap,
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                'LAUNCH & TEST',
-                style: textTheme.labelSmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ),
-          ],
+        StepBadgeHeader(
+          title: 'GETTING STARTED',
+          currentStep: 4,
+          totalSteps: 4,
+          color: UnitDatas.gettingStartedUnitData.accentColor,
+          extra: 'LAUNCH & TEST',
         ),
         GapSizes.smallGap,
         Text(

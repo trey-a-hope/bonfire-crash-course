@@ -1,5 +1,5 @@
+import 'package:bonfire_crash_course/core/unit_datas.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
-import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_outline.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,11 @@ class PlayerComponentPage extends StatelessWidget implements iPageOutline {
     final textTheme = Theme.of(context).textTheme;
 
     return PageOutline(
+      unitName: 'Player',
+      unitStep: 1,
+      unitTotalSteps: 1,
+      color: UnitDatas.playerUnitData.accentColor,
       title: 'Creating the Player Component',
-      lottie: const PlayerLottie(),
       objective: Text(
         'Define a custom character component that extends SimplePlayer and configure its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
         style: textTheme.bodyMedium!.copyWith(color: Colors.white),
