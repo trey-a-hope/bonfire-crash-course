@@ -2,7 +2,7 @@ name: bonfire_crash_course
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 1.0.0+1
+version: 26.9.1+2
 
 environment:
   sdk: ^3.12.2
