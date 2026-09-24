@@ -42,21 +42,39 @@ DMG_PATH="$PROJECT_DIR/$APP_NAME.dmg"
 echo "APP_PATH: $APP_PATH"
 echo "DMG_PATH: $DMG_PATH"
 
+# 1. Sign the application bundle
 codesign --deep --force --verify --verbose \
   --sign "$IDENTITY" \
   --options runtime \
   "$APP_PATH"
 
+# 2. Stage the DMG contents: copy .app and create the Applications symlink
+STAGING_DIR="/tmp/dmg_staging"
+rm -rf "$STAGING_DIR"
+mkdir -p "$STAGING_DIR"
+
+cp -R "$APP_PATH" "$STAGING_DIR/"
+ln -s /Applications "$STAGING_DIR/Applications"
+
 rm -f "$DMG_PATH"
 
-# Create DMG using hdiutil instead of create-dmg
+# 3. Create the DMG from the staging directory
 hdiutil create \
   -volname "$APP_NAME" \
-  -srcfolder "$APP_PATH" \
+  -srcfolder "$STAGING_DIR" \
   -ov \
   -format UDZO \
   "$DMG_PATH"
 
+# Clean up staging area
+rm -rf "$STAGING_DIR"
+
+# 4. Sign the DMG itself (Apple best practice for notarization)
+codesign --force --verify --verbose \
+  --sign "$IDENTITY" \
+  "$DMG_PATH"
+
+# 5. Notarize and staple
 xcrun notarytool submit "$DMG_PATH" \
   --apple-id "trey.a.hope@gmail.com" \
   --team-id "AYXEVPG9Z5" \
