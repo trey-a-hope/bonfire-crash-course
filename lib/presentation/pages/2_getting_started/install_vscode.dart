@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:bonfire_crash_course/core/modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
@@ -27,7 +27,7 @@ class _InstallVSCodeState extends State<InstallVSCode> {
     final textTheme = Theme.of(context).textTheme;
 
     return InstructionsScaffold(
-      module: Modules.GETTING_STARTED,
+      module: GETTING_STARTED_MODULE,
       unitStep: 3,
       unitExtra: 'Optional Setup',
       title: 'Install VS Code',

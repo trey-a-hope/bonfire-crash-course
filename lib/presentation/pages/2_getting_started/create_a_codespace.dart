@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
@@ -18,7 +18,7 @@ class CreateACodespace extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InstructionsScaffold(
-      module: Modules.GETTING_STARTED,
+      module: GETTING_STARTED_MODULE,
       unitStep: 2,
       title: 'Create a Codespace',
       subtitle:

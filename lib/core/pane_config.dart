@@ -1,4 +1,4 @@
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
@@ -7,6 +7,7 @@ import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_account_on_github.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/install_vscode.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/run_app.dart';
+import 'package:bonfire_crash_course/presentation/pages/5_npc/npc_component.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/player_component.dart';
@@ -66,7 +67,7 @@ final List<PaneInfo> panes = [
       PaneInfo(
         title: 'Getting Started Finished!',
         path: '/getting-started/congrats',
-        child: ModuleCompletionPage(module: Modules.GETTING_STARTED),
+        child: ModuleCompletionPage(module: GETTING_STARTED_MODULE),
       ),
     ],
   ),
@@ -90,7 +91,7 @@ final List<PaneInfo> panes = [
       PaneInfo(
         title: 'Map Finished!',
         path: '/map/congrats',
-        child: ModuleCompletionPage(module: Modules.MAP),
+        child: ModuleCompletionPage(module: MAP_MODULE),
       ),
     ],
   ),
@@ -109,7 +110,26 @@ final List<PaneInfo> panes = [
       PaneInfo(
         title: 'Player Finished!',
         path: '/player/congrats',
-        child: ModuleCompletionPage(module: Modules.PLAYER),
+        child: ModuleCompletionPage(module: PLAYER_MODULE),
+      ),
+    ],
+  ),
+
+  // NPC
+  const PaneInfo(
+    icon: Icon(Icons.help),
+    title: 'NPC (Ally)',
+    path: '/npc',
+    children: [
+      PaneInfo(
+        title: 'Creating the NPC Component',
+        path: '/npc/npc-component',
+        child: NPCComponentPage(),
+      ),
+      PaneInfo(
+        title: 'NPC Finished!',
+        path: '/ally/congrats',
+        child: ModuleCompletionPage(module: NPC_MODULE),
       ),
     ],
   ),
@@ -119,6 +139,6 @@ final List<PaneInfo> panes = [
     icon: Icon(Icons.check_circle),
     title: 'Bonfire Crash Course Finished!',
     path: '/congrats',
-    child: ModuleCompletionPage(module: Modules.BONFIRE_CRASH_COURSE),
+    child: ModuleCompletionPage(module: BONFIRE_CRASH_COURSE),
   ),
 ];

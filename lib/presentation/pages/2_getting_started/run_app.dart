@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/milestone_row.dart';
@@ -14,7 +14,7 @@ class RunApp extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InstructionsScaffold(
-      module: Modules.GETTING_STARTED,
+      module: GETTING_STARTED_MODULE,
       leftPaneWidgets: [
         // Launching in Codespaces Card
         Container(

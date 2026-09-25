@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/constants.dart';
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -13,7 +13,7 @@ class ApplyCustomBackground extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return CodingScaffold(
-      module: Modules.MAP,
+      module: MAP_MODULE,
       unitStep: 2,
       title: 'Apply a Custom Background',
       subtitle:

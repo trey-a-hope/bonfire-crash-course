@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/benefit_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -17,7 +17,7 @@ class CreateAccountOnGithub extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return InstructionsScaffold(
-      module: Modules.GETTING_STARTED,
+      module: GETTING_STARTED_MODULE,
       leftPaneWidgets: [
         Text(
           'Why Do You Need a GitHub Account?',

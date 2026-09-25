@@ -1,4 +1,4 @@
-import 'package:bonfire_crash_course/core/modules.dart';
+import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -14,7 +14,7 @@ class PlayerComponentPage extends StatelessWidget {
     return CodingScaffold(
       videoUrl:
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
-      module: Modules.PLAYER,
+      module: PLAYER_MODULE,
       unitStep: 1,
       title: 'Creating the Player Component',
       objective: Text(
