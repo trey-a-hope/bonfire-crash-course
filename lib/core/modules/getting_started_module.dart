@@ -2,7 +2,7 @@ part of '_modules.dart';
 
 const GETTING_STARTED_MODULE = Module(
   moduleName: 'Getting Started',
-  totalSteps: 4,
+  totalSteps: 5,
   completionHeadline: 'Environment Ready!',
   completionSubtitle:
       'Great start! Your development workspace is set up and ready for 2D game creation in Flutter.',

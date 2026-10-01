@@ -6,6 +6,7 @@ import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_you_
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_a_codespace.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_account_on_github.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/install_vscode.dart';
+import 'package:bonfire_crash_course/presentation/pages/2_getting_started/project_file_structure.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/run_app.dart';
 import 'package:bonfire_crash_course/presentation/pages/5_npc/npc_component.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
@@ -58,6 +59,11 @@ final List<PaneInfo> panes = [
         title: 'Install VSCode (Optional)',
         path: '/getting-started/install-vscode',
         child: InstallVSCode(),
+      ),
+      PaneInfo(
+        title: 'Project File Structure',
+        path: '/getting-started/project-file-structure',
+        child: ProjectFileStructure(),
       ),
       PaneInfo(
         title: 'Run the App',

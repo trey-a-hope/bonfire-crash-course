@@ -90,7 +90,10 @@ class InstructionsScaffold extends SignalWidget {
               Expanded(
                 flex: 3,
                 child: SingleChildScrollView(
-                  child: Column(children: leftPaneWidgets),
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: leftPaneWidgets,
+                  ),
                 ),
               ),
               GapSizes.largeGap,

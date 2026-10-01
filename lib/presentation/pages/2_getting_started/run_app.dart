@@ -327,7 +327,7 @@ class RunApp extends StatelessWidget {
           ),
         ),
       ],
-      unitStep: 4,
+      unitStep: 5,
       title: 'Run the Game Application',
     );
   }
