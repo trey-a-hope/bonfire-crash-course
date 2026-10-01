@@ -3,6 +3,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/comparison_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/extension_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
@@ -33,48 +34,10 @@ class _InstallVSCodeState extends State<InstallVSCode> {
       title: 'Install VS Code',
       leftPaneWidgets: [
         // "Why is this step optional?" Callout
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: Colors.cyanAccent.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: Colors.cyanAccent.withValues(alpha: 0.25),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.cyanAccent,
-                size: 22,
-              ),
-              GapSizes.mediumGap,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Why is this step optional?',
-                      style: textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'Installing VS Code locally is not required to complete this course. If you completed Step 2 (Create a Codespace), your browser already has full VS Code running in the cloud with Flutter and Bonfire pre-installed. Only follow this page if you want to develop offline.',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.85),
-                        height: 1.45,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        AppCard.info(
+          title: 'Why is this step optional?',
+          description:
+              'Installing VS Code locally is not required to complete this course. If you completed Step 2 (Create a Codespace), your browser already has full VS Code running in the cloud with Flutter and Bonfire pre-installed. Only follow this page if you want to develop offline.',
         ),
         GapSizes.largeGap,
 

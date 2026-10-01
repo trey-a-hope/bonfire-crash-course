@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/screenshot_header.dart';
@@ -169,49 +170,10 @@ class CreateACodespace extends StatelessWidget {
         ),
         GapSizes.mediumGap,
 
-        // First-Time Launch Pro-Tip
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.amberAccent.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.amberAccent.withValues(alpha: 0.3),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.lightbulb_outline_rounded,
-                color: Colors.amberAccent,
-                size: 20,
-              ),
-              GapSizes.mediumGap,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'First-Time Build Duration',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'The very first launch takes ~90 seconds while GitHub pulls the Docker container and downloads Flutter dependencies. Subsequent launches load in under 5 seconds!',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.8),
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        AppCard.info(
+          title: 'First-Time Build Duration',
+          description:
+              'The very first launch takes ~90 seconds while GitHub pulls the Docker container and downloads Flutter dependencies. Subsequent launches load in under 5 seconds!',
         ),
         GapSizes.largeGap,
       ],

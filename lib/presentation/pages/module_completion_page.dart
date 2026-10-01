@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
-import 'package:bonfire_crash_course/presentation/widgets/metric_card.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

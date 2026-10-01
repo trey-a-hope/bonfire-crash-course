@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/lotties/flutter_lottie.dart';
 import 'package:bonfire_crash_course/presentation/widgets/benefit_item.dart';
-import 'package:bonfire_crash_course/presentation/widgets/requirement_card.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
 import 'package:flutter/material.dart';
 
 class WhatYouWillNeed extends StatelessWidget {
@@ -161,36 +161,10 @@ class WhatYouWillNeed extends StatelessWidget {
                         ),
                       ),
                       GapSizes.mediumGap,
-                      // Next Step Callout
-                      Container(
-                        padding: const EdgeInsets.all(18),
-                        decoration: BoxDecoration(
-                          color: Colors.blueAccent.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.blueAccent.withValues(alpha: 0.3),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.arrow_forward_rounded,
-                              color: Colors.blueAccent,
-                              size: 20,
-                            ),
-                            GapSizes.mediumGap,
-                            Expanded(
-                              child: Text(
-                                'Next up: in the "Getting Started" section, we will walk you through creating your GitHub account and launching your codespace in just a few clicks!',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.85),
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      AppCard.objective(
+                        title: 'Next up',
+                        description:
+                            'Next up: in the "Getting Started" section, we will walk you through creating your GitHub account and launching your codespace in just a few clicks!',
                       ),
                     ],
                   ),

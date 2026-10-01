@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
 import 'package:bonfire_crash_course/presentation/widgets/check_list_item.dart';
-import 'package:bonfire_crash_course/presentation/widgets/module_card.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
 import 'package:flutter/material.dart';
 
 class WhatTheCourseConvers extends StatelessWidget {
@@ -161,35 +161,10 @@ class WhatTheCourseConvers extends StatelessWidget {
                       ),
                       GapSizes.mediumGap,
                       // Pro Tip Card
-                      Container(
-                        padding: const EdgeInsets.all(18),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.1),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.lightbulb_outline_rounded,
-                              color: Colors.amberAccent,
-                              size: 20,
-                            ),
-                            GapSizes.mediumGap,
-                            Expanded(
-                              child: Text(
-                                'Every lesson is designed to be modular. You can follow sequentially or jump directly to specific topics like map loading or joystick setup.',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.75),
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      AppCard.info(
+                        title: 'Every lesson is modular',
+                        description:
+                            'You can follow sequentially or jump directly to specific topics like map loading or joystick setup.',
                       ),
                     ],
                   ),

@@ -9,26 +9,23 @@ class NPCComponentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return CodingScaffold(
+    return const CodingScaffold(
       videoUrl:
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
       module: NPC_MODULE,
       unitStep: 1,
       title: 'Creating the NPC Component',
-      objective: Text(
-        'Define a custom character component that extends SimplePlayer and configure its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
-      concepts: const [
+      objective:
+          'Define a custom character component that extends SimplePlayer and configure its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
+
+      concepts: [
         Concept(
           title: 'Player Component',
           subtitle:
               'A custom character component that extends SimplePlayer and configures its visual spritesheet, idle animations, and hitbox in a Bonfire game.',
         ),
       ],
-      codeSteps: const [
+      codeSteps: [
         CodeStep(
           description:
               'In your main game file, extend SimplePlayer, provide the path to your sprite sheet, and configure the animation cycle and collision box.',

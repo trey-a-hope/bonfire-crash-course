@@ -1,10 +1,12 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -30,7 +32,7 @@ class CodingScaffold extends SignalWidget {
   final String? subtitle;
 
   /// Widget displaying the core objective of the lesson.
-  final Widget objective;
+  final String objective;
 
   /// Key conceptual breakdown cards for this lesson.
   final List<Concept> concepts;
@@ -113,56 +115,9 @@ class CodingScaffold extends SignalWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Learning Objective Card
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1E1E2C),
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.12),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.25),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Colors.blueAccent.withValues(
-                                      alpha: 0.15,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Icon(
-                                    Icons.flag_rounded,
-                                    color: Colors.blueAccent,
-                                    size: 18,
-                                  ),
-                                ),
-                                GapSizes.smallGap,
-                                Text(
-                                  'Lesson Objective',
-                                  style: textTheme.titleMedium?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GapSizes.smallGap,
-                            objective,
-                          ],
-                        ),
+                      AppCard.objective(
+                        title: 'Lesson Objective',
+                        description: objective,
                       ),
                       GapSizes.largeGap,
 
@@ -176,63 +131,21 @@ class CodingScaffold extends SignalWidget {
                           ),
                         ),
                         GapSizes.smallGap,
-                        ...concepts.map(
-                          (concept) => Container(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1E1E2C),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.1),
-                              ),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    color: Colors.amberAccent.withValues(
-                                      alpha: 0.15,
+                        ...concepts.mapIndexed(
+                          (i, concept) => i == concepts.length
+                              ? AppCard.lightbulb(
+                                  title: concept.title,
+                                  description: concept.subtitle,
+                                )
+                              : Column(
+                                  children: [
+                                    AppCard.lightbulb(
+                                      title: concept.title,
+                                      description: concept.subtitle,
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Icon(
-                                    Icons.lightbulb_rounded,
-                                    color: Colors.amberAccent,
-                                    size: 18,
-                                  ),
+                                    GapSizes.smallGap,
+                                  ],
                                 ),
-                                GapSizes.mediumGap,
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        concept.title,
-                                        style: textTheme.titleSmall?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      GapSizes.xsGap,
-                                      Text(
-                                        concept.subtitle,
-                                        style: textTheme.bodySmall?.copyWith(
-                                          color: Colors.white.withValues(
-                                            alpha: 0.75,
-                                          ),
-                                          height: 1.45,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                         GapSizes.mediumGap,
                       ],
@@ -252,59 +165,9 @@ class CodingScaffold extends SignalWidget {
                       ],
 
                       // Checkpoint / Verification Card
-                      Container(
-                        padding: const EdgeInsets.all(18),
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent.withValues(alpha: 0.08),
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.greenAccent.withValues(alpha: 0.3),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.greenAccent.withValues(
-                                  alpha: 0.15,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.verified_rounded,
-                                color: Colors.greenAccent,
-                                size: 20,
-                              ),
-                            ),
-                            GapSizes.mediumGap,
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Verify in Your Running Game',
-                                    style: textTheme.titleSmall?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  GapSizes.xsGap,
-                                  Text(
-                                    timeToCodeStatement,
-                                    style: textTheme.bodySmall?.copyWith(
-                                      color: Colors.white.withValues(
-                                        alpha: 0.85,
-                                      ),
-                                      height: 1.45,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                      AppCard.action(
+                        title: 'Verify in Your Running Game',
+                        description: timeToCodeStatement,
                       ),
                       GapSizes.largeGap,
                     ],
@@ -374,36 +237,10 @@ class CodingScaffold extends SignalWidget {
                       ),
                       GapSizes.mediumGap,
 
-                      // Helpful Pro-Tip Card
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.1),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.tips_and_updates_rounded,
-                              color: Colors.amberAccent,
-                              size: 18,
-                            ),
-                            GapSizes.smallGap,
-                            Expanded(
-                              child: Text(
-                                'Pro-Tip: Ensure your map JSON/TMX assets are declared under the assets: section in pubspec.yaml so Bonfire can bundle and parse them properly.',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: Colors.white.withValues(alpha: 0.75),
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      AppCard.info(
+                        title: 'Pro-Tip',
+                        description:
+                            'Ensure your map JSON/TMX assets are declared under the assets: section in pubspec.yaml so Bonfire can bundle and parse them properly.',
                       ),
                     ],
                   ),

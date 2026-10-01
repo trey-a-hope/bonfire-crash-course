@@ -1,39 +1,42 @@
-import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
-class InfoCard extends StatelessWidget {
+class MetricCard extends StatelessWidget {
+  final IconData icon;
+  final Color color;
   final String title;
-  final String description;
+  final String subtitle;
 
-  const InfoCard({super.key, required this.title, required this.description});
+  const MetricCard({
+    super.key,
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+  });
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.cyanAccent.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.cyanAccent.withValues(alpha: 0.25)),
+        color: const Color(0xFF1E1E2C),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.cyanAccent.withValues(alpha: 0.15),
+              color: color.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.bolt_rounded,
-              color: Colors.cyanAccent,
-              size: 22,
-            ),
+            child: Icon(icon, color: color, size: 20),
           ),
-          GapSizes.mediumGap,
+          const Gap(12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,12 +48,11 @@ class InfoCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                GapSizes.xsGap,
+                const Gap(2),
                 Text(
-                  description,
+                  subtitle,
                   style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    height: 1.45,
+                    color: Colors.white.withValues(alpha: 0.65),
                   ),
                 ),
               ],

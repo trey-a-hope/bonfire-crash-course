@@ -1,103 +1,135 @@
 import 'package:flutter/material.dart';
 
 /// Pre-configured file tree widget displaying the course project structure.
-const FileTreeWidget = _FileTreeWidget(node: _projectTree);
+
+class FileTreeWidget extends StatelessWidget {
+  const FileTreeWidget({super.key, required this.onFileTapped});
+
+  final Function(FileNode node) onFileTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return _FileTreeWidget(node: _projectTree, onFileTapped: onFileTapped);
+  }
+}
 
 /// Data model representing a file or directory node in the file tree.
-class _FileNode {
+class FileNode {
   final String name;
   final bool isDirectory;
-  final List<_FileNode> children;
+  final List<FileNode> children;
+  final String? description;
 
-  const _FileNode({
+  const FileNode({
     required this.name,
     this.isDirectory = false,
     this.children = const [],
+    this.description,
   });
 }
 
 /// Project directory and file hierarchy layout.
-const _projectTree = _FileNode(
+const _projectTree = FileNode(
   name: 'bonfire_crash_course_template',
   isDirectory: true,
   children: [
-    _FileNode(
+    FileNode(
       name: 'assets',
       isDirectory: true,
       children: [
-        _FileNode(
+        FileNode(
           name: 'images',
           isDirectory: true,
           children: [
-            _FileNode(
+            FileNode(
               name: 'background',
               isDirectory: true,
               children: [
-                _FileNode(name: 'clouds.png'),
-                _FileNode(name: 'hills.png'),
-                _FileNode(name: 'mountains.png'),
-                _FileNode(name: 'sky.png'),
+                FileNode(
+                  name: 'clouds.png',
+                  description:
+                      'Clouds for the background. They are not animated.',
+                ),
+                FileNode(
+                  name: 'hills.png',
+                  description:
+                      'Hills for the background. They are not animated.',
+                ),
+                FileNode(
+                  name: 'mountains.png',
+                  description:
+                      'Mountains for the background. They are not animated.',
+                ),
+                FileNode(
+                  name: 'sky.png',
+                  description: 'Sky for the background. It is not animated.',
+                ),
               ],
             ),
-            _FileNode(name: 'map.json'),
-            _FileNode(name: 'spritesheet.png'),
+            FileNode(
+              name: 'map.json',
+              description: 'Game map for the game. It is not animated.',
+            ),
+            FileNode(
+              name: 'spritesheet.png',
+              description: 'Spritesheet for the game. It is not animated.',
+            ),
           ],
         ),
       ],
     ),
-    _FileNode(
+    FileNode(
       name: 'lib',
       isDirectory: true,
       children: [
-        _FileNode(name: 'main.dart'),
-        _FileNode(
+        FileNode(
+          name: 'main.dart',
+          description:
+              'The entry point of the application. It is where the game is initialized and the game loop is started.',
+        ),
+        FileNode(
           name: 'presentation',
           isDirectory: true,
           children: [
-            _FileNode(
+            FileNode(
               name: 'backgrounds',
               isDirectory: true,
-              children: [_FileNode(name: 'parallax_background.dart')],
+              children: [
+                FileNode(
+                  name: 'parallax_background.dart',
+                  description:
+                      'Parallax background for the game. It is not animated.',
+                ),
+              ],
             ),
-            _FileNode(
+            FileNode(
               name: 'screens',
               isDirectory: true,
-              children: [_FileNode(name: 'game_screen.dart')],
+              children: [
+                FileNode(
+                  name: 'game_screen.dart',
+                  description: 'Game screen for the game. It is not animated.',
+                ),
+              ],
             ),
           ],
         ),
       ],
     ),
-    _FileNode(
-      name: 'web',
-      isDirectory: true,
-      children: [_FileNode(name: 'index.html')],
-    ),
-    _FileNode(
-      name: '.devcontainer',
-      isDirectory: true,
-      children: [_FileNode(name: 'devcontainer.json')],
-    ),
-    _FileNode(
-      name: '.vscode',
-      isDirectory: true,
-      children: [
-        _FileNode(name: 'launch.json'),
-        _FileNode(name: 'tasks.json'),
-      ],
-    ),
-    _FileNode(name: 'devtools_options.yaml'),
-    _FileNode(name: 'pubspec.yaml'),
-    _FileNode(name: 'pubspec.lock'),
   ],
 );
 
 /// Recursive widget for rendering directory nodes and file items.
 class _FileTreeWidget extends StatelessWidget {
-  final _FileNode node;
+  final Function(FileNode node) onFileTapped;
+  final FileNode node;
   final double indent;
 
-  const _FileTreeWidget({required this.node, this.indent = 0});
+  const _FileTreeWidget({
+    required this.node,
+    this.indent = 0,
+    required this.onFileTapped,
+  });
 
   /// Maps file extensions to corresponding Flutter icons.
   IconData _getFileIcon(String filename) {
@@ -117,15 +149,18 @@ class _FileTreeWidget extends StatelessWidget {
     if (!node.isDirectory) {
       return Padding(
         padding: EdgeInsets.only(left: indent + 16.0, top: 2.0, bottom: 2.0),
-        child: Row(
-          children: [
-            Icon(_getFileIcon(node.name), size: 16, color: Colors.blueGrey),
-            const SizedBox(width: 8),
-            Text(
-              node.name,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
-            ),
-          ],
+        child: GestureDetector(
+          onTap: () => onFileTapped(node),
+          child: Row(
+            children: [
+              Icon(_getFileIcon(node.name), size: 16, color: Colors.blueGrey),
+              const SizedBox(width: 8),
+              Text(
+                node.name,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -148,7 +183,13 @@ class _FileTreeWidget extends StatelessWidget {
           ),
         ),
         children: node.children
-            .map((child) => _FileTreeWidget(node: child, indent: indent + 14.0))
+            .map(
+              (child) => _FileTreeWidget(
+                node: child,
+                indent: indent + 14.0,
+                onFileTapped: onFileTapped,
+              ),
+            )
             .toList(),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/milestone_row.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -130,56 +131,10 @@ class RunApp extends StatelessWidget {
         ),
         GapSizes.largeGap,
 
-        // Hot Reload Feature Highlight Card
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.cyanAccent.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: Colors.cyanAccent.withValues(alpha: 0.25),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.cyanAccent.withValues(alpha: 0.15),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.bolt_rounded,
-                  color: Colors.cyanAccent,
-                  size: 22,
-                ),
-              ),
-              GapSizes.mediumGap,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'The Power of Hot Reload',
-                      style: textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'One of Flutter’s greatest superpowers is Stateful Hot Reload. Whenever you edit game parameters, maps, or player logic, simply save your file (Ctrl/Cmd + S) or press "r" in your terminal. Your updates appear in the running game in under 1 second without restarting or losing character position!',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.85),
-                        height: 1.45,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        AppCard.info(
+          title: 'The Power of Hot Reload',
+          description:
+              'One of Flutter’s greatest superpowers is Stateful Hot Reload. Whenever you edit game parameters, maps, or player logic, simply save your file (Ctrl/Cmd + S) or press "r" in your terminal. Your updates appear in the running game in under 1 second without restarting or losing character position!',
         ),
         GapSizes.largeGap,
       ],

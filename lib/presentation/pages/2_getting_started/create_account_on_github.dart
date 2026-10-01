@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/modules/_modules.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/benefit_row.dart';
+import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
@@ -140,46 +141,10 @@ class CreateAccountOnGithub extends StatelessWidget {
         ),
         GapSizes.mediumGap,
         // "Already Have an Account?" Info Card
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.cyanAccent,
-                size: 20,
-              ),
-              GapSizes.mediumGap,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Already Have an Account?',
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    GapSizes.xsGap,
-                    Text(
-                      'If you already have a GitHub account, you are all set! You can proceed directly to the next lesson: "Create a Codespace".',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.75),
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        AppCard.info(
+          title: 'Already Have an Account?',
+          description:
+              'If you already have a GitHub account, you are all set! You can proceed directly to the next lesson: "Create a Codespace".',
         ),
       ],
       unitStep: 1,

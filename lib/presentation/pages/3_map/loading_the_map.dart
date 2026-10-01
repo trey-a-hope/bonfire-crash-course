@@ -10,9 +10,7 @@ class LoadingTheMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return CodingScaffold(
+    return const CodingScaffold(
       module: MAP_MODULE,
       unitStep: 1,
       title: 'Loading the Map',
@@ -21,11 +19,10 @@ class LoadingTheMap extends StatelessWidget {
       videoUrl:
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
       videoTitle: 'Loading Tilemaps in Bonfire',
-      objective: Text(
-        'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white, height: 1.5),
-      ),
-      concepts: const [
+      objective:
+          'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
+
+      concepts: [
         Concept(
           title: 'BonfireWidget Canvas',
           subtitle:
@@ -42,7 +39,7 @@ class LoadingTheMap extends StatelessWidget {
               'Configures viewport zoom levels (initialMapZoomFit) and clamps camera movement strictly to the map area (moveOnlyMapArea: true) so players cannot wander into empty space.',
         ),
       ],
-      codeSteps: const [
+      codeSteps: [
         CodeStep(
           description:
               'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',

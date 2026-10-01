@@ -10,26 +10,23 @@ class ApplyCustomBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return CodingScaffold(
+    return const CodingScaffold(
       module: MAP_MODULE,
       unitStep: 2,
       title: 'Apply a Custom Background',
       subtitle:
           'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
-      objective: Text(
-        'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using loadParallaxComponent.',
-        style: textTheme.bodyMedium!.copyWith(color: Colors.white),
-      ),
-      concepts: const [
+      objective:
+          'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using loadParallaxComponent.',
+
+      concepts: [
         Concept(
           title: 'Parallax Background',
           subtitle:
               'A background component that uses loadParallaxComponent to create an auto-scrolling atmospheric background where layered images move continuously without depending on player or camera movement.',
         ),
       ],
-      codeSteps: const [
+      codeSteps: [
         CodeStep(
           description:
               'Create a new class that extends the GameBackground class.',
