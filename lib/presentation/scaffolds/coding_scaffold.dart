@@ -165,6 +165,14 @@ class CodingScaffold extends SignalWidget {
                       ],
 
                       // Checkpoint / Verification Card
+                      Text(
+                        'Time to Code',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      GapSizes.smallGap,
                       AppCard.action(
                         title: 'Verify in Your Running Game',
                         description: timeToCodeStatement,
