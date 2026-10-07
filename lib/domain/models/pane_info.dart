@@ -23,6 +23,9 @@ class PaneInfo {
   /// Nested child navigation items grouped beneath this entry.
   final List<PaneInfo> children;
 
+  /// Whether this navigation section should be expanded by default in the sidebar.
+  final bool initiallyExpanded;
+
   /// Creates a new [PaneInfo] navigation item.
   const PaneInfo({
     this.icon,
@@ -30,6 +33,7 @@ class PaneInfo {
     this.child,
     required this.path,
     this.children = const [],
+    this.initiallyExpanded = false,
   });
 
   /// Indicates whether this item contains nested sub-items.

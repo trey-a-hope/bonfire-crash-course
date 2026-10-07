@@ -121,7 +121,8 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
 
                       return ExpansionTile(
                         key: PageStorageKey(pane.title),
-                        initiallyExpanded: true,
+                        initiallyExpanded:
+                            pane.initiallyExpanded || isAnyChildActive,
                         shape: const Border(),
                         collapsedShape: const Border(),
                         dense: true,

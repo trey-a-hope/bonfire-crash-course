@@ -1,8 +1,8 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/atom-one-dark.dart';
+import 'package:highlight/highlight.dart' show highlight, Node;
 
 /// A card widget that displays syntax-highlighted Dart code with a header bar
 /// showing the [fileName] and a button to copy [code] to the clipboard.
@@ -34,6 +34,52 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
     setState(() => _copied = true);
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) setState(() => _copied = false);
+  }
+
+  TextSpan _convertNode(Node node) {
+    final style = atomOneDarkTheme[node.className];
+    if (node.value != null) {
+      return TextSpan(text: node.value, style: style);
+    }
+    if (node.children != null) {
+      return TextSpan(
+        style: style,
+        children: node.children!.map((n) => _convertNode(n)).toList(),
+      );
+    }
+    return const TextSpan();
+  }
+
+  Widget _buildHighlightView() {
+    final code = widget.code.trim();
+    final result = highlight.parse(code, language: 'dart');
+
+    final rootStyle = TextStyle(
+      fontFamily: 'monospace',
+      fontSize: 13,
+      height: 1.5,
+      color: atomOneDarkTheme['root']?.color ?? const Color(0xffabb2bf),
+    );
+
+    final spans = <TextSpan>[];
+    if (result.nodes != null) {
+      for (final node in result.nodes!) {
+        spans.add(_convertNode(node));
+      }
+    }
+
+    return Container(
+      color:
+          atomOneDarkTheme['root']?.backgroundColor ?? const Color(0xff282c34),
+      padding: const EdgeInsets.all(16),
+      width: double.infinity,
+      child: SelectableText.rich(
+        TextSpan(
+          style: rootStyle,
+          children: spans,
+        ),
+      ),
+    );
   }
 
   @override
@@ -112,17 +158,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
               ),
             ),
             // Code Area: Syntax-highlighted Dart source code
-            HighlightView(
-              widget.code.trim(),
-              language: 'dart',
-              theme: atomOneDarkTheme,
-              padding: const EdgeInsets.all(16),
-              textStyle: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13,
-                height: 1.5,
-              ),
-            ),
+            _buildHighlightView(),
           ],
         ),
       ),
