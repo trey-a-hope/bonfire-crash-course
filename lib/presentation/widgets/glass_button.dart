@@ -1,5 +1,5 @@
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 class GlassButton extends StatelessWidget {
   final String title;
@@ -37,7 +37,7 @@ class GlassButton extends StatelessWidget {
             children: [
               if (prefixIconData != null) ...[
                 Icon(prefixIconData, color: Colors.white, size: 16),
-                const Gap(6),
+                GapSizes.smallGap,
               ],
               Text(
                 title,
@@ -47,7 +47,7 @@ class GlassButton extends StatelessWidget {
                 ),
               ),
               if (suffixIconData != null) ...[
-                const Gap(6),
+                GapSizes.smallGap,
                 Icon(suffixIconData, color: Colors.white, size: 16),
               ],
             ],

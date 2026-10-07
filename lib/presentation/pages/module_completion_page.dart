@@ -3,7 +3,6 @@ import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 /// A visually rewarding completion screen displayed when a user finishes a curriculum module.
 ///
@@ -71,7 +70,7 @@ class ModuleCompletionPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(module.badgeIcon, color: module.accentColor, size: 15),
-                    const Gap(8),
+                    GapSizes.smallGap,
                     Text(
                       module.badgeText,
                       style: textTheme.labelMedium?.copyWith(
@@ -95,7 +94,7 @@ class ModuleCompletionPage extends StatelessWidget {
                   letterSpacing: -0.5,
                 ),
               ),
-              const Gap(10),
+              GapSizes.smallGap,
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 620),
                 child: Text(
@@ -120,7 +119,7 @@ class ModuleCompletionPage extends StatelessWidget {
                       subtitle: 'All checkpoints passed',
                     ),
                   ),
-                  Gap(14),
+                  GapSizes.mediumGap,
                   Expanded(
                     child: MetricCard(
                       icon: Icons.workspace_premium_rounded,
@@ -129,7 +128,7 @@ class ModuleCompletionPage extends StatelessWidget {
                       subtitle: 'Skill badge earned',
                     ),
                   ),
-                  Gap(14),
+                  GapSizes.mediumGap,
                   Expanded(
                     child: MetricCard(
                       icon: Icons.sports_esports_rounded,
@@ -174,7 +173,7 @@ class ModuleCompletionPage extends StatelessWidget {
                         size: 24,
                       ),
                     ),
-                    const Gap(16),
+                    GapSizes.mediumGap,
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,13 +188,13 @@ class ModuleCompletionPage extends StatelessWidget {
                                   letterSpacing: 1.2,
                                 ),
                               ),
-                              const Gap(8),
+                              GapSizes.smallGap,
                               const Icon(
                                 Icons.arrow_forward_rounded,
                                 color: Colors.blueAccent,
                                 size: 14,
                               ),
-                              const Gap(6),
+                              GapSizes.xsGap,
                               Text(
                                 module.nextModuleTitle,
                                 style: textTheme.titleSmall?.copyWith(
@@ -205,7 +204,7 @@ class ModuleCompletionPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Gap(4),
+                          GapSizes.xsGap,
                           Text(
                             module.nextModuleDescription,
                             style: textTheme.bodySmall?.copyWith(
@@ -216,7 +215,7 @@ class ModuleCompletionPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Gap(16),
+                    GapSizes.mediumGap,
                     module.nextLottie,
                   ],
                 ),

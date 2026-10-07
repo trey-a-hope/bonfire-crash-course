@@ -1,11 +1,10 @@
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/services/modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -71,7 +70,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                           size: 20.0,
                         ),
                       ),
-                      const Gap(12),
+                      GapSizes.smallGap,
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,40 +94,6 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                         ),
                       ),
                     ],
-                  ),
-                  const Gap(16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Progress',
-                        style: textTheme.bodySmall?.copyWith(
-                          color: Colors.white54,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '${progressPercentage.toInt()}%',
-                        style: textTheme.bodySmall?.copyWith(
-                          color: progressColor,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(6),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4.0),
-                    child: LinearProgressIndicator(
-                      value: progressFraction,
-                      minHeight: 5.0,
-                      backgroundColor: Colors.white.withValues(alpha: 0.08),
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        progressColor,
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -209,42 +174,38 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
             // Bottom Footer: Settings
             const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
             Padding(
-              padding: const EdgeInsetsGeometry.all(8),
+              padding: const EdgeInsetsGeometry.all(16),
               child: Column(
                 children: [
-                  ListTile(
-                    dense: true,
-                    leading: const Icon(
-                      Icons.info_outline,
-                      color: Colors.amber,
-                    ),
-                    title: Text('About', style: textTheme.bodyMedium),
-                    subtitle: Text(
-                      'Version and licensing',
-                      style: textTheme.bodySmall,
-                    ),
-                    onTap: () => ModalService.showAbout(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Progress',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: Colors.white54,
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        '${progressPercentage.toInt()}%',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: progressColor,
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Color(0xFF26262B),
-                    ),
-                  ),
-                  ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.settings, color: Colors.amber),
-                    title: Text('Settings', style: textTheme.bodyMedium),
-                    subtitle: Text(
-                      'Configure application settings',
-                      style: textTheme.bodySmall,
-                    ),
-                    onTap: () => ModalService.showAlert(
-                      context,
-                      title: 'Settings',
-                      message: 'Coming soon...',
+                  GapSizes.xsGap,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4.0),
+                    child: LinearProgressIndicator(
+                      value: progressFraction,
+                      minHeight: 5.0,
+                      backgroundColor: Colors.white.withValues(alpha: 0.08),
+                      valueColor: AlwaysStoppedAnimation<Color>(progressColor),
                     ),
                   ),
                 ],

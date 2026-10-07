@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
+import 'package:bonfire_crash_course/presentation/services/modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
@@ -16,7 +17,6 @@ class Introduction extends StatefulWidget {
 class _IntroductionState extends State<Introduction> {
   final _player = Player();
   late final _controller = VideoController(_player);
-  bool _isMuted = true;
   StreamSubscription? _errorSubscription;
 
   static const String _localVideoPath = 'asset:///assets/videos/flight.mp4';
@@ -46,11 +46,6 @@ class _IntroductionState extends State<Introduction> {
     _player.dispose();
     super.dispose();
   }
-
-  void _toggleMute() => setState(() {
-    _isMuted = !_isMuted;
-    _player.setVolume(_isMuted ? 0 : 100);
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +150,7 @@ class _IntroductionState extends State<Introduction> {
                         ],
                       ),
                     ),
-                    GapSizes.mediumGap,
+                    GapSizes.smallGap,
 
                     // Subtitle
                     ConstrainedBox(
@@ -198,15 +193,32 @@ class _IntroductionState extends State<Introduction> {
                 shape: const CircleBorder(),
                 clipBehavior: Clip.antiAlias,
                 child: IconButton(
-                  icon: Icon(
-                    _isMuted
-                        ? Icons.volume_off_rounded
-                        : Icons.volume_up_rounded,
+                  icon: const Icon(Icons.info, color: Colors.white, size: 20),
+                  tooltip: 'About',
+                  onPressed: () => ModalService.showAbout(context),
+                ),
+              ),
+            ),
+
+            Positioned(
+              bottom: 20,
+              right: 60,
+              child: Material(
+                color: Colors.black.withValues(alpha: 0.5),
+                shape: const CircleBorder(),
+                clipBehavior: Clip.antiAlias,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.settings,
                     color: Colors.white,
                     size: 20,
                   ),
-                  tooltip: _isMuted ? 'Unmute' : 'Mute',
-                  onPressed: _toggleMute,
+                  tooltip: 'Settings',
+                  onPressed: () => ModalService.showAlert(
+                    context,
+                    title: 'Settings',
+                    message: 'Coming soon...',
+                  ),
                 ),
               ),
             ),

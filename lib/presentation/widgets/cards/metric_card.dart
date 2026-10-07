@@ -1,5 +1,5 @@
+import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 class MetricCard extends StatelessWidget {
   final IconData icon;
@@ -36,7 +36,7 @@ class MetricCard extends StatelessWidget {
             ),
             child: Icon(icon, color: color, size: 20),
           ),
-          const Gap(12),
+          GapSizes.smallGap,
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +48,7 @@ class MetricCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Gap(2),
+                GapSizes.xsGap,
                 Text(
                   subtitle,
                   style: textTheme.bodySmall?.copyWith(
