@@ -1,4 +1,4 @@
-import 'package:bonfire_crash_course/core/modules/_modules.dart';
+import 'npc_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';

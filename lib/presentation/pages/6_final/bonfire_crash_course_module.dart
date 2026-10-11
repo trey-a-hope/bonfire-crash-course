@@ -1,4 +1,7 @@
-part of '_modules.dart';
+import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
+import 'package:bonfire_crash_course/domain/models/module.dart';
+import 'package:bonfire_crash_course/presentation/lotties/player_lottie.dart';
+import 'package:flutter/material.dart';
 
 const BONFIRE_CRASH_COURSE = Module(
   totalSteps: 4,

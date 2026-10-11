@@ -1,8 +1,11 @@
-part of '_modules.dart';
+import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
+import 'package:bonfire_crash_course/domain/models/module.dart';
+import 'package:bonfire_crash_course/presentation/lotties/player_lottie.dart';
+import 'package:flutter/material.dart';
 
 const MAP_MODULE = Module(
   moduleName: 'Map',
-  totalSteps: 4,
+  totalSteps: 2,
   completionHeadline: 'Map & World Complete!',
   completionSubtitle:
       'You successfully loaded a 2D tilemap, added animated parallax backgrounds, and configured viewport boundaries.',

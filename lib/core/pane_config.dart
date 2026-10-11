@@ -1,17 +1,11 @@
-import 'package:bonfire_crash_course/core/modules/_modules.dart';
+import 'package:bonfire_crash_course/presentation/pages/6_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/pages/1_introduction/introduction.dart';
-import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
-import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_you_will_need.dart';
-import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_a_codespace.dart';
-import 'package:bonfire_crash_course/presentation/pages/2_getting_started/create_account_on_github.dart';
-import 'package:bonfire_crash_course/presentation/pages/2_getting_started/install_vscode.dart';
-import 'package:bonfire_crash_course/presentation/pages/2_getting_started/project_file_structure.dart';
-import 'package:bonfire_crash_course/presentation/pages/2_getting_started/run_app.dart';
-import 'package:bonfire_crash_course/presentation/pages/5_npc/npc_component.dart';
-import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduction.dart';
+import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/player_component.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
+import 'package:bonfire_crash_course/presentation/pages/5_npc/_npc.dart';
+import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:flutter/material.dart';
 
 final List<PaneInfo> panes = [
