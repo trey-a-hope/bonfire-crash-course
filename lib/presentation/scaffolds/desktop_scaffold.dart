@@ -27,7 +27,48 @@ class DesktopScaffold extends SignalStatefulWidget {
 }
 
 /// State implementation managing desktop navigation and layout.
-class _DesktopScaffoldState extends State<DesktopScaffold> {
+class _DesktopScaffoldState extends State<DesktopScaffold>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _transitionController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+  int _lastIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    _transitionController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 250),
+    );
+    final curved = CurvedAnimation(
+      parent: _transitionController,
+      curve: Curves.easeOut,
+    );
+    _fadeAnimation = curved;
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.025),
+      end: Offset.zero,
+    ).animate(curved);
+    _transitionController.forward();
+    _lastIndex = widget.navigationShell.currentIndex;
+  }
+
+  @override
+  void didUpdateWidget(DesktopScaffold old) {
+    super.didUpdateWidget(old);
+    if (widget.navigationShell.currentIndex != _lastIndex) {
+      _lastIndex = widget.navigationShell.currentIndex;
+      _transitionController.forward(from: 0.0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _transitionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -223,7 +264,13 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(32.0),
-            child: widget.navigationShell,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: widget.navigationShell,
+              ),
+            ),
           ),
         ),
         // Hide prev/next nav on introduction page
