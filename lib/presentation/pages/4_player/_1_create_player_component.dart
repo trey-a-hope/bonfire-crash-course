@@ -78,6 +78,20 @@ static Future<SpriteAnimation> _loadAnimation(
 }         
 ''',
         ),
+
+        CodeStep(
+          description:
+              'Add constant fields to store the file paths of the animation sprite sheets.',
+          fileName: DART_FILE_SHARK_PLAYER,
+          codeSnippet: '''
+  // Sprite sheet paths, relative to assets/images/.
+  // Each sheet is one row of 4 frames, 32x32 pixels each.
+  static const _idleLeft = 'charaters/player/shark_idle_left.png';
+  static const _idleRight = 'charaters/player/shark_idle_right.png';
+  static const _walkLeft = 'charaters/player/shark_walk_left.png';
+  static const _walkRight = 'charaters/player/shark_walk_right.png';
+''',
+        ),
         CodeStep(
           description:
               'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
