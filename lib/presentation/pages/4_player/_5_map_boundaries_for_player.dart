@@ -28,7 +28,7 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Use ScreenBoundaryChecker mixin to keep the player on the map.',
+              'Add the ScreenBoundaryChecker mixin to the SharkPlayer class.',
           fileName: DART_FILE_SHARK_PLAYER,
           codeSnippet: '''
 class SharkPlayer extends Player with ScreenBoundaryChecker { ... }
@@ -36,13 +36,17 @@ class SharkPlayer extends Player with ScreenBoundaryChecker { ... }
         ),
         CodeStep(
           description:
-              'Override the onKeyboard method to handle keyboard input.',
+              'Override the update method to keep the player on the map.',
           fileName: DART_FILE_SHARK_PLAYER,
           codeSnippet: '''
+/// Called every game tick to update the player's state.
 @override
 void update(double dt) {
+  // Pause player logic and movement while a cutscene/cinematic scene is active.
   if (gameRef.sceneBuilderStatus.isRunning) return;
+  // Constrain the player to stay within the map/screen boundaries.
   checkBoundaries();
+  // Run standard PlatformPlayer animation updates.
   super.update(dt);
 }
 ''',
