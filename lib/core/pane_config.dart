@@ -105,7 +105,12 @@ final List<PaneInfo> panes = [
       PaneInfo(
         title: 'Creating the Player Component',
         path: '/player/player-component',
-        child: PlayerComponentPage(),
+        child: CreatePlayerComponentPage(),
+      ),
+      PaneInfo(
+        title: 'Apply Gravity to Player',
+        path: '/player/apply-gravity-to-player',
+        child: ApplyGravityToPlayerPage(),
       ),
       PaneInfo(
         title: 'Player Finished!',
