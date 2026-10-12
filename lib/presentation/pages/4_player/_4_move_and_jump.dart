@@ -28,6 +28,29 @@ class MoveAndJumpPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: '?',
+          fileName: DART_FILE_SHARK_PLAYER,
+          codeSnippet: '''
+static const _jumpLeft = 'charaters/player/shark_jump_left.png';
+static const _jumpRight = 'charaters/player/shark_jump_right.png';
+''',
+        ),
+
+        CodeStep(
+          description: '?',
+          fileName: DART_FILE_SHARK_PLAYER,
+          codeSnippet: '''
+jump: PlatformJumpAnimations(
+  jumpUpRight: AnimationUtils.loadAnimation(_jumpRight, amount: 6),
+  jumpDownRight:
+      AnimationUtils.loadAnimation(_jumpRight, amount: 6),
+  jumpUpLeft: AnimationUtils.loadAnimation(_jumpLeft, amount: 6),
+  jumpDownLeft: AnimationUtils.loadAnimation(_jumpLeft, amount: 6),
+),
+''',
+        ),
+
+        CodeStep(
           description:
               'Add the countJumps property to the player constructor to enable double jumping.',
           fileName: DART_FILE_SHARK_PLAYER,
