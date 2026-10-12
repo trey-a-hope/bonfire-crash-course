@@ -48,18 +48,6 @@ class ParallaxBackground extends GameBackground {
         ),
         CodeStep(
           description:
-              'Define constant image paths relative to your assets directory to keep asset references organized and reusable.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
-          codeSnippet: '''
-// Asset paths for background layers
-static const _sky = 'background/sky.png';
-static const _clouds = 'background/clouds.png';
-static const _mountains = 'background/mountains.png';
-static const _hills = 'background/hills.png';
-''',
-        ),
-        CodeStep(
-          description:
               'Declare nullable ParallaxComponent fields to hold references to your sky/clouds and mountains/hills background layers.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
@@ -88,8 +76,8 @@ void _addParallax() async {}
 // Load sky and clouds with independent horizontal motion
 _skyAndClouds = await loadParallaxComponent(
   [
-    ParallaxImageData(_sky),
-    ParallaxImageData(_clouds),
+    ParallaxImageData(SKY),
+    ParallaxImageData(CLOUDS),
   ],
   baseVelocity: Vector2(10, 0),
   velocityMultiplierDelta: Vector2(1.5, 1),
@@ -107,8 +95,8 @@ add(_skyAndClouds!);
 // Load mountains and hills attached to camera motion for depth perspective
 _mountainsAndHills = await loadCameraParallaxComponent(
   [
-    ParallaxImageData(_mountains),
-    ParallaxImageData(_hills),
+    ParallaxImageData(MOUNTAINS),
+    ParallaxImageData(HILLS),
   ],
   baseVelocity: Vector2(10, 0),
   velocityMultiplierDelta: Vector2(3, 1),
@@ -125,7 +113,7 @@ add(_mountainsAndHills!);
           codeSnippet: '''
 @override
 Future<void> onLoad() async {
-  ...
+  ...;
   _addParallax();
 }
 ''',

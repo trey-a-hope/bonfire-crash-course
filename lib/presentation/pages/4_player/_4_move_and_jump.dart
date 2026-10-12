@@ -28,24 +28,16 @@ class MoveAndJumpPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description: '?',
-          fileName: DART_FILE_SHARK_PLAYER,
-          codeSnippet: '''
-static const _jumpLeft = 'charaters/player/shark_jump_left.png';
-static const _jumpRight = 'charaters/player/shark_jump_right.png';
-''',
-        ),
-
-        CodeStep(
-          description: '?',
+          description:
+              'Configure jump animations using PlatformJumpAnimations.',
           fileName: DART_FILE_SHARK_PLAYER,
           codeSnippet: '''
 jump: PlatformJumpAnimations(
-  jumpUpRight: AnimationUtils.loadAnimation(_jumpRight, amount: 6),
+  jumpUpRight: AnimationUtils.loadAnimation(SHARK_JUMP_RIGHT, amount: 6),
   jumpDownRight:
-      AnimationUtils.loadAnimation(_jumpRight, amount: 6),
-  jumpUpLeft: AnimationUtils.loadAnimation(_jumpLeft, amount: 6),
-  jumpDownLeft: AnimationUtils.loadAnimation(_jumpLeft, amount: 6),
+      AnimationUtils.loadAnimation(SHARK_JUMP_RIGHT, amount: 6),
+  jumpUpLeft: AnimationUtils.loadAnimation(SHARK_JUMP_LEFT, amount: 6),
+  jumpDownLeft: AnimationUtils.loadAnimation(SHARK_JUMP_LEFT, amount: 6),
 ),
 ''',
         ),
@@ -55,11 +47,7 @@ jump: PlatformJumpAnimations(
               'Add the countJumps property to the player constructor to enable double jumping.',
           fileName: DART_FILE_SHARK_PLAYER,
           codeSnippet: '''
-SharkPlayer(Vector2 position)
-    : super(
-        ...,
-        countJumps: 2,
-      ) 
+countJumps: 2,
 ''',
         ),
         CodeStep(
@@ -84,7 +72,7 @@ bool onKeyboard(
         CodeStep(
           description:
               'Override the onKeyboard method to handle keyboard input.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 playerControllers: [
   // Here you enable receive keyboard interaction

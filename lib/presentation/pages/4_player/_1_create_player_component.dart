@@ -53,20 +53,6 @@ SharkPlayer(Vector2 position)
       );
 ''',
         ),
-
-        CodeStep(
-          description:
-              'Add constant fields to store the file paths of the animation sprite sheets.',
-          fileName: DART_FILE_SHARK_PLAYER,
-          codeSnippet: '''
-  // Sprite sheet paths, relative to assets/images/.
-  // Each sheet is one row of 4 frames, 32x32 pixels each.
-  static const _idleLeft = 'charaters/player/shark_idle_left.png';
-  static const _idleRight = 'charaters/player/shark_idle_right.png';
-  static const _walkLeft = 'charaters/player/shark_walk_left.png';
-  static const _walkRight = 'charaters/player/shark_walk_right.png';
-''',
-        ),
         CodeStep(
           description:
               'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
@@ -74,11 +60,11 @@ SharkPlayer(Vector2 position)
           codeSnippet: '''
 // Which animation to play for each state and direction.
 animation: PlatformAnimations(
-  runLeft: AnimationUtils.loadAnimation(_walkLeft),
-  runRight: AnimationUtils.loadAnimation(_walkRight),
+  runLeft: AnimationUtils.loadAnimation(SHARK_WALK_LEFT),
+  runRight: AnimationUtils.loadAnimation(SHARK_WALK_RIGHT),
   // Idle uses a larger stepTime so it plays slower than walking.
-  idleLeft: AnimationUtils.loadAnimation(_idleLeft, stepTime: 0.2),
-  idleRight: AnimationUtils.loadAnimation(_idleRight, stepTime: 0.2),
+  idleLeft: AnimationUtils.loadAnimation(SHARK_IDLE_LEFT, stepTime: 0.2),
+  idleRight: AnimationUtils.loadAnimation(SHARK_IDLE_RIGHT, stepTime: 0.2),
 ),   
 ''',
         ),
