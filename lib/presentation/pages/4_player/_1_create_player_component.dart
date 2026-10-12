@@ -53,31 +53,6 @@ SharkPlayer(Vector2 position)
       );
 ''',
         ),
-        CodeStep(
-          description:
-              'Add a helper method _loadAnimation to load sequenced frames from a sprite sheet into a SpriteAnimation.',
-          fileName: DART_FILE_SHARK_PLAYER,
-          codeSnippet: '''
-/// Turns a sprite sheet into a looping animation.
-///
-/// [stepTime] is how many seconds each frame stays on screen.
-static Future<SpriteAnimation> _loadAnimation(
-  String path, {
-  double stepTime = 0.1,
-}) {
-  return SpriteAnimation.load(
-    path,
-    SpriteAnimationData.sequenced(
-      // Number of frames in the sheet.
-      amount: 4,
-      stepTime: stepTime,
-      // Size of a single frame.
-      textureSize: Vector2.all(32),
-    ),
-  );
-}         
-''',
-        ),
 
         CodeStep(
           description:
@@ -99,12 +74,12 @@ static Future<SpriteAnimation> _loadAnimation(
           codeSnippet: '''
 // Which animation to play for each state and direction.
 animation: PlatformAnimations(
-  runLeft: _loadAnimation(_walkLeft),
-  runRight: _loadAnimation(_walkRight),
+  runLeft: AnimationUtils.loadAnimation(_walkLeft),
+  runRight: AnimationUtils.loadAnimation(_walkRight),
   // Idle uses a larger stepTime so it plays slower than walking.
-  idleLeft: _loadAnimation(_idleLeft, stepTime: 0.2),
-  idleRight: _loadAnimation(_idleRight, stepTime: 0.2),
-),      
+  idleLeft: AnimationUtils.loadAnimation(_idleLeft, stepTime: 0.2),
+  idleRight: AnimationUtils.loadAnimation(_idleRight, stepTime: 0.2),
+),   
 ''',
         ),
         CodeStep(
