@@ -29,17 +29,16 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Add the HandleForces mixin to the SharkPlayer class to enable applying physical forces and acceleration.',
-          fileName: DART_FILE_SHARK_PLAYER,
+              'Add the HandleForces mixin to the Hero class to enable applying physical forces and acceleration.',
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class SharkPlayer extends PlatformPlayer with HandleForces {
-}
+class Hero extends PlatformPlayer with HandleForces { }
 ''',
         ),
         CodeStep(
           description:
               'Call addForce with an AccelerationForce2D to apply downward gravity along the Y-axis.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 addForce(
   AccelerationForce2D(

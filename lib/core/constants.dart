@@ -10,7 +10,7 @@ const _CHARACTERS = '$_LIB/presentation/characters';
 /// Dart Files in Bonfire Crash Course Template
 const DART_FILE_GAME_SCREEN = '$_SCREENS/game_screen.dart';
 const DART_FILE_PARALLAX_BACKGROUND = '$_BACKGROUNDS/parallax_background.dart';
-const DART_FILE_SHARK_PLAYER = '$_CHARACTERS/player/shark_player.dart';
+const DART_FILE_CHARACTERS_HERO = '$_CHARACTERS/hero.dart';
 
 const VSCODE_DOWNLOAD_WINDOWS =
     'https://code.visualstudio.com/sha/download?build=stable&os=win32-arm64-user';

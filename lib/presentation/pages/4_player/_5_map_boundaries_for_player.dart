@@ -27,17 +27,16 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add the ScreenBoundaryChecker mixin to the SharkPlayer class.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          description: 'Add the ScreenBoundaryChecker mixin to the Hero class.',
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class SharkPlayer extends Player with ScreenBoundaryChecker { ... }
+class Hero ... with ScreenBoundaryChecker { ... }
 ''',
         ),
         CodeStep(
           description:
               'Override the update method to keep the player on the map.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 /// Called every game tick to update the player's state.
 @override

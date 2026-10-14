@@ -30,22 +30,22 @@ class CreatePlayerComponentPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Create a new class named SharkPlayer that extends PlatformPlayer to enable side-scroller movement and jumping.',
-          fileName: DART_FILE_SHARK_PLAYER,
-          codeSnippet: '''/// The playable shark character.
+              'Create a new class named Hero that extends PlatformPlayer to enable side-scroller movement and jumping.',
+          fileName: DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''/// The playable hero character.
 ///
 /// [PlatformPlayer] gives us side-scroller movement and jumping.
-class SharkPlayer extends PlatformPlayer {
+class Hero extends PlatformPlayer {
 }
 ''',
         ),
         CodeStep(
           description:
-              'Define the SharkPlayer constructor, passing the initial spawn position and frame dimensions to the superclass.',
-          fileName: DART_FILE_SHARK_PLAYER,
+              'Define the Hero constructor, passing the initial spawn position and frame dimensions to the superclass.',
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Creates the shark at [position] (in pixels from the map's top-left).
-SharkPlayer(Vector2 position)
+/// Creates the hero at [position] (in pixels from the map's top-left).
+Hero(Vector2 position)
     : super(
         position: position,
         // Size on screen; matches one 32x32 frame.
@@ -54,30 +54,35 @@ SharkPlayer(Vector2 position)
 ''',
         ),
         CodeStep(
+          description: 'Specify asset for hero class, (wizard, shark, etc.)',
+          fileName: DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''static const _asset = CharacterAsset.shark;
+''',
+        ),
+        CodeStep(
           description:
               'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Which animation to play for each state and direction.
 animation: PlatformAnimations(
-  runLeft: AnimationUtils.loadAnimation(SHARK_WALK_LEFT),
-  runRight: AnimationUtils.loadAnimation(SHARK_WALK_RIGHT),
+  runLeft: AnimationUtils.loadAnimation(_asset.runLeft),
+  runRight: AnimationUtils.loadAnimation(_asset.runRight),
   // Idle uses a larger stepTime so it plays slower than walking.
-  idleLeft: AnimationUtils.loadAnimation(SHARK_IDLE_LEFT, stepTime: 0.2),
-  idleRight: AnimationUtils.loadAnimation(SHARK_IDLE_RIGHT, stepTime: 0.2),
+  idleLeft: AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
+  idleRight: AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
 ),   
 ''',
         ),
         CodeStep(
           description:
-              'Instantiate SharkPlayer with an initial position and pass it to the player property in BonfireWidget.',
+              'Instantiate Hero with an initial position and pass it to the player property in BonfireWidget.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    ...,
-    player: SharkPlayer(Vector2(100, 100)),   
+    player: Hero(Vector2(100, 100)),
   );
 }
 ''',

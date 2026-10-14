@@ -18,7 +18,7 @@ class MoveAndJumpPage extends StatelessWidget {
       unitStep: 4,
       title: 'Move and Jump',
       objective:
-          'Move the shark left and right using the arrow keys and implement double jumping.',
+          'Move the hero left and right using the arrow keys and implement double jumping.',
       concepts: [
         Concept(
           title: 'Move and Jump',
@@ -28,16 +28,22 @@ class MoveAndJumpPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add KeyboardEventListener mixin to the hero class.',
+          fileName: DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+class Hero ... with KeyboardEventListener { ... }
+''',
+        ),
+        CodeStep(
           description:
               'Configure jump animations using PlatformJumpAnimations.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 jump: PlatformJumpAnimations(
-  jumpUpRight: AnimationUtils.loadAnimation(SHARK_JUMP_RIGHT, amount: 6),
-  jumpDownRight:
-      AnimationUtils.loadAnimation(SHARK_JUMP_RIGHT, amount: 6),
-  jumpUpLeft: AnimationUtils.loadAnimation(SHARK_JUMP_LEFT, amount: 6),
-  jumpDownLeft: AnimationUtils.loadAnimation(SHARK_JUMP_LEFT, amount: 6),
+  jumpUpRight: AnimationUtils.loadAnimation(_asset.jumpRight, amount: 6),
+  jumpDownRight: AnimationUtils.loadAnimation(_asset.jumpRight, amount: 6),
+  jumpUpLeft: AnimationUtils.loadAnimation(_asset.jumpLeft, amount: 6),
+  jumpDownLeft: AnimationUtils.loadAnimation(_asset.jumpLeft, amount: 6),
 ),
 ''',
         ),
@@ -45,7 +51,7 @@ jump: PlatformJumpAnimations(
         CodeStep(
           description:
               'Add the countJumps property to the player constructor to enable double jumping.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 countJumps: 2,
 ''',
@@ -53,7 +59,7 @@ countJumps: 2,
         CodeStep(
           description:
               'Override the onKeyboard method to handle keyboard input.',
-          fileName: DART_FILE_SHARK_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
 bool onKeyboard(

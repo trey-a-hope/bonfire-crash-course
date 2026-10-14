@@ -29,14 +29,14 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'By default, the player doesn’t have a shape for the physics engine to detect. Add a hitbox to give the shark volume.',
-          fileName: DART_FILE_SHARK_PLAYER,
+              'By default, the player doesn’t have a shape for the physics engine to detect. Add a hitbox to give the hero volume.',
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Runs once when the shark is added to the game.
+/// Runs once when the hero is added to the game.
 @override
 Future<void> onLoad() async {
-  // The hitbox is the shark's solid shape.
-  // Without it, the shark falls straight through the ground.
+  // The hitbox is the hero's solid shape.
+  // Without it, the hero falls straight through the ground.
   add(RectangleHitbox(size: size));
   return super.onLoad();
 }

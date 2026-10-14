@@ -102,7 +102,7 @@ final List<PaneInfo> panes = [
   // Player
   const PaneInfo(
     icon: Icon(Icons.person),
-    title: 'Player',
+    title: 'Hero (Player)',
     path: '/player',
     children: [
       PaneInfo(
@@ -141,7 +141,7 @@ final List<PaneInfo> panes = [
   // NPC
   const PaneInfo(
     icon: Icon(Icons.help),
-    title: 'NPC (Ally)',
+    title: 'Companion (Ally)',
     path: '/npc',
     children: [
       PaneInfo(
@@ -153,6 +153,25 @@ final List<PaneInfo> panes = [
         title: 'NPC Finished!',
         path: '/ally/congrats',
         child: ModuleCompletionPage(module: NPC_MODULE),
+      ),
+    ],
+  ),
+
+  // Enemy
+  const PaneInfo(
+    icon: Icon(Icons.help),
+    title: 'Foe (Enemy)',
+    path: '/enemy',
+    children: [
+      PaneInfo(
+        title: 'Creating the Enemy Component',
+        path: '/enemy/enemy-component',
+        child: Placeholder(color: Colors.red),
+      ),
+      PaneInfo(
+        title: 'Enemy Finished!',
+        path: '/enemy/congrats',
+        child: Placeholder(color: Colors.green),
       ),
     ],
   ),
