@@ -243,14 +243,14 @@ def melee():
     """Staff smash: crouch and lift, raise high, swing forward, smash with sparks, follow through."""
     out = []
     c = C(); feet(c, 10, 17); body(c, 1, flare=1, staff_dy=-2); out.append(c.image())   # crouch, lift staff
-    c = C(); feet(c, 11, 16); body(c, 0, staff_dy=-3, glow=1); out.append(c.image())   # raise high
+    c = C(); feet(c, 11, 16); body(c, 0, staff_dy=-2, glow=1); out.append(c.image())   # raise high
     c = pose(-1, (21, 17), 35, 13, hem=1)                                               # swing forward
     for deg in range(-10, 30, 6):                                                       # motion trail
         a = math.radians(deg)
         c.fxput(round(20 + math.sin(a) * 15), round(17 - math.cos(a) * 15), 'glow')
     out.append(c.image())
-    c = pose(1, (20, 20), 70, 10, hem=1, flare=1, feet_args=(10, 17))                   # smash
-    ox, oy = orb_pos((20, 20), 1, 70, 10)
+    c = pose(1, (20, 20), 70, 9, hem=1, flare=1, feet_args=(10, 17))                    # smash
+    ox, oy = orb_pos((20, 20), 1, 70, 9)
     for dx, dy in ((0, -4), (2, -3), (-2, -4), (2, 3), (0, 4), (-2, 4)):                # impact sparks
         c.fxput(ox + dx, oy + dy, 'orb_l')
     out.append(c.image())
@@ -262,11 +262,11 @@ def ranged():
     """Cast a bolt: raise the staff, charge the orb, thrust and release, recover."""
     out = []
     c = C(); feet(c, 11, 16); body(c, 0, glow=1); out.append(c.image())  # ready
-    c = pose(-1, (23, 17), 0, 15)                                        # raise + charge ring
-    ring(c, *orb_pos((23, 17), -1, 0, 15), 4, step=45)
+    c = pose(-1, (23, 18), 0, 14)                                        # raise + charge ring
+    ring(c, *orb_pos((23, 18), -1, 0, 14), 4, step=45)
     out.append(c.image())
-    c = pose(-1, (23, 17), 0, 15)                                        # full charge
-    ox, oy = orb_pos((23, 17), -1, 0, 15)
+    c = pose(-1, (23, 18), 0, 14)                                        # full charge
+    ox, oy = orb_pos((23, 18), -1, 0, 14)
     c.rect(ox - 1, oy - 1, ox + 1, oy + 1, 'orb_l')
     ring(c, ox, oy, 3, step=45, start=22)
     out.append(c.image())
