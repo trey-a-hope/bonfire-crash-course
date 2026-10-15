@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
+import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
 import 'package:flutter/material.dart';
@@ -213,8 +214,17 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
               ),
             ),
 
-            // Bottom Footer: Settings
+            // Bottom Footer: Settings & Progress
             const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: SidebarItemTile(
+                icon: const Icon(Icons.settings_rounded),
+                title: 'Settings',
+                isSelected: false,
+                onTap: () => context.push(SettingsPage.path),
+              ),
+            ),
             Padding(
               padding: const EdgeInsetsGeometry.all(16),
               child: Column(
