@@ -183,45 +183,6 @@ class _IntroductionState extends State<Introduction> {
                 ),
               ),
             ),
-
-            // Audio mute/unmute toggle in bottom-right
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: Material(
-                color: Colors.black.withValues(alpha: 0.5),
-                shape: const CircleBorder(),
-                clipBehavior: Clip.antiAlias,
-                child: IconButton(
-                  icon: const Icon(Icons.info, color: Colors.white, size: 20),
-                  tooltip: 'About',
-                  onPressed: () => ModalService.showAbout(context),
-                ),
-              ),
-            ),
-
-            Positioned(
-              bottom: 20,
-              right: 60,
-              child: Material(
-                color: Colors.black.withValues(alpha: 0.5),
-                shape: const CircleBorder(),
-                clipBehavior: Clip.antiAlias,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.settings,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                  tooltip: 'Settings',
-                  onPressed: () => ModalService.showAlert(
-                    context,
-                    title: 'Settings',
-                    message: 'Coming soon...',
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),

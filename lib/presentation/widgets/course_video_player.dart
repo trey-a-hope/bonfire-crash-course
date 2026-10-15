@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:bonfire_crash_course/domain/controllers/settings_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
@@ -79,6 +80,8 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
   void initState() {
     super.initState();
     _player.setPlaylistMode(PlaylistMode.single);
+    // media_kit volume ranges from 0 to 100
+    _player.setVolume(SettingsController.volume.value * 100);
     _player.open(Media(widget.videoUrl), play: widget.autoplay);
     if (widget.initialPosition != null &&
         widget.initialPosition! > Duration.zero) {

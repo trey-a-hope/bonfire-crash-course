@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
+import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,13 @@ final GoRouter appRouter = GoRouter(
         path: parent.path,
         redirect: (context, state) => parent.children.first.path,
       ),
+
+    // Settings sits outside the course shell so it does not count toward progress
+    GoRoute(
+      path: SettingsPage.path,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const SettingsPage(),
+    ),
 
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
