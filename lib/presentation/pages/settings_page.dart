@@ -2,7 +2,6 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/controllers/settings_controller.dart';
 import 'package:bonfire_crash_course/main.dart';
-import 'package:bonfire_crash_course/presentation/services/modal_service.dart';
 import 'package:bonfire_crash_course/presentation/widgets/settings_section.dart';
 import 'package:bonfire_crash_course/presentation/widgets/settings_tile.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import 'package:signals/signals_flutter.dart';
 
 /// The settings page, opened from the sidebar footer.
 ///
-/// Groups preferences into About, Sound, Notifications, and Account sections,
+/// Groups preferences into About, Sound, and Notifications sections,
 /// styled with the same dark surfaces and accent tints as the desktop shell.
 class SettingsPage extends StatelessWidget {
   /// The route path for the settings page.
@@ -70,8 +69,6 @@ class SettingsPage extends StatelessWidget {
                   const _VolumeSection(),
                   GapSizes.largeGap,
                   const _NotificationsSection(),
-                  GapSizes.largeGap,
-                  const _AccountSection(),
                 ],
               ),
             ),
@@ -107,13 +104,19 @@ class _AboutSection extends StatelessWidget {
       SettingsTile(
         icon: Icons.info_outline_rounded,
         color: Colors.cyanAccent,
-        title: 'About this app',
-        subtitle: 'Credits and open source licenses',
+        title: 'Licenses',
+        subtitle: 'Open source licenses used by this app',
         trailing: const Icon(
           Icons.chevron_right_rounded,
           color: Colors.white38,
         ),
-        onTap: () => ModalService.showAbout(context),
+        onTap: () => showLicensePage(
+          context: context,
+          applicationName: 'Bonfire Crash Course',
+          applicationVersion:
+              'v${packageInfo.version}+${packageInfo.buildNumber}',
+          applicationIcon: const Icon(Icons.local_fire_department_rounded),
+        ),
       ),
     ],
   );
@@ -188,37 +191,4 @@ class _NotificationsSection extends SignalWidget {
       ],
     );
   }
-}
-
-class _AccountSection extends StatelessWidget {
-  const _AccountSection();
-
-  Future<void> _logout(BuildContext context) async {
-    final confirmed = await ModalService.showConfirmation(
-      context,
-      title: 'Log out?',
-      message:
-          'Your settings will be reset and you will return to the start of the course.',
-    );
-    if (confirmed != true || !context.mounted) return;
-
-    SettingsController.reset();
-    context.go(ProgressNavigationController.navigateablePanes.first.path);
-  }
-
-  @override
-  Widget build(BuildContext context) => SettingsSection(
-    title: 'Account',
-    children: [
-      SettingsTile(
-        key: const Key('settings_logout_tile'),
-        icon: Icons.logout_rounded,
-        color: Colors.redAccent,
-        title: 'Log out',
-        subtitle: 'Reset your settings and return to the introduction',
-        isDestructive: true,
-        onTap: () => _logout(context),
-      ),
-    ],
-  );
 }

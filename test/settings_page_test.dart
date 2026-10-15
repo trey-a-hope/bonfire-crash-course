@@ -54,7 +54,8 @@ void main() {
     expect(find.text('ABOUT'), findsOneWidget);
     expect(find.text('SOUND'), findsOneWidget);
     expect(find.text('NOTIFICATIONS'), findsOneWidget);
-    expect(find.text('ACCOUNT'), findsOneWidget);
+    expect(find.text('ACCOUNT'), findsNothing);
+    expect(find.text('Log out'), findsNothing);
   });
 
   testWidgets('about shows the app version', (tester) async {
@@ -63,13 +64,14 @@ void main() {
     expect(find.text('Version 1.2.3+4'), findsOneWidget);
   });
 
-  testWidgets('about this app opens the about dialog', (tester) async {
+  testWidgets('licenses opens the license page directly', (tester) async {
     await pumpSettings(tester);
 
-    await tester.tap(find.text('About this app'));
+    await tester.tap(find.text('Licenses'));
     await tester.pumpAndSettle();
 
-    expect(find.byType(AboutDialog), findsOneWidget);
+    expect(find.byType(LicensePage), findsOneWidget);
+    expect(find.byType(AboutDialog), findsNothing);
   });
 
   testWidgets('dragging the slider updates the volume', (tester) async {
@@ -94,38 +96,6 @@ void main() {
 
     expect(SettingsController.notificationsEnabled.value, isFalse);
     expect(find.textContaining('Off.'), findsOneWidget);
-  });
-
-  testWidgets('cancelling log out keeps the user on settings', (tester) async {
-    await pumpSettings(tester);
-    SettingsController.setVolume(0.3);
-
-    await tester.tap(find.byKey(const Key('settings_logout_tile')));
-    await tester.pumpAndSettle();
-    expect(find.text('Log out?'), findsOneWidget);
-
-    await tester.tap(find.text('Cancel'));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(SettingsPage), findsOneWidget);
-    expect(SettingsController.volume.value, 0.3);
-  });
-
-  testWidgets('confirming log out resets settings and returns to intro', (
-    tester,
-  ) async {
-    await pumpSettings(tester);
-    SettingsController.setVolume(0.3);
-    SettingsController.setNotificationsEnabled(false);
-
-    await tester.tap(find.byKey(const Key('settings_logout_tile')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Confirm'));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Intro page'), findsOneWidget);
-    expect(SettingsController.volume.value, SettingsController.defaultVolume);
-    expect(SettingsController.notificationsEnabled.value, isTrue);
   });
 
   testWidgets('back button returns to the first lesson with no history', (
