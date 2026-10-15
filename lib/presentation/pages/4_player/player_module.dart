@@ -4,7 +4,7 @@ import 'package:bonfire_crash_course/presentation/lotties/enemy_lottie.dart';
 import 'package:flutter/material.dart';
 
 const PLAYER_MODULE = Module(
-  totalSteps: 5,
+  totalSteps: 6,
   moduleName: 'Player',
   completionHeadline: 'Player Character Ready!',
   completionSubtitle:
@@ -36,6 +36,12 @@ const PLAYER_MODULE = Module(
       title: 'Collision Hitbox',
       description:
           'Configured precision hitboxes to interact with map obstacles.',
+    ),
+    MilestoneAchievement(
+      icon: Icons.flash_on_rounded,
+      title: 'Combat Ready',
+      description:
+          'Armed the hero with melee and ranged attacks and enemy vision.',
     ),
   ],
   nextLottie: EnemyLottie(height: 100),
