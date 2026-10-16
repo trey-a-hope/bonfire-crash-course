@@ -45,7 +45,6 @@ flutter:
     - assets/images/screenshots/2/run_app.png
     - assets/images/images.jpeg
     - assets/images/getting_started/
-    - assets/images/characters/
 
 flutter_launcher_icons:
   ios: true
