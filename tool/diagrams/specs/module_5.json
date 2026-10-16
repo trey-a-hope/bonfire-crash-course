@@ -1,0 +1,37 @@
+{
+  "number": 5,
+  "name": "NPC (Ally)",
+  "badge": "COMPANION ARCHITECT",
+  "tagline": "Add a friendly character",
+  "lessons": [
+    {
+      "number": 1,
+      "title": "Creating the NPC Component",
+      "summary": "Sprites, idle animation and hitbox",
+      "concepts": [
+        [
+          "Player Component",
+          "Extends SimplePlayer: sprites, anim, hitbox"
+        ]
+      ]
+    }
+  ],
+  "outcomes": [
+    [
+      "NPC Component",
+      "An interactive non-player character"
+    ],
+    [
+      "Sprite Animations",
+      "Idle and movement sheets for the ally"
+    ],
+    [
+      "Hitbox & Collision",
+      "Collides with the world and the player"
+    ],
+    [
+      "Dialogue & Interaction",
+      "Proximity triggers and speech bubbles"
+    ]
+  ]
+}

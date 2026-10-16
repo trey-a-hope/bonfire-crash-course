@@ -1,0 +1,67 @@
+{
+  "number": 1,
+  "name": "Introduction",
+  "badge": "",
+  "tagline": "What the course is and what you need",
+  "lessons": [
+    {
+      "number": 2,
+      "title": "What The Course Covers",
+      "summary": "The topics the course builds up to",
+      "concepts": [
+        [
+          "Cloud-First Development Setup",
+          "Codespaces: run Flutter games in the browser"
+        ],
+        [
+          "Tilemaps & World Building",
+          "Maps, collision geometry, parallax"
+        ],
+        [
+          "Player Component & Controls",
+          "Animated hero driven by the keyboard"
+        ],
+        [
+          "Collisions, Combat & Mechanics",
+          "Hitboxes, attacks, life bars, enemies"
+        ],
+        [
+          "Game Loop, Polish & Deployment",
+          "Camera, lighting, sound, exporting"
+        ],
+        [
+          "Every lesson is modular",
+          "Follow in order or jump to a topic"
+        ]
+      ]
+    },
+    {
+      "number": 3,
+      "title": "What You Will Need",
+      "summary": "Accounts and tools before you start",
+      "concepts": [
+        [
+          "A Free GitHub Account",
+          "Access the template and launch a Codespace"
+        ],
+        [
+          "A Modern Web Browser",
+          "Codespaces runs VS Code in the browser"
+        ],
+        [
+          "Basic Dart & Flutter Familiarity",
+          "No game dev experience required"
+        ],
+        [
+          "Internet Connection",
+          "For Codespaces, assets and videos"
+        ],
+        [
+          "Local Flutter Environment (Optional)",
+          "Flutter SDK 3.19+ to work offline"
+        ]
+      ]
+    }
+  ],
+  "outcomes": []
+}

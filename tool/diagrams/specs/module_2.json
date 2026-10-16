@@ -1,0 +1,101 @@
+{
+  "number": 2,
+  "name": "Getting Started",
+  "badge": "ENVIRONMENT READY",
+  "tagline": "Set up your workspace",
+  "lessons": [
+    {
+      "number": 1,
+      "title": "Create Account on GitHub",
+      "summary": "Free account for the cloud workspace",
+      "concepts": [
+        [
+          "60 Free Codespace Hours",
+          "Per month on a 2-core cloud machine"
+        ],
+        [
+          "Automatic Cloud Backup",
+          "Code and map assets saved to your repo"
+        ],
+        [
+          "Code From Any Device",
+          "Any browser on Mac, Windows, Linux, tablet"
+        ]
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Create a Codespace",
+      "summary": "Cloud VS Code with Flutter ready",
+      "concepts": [
+        [
+          "GitHub Codespaces",
+          "Full VS Code + Flutter, zero local setup"
+        ],
+        [
+          "First-Time Build Duration",
+          "~90 s the first time, under 5 s after"
+        ]
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Install VS Code (Optional)",
+      "summary": "Only if you want to code locally",
+      "concepts": [
+        [
+          "Why is this step optional?",
+          "Your Codespace already runs VS Code"
+        ],
+        [
+          "Flutter extension",
+          "Debugging, run without debug, hot reload"
+        ],
+        [
+          "Dart extension",
+          "Highlighting, code completion, linting"
+        ]
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Project File Structure",
+      "summary": "The files you will work in",
+      "concepts": [
+        [
+          "Bonfire project layout",
+          "Recommended structure, not a strict rule"
+        ]
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Run the App",
+      "summary": "Launch the starter game",
+      "concepts": [
+        [
+          "The Power of Hot Reload",
+          "Save or press r to see changes instantly"
+        ]
+      ]
+    }
+  ],
+  "outcomes": [
+    [
+      "Developer Account",
+      "GitHub workspace for source control"
+    ],
+    [
+      "Cloud Codespace",
+      "Cloud container set up with Flutter"
+    ],
+    [
+      "IDE Tooling",
+      "VS Code with Flutter and Dart tooling"
+    ],
+    [
+      "Project Bootstrapped",
+      "Bonfire starter game loop running"
+    ]
+  ]
+}

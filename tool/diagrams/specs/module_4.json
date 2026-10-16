@@ -1,0 +1,124 @@
+{
+  "number": 4,
+  "name": "Player",
+  "badge": "HERO CONTROLLER",
+  "tagline": "Build and control the hero",
+  "lessons": [
+    {
+      "number": 1,
+      "title": "Creating the Player Component",
+      "summary": "An animated side-scroller hero",
+      "concepts": [
+        [
+          "PlatformPlayer",
+          "Side-scroller hero: run, jump, face a side"
+        ],
+        [
+          "CharacterAsset",
+          "One enum holds a character's sprite paths"
+        ],
+        [
+          "SpriteAnimation",
+          "Sheet frames in order; stepTime sets speed"
+        ]
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Apply Gravity to Player",
+      "summary": "Make the hero fall and land",
+      "concepts": [
+        [
+          "WithForces",
+          "Mixin that applies forces every tick"
+        ],
+        [
+          "forces.setGravity",
+          "Vector2(0, 300) pulls the hero down"
+        ]
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Apply Collision to Player",
+      "summary": "Give the hero a solid shape",
+      "concepts": [
+        [
+          "RectangleHitbox",
+          "The hero's rectangular collision area"
+        ]
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Move and Jump",
+      "summary": "A/D to walk, Space to double jump",
+      "concepts": [
+        [
+          "Move and Jump",
+          "A/D walk, Space jumps, countJumps = 2"
+        ],
+        [
+          "KeyDownEvent and KeyUpEvent",
+          "Key pressed vs. released in onKeyboard"
+        ]
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Map Boundaries for Player",
+      "summary": "Keep the hero on the map",
+      "concepts": [
+        [
+          "Map Boundaries",
+          "Stop the player from leaving the map"
+        ]
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Player Attack System",
+      "summary": "Melee on S, projectile on W",
+      "concepts": [
+        [
+          "Melee Attack (attack.melee)",
+          "Short-lived damage area beside the hero"
+        ],
+        [
+          "Ranged Attack (attack.range)",
+          "Projectile that hits the first enemy"
+        ],
+        [
+          "playOnceOther",
+          "Plays an attack animation once"
+        ],
+        [
+          "Release Frame",
+          "Fires the projectile on the cast frame"
+        ]
+      ]
+    }
+  ],
+  "outcomes": [
+    [
+      "Sprite Animations",
+      "Idle, walking and action animations"
+    ],
+    [
+      "Fluid Controls",
+      "A/D move, Space double jump, W/S attack"
+    ],
+    [
+      "Target Tracking",
+      "Camera follows the player"
+    ],
+    [
+      "Collision Hitbox",
+      "Hitboxes that meet map obstacles"
+    ],
+    [
+      "Combat Ready",
+      "A melee strike and a projectile attack"
+    ]
+  ]
+}

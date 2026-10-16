@@ -1,0 +1,60 @@
+{
+  "number": 3,
+  "name": "Map",
+  "badge": "MAP ARCHITECT",
+  "tagline": "Build the game world",
+  "lessons": [
+    {
+      "number": 1,
+      "title": "Loading the Map",
+      "summary": "Render the Spritefusion tilemap",
+      "concepts": [
+        [
+          "BonfireWidget",
+          "Runs the game loop, camera and physics"
+        ],
+        [
+          "WorldMapBySpritefusion",
+          "Reads map.json: floor tiles + collision grid"
+        ],
+        [
+          "CameraConfig",
+          "Zoom fit, and keeps the camera in the map"
+        ]
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Custom Background",
+      "summary": "Add a scrolling parallax sky",
+      "concepts": [
+        [
+          "GameBackground",
+          "Base class for ParallaxBackground"
+        ],
+        [
+          "ParallaxComponent",
+          "Layers at different speeds give depth"
+        ]
+      ]
+    }
+  ],
+  "outcomes": [
+    [
+      "Tilemap Integration",
+      "Terrain and collision grid rendered"
+    ],
+    [
+      "Parallax Scenery",
+      "Sky and clouds scroll with depth"
+    ],
+    [
+      "Camera Boundaries",
+      "Camera clamped inside the map"
+    ],
+    [
+      "World Physics",
+      "Collision obstacles stop falling off"
+    ]
+  ]
+}
