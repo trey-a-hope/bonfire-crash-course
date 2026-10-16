@@ -55,21 +55,7 @@ class Hero extends PlatformPlayer
         ),
         CodeStep(
           description:
-              'Add names for the four attack animations and a shared frame speed to globals.dart. Attack sheets play faster than walking.',
-          fileName: DART_FILE_GLOBALS,
-          codeSnippet: '''
-// Animation Names
-const MELEE_ATTACK_LEFT = 'melee_attack_left';
-const MELEE_ATTACK_RIGHT = 'melee_attack_right';
-const RANGE_ATTACK_LEFT = 'range_attack_left';
-const RANGE_ATTACK_RIGHT = 'range_attack_right';
-
-const ATTACK_STEP_TIME = 0.08;
-''',
-        ),
-        CodeStep(
-          description:
-              'Register the attack sheets under others in PlatformAnimations. Frame counts come from CharacterAsset, and loop: false makes each one play once.',
+              'Register the attack sheets under others in PlatformAnimations. The animation names and ATTACK_STEP_TIME already ship with the template in globals.dart, frame counts come from CharacterAsset, and loop: false makes each one play once.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Attack sheets play once on the hero's body, one per direction.

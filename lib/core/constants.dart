@@ -3,7 +3,6 @@ const CODE_SPACES_TEMPLATE_URL =
 
 const _LIB = 'lib';
 const _CORE = '$_LIB/core';
-const _CONSTANTS = '$_CORE/constants';
 const _MIXINS = '$_CORE/mixins';
 const _PRESENTATION = '$_LIB/presentation';
 const _BACKGROUNDS = '$_PRESENTATION/backgrounds';
@@ -15,8 +14,6 @@ const DART_FILE_GAME_SCREEN = '$_SCREENS/game_screen.dart';
 const DART_FILE_PARALLAX_BACKGROUND = '$_BACKGROUNDS/parallax_background.dart';
 const DART_FILE_CHARACTERS_HERO = '$_CHARACTERS/hero.dart';
 const DART_FILE_ANIMATION_UTILS = '$_CHARACTERS/util/animation_utils.dart';
-const DART_FILE_GLOBALS = '$_CONSTANTS/globals.dart';
-const DART_FILE_CHARACTER_ASSET = '$_CONSTANTS/character_asset.dart';
 const DART_FILE_SCREEN_BOUNDARY_CHECKER =
     '$_MIXINS/screen_boundary_checker.dart';
 

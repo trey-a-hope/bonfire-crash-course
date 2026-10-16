@@ -33,18 +33,6 @@ class ApplyCustomBackground extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Add the four background image paths to globals.dart. Paths are relative to assets/images/.',
-          fileName: DART_FILE_GLOBALS,
-          codeSnippet: '''
-// Backgrounds
-const SKY = 'background/sky.png';
-const CLOUDS = 'background/clouds.png';
-const MOUNTAINS = 'background/mountains.png';
-const HILLS = 'background/hills.png';
-''',
-        ),
-        CodeStep(
-          description:
               'Create a new class that extends the GameBackground class. Title it "ParallaxBackground."',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
@@ -82,7 +70,7 @@ void _addParallax() async {}
 
         CodeStep(
           description:
-              'Use util.loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component.',
+              'Use util.loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component. SKY and CLOUDS already ship with the template in globals.dart.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Load sky and clouds with independent horizontal motion
