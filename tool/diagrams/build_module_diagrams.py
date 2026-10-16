@@ -199,7 +199,11 @@ def main():
         json.dump(scene(els), open(os.path.join(OUT, name + '.excalidraw'), 'w'), indent=1)
         svg = to_svg(spec).replace('</defs>', '</defs>' + SVG_STYLE, 1)
         open(os.path.join(OUT, 'svg', name + '.svg'), 'w').write(svg)
-        open(os.path.join(APP_OUT, name + '.svg'), 'w').write(to_app_svg(spec))
+        app_svg = os.path.join(APP_OUT, name + '.svg')
+        if spec.get('overview_page', True):
+            open(app_svg, 'w').write(to_app_svg(spec))
+        elif os.path.exists(app_svg):  # "overview_page": false = no overview page in the app
+            os.remove(app_svg)
         fid = f'frame_{spec["number"]}'
         els, w, h = to_excalidraw(spec, ox=x + 40, oy=40, frame=fid, prefix=f'm{spec["number"]}_')
         combined.extend(els)

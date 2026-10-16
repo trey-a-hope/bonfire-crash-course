@@ -11,7 +11,8 @@ with (the module's completion-page achievements). Build steps and pro tips are l
 The app shows each diagram on its module's overview page, from
 `assets/images/module_diagrams/`. Those copies have their colors written as
 attributes and plain arrowheads, so they don't rely on `<style>`, classes or `<marker>`,
-which flutter_svg doesn't fully support.
+which flutter_svg doesn't fully support. Introduction and Getting Started have
+`"overview_page": false` in their specs, so they get no app copy or overview page.
 
 Open a file at excalidraw.com (or import it into Excalidraw+) to view or edit it.
 

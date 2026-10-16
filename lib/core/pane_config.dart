@@ -21,21 +21,6 @@ final List<PaneInfo> panes = [
     path: '/intro',
     children: [
       PaneInfo(
-        title: 'Introduction Overview',
-        path: '/intro/overview',
-        child: ModuleOverviewPage(
-          moduleNumber: 1,
-          moduleName: 'Introduction',
-          tagline: 'What the course is and what you need',
-          icon: Icons.home,
-          accentColor: Color(0xFF448AFF),
-          lessonCount: 3,
-          firstLessonTitle: 'Introduction',
-          diagramAsset:
-              'assets/images/module_diagrams/module_1_introduction.svg',
-        ),
-      ),
-      PaneInfo(
         title: 'Introduction',
         path: '/intro/starting',
         child: Introduction(),
@@ -59,21 +44,6 @@ final List<PaneInfo> panes = [
     title: 'Getting Started',
     path: '/getting-started',
     children: [
-      PaneInfo(
-        title: 'Getting Started Overview',
-        path: '/getting-started/overview',
-        child: ModuleOverviewPage(
-          moduleNumber: 2,
-          moduleName: 'Getting Started',
-          tagline: 'Set up your workspace',
-          icon: Icons.open_in_browser,
-          accentColor: Colors.lightGreenAccent,
-          lessonCount: 5,
-          firstLessonTitle: 'Create Account on Github',
-          diagramAsset:
-              'assets/images/module_diagrams/module_2_getting_started.svg',
-        ),
-      ),
       PaneInfo(
         title: 'Create Account on Github',
         path: '/getting-started/create-account-on-github',

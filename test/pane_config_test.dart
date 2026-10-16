@@ -15,20 +15,20 @@ void main() {
       final pane = panes.firstWhere((p) => p.title == title);
       final completion = pane.children.last.child! as ModuleCompletionPage;
       // The overview and completion pages are not lessons.
-      final lessons = pane.children.length - 2;
+      final lessons = pane.children
+          .where(
+            (p) =>
+                p.child is! ModuleOverviewPage &&
+                p.child is! ModuleCompletionPage,
+          )
+          .length;
 
       expect(completion.module.totalSteps, lessons);
     });
   }
 
-  // Modules with a diagram start with an overview page that shows it.
-  const modulesWithOverview = [
-    'Introduction',
-    'Getting Started',
-    'Map',
-    'Hero (Player)',
-    'Companion (Ally)',
-  ];
+  // From Map onward, each module starts with an overview page showing its diagram.
+  const modulesWithOverview = ['Map', 'Hero (Player)', 'Companion (Ally)'];
 
   for (final title in modulesWithOverview) {
     test('$title starts with an overview page whose diagram exists', () {
@@ -46,11 +46,16 @@ void main() {
     });
   }
 
-  test('Enemy has no overview page', () {
-    final enemy = panes.firstWhere((p) => p.title == 'Foe (Enemy)');
+  for (final title in ['Introduction', 'Getting Started', 'Foe (Enemy)']) {
+    test('$title has no overview page', () {
+      final pane = panes.firstWhere((p) => p.title == title);
 
-    expect(enemy.children.first.child, isNot(isA<ModuleOverviewPage>()));
-  });
+      expect(
+        pane.children.map((p) => p.child),
+        isNot(contains(isA<ModuleOverviewPage>())),
+      );
+    });
+  }
 
   test('Player module includes the attack lesson', () {
     final player = panes.firstWhere((p) => p.title == 'Hero (Player)');
