@@ -92,7 +92,7 @@ const _projectTree = FileNode(
                     FileNode(
                       name: 'strawberry_*.png',
                       description:
-                          'Strawberry companion sprite sheets: idle, walk and talk. It faces the camera, so one sheet covers both directions.',
+                          'Strawberry companion sprite sheets: idle (breathing and blinking), walk and talk. It faces the camera, so one sheet covers both directions.',
                     ),
                   ],
                 ),

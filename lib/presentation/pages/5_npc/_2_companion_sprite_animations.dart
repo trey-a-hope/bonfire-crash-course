@@ -28,7 +28,7 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
         Concept(
           title: 'Frame Count (amount)',
           subtitle:
-              'How many 32x32 frames AnimationUtils slices from a sheet. The strawberry idle sheet is a single frame, so it uses amount: 1; the walk sheet has 4.',
+              'How many 32x32 frames AnimationUtils slices from a sheet. The strawberry idle sheet has 8 frames (a breath, a stem sway and a blink) and the walk sheet has 4. A wrong amount makes the animation jitter or show half-frames.',
         ),
       ],
       codeSteps: [
@@ -42,8 +42,17 @@ Companion(Vector2 position)
         ... // position, size, life, speed
         // The strawberry faces the camera, so left and right share a sheet.
         animation: SimpleDirectionAnimation(
-          idleRight: AnimationUtils.loadAnimation(STRAWBERRY_IDLE, amount: 1),
-          idleLeft: AnimationUtils.loadAnimation(STRAWBERRY_IDLE, amount: 1),
+          // Idle breathes, sways its stem and blinks: 8 frames, played slowly.
+          idleRight: AnimationUtils.loadAnimation(
+            STRAWBERRY_IDLE,
+            amount: 8,
+            stepTime: 0.15,
+          ),
+          idleLeft: AnimationUtils.loadAnimation(
+            STRAWBERRY_IDLE,
+            amount: 8,
+            stepTime: 0.15,
+          ),
           runRight: AnimationUtils.loadAnimation(
             STRAWBERRY_WALK,
             amount: 4,
