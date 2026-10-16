@@ -27,37 +27,6 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Create a ScreenBoundaryChecker mixin that clamps a component\'s position to the map size.',
-          fileName: DART_FILE_SCREEN_BOUNDARY_CHECKER,
-          codeSnippet: '''
-/// Mixin that prevents a [GameComponent] from moving outside the map boundaries.
-mixin ScreenBoundaryChecker on GameComponent {
-  /// Clamps the component's position within the map edges.
-  /// Typically called inside [update].
-  void checkBoundaries() {
-    // Total dimensions of the active game map.
-    final mapSize = gameRef.map.size;
-
-    // Half-width buffer allowing the sprite to align neatly with map edges.
-    final collisionBuffer = size.x / 2;
-
-    // Constrain horizontal position within map bounds.
-    position.x = position.x.clamp(
-      -collisionBuffer,
-      mapSize.x - collisionBuffer,
-    );
-
-    // Constrain vertical position within map bounds.
-    position.y = position.y.clamp(
-      -collisionBuffer,
-      mapSize.y - collisionBuffer,
-    );
-  }
-}
-''',
-        ),
-        CodeStep(
           description: 'Add the ScreenBoundaryChecker mixin to the Hero class.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''

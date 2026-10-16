@@ -55,7 +55,7 @@ class Hero extends PlatformPlayer
         ),
         CodeStep(
           description:
-              'Register the attack sheets under others in PlatformAnimations. The animation names and ATTACK_STEP_TIME already ship with the template in globals.dart, frame counts come from CharacterAsset, and loop: false makes each one play once.',
+              'Register the attack sheets under others in PlatformAnimations. Frame counts come from CharacterAsset, and loop: false makes each one play once.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Attack sheets play once on the hero's body, one per direction.

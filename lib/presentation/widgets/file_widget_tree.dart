@@ -160,7 +160,7 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'globals.dart',
                   description:
-                      'Shared constants: asset paths for backgrounds, characters and the map, plus attack animation names and timing.',
+                      'Default file: comes with the template and is never edited in the course.',
                 ),
                 FileNode(
                   name: 'character_asset.dart',
@@ -176,7 +176,7 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'screen_boundary_checker.dart',
                   description:
-                      'ScreenBoundaryChecker mixin that keeps a component inside the map.',
+                      'Default file: comes with the template and is never edited in the course.',
                 ),
               ],
             ),
