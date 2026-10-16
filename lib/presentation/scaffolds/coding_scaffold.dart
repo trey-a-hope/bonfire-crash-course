@@ -3,7 +3,6 @@ import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
-import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:collection/collection.dart';
@@ -13,8 +12,8 @@ import 'package:signals/signals_flutter.dart';
 /// A standardized split-pane layout scaffold for interactive coding lessons.
 ///
 /// Implements a responsive desktop layout with structured curriculum
-/// presentation (Objectives, Concepts, Code Steps, Verification) on the left (flex 3),
-/// and multimedia walkthroughs (Video Player, Visual Preview, Pro-Tips) on the right (flex 2).
+/// presentation (Objective, Key Concepts, Code Implementation) on the left (flex 3),
+/// and the video walkthrough, Time to Code and Pro-Tip on the right (flex 2).
 class CodingScaffold extends SignalWidget {
   /// The module metadata (module name, total steps, accent color).
   final Module module;
@@ -41,7 +40,7 @@ class CodingScaffold extends SignalWidget {
   final List<CodeStep> codeSteps;
 
   /// One or two sentences telling the student what they're about to type,
-  /// shown under "Time to Code" before the code steps.
+  /// shown under "Time to Code" below the video.
   final String timeToCodeStatement;
 
   /// One or two sentences of quick advice for this lesson, shown in the
@@ -114,7 +113,7 @@ class CodingScaffold extends SignalWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Left Column: Objective, Concepts & Code Steps (Flex 3)
+              // Left Column: Objective, Concepts & Code Implementation (Flex 3)
               Expanded(
                 flex: 3,
                 child: SingleChildScrollView(
@@ -156,21 +155,6 @@ class CodingScaffold extends SignalWidget {
                         GapSizes.mediumGap,
                       ],
 
-                      // Time to Code: what the student is about to type
-                      Text(
-                        'Time to Code',
-                        style: textTheme.headlineSmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      GapSizes.smallGap,
-                      AppCard.action(
-                        title: "What You're About to Type",
-                        description: timeToCodeStatement,
-                      ),
-                      GapSizes.largeGap,
-
                       // Code Steps Section
                       if (codeSteps.isNotEmpty) ...[
                         Text(
@@ -184,19 +168,18 @@ class CodingScaffold extends SignalWidget {
                         StepsWidget.code(codeSteps: codeSteps),
                         GapSizes.mediumGap,
                       ],
-
-                      GapSizes.mediumGap,
                     ],
                   ),
                 ),
               ),
               GapSizes.largeGap,
 
-              // Right Column: Video Walkthrough, Lottie Visual & Pro-Tip (Flex 2)
+              // Right Column: Video Walkthrough, Time to Code & Pro-Tip (Flex 2)
               Expanded(
                 flex: 2,
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Video Player Container
                       CourseVideoPlayer(
@@ -205,51 +188,18 @@ class CodingScaffold extends SignalWidget {
                       ),
                       GapSizes.mediumGap,
 
-                      // Animated Visual Preview Card
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1E1E2C),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.12),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.4),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
+                      // Time to Code: what the student is about to type
+                      Text(
+                        'Time to Code',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.auto_awesome_rounded,
-                                  color: Colors.cyanAccent,
-                                  size: 18,
-                                ),
-                                GapSizes.smallGap,
-                                Text(
-                                  'Interactive Visual',
-                                  style: textTheme.titleSmall?.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GapSizes.mediumGap,
-                            const HeroImage(
-                              imagePath: 'assets/images/images.jpeg',
-                              caption:
-                                  'GitHub codespaces running directly inside your browser',
-                            ),
-                          ],
-                        ),
+                      ),
+                      GapSizes.smallGap,
+                      AppCard.action(
+                        title: "What You're About to Type",
+                        description: timeToCodeStatement,
                       ),
 
                       if (proTip != null) ...[
