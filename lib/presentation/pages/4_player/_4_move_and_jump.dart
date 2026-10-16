@@ -18,12 +18,17 @@ class MoveAndJumpPage extends StatelessWidget {
       unitStep: 4,
       title: 'Move and Jump',
       objective:
-          'Move the hero left and right using the arrow keys and implement double jumping.',
+          'Move the hero left and right with the A and D keys and double jump with Space.',
       concepts: [
         Concept(
           title: 'Move and Jump',
           subtitle:
-              'Movement is handled by the keyboard controller, and jumping is handled by the platformer physics engine.',
+              'A and D call onJoystickChangeDirectional to walk left and right, and Space calls jumper.jump(). countJumps lets the hero jump again in mid-air.',
+        ),
+        Concept(
+          title: 'KeyDownEvent and KeyUpEvent',
+          subtitle:
+              'onKeyboard receives a KeyDownEvent when a key is pressed and a KeyUpEvent when it is released. Releasing A or D either stops the hero or hands control to the other key if it is still held.',
         ),
       ],
       codeSteps: [
@@ -58,7 +63,7 @@ countJumps: 2,
         ),
         CodeStep(
           description:
-              'Override the onKeyboard method to handle keyboard input.',
+              'Override the onKeyboard method. On key down, Space jumps, A moves left, and D moves right.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
@@ -66,9 +71,26 @@ bool onKeyboard(
   KeyEvent event,
   Set<LogicalKeyboardKey> keysPressed,
 ) {
-  if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.space) {
-    jump();
-    return true; // Handled
+  if (event is KeyDownEvent) {
+    switch (event.logicalKey) {
+      case LogicalKeyboardKey.space:
+        jumper.jump();
+        return true;
+      case LogicalKeyboardKey.keyA:
+        onJoystickChangeDirectional(
+          JoystickDirectionalEvent(
+            directional: JoystickMoveDirectional.MOVE_LEFT,
+          ),
+        );
+        return true;
+      case LogicalKeyboardKey.keyD:
+        onJoystickChangeDirectional(
+          JoystickDirectionalEvent(
+            directional: JoystickMoveDirectional.MOVE_RIGHT,
+          ),
+        );
+        return true;
+    }
   }
 
   return super.onKeyboard(event, keysPressed);
@@ -77,7 +99,36 @@ bool onKeyboard(
         ),
         CodeStep(
           description:
-              'Override the onKeyboard method to handle keyboard input.',
+              'Handle key up so the hero stops when A or D is released, or keeps walking the other way if the opposite key is still held. Add this branch after the KeyDownEvent block.',
+          fileName: DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+} else if (event is KeyUpEvent) {
+  switch (event.logicalKey) {
+    case LogicalKeyboardKey.keyA:
+      onJoystickChangeDirectional(
+        JoystickDirectionalEvent(
+          directional: keysPressed.contains(LogicalKeyboardKey.keyD)
+              ? JoystickMoveDirectional.MOVE_RIGHT
+              : JoystickMoveDirectional.IDLE,
+        ),
+      );
+      return true;
+    case LogicalKeyboardKey.keyD:
+      onJoystickChangeDirectional(
+        JoystickDirectionalEvent(
+          directional: keysPressed.contains(LogicalKeyboardKey.keyA)
+              ? JoystickMoveDirectional.MOVE_LEFT
+              : JoystickMoveDirectional.IDLE,
+        ),
+      );
+      return true;
+  }
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Register a Keyboard controller on BonfireWidget so the game forwards key presses to the hero.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 playerControllers: [

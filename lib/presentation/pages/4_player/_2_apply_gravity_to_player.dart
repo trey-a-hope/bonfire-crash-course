@@ -18,34 +18,39 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       unitStep: 2,
       title: 'Apply Gravity to Player',
       objective:
-          'Apply gravity to the player component and configure its hitbox and jump physics in a Bonfire game.',
+          'Apply a constant downward gravity force to the hero so it falls and lands like a platformer character.',
       concepts: [
         Concept(
-          title: 'HandleForces',
+          title: 'WithForces',
           subtitle:
-              'A method that is called every game tick to apply forces to the player.',
+              'A Bonfire mixin that gives a component a forces controller. Forces are applied every game tick, so gravity keeps pulling the hero down until something solid stops it.',
+        ),
+        Concept(
+          title: 'forces.setGravity',
+          subtitle:
+              'Sets the gravity vector in pixels per second squared. Vector2(0, 300) pulls straight down; a bigger y makes the hero fall faster.',
         ),
       ],
       codeSteps: [
         CodeStep(
           description:
-              'Add the HandleForces mixin to the Hero class to enable applying physical forces and acceleration.',
+              'Add the WithForces mixin to the Hero class to enable applying physical forces.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero extends PlatformPlayer with HandleForces { }
+class Hero extends PlatformPlayer with WithForces { ... }
 ''',
         ),
         CodeStep(
           description:
-              'Call addForce with an AccelerationForce2D to apply downward gravity along the Y-axis.',
+              'Give the constructor a body and set gravity there, right after the super(...) call.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-addForce(
-  AccelerationForce2D(
-    id: 'player_gravity',
-    value: Vector2(0, 400),
-  ),
-);
+Hero(Vector2 position)
+    : super(
+        ... // position, size, animation
+      ) {
+  forces.setGravity(Vector2(0, 300));
+}
 ''',
         ),
       ],
