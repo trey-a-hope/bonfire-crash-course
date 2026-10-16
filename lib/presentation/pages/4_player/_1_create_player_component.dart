@@ -122,6 +122,14 @@ animation: PlatformAnimations(
         ),
         CodeStep(
           description:
+              'Flutter has its own Hero widget, so hide it when importing material.dart in game_screen.dart. Without this, Hero(...) is an ambiguous import and the game won\'t compile.',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+import 'package:flutter/material.dart' hide Hero;
+''',
+        ),
+        CodeStep(
+          description:
               'Instantiate Hero with an initial position and pass it to the player property in BonfireWidget.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''

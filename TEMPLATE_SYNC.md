@@ -22,7 +22,7 @@ which lesson covers which template file.
 | `lib/presentation/characters/hero.dart` | `4_player/_1` (class, constructor, animations), `_2` (gravity), `_3` (hitbox), `_4` (keyboard, jump), `_5` (boundaries), `_6_player_attack_system.dart` (attacks) |
 | `lib/presentation/characters/util/animation_utils.dart` | `4_player/_1_create_player_component.dart` |
 | `lib/core/mixins/screen_boundary_checker.dart` | `4_player/_5_map_boundaries_for_player.dart` |
-| `lib/core/constants/globals.dart` | `3_map/_1_loading_the_map.dart` (MAP_ONE), `4_player/_6_player_attack_system.dart` (attack names, ATTACK_STEP_TIME) |
+| `lib/core/constants/globals.dart` | `3_map/_1_loading_the_map.dart` (MAP_ONE), `3_map/_2_apply_custom_background.dart` (SKY, CLOUDS, MOUNTAINS, HILLS), `4_player/_6_player_attack_system.dart` (attack names, ATTACK_STEP_TIME) |
 | `lib/core/constants/character_asset.dart` | Concept card in `4_player/_1`; frame counts used in `_6` |
 | Folder layout and asset folders | `2_getting_started/project_file_structure.dart` via `lib/presentation/widgets/file_widget_tree.dart` |
 | File paths shown on code steps | `lib/core/constants.dart` (`DART_FILE_*`) |

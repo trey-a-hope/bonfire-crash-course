@@ -107,6 +107,11 @@ const _projectTree = FileNode(
                   isDirectory: true,
                   children: [
                     FileNode(
+                      name: '01.json',
+                      description:
+                          'The Spritefusion project file for level 1. Open it in Spritefusion to edit the level, then export map/ again.',
+                    ),
+                    FileNode(
                       name: 'map',
                       isDirectory: true,
                       children: [
@@ -125,6 +130,11 @@ const _projectTree = FileNode(
                   ],
                 ),
               ],
+            ),
+            FileNode(
+              name: 'brass_key.png',
+              description:
+                  'A key sprite included for later lessons. Not used in the game yet.',
             ),
           ],
         ),
@@ -221,6 +231,17 @@ const _projectTree = FileNode(
               ],
             ),
           ],
+        ),
+      ],
+    ),
+    FileNode(
+      name: 'test',
+      isDirectory: true,
+      children: [
+        FileNode(
+          name: 'character_asset_test.dart',
+          description:
+              'Checks every character sprite sheet exists and has the frame count CharacterAsset expects.',
         ),
       ],
     ),

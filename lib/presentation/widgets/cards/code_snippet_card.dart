@@ -73,12 +73,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
           atomOneDarkTheme['root']?.backgroundColor ?? const Color(0xff282c34),
       padding: const EdgeInsets.all(16),
       width: double.infinity,
-      child: SelectableText.rich(
-        TextSpan(
-          style: rootStyle,
-          children: spans,
-        ),
-      ),
+      child: SelectableText.rich(TextSpan(style: rootStyle, children: spans)),
     );
   }
 
