@@ -82,7 +82,9 @@ Widget build(BuildContext context) {
         ),
       ],
       timeToCodeStatement:
-          'Open lib/presentation/screens/game_screen.dart in your Codespace or VS Code. Replace the placeholder with BonfireWidget and CameraConfig, then save the file to trigger Hot Reload. You should see your 2D tilemap rendered immediately on screen!',
+          'You\'re about to replace the placeholder in game_screen.dart with a BonfireWidget that loads your Spritefusion map, then add a CameraConfig that fits the map to the screen and keeps the camera inside it.',
+      proTip:
+          'If you save and the map doesn\'t appear, do a hot restart (Shift+R in the terminal) instead of a hot reload, since a running game doesn\'t always reload its world.',
     );
   }
 }

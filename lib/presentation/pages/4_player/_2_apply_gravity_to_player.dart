@@ -54,7 +54,10 @@ Hero(Vector2 position)
 ''',
         ),
       ],
-      timeToCodeStatement: 'Approx. 10 minutes',
+      timeToCodeStatement:
+          'You\'re about to add the WithForces mixin to Hero and call forces.setGravity(Vector2(0, 300)) in its constructor.',
+      proTip:
+          'Don\'t worry if the hero now falls straight through the floor; it has no solid shape yet, and the hitbox in the next lesson fixes that.',
     );
   }
 }

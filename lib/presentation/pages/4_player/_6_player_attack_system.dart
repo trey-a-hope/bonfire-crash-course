@@ -186,7 +186,9 @@ case LogicalKeyboardKey.keyS:
         ),
       ],
       timeToCodeStatement:
-          'Save hero.dart to hot reload, then press S to swing and W to cast. Turn around with A and attack again to check both directions.',
+          'You\'re about to add WithAttack to Hero, register the four attack animations, write a melee attack and a projectile attack, and map them to S and W in onKeyboard.',
+      proTip:
+          'Tune damage, speed and size to change how the attacks feel, but keep the _isAttacking check at the top of each one so holding a key can\'t fire faster than the animation plays.',
     );
   }
 }

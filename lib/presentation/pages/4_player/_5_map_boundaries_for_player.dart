@@ -51,7 +51,10 @@ void update(double dt) {
 ''',
         ),
       ],
-      timeToCodeStatement: 'Approx. 10 minutes',
+      timeToCodeStatement:
+          'You\'re about to add the ScreenBoundaryChecker mixin to Hero and override update so it calls checkBoundaries() every tick.',
+      proTip:
+          'Keep super.update(dt) as the last line of update; without it the hero stops moving and animating.',
     );
   }
 }

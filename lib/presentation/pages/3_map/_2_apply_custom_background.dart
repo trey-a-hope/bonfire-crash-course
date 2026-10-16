@@ -162,7 +162,9 @@ Widget build(BuildContext context) {
         ),
       ],
       timeToCodeStatement:
-          'Now it\'s your turn to build the atmosphere! Head over to parallax_background.dart to create your ParallaxBackground class, assemble the layered scrolling components, and plug it into your BonfireWidget.',
+          'You\'re about to create a ParallaxBackground class in parallax_background.dart with a sky layer that scrolls on its own and a hills layer that follows the camera, then pass it to BonfireWidget\'s background.',
+      proTip:
+          'Layers draw in the order you add them, so add the far-away sky first and the closer hills after it, or the hills will be hidden behind the sky.',
       videoUrl:
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
     );

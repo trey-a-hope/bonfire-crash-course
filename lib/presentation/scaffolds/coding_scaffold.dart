@@ -40,8 +40,13 @@ class CodingScaffold extends SignalWidget {
   /// Step-by-step code implementation instructions.
   final List<CodeStep> codeSteps;
 
-  /// Guidance statement and expected completion time for game verification.
+  /// One or two sentences telling the student what they're about to type,
+  /// shown under "Time to Code" before the code steps.
   final String timeToCodeStatement;
+
+  /// One or two sentences of quick advice for this lesson, shown in the
+  /// Pro-Tip card. The card is hidden when this is null.
+  final String? proTip;
 
   /// URL for the embedded lesson video walkthrough.
   final String videoUrl;
@@ -60,6 +65,7 @@ class CodingScaffold extends SignalWidget {
     required this.concepts,
     required this.codeSteps,
     required this.timeToCodeStatement,
+    this.proTip,
     required this.videoUrl,
     this.videoTitle,
   });
@@ -150,6 +156,21 @@ class CodingScaffold extends SignalWidget {
                         GapSizes.mediumGap,
                       ],
 
+                      // Time to Code: what the student is about to type
+                      Text(
+                        'Time to Code',
+                        style: textTheme.headlineSmall?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      GapSizes.smallGap,
+                      AppCard.action(
+                        title: "What You're About to Type",
+                        description: timeToCodeStatement,
+                      ),
+                      GapSizes.largeGap,
+
                       // Code Steps Section
                       if (codeSteps.isNotEmpty) ...[
                         Text(
@@ -164,20 +185,7 @@ class CodingScaffold extends SignalWidget {
                         GapSizes.mediumGap,
                       ],
 
-                      // Checkpoint / Verification Card
-                      Text(
-                        'Time to Code',
-                        style: textTheme.headlineSmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      GapSizes.smallGap,
-                      AppCard.action(
-                        title: 'Verify in Your Running Game',
-                        description: timeToCodeStatement,
-                      ),
-                      GapSizes.largeGap,
+                      GapSizes.mediumGap,
                     ],
                   ),
                 ),
@@ -243,13 +251,11 @@ class CodingScaffold extends SignalWidget {
                           ],
                         ),
                       ),
-                      GapSizes.mediumGap,
 
-                      AppCard.info(
-                        title: 'Pro-Tip',
-                        description:
-                            'Ensure your map JSON/TMX assets are declared under the assets: section in pubspec.yaml so Bonfire can bundle and parse them properly.',
-                      ),
+                      if (proTip != null) ...[
+                        GapSizes.mediumGap,
+                        AppCard.info(title: 'Pro-Tip', description: proTip!),
+                      ],
                     ],
                   ),
                 ),

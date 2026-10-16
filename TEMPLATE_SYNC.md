@@ -36,6 +36,12 @@ which lesson covers which template file.
   - `lib/core/constants/globals.dart`
   - `lib/core/mixins/screen_boundary_checker.dart`
 - The Project File Structure tree still lists default pages, labelled as default files.
+- Every coding lesson has a **Time to Code** message (`timeToCodeStatement`): 1-2
+  sentences, starting "You're about to...", naming what the student types in this
+  lesson, taken from the template code its steps show.
+- Every coding lesson has a **Pro Tip** (`proTip`): 1-2 sentences of quick advice for
+  that lesson, grounded in the template code (a gotcha, a tweak to try, or a way to
+  check it works). Neither message may discuss a default page.
 
 ## Not covered yet
 

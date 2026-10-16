@@ -43,7 +43,10 @@ Future<void> onLoad() async {
 ''',
         ),
       ],
-      timeToCodeStatement: 'Approx. 10 minutes',
+      timeToCodeStatement:
+          'You\'re about to override onLoad in hero.dart and add a RectangleHitbox the same size as the hero.',
+      proTip:
+          'While testing, set debugMode: true on BonfireWidget to outline every hitbox, so you can see exactly where the hero meets the ground.',
     );
   }
 }
