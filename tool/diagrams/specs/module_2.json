@@ -97,5 +97,6 @@
       "Project Bootstrapped",
       "Bonfire starter game loop running"
     ]
-  ]
+  ],
+  "overview_page": false
 }

@@ -29,6 +29,7 @@ dependencies:
   media_kit_libs_windows_video: ^1.0.11
   collection: ^1.19.1
   highlight: ^0.7.0
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,7 @@ flutter:
     - assets/images/screenshots/2/run_app.png
     - assets/images/images.jpeg
     - assets/images/getting_started/
+    - assets/images/module_diagrams/
 
 flutter_launcher_icons:
   ios: true

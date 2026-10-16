@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/module_overview_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -11,9 +14,46 @@ void main() {
     test('$title totalSteps matches its lesson count', () {
       final pane = panes.firstWhere((p) => p.title == title);
       final completion = pane.children.last.child! as ModuleCompletionPage;
-      final lessons = pane.children.length - 1;
+      // The overview and completion pages are not lessons.
+      final lessons = pane.children
+          .where(
+            (p) =>
+                p.child is! ModuleOverviewPage &&
+                p.child is! ModuleCompletionPage,
+          )
+          .length;
 
       expect(completion.module.totalSteps, lessons);
+    });
+  }
+
+  // From Map onward, each module starts with an overview page showing its diagram.
+  const modulesWithOverview = ['Map', 'Hero (Player)', 'Companion (Ally)'];
+
+  for (final title in modulesWithOverview) {
+    test('$title starts with an overview page whose diagram exists', () {
+      final pane = panes.firstWhere((p) => p.title == title);
+      final overview = pane.children.first.child;
+
+      expect(overview, isA<ModuleOverviewPage>());
+      final page = overview! as ModuleOverviewPage;
+      expect(File(page.diagramAsset).existsSync(), isTrue);
+      final lessons = pane.children
+          .skip(1)
+          .where((p) => p.child is! ModuleCompletionPage);
+      expect(page.lessonCount, lessons.length);
+      expect(page.firstLessonTitle, pane.children[1].title);
+    });
+  }
+
+  for (final title in ['Introduction', 'Getting Started', 'Foe (Enemy)']) {
+    test('$title has no overview page', () {
+      final pane = panes.firstWhere((p) => p.title == title);
+
+      expect(
+        pane.children.map((p) => p.child),
+        isNot(contains(isA<ModuleOverviewPage>())),
+      );
     });
   }
 
