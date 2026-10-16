@@ -64,7 +64,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                         accentColor: Colors.orangeAccent,
                         title: 'Player Component & Controls',
                         description:
-                            'Build custom character components with 8-direction sprite sheet animations (idle and running). Integrate responsive virtual joysticks and keyboard controls.',
+                            'Build a side-scrolling hero with idle, run, jump, and attack sprite animations, and drive it with keyboard controls for moving, double jumping, and melee and ranged attacks.',
                       ),
                       GapSizes.mediumGap,
                       ModuleCard(
@@ -164,7 +164,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                       AppCard.info(
                         title: 'Every lesson is modular',
                         description:
-                            'You can follow sequentially or jump directly to specific topics like map loading or joystick setup.',
+                            'You can follow sequentially or jump directly to specific topics like map loading or keyboard controls.',
                       ),
                     ],
                   ),

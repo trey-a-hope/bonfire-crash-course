@@ -17,7 +17,7 @@ class ApplyCustomBackground extends StatelessWidget {
       subtitle:
           'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
       objective:
-          'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using loadParallaxComponent.',
+          'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using the util.loadParallaxComponent helper.',
 
       concepts: [
         Concept(
@@ -70,11 +70,11 @@ void _addParallax() async {}
 
         CodeStep(
           description:
-              'Use loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component.',
+              'Use util.loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Load sky and clouds with independent horizontal motion
-_skyAndClouds = await loadParallaxComponent(
+_skyAndClouds = await util.loadParallaxComponent(
   [
     ParallaxImageData(SKY),
     ParallaxImageData(CLOUDS),
@@ -89,11 +89,11 @@ add(_skyAndClouds!);
 
         CodeStep(
           description:
-              'Use loadCameraParallaxComponent to load mountains and hills layers that react to camera movement for visual depth perspective, then add it to the component.',
+              'Use util.loadCameraParallaxComponent to load mountains and hills layers that react to camera movement for visual depth perspective, then add it to the component.',
           fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Load mountains and hills attached to camera motion for depth perspective
-_mountainsAndHills = await loadCameraParallaxComponent(
+_mountainsAndHills = await util.loadCameraParallaxComponent(
   [
     ParallaxImageData(MOUNTAINS),
     ParallaxImageData(HILLS),

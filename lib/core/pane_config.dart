@@ -1,6 +1,7 @@
 import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collision_to_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
 import 'package:bonfire_crash_course/presentation/pages/6_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduction.dart';
@@ -129,6 +130,11 @@ final List<PaneInfo> panes = [
         title: 'Map Boundaries for Player',
         path: '/player/map-boundaries-for-player',
         child: MapBoundariesForPlayerPage(),
+      ),
+      PaneInfo(
+        title: 'Player Attack System',
+        path: '/player/player-attack-system',
+        child: PlayerAttackSystemPage(),
       ),
       PaneInfo(
         title: 'Player Finished!',

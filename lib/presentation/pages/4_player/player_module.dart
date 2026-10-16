@@ -4,11 +4,11 @@ import 'package:bonfire_crash_course/presentation/lotties/enemy_lottie.dart';
 import 'package:flutter/material.dart';
 
 const PLAYER_MODULE = Module(
-  totalSteps: 5,
+  totalSteps: 6,
   moduleName: 'Player',
   completionHeadline: 'Player Character Ready!',
   completionSubtitle:
-      'Your hero is now fully assembled, animated, and responding to real-time player controls.',
+      'Your hero is now fully assembled, animated, responding to keyboard controls, and ready to fight.',
   badgeText: 'HERO CONTROLLER',
   badgeIcon: Icons.person_rounded,
   accentColor: Colors.cyanAccent,
@@ -23,7 +23,7 @@ const PLAYER_MODULE = Module(
       icon: Icons.sports_esports_rounded,
       title: 'Fluid Controls',
       description:
-          'Wired virtual joysticks and keyboard inputs to movement vectors.',
+          'Wired A/D movement, Space double jumps, and W/S attacks to the keyboard.',
     ),
     MilestoneAchievement(
       icon: Icons.center_focus_strong_rounded,
@@ -36,6 +36,12 @@ const PLAYER_MODULE = Module(
       title: 'Collision Hitbox',
       description:
           'Configured precision hitboxes to interact with map obstacles.',
+    ),
+    MilestoneAchievement(
+      icon: Icons.flash_on_rounded,
+      title: 'Combat Ready',
+      description:
+          'Armed the hero with a melee strike and a projectile attack.',
     ),
   ],
   nextLottie: EnemyLottie(height: 100),

@@ -42,6 +42,15 @@ class LoadingTheMap extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
+              'Asset paths live in globals.dart so every file shares one source of truth. Confirm the map constant points at the Spritefusion export (paths are relative to assets/images/).',
+          fileName: DART_FILE_GLOBALS,
+          codeSnippet: '''
+// Map
+const MAP_ONE = 'maps/01/map/map.json';
+''',
+        ),
+        CodeStep(
+          description:
               'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
@@ -52,7 +61,7 @@ Widget build(BuildContext context) {
         // Represents the 2D world where game entities interact.
         map: WorldMapBySpritefusion(
             // Load the map asset bundled with your project.
-            WorldMapReader.fromAsset('map.json'),
+            WorldMapReader.fromAsset(MAP_ONE),
         ),
     );
 }

@@ -29,6 +29,9 @@ class FileNode {
 }
 
 /// Project directory and file hierarchy layout.
+///
+/// Mirrors trey-a-hope/bonfire_crash_course_template; update it when the
+/// template's files change (see TEMPLATE_SYNC.md).
 const _projectTree = FileNode(
   name: 'bonfire_crash_course_template',
   isDirectory: true,
@@ -46,33 +49,82 @@ const _projectTree = FileNode(
               isDirectory: true,
               children: [
                 FileNode(
-                  name: 'clouds.png',
+                  name: 'sky.png',
                   description:
-                      'Clouds for the background. They are not animated.',
+                      'Back layer of the parallax background. Scrolls on its own.',
                 ),
                 FileNode(
-                  name: 'hills.png',
+                  name: 'clouds.png',
                   description:
-                      'Hills for the background. They are not animated.',
+                      'Cloud layer drawn over the sky. Scrolls on its own.',
                 ),
                 FileNode(
                   name: 'mountains.png',
                   description:
-                      'Mountains for the background. They are not animated.',
+                      'Mountain layer. Moves with the camera for depth.',
                 ),
                 FileNode(
-                  name: 'sky.png',
-                  description: 'Sky for the background. It is not animated.',
+                  name: 'hills.png',
+                  description:
+                      'Front hill layer. Moves with the camera faster than the mountains.',
                 ),
               ],
             ),
             FileNode(
-              name: 'map.json',
-              description: 'Game map for the game. It is not animated.',
+              name: 'characters',
+              isDirectory: true,
+              children: [
+                FileNode(
+                  name: 'shark',
+                  isDirectory: true,
+                  children: [
+                    FileNode(
+                      name: 'shark_*.png',
+                      description:
+                          'Shark sprite sheets: idle, walk, jump, bite and range attacks, hurt, and a water ball projectile. Left and right versions of each.',
+                    ),
+                  ],
+                ),
+                FileNode(
+                  name: 'wizard',
+                  isDirectory: true,
+                  children: [
+                    FileNode(
+                      name: 'wizard_*.png',
+                      description:
+                          'Wizard sprite sheets: idle, walk, jump, melee and range attacks, hurt, and a magic bolt projectile. Left and right versions of each.',
+                    ),
+                  ],
+                ),
+              ],
             ),
             FileNode(
-              name: 'spritesheet.png',
-              description: 'Spritesheet for the game. It is not animated.',
+              name: 'maps',
+              isDirectory: true,
+              children: [
+                FileNode(
+                  name: '01',
+                  isDirectory: true,
+                  children: [
+                    FileNode(
+                      name: 'map',
+                      isDirectory: true,
+                      children: [
+                        FileNode(
+                          name: 'map.json',
+                          description:
+                              'The level exported from Spritefusion: tile layers plus which tiles are solid. Loaded through the MAP_ONE constant.',
+                        ),
+                        FileNode(
+                          name: 'spritesheet.png',
+                          description:
+                              'The tileset image map.json draws its tiles from.',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -85,7 +137,40 @@ const _projectTree = FileNode(
         FileNode(
           name: 'main.dart',
           description:
-              'The entry point of the application. It is where the game is initialized and the game loop is started.',
+              'The entry point of the application. It runs the app and opens GameScreen.',
+        ),
+        FileNode(
+          name: 'core',
+          isDirectory: true,
+          children: [
+            FileNode(
+              name: 'constants',
+              isDirectory: true,
+              children: [
+                FileNode(
+                  name: 'globals.dart',
+                  description:
+                      'Shared constants: asset paths for backgrounds, characters and the map, plus attack animation names and timing.',
+                ),
+                FileNode(
+                  name: 'character_asset.dart',
+                  description:
+                      'The CharacterAsset enum. Each value (wizard, shark) lists every sprite sheet and frame count one character needs.',
+                ),
+              ],
+            ),
+            FileNode(
+              name: 'mixins',
+              isDirectory: true,
+              children: [
+                FileNode(
+                  name: 'screen_boundary_checker.dart',
+                  description:
+                      'ScreenBoundaryChecker mixin that keeps a component inside the map.',
+                ),
+              ],
+            ),
+          ],
         ),
         FileNode(
           name: 'presentation',
@@ -98,7 +183,29 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'parallax_background.dart',
                   description:
-                      'Parallax background for the game. It is not animated.',
+                      'ParallaxBackground: layered sky, clouds, mountains and hills that scroll at different speeds.',
+                ),
+              ],
+            ),
+            FileNode(
+              name: 'characters',
+              isDirectory: true,
+              children: [
+                FileNode(
+                  name: 'hero.dart',
+                  description:
+                      'The playable Hero: animations, gravity, collision, keyboard movement, jumping, and attacks.',
+                ),
+                FileNode(
+                  name: 'util',
+                  isDirectory: true,
+                  children: [
+                    FileNode(
+                      name: 'animation_utils.dart',
+                      description:
+                          'AnimationUtils.loadAnimation turns a sprite sheet into a SpriteAnimation.',
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -108,13 +215,19 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'game_screen.dart',
-                  description: 'Game screen for the game. It is not animated.',
+                  description:
+                      'GameScreen builds the BonfireWidget: map, hero, background, camera, and keyboard controls.',
                 ),
               ],
             ),
           ],
         ),
       ],
+    ),
+    FileNode(
+      name: 'pubspec.yaml',
+      description:
+          'Dependencies (bonfire) and the asset folders Flutter bundles with the game.',
     ),
   ],
 );

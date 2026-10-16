@@ -41,5 +41,5 @@ const MAP_MODULE = Module(
   nextLottie: PlayerLottie(height: 100),
   nextModuleTitle: 'The Player Character',
   nextModuleDescription:
-      'Configure spritesheets, idle/run animations, virtual joystick controls, and camera follow.',
+      'Animate a hero sprite, add gravity and collision, and wire up keyboard movement, jumping, and attacks.',
 );
