@@ -62,7 +62,7 @@ Companion(Vector2 position)
       timeToCodeStatement:
           'You\'re about to pass a SimpleDirectionAnimation with the strawberry\'s idle and walk sheets to the Companion constructor.',
       proTip:
-          'The companion now appears where you spawned it, floating in mid-air; it has no gravity or hitbox yet, and the next lesson fixes that.',
+          'The companion now appears standing on the ground at tile (8, 7). Walk the hero into it and you\'ll pass straight through; it has no hitbox yet, and the next lesson adds one.',
     );
   }
 }

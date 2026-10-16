@@ -10,7 +10,7 @@ which lesson covers which template file.
 
 | Field | Value |
 | --- | --- |
-| Template commit | `3269cce` (template PR #2, BCC-4 strawberry companion, on `claude/project-thread-rjdk3l`; replace with the merge commit once it lands on main) |
+| Template commit | `15db9df` (template PR #2, BCC-4 strawberry companion, on `claude/project-thread-rjdk3l`; replace with the merge commit once it lands on main) |
 | Synced on | 2026-10-16 |
 
 ## Template file → lessons

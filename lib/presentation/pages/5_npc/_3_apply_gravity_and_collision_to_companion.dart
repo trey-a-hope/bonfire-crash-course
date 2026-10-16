@@ -52,7 +52,7 @@ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
         ),
         CodeStep(
           description:
-              'Give the constructor a body and set the same gravity as the hero, right after the super(...) call.',
+              'Give the constructor a body and set the same gravity as the hero, right after the super(...) call. The companion already starts on the ground, so gravity just keeps it planted there.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)

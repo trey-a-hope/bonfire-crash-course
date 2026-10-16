@@ -264,6 +264,11 @@ const _projectTree = FileNode(
           description:
               'Checks the strawberry sheets have the frame counts the Companion uses.',
         ),
+        FileNode(
+          name: 'companion_spawn_test.dart',
+          description:
+              'Checks the Companion\'s spawn tile is open and has ground right beneath it.',
+        ),
       ],
     ),
     FileNode(

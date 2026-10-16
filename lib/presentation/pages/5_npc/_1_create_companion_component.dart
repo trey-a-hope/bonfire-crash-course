@@ -67,7 +67,7 @@ Companion(Vector2 position)
         ),
         CodeStep(
           description:
-              'Import companion.dart in game_screen.dart, then add a Companion to BonfireWidget\'s components list, a little to the right of the hero.',
+              'Import companion.dart in game_screen.dart, then add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (8, 7) is the row just above the ground in map 01, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 import 'package:counter_app/presentation/characters/companion.dart';
@@ -76,7 +76,9 @@ return BonfireWidget(
   player: Hero(Vector2(100, 100)),
   // Everything else in the world: the friendly companion, for now.
   components: [
-    Companion(Vector2(256, 100)),
+    // Tile (8, 7): the row just above the ground (row 8) in map 01, so
+    // the companion is already standing when the map loads.
+    Companion(Vector2(8, 7) * TILE_SIZE),
   ],
   ...
 );
