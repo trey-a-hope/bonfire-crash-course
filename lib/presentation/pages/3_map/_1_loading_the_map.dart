@@ -42,7 +42,7 @@ class LoadingTheMap extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Replace the placeholder widget in GameScreen with BonfireWidget and load the map. MAP_ONE already ships with the template in globals.dart.',
+              'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
