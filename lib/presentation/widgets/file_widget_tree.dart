@@ -86,6 +86,17 @@ const _projectTree = FileNode(
                   ],
                 ),
                 FileNode(
+                  name: 'strawberry',
+                  isDirectory: true,
+                  children: [
+                    FileNode(
+                      name: 'strawberry_*.png',
+                      description:
+                          'Strawberry companion sprite sheets: idle (breathing and blinking), walk and talk. It faces the camera, so one sheet covers both directions.',
+                    ),
+                  ],
+                ),
+                FileNode(
                   name: 'wizard',
                   isDirectory: true,
                   children: [
@@ -202,6 +213,11 @@ const _projectTree = FileNode(
               isDirectory: true,
               children: [
                 FileNode(
+                  name: 'companion.dart',
+                  description:
+                      'The friendly Companion (Ally): strawberry animations, gravity, collision, and dialogue when the hero comes close.',
+                ),
+                FileNode(
                   name: 'hero.dart',
                   description:
                       'The playable Hero: animations, gravity, collision, keyboard movement, jumping, and attacks.',
@@ -226,7 +242,7 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'game_screen.dart',
                   description:
-                      'GameScreen builds the BonfireWidget: map, hero, background, camera, and keyboard controls.',
+                      'GameScreen builds the BonfireWidget: map, hero, companion, background, camera, and keyboard controls.',
                 ),
               ],
             ),
@@ -242,6 +258,16 @@ const _projectTree = FileNode(
           name: 'character_asset_test.dart',
           description:
               'Checks every character sprite sheet exists and has the frame count CharacterAsset expects.',
+        ),
+        FileNode(
+          name: 'companion_asset_test.dart',
+          description:
+              'Checks the strawberry sheets have the frame counts the Companion uses.',
+        ),
+        FileNode(
+          name: 'companion_spawn_test.dart',
+          description:
+              'Checks the Companion\'s spawn tile is open and has ground right beneath it.',
         ),
       ],
     ),

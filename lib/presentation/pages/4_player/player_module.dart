@@ -47,5 +47,5 @@ const PLAYER_MODULE = Module(
   nextLottie: EnemyLottie(height: 100),
   nextModuleTitle: 'NPC (Allies)',
   nextModuleDescription:
-      'Build enemy behavior trees, line-of-sight tracking, and attack mechanics.',
+      'Add a friendly companion that stands on the map and talks to the hero when they come close.',
 );

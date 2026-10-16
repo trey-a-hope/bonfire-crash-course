@@ -8,7 +8,7 @@ const NPC_MODULE = Module(
   moduleName: 'NPC (Ally)',
   completionHeadline: 'NPC Companion Ready!',
   completionSubtitle:
-      'Your ally NPC is now fully configured with custom sprites, collision physics, and interactive behaviors.',
+      'Your companion now stands on the map, animates, collides with the world, and talks to the hero.',
   badgeText: 'COMPANION ARCHITECT',
   badgeIcon: Icons.smart_toy_rounded,
   accentColor: Colors.purpleAccent,
@@ -17,25 +17,25 @@ const NPC_MODULE = Module(
       icon: Icons.person_add_alt_1_rounded,
       title: 'NPC Component',
       description:
-          'Extended SimpleNpc to build an interactive non-player character component.',
+          'Extended SimpleAlly to build a friendly Companion that joins the game world.',
     ),
     MilestoneAchievement(
       icon: Icons.animation_rounded,
       title: 'Sprite Animations',
       description:
-          'Configured idle and movement animation sheets for the ally.',
+          'Gave the companion idle and walk animations from the strawberry sheets.',
     ),
     MilestoneAchievement(
       icon: Icons.shield_rounded,
       title: 'Hitbox & Collision',
       description:
-          'Attached boundary hitboxes to enable world and player collisions.',
+          'Added gravity, collision and a hitbox so the companion stands on the map and blocks the hero.',
     ),
     MilestoneAchievement(
       icon: Icons.chat_bubble_outline_rounded,
       title: 'Dialogue & Interaction',
       description:
-          'Implemented proximity triggers for player interaction and speech bubbles.',
+          'Used vision.seePlayer to open a TalkDialog when the hero comes close.',
     ),
   ],
   nextLottie: BonfireLottie(height: 100),

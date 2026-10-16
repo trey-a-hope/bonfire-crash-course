@@ -8,7 +8,12 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   // Modules whose lessons are written. Each module's totalSteps drives the
   // "Step X of Y" badge, so it must match the lessons listed in the sidebar.
-  const finishedModules = ['Getting Started', 'Map', 'Hero (Player)'];
+  const finishedModules = [
+    'Getting Started',
+    'Map',
+    'Hero (Player)',
+    'Companion (Ally)',
+  ];
 
   for (final title in finishedModules) {
     test('$title totalSteps matches its lesson count', () {

@@ -10,16 +10,17 @@ which lesson covers which template file.
 
 | Field | Value |
 | --- | --- |
-| Template commit | `1546017` (Merge pull request #1 from trey-a-hope/fix/hero-attack-animations) |
+| Template commit | `7597fda` (template PR #2, BCC-4 strawberry companion, on `claude/project-thread-rjdk3l`; replace with the merge commit once it lands on main) |
 | Synced on | 2026-10-16 |
 
 ## Template file → lessons
 
 | Template file | Lessons (lib/presentation/pages/...) |
 | --- | --- |
-| `lib/presentation/screens/game_screen.dart` | `3_map/_1_loading_the_map.dart`, `3_map/_2_apply_custom_background.dart` (background param), `4_player/_1_create_player_component.dart` (player param), `4_player/_4_move_and_jump.dart` (Keyboard controller) |
+| `lib/presentation/screens/game_screen.dart` | `3_map/_1_loading_the_map.dart`, `3_map/_2_apply_custom_background.dart` (background param), `4_player/_1_create_player_component.dart` (player param), `4_player/_4_move_and_jump.dart` (Keyboard controller), `5_npc/_1_create_companion_component.dart` (components param) |
 | `lib/presentation/backgrounds/parallax_background.dart` | `3_map/_2_apply_custom_background.dart` |
 | `lib/presentation/characters/hero.dart` | `4_player/_1` (class, constructor, animations), `_2` (gravity), `_3` (hitbox), `_4` (keyboard, jump), `_5` (boundaries), `_6_player_attack_system.dart` (attacks) |
+| `lib/presentation/characters/companion.dart` | `5_npc/_1` (class, constructor), `_2` (animations), `_3` (mixins, gravity, hitbox), `_4_companion_dialogue.dart` (vision, TalkDialog) |
 | `lib/presentation/characters/util/animation_utils.dart` | `4_player/_1_create_player_component.dart` |
 | `lib/core/mixins/screen_boundary_checker.dart` | Default page: never discussed; `4_player/_5` only adds the mixin to Hero |
 | `lib/core/constants/globals.dart` | Default page: never discussed; lessons only use its constants by name |
@@ -45,5 +46,5 @@ which lesson covers which template file.
 
 ## Not covered yet
 
-- Companion (Ally) and Foe (Enemy) modules: the template has no NPC or enemy
-  code yet, so those lessons are still placeholders.
+- Foe (Enemy) module: the template has no enemy code yet, so those lessons are
+  still placeholders.
