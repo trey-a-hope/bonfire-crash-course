@@ -89,7 +89,7 @@ void _talk() {
     [
       _say('Oh, hi there! I\'m Berry.'),
       _say('Watch your step, the hills around here are tricky.'),
-      _say('Come back and visit any time!'),
+      _say('Mind if I tag along?'),
     ],
     onClose: gameRef.resumeEngine,
   );

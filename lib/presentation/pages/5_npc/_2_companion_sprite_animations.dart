@@ -53,15 +53,17 @@ Companion(Vector2 position)
             amount: 8,
             stepTime: 0.15,
           ),
+          // Walk steps quickly enough to match the speed, so the feet
+          // don't look like they're sliding.
           runRight: AnimationUtils.loadAnimation(
             STRAWBERRY_WALK,
             amount: 4,
-            stepTime: 0.12,
+            stepTime: 0.08,
           ),
           runLeft: AnimationUtils.loadAnimation(
             STRAWBERRY_WALK,
             amount: 4,
-            stepTime: 0.12,
+            stepTime: 0.08,
           ),
         ),
       );
@@ -71,7 +73,7 @@ Companion(Vector2 position)
       timeToCodeStatement:
           'You\'re about to pass a SimpleDirectionAnimation with the strawberry\'s idle and walk sheets to the Companion constructor.',
       proTip:
-          'The companion now appears standing on the ground at tile (8, 7). Walk the hero into it and you\'ll pass straight through; it has no hitbox yet, and the next lesson adds one.',
+          'The companion now appears standing on the ground at tile (24, 7). Walk the hero into it and you\'ll pass straight through; it has no hitbox yet, and the next lesson adds one.',
     );
   }
 }

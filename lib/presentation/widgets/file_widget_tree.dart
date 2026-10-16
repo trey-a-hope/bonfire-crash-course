@@ -92,7 +92,7 @@ const _projectTree = FileNode(
                     FileNode(
                       name: 'strawberry_*.png',
                       description:
-                          'Strawberry companion sprite sheets: idle (breathing and blinking), walk and talk. It faces the camera, so one sheet covers both directions.',
+                          'Strawberry companion sprite sheets: idle (breathing and blinking), walk, talk and wave. It faces the camera, so one sheet covers both directions.',
                     ),
                   ],
                 ),
@@ -215,7 +215,7 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'companion.dart',
                   description:
-                      'The friendly Companion (Ally): strawberry animations, gravity, collision, and dialogue when the hero comes close.',
+                      'The friendly Companion (Ally): strawberry animations, gravity, collision, dialogue when the hero comes close, a wave hello, and following the hero.',
                 ),
                 FileNode(
                   name: 'hero.dart',
@@ -263,6 +263,11 @@ const _projectTree = FileNode(
           name: 'companion_asset_test.dart',
           description:
               'Checks the strawberry sheets have the frame counts the Companion uses.',
+        ),
+        FileNode(
+          name: 'companion_follow_test.dart',
+          description:
+              'Checks Companion.followAction walks towards the hero, stops beside them or at a wall, and waits when they\'re out of sight.',
         ),
         FileNode(
           name: 'companion_spawn_test.dart',

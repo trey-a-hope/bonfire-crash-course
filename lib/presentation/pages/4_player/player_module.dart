@@ -47,5 +47,5 @@ const PLAYER_MODULE = Module(
   nextLottie: EnemyLottie(height: 100),
   nextModuleTitle: 'NPC (Allies)',
   nextModuleDescription:
-      'Add a friendly companion that stands on the map and talks to the hero when they come close.',
+      'Add a friendly companion that talks to the hero when they come close, waves hello, and then follows them around.',
 );

@@ -6,32 +6,59 @@
   "lessons": [
     {
       "number": 1,
-      "title": "Creating the NPC Component",
-      "summary": "Sprites, idle animation and hitbox",
+      "title": "Creating the Companion Component",
+      "summary": "A SimpleAlly added to the world",
       "concepts": [
-        [
-          "Player Component",
-          "Extends SimplePlayer: sprites, anim, hitbox"
-        ]
+        ["Ally", "An NPC on the player's side, with life"],
+        ["SimpleAlly", "No PlatformAlly in Bonfire 4.0"],
+        ["components", "Everything in the world but the player"]
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Companion Sprite Animations",
+      "summary": "Strawberry idle and walk sheets",
+      "concepts": [
+        ["SimpleDirectionAnimation", "Idle and run animations per direction"],
+        ["Frame Count (amount)", "Idle is 8 frames, walk is 4"]
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Gravity and Collision",
+      "summary": "Stand on the map, block the hero",
+      "concepts": [
+        ["WithCollision", "Stops moving when it hits something"],
+        ["WithForces", "Same gravity as the hero"],
+        ["RectangleHitbox", "The companion's solid shape"]
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Companion Dialogue",
+      "summary": "Talk when the hero comes close",
+      "concepts": [
+        ["vision.seePlayer", "Is the hero within 48 px?"],
+        ["TalkDialog and Say", "Built-in dialogue box, line by line"],
+        ["pauseEngine / resumeEngine", "Freeze the game while it talks"]
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Wave and Follow the Hero",
+      "summary": "Wave hello, then tag along",
+      "concepts": [
+        ["FollowAction and followAction", "Stop, lost, left or right each tick"],
+        ["canMove, moveLeft and moveRight", "Walk on the ground, wait at walls"],
+        ["others and playOnceOther", "Play the 6-frame wave once"]
       ]
     }
   ],
   "outcomes": [
-    [
-      "NPC Component",
-      "An interactive non-player character"
-    ],
-    [
-      "Sprite Animations",
-      "Idle and movement sheets for the ally"
-    ],
-    [
-      "Hitbox & Collision",
-      "Collides with the world and the player"
-    ],
-    [
-      "Dialogue & Interaction",
-      "Proximity triggers and speech bubbles"
-    ]
+    ["Companion Component", "A SimpleAlly in the game world"],
+    ["Sprite Animations", "Strawberry idle and walk sheets"],
+    ["Hitbox & Collision", "Stands on the map, blocks the hero"],
+    ["Dialogue & Interaction", "Talks when the hero comes close"],
+    ["Wave & Follow", "Waves hello, then follows the hero"]
   ]
 }
