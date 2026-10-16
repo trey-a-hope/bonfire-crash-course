@@ -7,13 +7,16 @@ achievements). Build steps and pro tips are left out on purpose.
 Usage: python3 tool/diagrams/build_module_diagrams.py
 Writes docs/module_diagrams/module_<n>_<slug>.excalidraw (one per module),
 docs/module_diagrams/bonfire_modules_all.excalidraw (every module in its own frame),
-and docs/module_diagrams/svg/module_<n>_<slug>.svg (inline preview).
+docs/module_diagrams/svg/module_<n>_<slug>.svg (inline preview), and
+assets/images/module_diagrams/module_<n>_<slug>.svg (the copy the app shows on each
+module's overview page, with styles inlined for flutter_svg).
 """
-import glob, json, os, random, re
+import glob, json, math, os, random, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(ROOT))
 OUT = os.path.join(REPO, 'docs', 'module_diagrams')
+APP_OUT = os.path.join(REPO, 'assets', 'images', 'module_diagrams')
 
 COL_W, GAP, BOX_H, MAX_COLS = 330, 20, 50, 3
 COLORS = {  # svg class -> (excalidraw fill, stroke)
@@ -95,6 +98,42 @@ SVG_STYLE = ('<style>rect{stroke-width:1.5}.th{font:600 14px sans-serif;fill:#1e
              '<rect width="100%" height="100%" fill="#fff"/>')
 
 
+# The same colors as SVG_STYLE, written as attributes for the app copy.
+APP_FILL = {'c-amber': ('#fde7c4', '#d97706'), 'c-blue': ('#dbeafe', '#2563eb'), 'c-green': ('#dcfce7', '#16a34a')}
+APP_FONT = {'th': 'font-size="14" font-weight="600" fill="#1e1e1e"', 'ts': 'font-size="12" fill="#555555"'}
+
+
+def arrowhead(x1, y1, x2, y2):
+    """The marker's triangle as a plain polygon, so the app copy needs no <marker>."""
+    d = math.hypot(x2 - x1, y2 - y1)
+    ux, uy = (x2 - x1) / d, (y2 - y1) / d
+    tip_x, tip_y = x2 + ux * 1.05, y2 + uy * 1.05
+    bx, by = tip_x - ux * 10.5, tip_y - uy * 10.5
+    pts = [(tip_x, tip_y), (bx - uy * 5.25, by + ux * 5.25), (bx + uy * 5.25, by - ux * 5.25)]
+    return ' '.join(f'{px:.1f},{py:.1f}' for px, py in pts)
+
+
+def to_app_svg(spec):
+    """to_svg for the app: plain attributes, with no <style>, classes or <marker>."""
+    w, h, boxes, texts, arrows = layout(spec)
+    o = [f'<svg viewBox="0 0 {w:.0f} {h:.0f}" width="{w:.0f}" height="{h:.0f}" xmlns="http://www.w3.org/2000/svg">',
+         f'<rect width="{w:.0f}" height="{h:.0f}" fill="#ffffff"/>']
+    for x1, y1, x2, y2, dash in arrows:
+        o.append(f'<line x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" stroke="#555555" stroke-width="1.5"'
+                 + (' stroke-dasharray="5 4"' if dash else '') + '/>')
+        o.append(f'<polygon points="{arrowhead(x1, y1, x2, y2)}" fill="none" stroke="#555555" stroke-width="1.5"/>')
+    for x, y, t, c, a in texts:
+        o.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="{a}" font-family="sans-serif" {APP_FONT[c]}>{esc(t)}</text>')
+    for x, y, bw, bh, c, t, s, center in boxes:
+        fill, stroke = APP_FILL[c]
+        tx, a = (x + bw / 2, 'middle') if center else (x + 12, 'start')
+        o.append(f'<rect x="{x:.0f}" y="{y:.0f}" width="{bw}" height="{bh}" rx="8" fill="{fill}" stroke="{stroke}" stroke-width="1.5"/>'
+                 f'<text x="{tx:.0f}" y="{y + 20:.0f}" text-anchor="{a}" font-family="sans-serif" {APP_FONT["th"]}>{esc(t)}</text>'
+                 f'<text x="{tx:.0f}" y="{y + 39:.0f}" text-anchor="{a}" font-family="sans-serif" {APP_FONT["ts"]}>{esc(s)}</text>')
+    o.append('</svg>')
+    return ''.join(o)
+
+
 def esc(s):
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
@@ -149,6 +188,7 @@ def scene(elements):
 
 def main():
     os.makedirs(os.path.join(OUT, 'svg'), exist_ok=True)
+    os.makedirs(APP_OUT, exist_ok=True)
     specs = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(ROOT, 'specs', '*.json')))]
     specs.sort(key=lambda s: s['number'])
     combined, x = [], 0
@@ -159,6 +199,7 @@ def main():
         json.dump(scene(els), open(os.path.join(OUT, name + '.excalidraw'), 'w'), indent=1)
         svg = to_svg(spec).replace('</defs>', '</defs>' + SVG_STYLE, 1)
         open(os.path.join(OUT, 'svg', name + '.svg'), 'w').write(svg)
+        open(os.path.join(APP_OUT, name + '.svg'), 'w').write(to_app_svg(spec))
         fid = f'frame_{spec["number"]}'
         els, w, h = to_excalidraw(spec, ox=x + 40, oy=40, frame=fid, prefix=f'm{spec["number"]}_')
         combined.extend(els)

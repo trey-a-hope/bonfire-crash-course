@@ -8,13 +8,18 @@ with (the module's completion-page achievements). Build steps and pro tips are l
 - `bonfire_modules_all.excalidraw`: every module as its own frame (artboard) in one scene.
 - `svg/`: plain previews of each module.
 
+The app shows each diagram on its module's overview page, from
+`assets/images/module_diagrams/`. Those copies have their colors written as
+attributes and plain arrowheads, so they don't rely on `<style>`, classes or `<marker>`,
+which flutter_svg doesn't fully support.
+
 Open a file at excalidraw.com (or import it into Excalidraw+) to view or edit it.
 
 ## Rebuilding
 
 The content lives in `tool/diagrams/specs/module_<n>.json`, written from the lesson
 pages (`lib/presentation/pages/**`) and each module's `*_module.dart`. Edit a spec,
-then run:
+then run (it also rewrites the app copies):
 
 ```
 python3 tool/diagrams/build_module_diagrams.py

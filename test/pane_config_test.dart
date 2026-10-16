@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/module_overview_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -11,11 +14,43 @@ void main() {
     test('$title totalSteps matches its lesson count', () {
       final pane = panes.firstWhere((p) => p.title == title);
       final completion = pane.children.last.child! as ModuleCompletionPage;
-      final lessons = pane.children.length - 1;
+      // The overview and completion pages are not lessons.
+      final lessons = pane.children.length - 2;
 
       expect(completion.module.totalSteps, lessons);
     });
   }
+
+  // Modules with a diagram start with an overview page that shows it.
+  const modulesWithOverview = [
+    'Introduction',
+    'Getting Started',
+    'Map',
+    'Hero (Player)',
+    'Companion (Ally)',
+  ];
+
+  for (final title in modulesWithOverview) {
+    test('$title starts with an overview page whose diagram exists', () {
+      final pane = panes.firstWhere((p) => p.title == title);
+      final overview = pane.children.first.child;
+
+      expect(overview, isA<ModuleOverviewPage>());
+      final page = overview! as ModuleOverviewPage;
+      expect(File(page.diagramAsset).existsSync(), isTrue);
+      final lessons = pane.children
+          .skip(1)
+          .where((p) => p.child is! ModuleCompletionPage);
+      expect(page.lessonCount, lessons.length);
+      expect(page.firstLessonTitle, pane.children[1].title);
+    });
+  }
+
+  test('Enemy has no overview page', () {
+    final enemy = panes.firstWhere((p) => p.title == 'Foe (Enemy)');
+
+    expect(enemy.children.first.child, isNot(isA<ModuleOverviewPage>()));
+  });
 
   test('Player module includes the attack lesson', () {
     final player = panes.firstWhere((p) => p.title == 'Hero (Player)');
