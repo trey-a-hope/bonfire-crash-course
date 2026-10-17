@@ -10,7 +10,7 @@ which lesson covers which template file.
 
 | Field | Value |
 | --- | --- |
-| Template commit | `4c29dfd` (Merge pull request #3 from trey-a-hope/claude/project-thread-rjdk3l) |
+| Template commit | `5739bc6` (Merge pull request #4 from trey-a-hope/claude/project-thread-rjdk3l) |
 | Synced on | 2026-10-16 |
 
 ## Template file → lessons
