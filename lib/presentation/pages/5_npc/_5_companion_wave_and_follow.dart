@@ -357,7 +357,7 @@ void _talk() {
       timeToCodeStatement:
           'You\'re about to add the FollowAction enum, follow fields, onBlockMovementListener and a priority override to companion.dart, write followAction, _follow, _stopWalking and the _WaveThenTalk widget, and update update and _talk so Berry waves and then follows.',
       proTip:
-          'Jump the hero up onto a ledge after the talk: Berry can\'t jump, so canMove stops it at the wall below until you come back down. Run more than followRadius (160 px) away and it waits where it is.',
+          'Jump the hero up onto a ledge after the talk: Berry can\'t jump, so canMove stops it at the wall below until you come back down. Run more than followRadius (160 px) away and it waits where it is, then picks up following again when you come back within range.',
     );
   }
 }

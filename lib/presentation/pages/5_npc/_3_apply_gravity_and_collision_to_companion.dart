@@ -83,7 +83,7 @@ Future<void> onLoad() async {
       timeToCodeStatement:
           'You\'re about to add the WithCollision and WithForces mixins to Companion, set its gravity in the constructor, and add a RectangleHitbox in onLoad.',
       proTip:
-          'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground.',
+          'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground. For now the hero bumps into Berry too; lesson 5 lets them pass through each other.',
     );
   }
 }

@@ -45,7 +45,7 @@
     },
     {
       "number": 5,
-      "title": "Wave and Follow the Hero",
+      "title": "Make Berry Wave and Follow the Hero",
       "summary": "Wave hello, then tag along",
       "concepts": [
         ["FollowAction and followAction", "Stop, lost, left or right each tick"],
