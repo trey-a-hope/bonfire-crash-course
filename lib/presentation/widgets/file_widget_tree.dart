@@ -215,7 +215,7 @@ const _projectTree = FileNode(
                 FileNode(
                   name: 'companion.dart',
                   description:
-                      'The friendly Companion (Ally): strawberry animations, gravity, collision, dialogue when the hero comes close, a wave hello, and following the hero.',
+                      'The friendly Companion (Ally): strawberry animations, gravity, collision, a one-time dialogue with an animated face that waves hello, and following the hero (passing through them, drawn just behind).',
                 ),
                 FileNode(
                   name: 'hero.dart',

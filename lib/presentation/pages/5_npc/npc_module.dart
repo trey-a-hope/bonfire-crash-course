@@ -29,19 +29,19 @@ const NPC_MODULE = Module(
       icon: Icons.shield_rounded,
       title: 'Hitbox & Collision',
       description:
-          'Added gravity, collision and a hitbox so the companion stands on the map and blocks the hero.',
+          'Added gravity, collision and a hitbox so the companion stands on the map and stops at walls.',
     ),
     MilestoneAchievement(
       icon: Icons.chat_bubble_outline_rounded,
       title: 'Dialogue & Interaction',
       description:
-          'Used vision.seePlayer to open a TalkDialog when the hero comes close.',
+          'Used vision.seePlayer to open a TalkDialog, with an animated face, when the hero comes close.',
     ),
     MilestoneAchievement(
       icon: Icons.directions_walk_rounded,
       title: 'Wave & Follow',
       description:
-          'Played a one-shot wave with playOnceOther and made the companion follow the hero along the ground.',
+          'Waved hello in the dialogue and goodbye with playOnceOther, then followed the hero, passing through them and drawn just behind.',
     ),
   ],
   nextLottie: BonfireLottie(height: 100),

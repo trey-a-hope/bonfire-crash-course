@@ -18,7 +18,7 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
       unitStep: 5,
       title: 'Make Berry Wave and Follow the Hero',
       objective:
-          'Make Berry wave hello once when the dialogue opens, then follow the hero along the ground after the talk, stopping beside them and waiting when a wall is in the way or the hero is out of sight.',
+          'Make Berry wave hello in the dialogue, then wave goodbye in the world and follow the hero along the ground: stopping beside them, waiting at walls or when the hero is out of sight, passing through the hero instead of bumping, and always drawn just behind them.',
       concepts: [
         Concept(
           title: 'FollowAction and followAction',
@@ -31,9 +31,19 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
               'canMove checks for a wall or step before walking. moveLeft and moveRight only set the horizontal speed, so gravity keeps pulling the companion down and it walks off ledges instead of floating.',
         ),
         Concept(
-          title: 'others and playOnceOther',
+          title: 'onBlockMovementListener',
           subtitle:
-              'SimpleDirectionAnimation\'s others map holds extra animations by key, like the 6-frame wave. animation.playOnceOther plays one of them once, then goes back to idle or walk; runToTheEnd: true stops the switch back from cutting it short.',
+              'Bonfire asks this before a collision stops a component. Returning false for the Player lets the hero and Berry pass through each other, so a hero who turns around never shoves Berry along; tiles still block it.',
+        ),
+        Concept(
+          title: 'priority (draw order)',
+          subtitle:
+              'Bonfire draws higher priorities on top, based on how low a component stands on screen. Berry overrides the priority getter to sit one under the hero, so the hero is always drawn in front, which suits a side-scroller where they share the same ground.',
+        ),
+        Concept(
+          title: 'Two waves: portrait and playOnceOther',
+          subtitle:
+              'The game is paused while the dialogue is open, so the hello wave plays in the dialogue portrait (_WaveThenTalk). When it closes, animation.playOnceOther plays the in-world wave from the others map and returns a Future; following starts when it completes.',
         ),
       ],
       codeSteps: [
@@ -68,15 +78,14 @@ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
         ),
         CodeStep(
           description:
-              'Add the fields for following and waving below _talkRadius: how close the companion walks up to the hero, how far it can see them, and two flags for the dialogue and following. Replace the comment on _hasTalked too, since the talk now only happens once.',
+              'Add the follow fields after _talkRadius: how close the companion walks up to the hero, how far it can see them, and whether it is following yet.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// How close (in pixels) the hero must be before the companion talks.
 static const _talkRadius = 48.0;
 
 /// How close (centre to centre, in pixels) the companion walks up to the
-/// hero before stopping. Both are 32 wide, so this leaves a 4px gap and
-/// the companion never pushes into the hero.
+/// hero before stopping. Both are 32 wide, so this leaves a 4px gap.
 ///
 /// It is less than [_talkRadius] on purpose, so the companion can stand
 /// beside the hero without crowding them. Following never reopens the
@@ -86,14 +95,8 @@ static const followDistance = 36.0;
 /// How far (in pixels) the companion can see the hero while following.
 /// If the hero gets farther than this, the companion stops and waits.
 static const followRadius = 160.0;
-
-/// True once the companion has talked. Before the first talk is over, the
-/// hero walking out of range resets it; after that the companion follows
-/// and the dialogue never opens again.
+...
 bool _hasTalked = false;
-
-/// True while the dialogue is on screen.
-bool _isDialogueOpen = false;
 
 /// True after the first conversation: from then on the companion follows
 /// the hero around.
@@ -102,23 +105,57 @@ bool _isFollowing = false;
         ),
         CodeStep(
           description:
-              'Update update: follow the hero while following and no dialogue is open, and only reset _hasTalked when the hero leaves before the first talk is over.',
+              'In onLoad, after the hitbox, add collision.onBlockMovementListener so the hero and the companion pass through each other. Return false (let the movement through) only when the other component is the Player.',
+          fileName: DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
+/// Runs once when the companion is added to the game.
+@override
+Future<void> onLoad() async {
+  // The hitbox is the companion's solid shape: it stands on the ground
+  // and stops at walls.
+  add(RectangleHitbox(size: size));
+
+  // The hero and the companion pass through each other instead of
+  // bumping: otherwise a hero who turns around would shove the companion
+  // along. Bonfire asks this before a collision stops either of them;
+  // returning false lets the movement through. Tiles still block it, so it
+  // still stands on the ground and stops at walls.
+  collision.onBlockMovementListener((_, other) => other is! Player);
+  return super.onLoad();
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
+          fileName: DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
+/// Draw order: Bonfire draws components with a higher priority on top,
+/// based on how low they stand on screen. The companion takes one less
+/// than the hero, so the hero is always drawn in front, even when they
+/// stand on the same spot.
+@override
+int get priority {
+  final hero = hasGameRef ? gameRef.player : null;
+  if (hero == null) return super.priority;
+  return hero.priority - 1;
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Update update: follow the hero once _isFollowing is true, before checking whether to talk.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Called every game tick: follows the hero (after the first talk) and
 /// checks whether the hero is close enough to talk.
 @override
 void update(double dt) {
-  if (_isFollowing && !_isDialogueOpen) _follow();
+  if (_isFollowing) _follow();
 
   vision.seePlayer(
     radiusVision: _talkRadius,
     observed: (_) => _talk(),
-    // If the hero walks out of range before the talk is over, the
-    // companion can talk again. Once following, it never resets.
-    notObserved: () {
-      if (!_isFollowing) _hasTalked = false;
-    },
   );
   super.update(dt);
 }
@@ -201,44 +238,52 @@ void _stopWalking() {
         ),
         CodeStep(
           description:
-              'Update _talk: mark the dialogue open, stop the companion too, and start following when the dialogue closes. Remove the old gameRef.pauseEngine() call; the next step pauses the game after the wave instead.',
+              'Below the Companion class, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: r'''
-/// Waves hello and opens the dialogue (only once), then pauses the game
-/// when the wave ends.
-void _talk() {
-  if (_hasTalked) return;
-  _hasTalked = true;
-  _isDialogueOpen = true;
+          codeSnippet: '''
+/// The companion's face in the first line of dialogue: waves hello once,
+/// then switches to [_talkingFace].
+class _WaveThenTalk extends StatefulWidget {
+  const _WaveThenTalk();
 
-  // Stop the hero, and the companion if it was following.
-  gameRef.player?.onJoystickChangeDirectional(
-    JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
-  );
-  _stopWalking();
+  @override
+  State<_WaveThenTalk> createState() => _WaveThenTalkState();
+}
 
-  ... // wave hello, then pause the game (next step)
+class _WaveThenTalkState extends State<_WaveThenTalk> {
+  /// True until the wave has played once.
+  bool _isWaving = true;
 
-  TalkDialog.show(
-    context,
-    [
-      _say('Oh, hi there! I\'m Berry.'),
-      _say('Watch your step, the hills around here are tricky.'),
-      _say('Mind if I tag along?'),
-    ],
-    onClose: () {
-      _isDialogueOpen = false;
-      // From now on, follow the hero.
-      _isFollowing = true;
-      gameRef.resumeEngine();
-    },
-  );
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Built (but hidden) from the start, so it has loaded by the time
+        // the wave ends and shows up without a blank frame in between.
+        Visibility.maintain(visible: !_isWaving, child: _talkingFace),
+        if (_isWaving)
+          _Face(
+            STRAWBERRY_WAVE,
+            amount: 6,
+            stepTime: 0.12,
+            // Play once and stop, instead of waving forever.
+            loop: false,
+            // The dialogue may close (and remove this widget) before the
+            // wave ends.
+            onComplete: () {
+              if (mounted) setState(() => _isWaving = false);
+            },
+          ),
+      ],
+    );
+  }
 }
 ''',
         ),
         CodeStep(
           description:
-              'Make Berry wave hello. Add the _waveAnimation key with the other fields, add the 6-frame wave to the SimpleDirectionAnimation after runLeft in an others map (loop: false plays it once), and play it in _talk with playOnceOther, pausing the game when it ends.',
+              'Add the in-world wave: a _waveAnimation key with the other fields, and the wave sheet in the SimpleDirectionAnimation\'s others map after runLeft. loop: false plays it once.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Key of the wave animation in the animation's `others` map.
@@ -246,7 +291,8 @@ static const _waveAnimation = 'wave';
 ...
 animation: SimpleDirectionAnimation(
   ... // idleRight, idleLeft, runRight, runLeft
-  // Played once when the dialogue opens (see [_talk]).
+  // Played once when the dialogue closes, as a "let's go" wave
+  // before following the hero (see [_talk]).
   others: {
     _waveAnimation: AnimationUtils.loadAnimation(
       STRAWBERRY_WAVE,
@@ -256,30 +302,60 @@ animation: SimpleDirectionAnimation(
     ),
   },
 ),
-...
+''',
+        ),
+        CodeStep(
+          description:
+              'Update _talk: stop the companion too, give the first line the _WaveThenTalk face, and in onClose resume the game, play the in-world wave with playOnceOther and start following when its Future completes.',
+          fileName: DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: r'''
+/// Pauses the game and opens the dialogue (only once). When it closes,
+/// the companion waves and then follows the hero.
 void _talk() {
-  ... // _hasTalked, _isDialogueOpen, stop the hero and _stopWalking()
+  if (_hasTalked) return;
+  _hasTalked = true;
 
-  // Wave hello once, then go back to idle. The game keeps running until
-  // the wave ends so it actually animates; the dialogue has keyboard
-  // focus, so the hero can't wander off meanwhile. Then freeze the game.
-  animation?.playOnceOther(
-    _waveAnimation,
-    // Without this, the switch back to idle would cut the wave short.
-    runToTheEnd: true,
-    onFinish: () {
-      // Skip the pause if the player already closed the dialogue.
-      if (_isDialogueOpen) gameRef.pauseEngine();
+  // Stop the hero, and the companion if it was following.
+  gameRef.player?.onJoystickChangeDirectional(
+    JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
+  );
+  _stopWalking();
+
+  // Freeze the game right away, before the dialogue opens. Opening it can
+  // stall the app for a moment; if the game kept running, that stall would
+  // become one huge physics step and a hero in mid-jump could fall
+  // straight through the ground.
+  gameRef.pauseEngine();
+
+  TalkDialog.show(
+    context,
+    [
+      // The first line waves hello in the dialogue itself, since the game
+      // (and the companion in it) is frozen.
+      _say('Oh, hi there! I\'m Berry.', face: const _WaveThenTalk()),
+      _say('Watch your step, the hills around here are tricky.'),
+      _say('Mind if I tag along?'),
+    ],
+    // Runs once the dialogue is gone from the screen.
+    onClose: () {
+      gameRef.resumeEngine();
+      // Wave once more, then follow the hero from now on. playOnceOther
+      // returns a Future that completes when the wave ends (or right away
+      // if there is no wave), so following always starts.
+      final wave = animation?.playOnceOther(
+        _waveAnimation,
+        // Without this, the switch back to idle would cut the wave short.
+        runToTheEnd: true,
+      );
+      (wave ?? Future.value()).then((_) => _isFollowing = true);
     },
   );
-
-  ... // TalkDialog.show
 }
 ''',
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to add the FollowAction enum and follow fields to companion.dart, write followAction, _follow and _stopWalking, update update and _talk, and play a wave from the animation\'s others map with playOnceOther.',
+          'You\'re about to add the FollowAction enum, follow fields, onBlockMovementListener and a priority override to companion.dart, write followAction, _follow, _stopWalking and the _WaveThenTalk widget, and update update and _talk so Berry waves and then follows.',
       proTip:
           'Jump the hero up onto a ledge after the talk: Berry can\'t jump, so canMove stops it at the wall below until you come back down. Run more than followRadius (160 px) away and it waits where it is.',
     );

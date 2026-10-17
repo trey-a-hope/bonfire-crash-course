@@ -26,7 +26,7 @@
     {
       "number": 3,
       "title": "Gravity and Collision",
-      "summary": "Stand on the map, block the hero",
+      "summary": "Stand on the map, stop at walls",
       "concepts": [
         ["WithCollision", "Stops moving when it hits something"],
         ["WithForces", "Same gravity as the hero"],
@@ -50,15 +50,17 @@
       "concepts": [
         ["FollowAction and followAction", "Stop, lost, left or right each tick"],
         ["canMove, moveLeft and moveRight", "Walk on the ground, wait at walls"],
-        ["others and playOnceOther", "Play the 6-frame wave once"]
+        ["onBlockMovementListener", "Pass through the hero, not tiles"],
+        ["priority (draw order)", "Always drawn just behind the hero"],
+        ["Two waves", "Hello in the portrait, goodbye in the world"]
       ]
     }
   ],
   "outcomes": [
     ["Companion Component", "A SimpleAlly in the game world"],
     ["Sprite Animations", "Strawberry idle and walk sheets"],
-    ["Hitbox & Collision", "Stands on the map, blocks the hero"],
-    ["Dialogue & Interaction", "Talks when the hero comes close"],
+    ["Hitbox & Collision", "Stands on the map, stops at walls"],
+    ["Dialogue & Interaction", "Talks once when the hero comes close"],
     ["Wave & Follow", "Waves hello, then follows the hero"]
   ]
 }

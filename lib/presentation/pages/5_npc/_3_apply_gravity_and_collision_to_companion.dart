@@ -18,7 +18,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       unitStep: 3,
       title: 'Apply Gravity and Collision to Companion',
       objective:
-          'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and the hero bumps into it.',
+          'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and stops at walls.',
       concepts: [
         Concept(
           title: 'WithCollision',
@@ -33,7 +33,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
         Concept(
           title: 'RectangleHitbox',
           subtitle:
-              'The companion\'s solid shape. It lets the companion land on the ground and blocks the hero from walking through it.',
+              'The companion\'s solid shape. It lets the companion land on the ground and stop at walls.',
         ),
       ],
       codeSteps: [
@@ -73,7 +73,7 @@ Companion(Vector2 position)
 @override
 Future<void> onLoad() async {
   // The hitbox is the companion's solid shape: it stands on the ground
-  // and the hero bumps into it instead of walking through.
+  // and stops at walls.
   add(RectangleHitbox(size: size));
   return super.onLoad();
 }
