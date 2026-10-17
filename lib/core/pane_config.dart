@@ -188,7 +188,7 @@ final List<PaneInfo> panes = [
           tagline: 'Add a friendly character',
           icon: Icons.help,
           accentColor: Colors.purpleAccent,
-          lessonCount: 4,
+          lessonCount: 5,
           firstLessonTitle: 'Creating the Companion Component',
           diagramAsset: 'assets/images/module_diagrams/module_5_npc_ally.svg',
         ),
@@ -212,6 +212,11 @@ final List<PaneInfo> panes = [
         title: 'Companion Dialogue',
         path: '/npc/companion-dialogue',
         child: CompanionDialoguePage(),
+      ),
+      PaneInfo(
+        title: 'Make Berry Wave and Follow the Hero',
+        path: '/npc/companion-wave-and-follow',
+        child: CompanionWaveAndFollowPage(),
       ),
       PaneInfo(
         title: 'NPC Finished!',

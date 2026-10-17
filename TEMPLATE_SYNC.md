@@ -10,19 +10,20 @@ which lesson covers which template file.
 
 | Field | Value |
 | --- | --- |
-| Template commit | `008e280` (Merge pull request #2 from trey-a-hope/claude/project-thread-rjdk3l) |
+| Template commit | `5739bc6` (Merge pull request #4 from trey-a-hope/claude/project-thread-rjdk3l) |
 | Synced on | 2026-10-16 |
 
 ## Template file → lessons
 
 | Template file | Lessons (lib/presentation/pages/...) |
 | --- | --- |
-| `lib/presentation/screens/game_screen.dart` | `3_map/_1_loading_the_map.dart`, `3_map/_2_apply_custom_background.dart` (background param), `4_player/_1_create_player_component.dart` (player param), `4_player/_4_move_and_jump.dart` (Keyboard controller), `5_npc/_1_create_companion_component.dart` (components param) |
+| `lib/presentation/screens/game_screen.dart` | `3_map/_1_loading_the_map.dart`, `3_map/_2_apply_custom_background.dart` (background param), `4_player/_1_create_player_component.dart` (player param), `4_player/_4_move_and_jump.dart` (Keyboard controller), `5_npc/_1_create_companion_component.dart` (components param, spawn tile (24, 7)) |
 | `lib/presentation/backgrounds/parallax_background.dart` | `3_map/_2_apply_custom_background.dart` |
 | `lib/presentation/characters/hero.dart` | `4_player/_1` (class, constructor, animations), `_2` (gravity), `_3` (hitbox), `_4` (keyboard, jump), `_5` (boundaries), `_6_player_attack_system.dart` (attacks) |
-| `lib/presentation/characters/companion.dart` | `5_npc/_1` (class, constructor), `_2` (animations), `_3` (mixins, gravity, hitbox), `_4_companion_dialogue.dart` (vision, TalkDialog) |
+| `lib/presentation/characters/companion.dart` | `5_npc/_1` (class, constructor, speed), `_2` (idle and walk animations), `_3` (mixins, gravity, hitbox), `_4_companion_dialogue.dart` (vision, TalkDialog), `_5_companion_wave_and_follow.dart` (FollowAction, follow fields, update, followAction, _follow, _stopWalking, final _talk; the wave is its own last step) |
 | `lib/presentation/characters/util/animation_utils.dart` | `4_player/_1_create_player_component.dart` |
 | `lib/core/mixins/screen_boundary_checker.dart` | Default page: never discussed; `4_player/_5` only adds the mixin to Hero |
+| `test/*.dart` (`companion_asset_test`, `companion_follow_test`, `companion_spawn_test`, ...) | Not taught; listed in the Project File Structure tree |
 | `lib/core/constants/globals.dart` | Default page: never discussed; lessons only use its constants by name |
 | `lib/core/constants/character_asset.dart` | Ships with the template; concept card in `4_player/_1`, frame counts used in `_6` |
 | Folder layout and asset folders | `2_getting_started/project_file_structure.dart` via `lib/presentation/widgets/file_widget_tree.dart` |

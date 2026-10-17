@@ -18,7 +18,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       unitStep: 3,
       title: 'Apply Gravity and Collision to Companion',
       objective:
-          'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and the hero bumps into it.',
+          'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and stops at walls.',
       concepts: [
         Concept(
           title: 'WithCollision',
@@ -33,7 +33,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
         Concept(
           title: 'RectangleHitbox',
           subtitle:
-              'The companion\'s solid shape. It lets the companion land on the ground and blocks the hero from walking through it.',
+              'The companion\'s solid shape. It lets the companion land on the ground and stop at walls.',
         ),
       ],
       codeSteps: [
@@ -73,7 +73,7 @@ Companion(Vector2 position)
 @override
 Future<void> onLoad() async {
   // The hitbox is the companion's solid shape: it stands on the ground
-  // and the hero bumps into it instead of walking through.
+  // and stops at walls.
   add(RectangleHitbox(size: size));
   return super.onLoad();
 }
@@ -83,7 +83,7 @@ Future<void> onLoad() async {
       timeToCodeStatement:
           'You\'re about to add the WithCollision and WithForces mixins to Companion, set its gravity in the constructor, and add a RectangleHitbox in onLoad.',
       proTip:
-          'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground.',
+          'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground. For now the hero bumps into Berry too; lesson 5 lets them pass through each other.',
     );
   }
 }

@@ -4,11 +4,11 @@ import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
 import 'package:flutter/material.dart';
 
 const NPC_MODULE = Module(
-  totalSteps: 4,
+  totalSteps: 5,
   moduleName: 'NPC (Ally)',
   completionHeadline: 'NPC Companion Ready!',
   completionSubtitle:
-      'Your companion now stands on the map, animates, collides with the world, and talks to the hero.',
+      'Your companion now stands on the map, animates, collides with the world, talks to the hero, waves hello, and follows them around.',
   badgeText: 'COMPANION ARCHITECT',
   badgeIcon: Icons.smart_toy_rounded,
   accentColor: Colors.purpleAccent,
@@ -29,13 +29,19 @@ const NPC_MODULE = Module(
       icon: Icons.shield_rounded,
       title: 'Hitbox & Collision',
       description:
-          'Added gravity, collision and a hitbox so the companion stands on the map and blocks the hero.',
+          'Added gravity, collision and a hitbox so the companion stands on the map and stops at walls.',
     ),
     MilestoneAchievement(
       icon: Icons.chat_bubble_outline_rounded,
       title: 'Dialogue & Interaction',
       description:
-          'Used vision.seePlayer to open a TalkDialog when the hero comes close.',
+          'Used vision.seePlayer to open a TalkDialog, with an animated face, when the hero comes close.',
+    ),
+    MilestoneAchievement(
+      icon: Icons.directions_walk_rounded,
+      title: 'Wave & Follow',
+      description:
+          'Waved hello in the dialogue and goodbye with playOnceOther, then followed the hero, passing through them and drawn just behind.',
     ),
   ],
   nextLottie: BonfireLottie(height: 100),

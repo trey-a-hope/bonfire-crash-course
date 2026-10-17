@@ -61,13 +61,15 @@ Companion(Vector2 position)
         // Size on screen; matches one 32x32 frame.
         size: Vector2.all(32),
         life: 100,
-        speed: 40,
+        // Same speed as the hero (Bonfire's default, 80), so it keeps up
+        // instead of falling behind and losing sight of them.
+        speed: 80,
       );
 ''',
         ),
         CodeStep(
           description:
-              'Import companion.dart in game_screen.dart, then add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (8, 7) is the row just above the ground in map 01, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
+              'Import companion.dart in game_screen.dart, then add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (24, 7) is the row just above the ground in map 01, on a flat stretch of open ground, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
           fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 import 'package:counter_app/presentation/characters/companion.dart';
@@ -76,9 +78,10 @@ return BonfireWidget(
   player: Hero(Vector2(100, 100)),
   // Everything else in the world: the friendly companion, for now.
   components: [
-    // Tile (8, 7): the row just above the ground (row 8) in map 01, so
-    // the companion is already standing when the map loads.
-    Companion(Vector2(8, 7) * TILE_SIZE),
+    // Tile (24, 7): the row just above the ground (row 8) in map 01, so
+    // the companion is already standing when the map loads. Columns
+    // 23-29 are flat open ground there, so it has room to follow the hero.
+    Companion(Vector2(24, 7) * TILE_SIZE),
   ],
   ...
 );
