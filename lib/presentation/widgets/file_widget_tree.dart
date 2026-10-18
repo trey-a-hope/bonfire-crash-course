@@ -31,7 +31,7 @@ class FileNode {
 /// Project directory and file hierarchy layout.
 ///
 /// Mirrors trey-a-hope/bonfire_crash_course_template; update it when the
-/// template's files change (see TEMPLATE_SYNC.md).
+/// template's files change.
 const _projectTree = FileNode(
   name: 'bonfire_crash_course_template',
   isDirectory: true,
