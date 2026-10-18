@@ -38,13 +38,16 @@ APP_NAME="Bonfire Crash Course"
 IDENTITY="Developer ID Application: Tr3umphant.Designs, LLC (AYXEVPG9Z5)"
 APP_PATH=$(find "$PROJECT_DIR/build/macos/Build/Products/Release" -name "*.app" | head -1)
 DMG_PATH="$PROJECT_DIR/$APP_NAME.dmg"
+# Sign by the build keychain cert hash; the name alone is ambiguous when login.keychain has the same cert
+SIGN_ID=$(security find-identity -v -p codesigning build.keychain | grep "$IDENTITY" | head -1 | awk '{print $2}')
+echo "SIGN_ID: $SIGN_ID"
 
 echo "APP_PATH: $APP_PATH"
 echo "DMG_PATH: $DMG_PATH"
 
 # 1. Sign the application bundle
 codesign --deep --force --verify --verbose \
-  --sign "$IDENTITY" \
+  --sign "$SIGN_ID" \
   --options runtime \
   "$APP_PATH"
 
@@ -71,7 +74,7 @@ rm -rf "$STAGING_DIR"
 
 # 4. Sign the DMG itself (Apple best practice for notarization)
 codesign --force --verify --verbose \
-  --sign "$IDENTITY" \
+  --sign "$SIGN_ID" \
   "$DMG_PATH"
 
 # 5. Notarize and staple
