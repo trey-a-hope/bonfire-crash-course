@@ -62,6 +62,20 @@ void main() {
     });
   }
 
+  test('Companion module ends with the cutscene lesson', () {
+    final companion = panes.firstWhere((p) => p.title == 'Companion (Ally)');
+    final lessons = companion.children
+        .where(
+          (p) =>
+              p.child is! ModuleOverviewPage &&
+              p.child is! ModuleCompletionPage,
+        )
+        .toList();
+
+    expect(lessons.last.path, '/npc/companion-cutscene');
+    expect(lessons.last.title, 'Berry\'s First-Meeting Cutscene');
+  });
+
   test('Player module includes the attack lesson', () {
     final player = panes.firstWhere((p) => p.title == 'Hero (Player)');
 
