@@ -18,46 +18,60 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       unitStep: 2,
       title: 'Apply Gravity to Player',
       objective:
-          'Apply a constant downward gravity force to the hero so it falls and lands like a platformer character.',
+          'Turn on gravity for the whole game, then let it pull the hero down so it falls and lands like a platformer character.',
       concepts: [
         Concept(
           title: 'WithForces',
           subtitle:
-              'A Bonfire mixin that gives a component a forces controller. Forces are applied every game tick, so gravity keeps pulling the hero down until something solid stops it.',
+              'A Bonfire mixin that lets forces act on a component. Forces are applied every game tick, so gravity keeps pulling the hero down until something solid stops it.',
         ),
         Concept(
-          title: 'forces.setGravity',
+          title: 'globalForces',
           subtitle:
-              'Sets the gravity vector in pixels per second squared. Vector2(0, 300) pulls straight down; a bigger y makes the hero fall faster.',
+              'Set on BonfireWidget once, it pulls on every component with WithForces. GlobalForcesSettings(gravity: Vector2(0, GRAVITY)) pulls straight down at 300 pixels per second squared; a bigger number makes everything fall faster.',
         ),
       ],
       codeSteps: [
         CodeStep(
           description:
-              'Add the WithForces mixin to the Hero class to enable applying physical forces.',
+              'Find GRAVITY in globals.dart. It\'s how hard gravity pulls, in pixels per second squared, kept in one place so every character falls the same way.',
+          fileName: DART_FILE_GLOBALS,
+          codeSnippet: '''
+/// How hard gravity pulls everything down, in pixels per second squared.
+/// `GameScreen` sets it once for the whole game with `globalForces`, and it
+/// pulls on every character that has the `WithForces` mixin. Don't also call
+/// `forces.setGravity` on a character: the two add up.
+const GRAVITY = 300.0;
+''',
+        ),
+        CodeStep(
+          description:
+              'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+return BonfireWidget(
+  ...
+  background: ParallaxBackground(),
+  // Gravity for the whole game. It pulls on every character with the
+  // WithForces mixin (the hero, the companion and the foe).
+  globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY)),
+  ...
+);
+''',
+        ),
+        CodeStep(
+          description:
+              'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
           fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class Hero extends PlatformPlayer with WithForces { ... }
 ''',
         ),
-        CodeStep(
-          description:
-              'Give the constructor a body and set gravity there, right after the super(...) call.',
-          fileName: DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-Hero(Vector2 position)
-    : super(
-        ... // position, size, animation
-      ) {
-  forces.setGravity(Vector2(0, 300));
-}
-''',
-        ),
       ],
       timeToCodeStatement:
-          'You\'re about to add the WithForces mixin to Hero and call forces.setGravity(Vector2(0, 300)) in its constructor.',
+          'You\'re about to turn on gravity for the whole game with globalForces on BonfireWidget, and add the WithForces mixin to Hero.',
       proTip:
-          'Don\'t worry if the hero now falls straight through the floor; it has no solid shape yet, and the hitbox in the next lesson fixes that.',
+          'Don\'t worry if the hero now falls straight through the floor; it has no solid shape yet, and the hitbox in the next lesson fixes that. Bonfire also has forces.setGravity for a single character, but don\'t use it on top of globalForces: the two add up, and that character falls twice as fast.',
     );
   }
 }

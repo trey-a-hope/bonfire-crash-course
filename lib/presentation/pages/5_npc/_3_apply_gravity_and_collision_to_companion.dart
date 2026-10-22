@@ -28,7 +28,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
         Concept(
           title: 'WithForces',
           subtitle:
-              'The same mixin the hero uses for gravity. forces.setGravity(Vector2(0, 300)) pulls the companion down every tick until it lands.',
+              'The same mixin the hero uses. It lets the gravity you set on BonfireWidget pull the companion down every tick until it lands, so the companion needs no gravity code of its own.',
         ),
         Concept(
           title: 'RectangleHitbox',
@@ -39,7 +39,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Add the WithCollision and WithForces mixins to the Companion class.',
+              'Add the WithCollision and WithForces mixins to the Companion class. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
           fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// A friendly NPC that stands on the map and talks to the hero.
@@ -48,20 +48,6 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
 /// has no `PlatformAlly`, so [WithCollision] and [WithForces] give it the
 /// same platform behaviour the hero gets from [PlatformPlayer].
 class Companion extends SimpleAlly with WithCollision, WithForces { ... }
-''',
-        ),
-        CodeStep(
-          description:
-              'Give the constructor a body and set the same gravity as the hero, right after the super(...) call. The companion already starts on the ground, so gravity just keeps it planted there.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-Companion(Vector2 position)
-    : super(
-        ... // position, size, life, speed, animation
-      ) {
-  // Same gravity as the hero, so the companion falls onto the ground.
-  forces.setGravity(Vector2(0, 300));
-}
 ''',
         ),
         CodeStep(
@@ -81,7 +67,7 @@ Future<void> onLoad() async {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to add the WithCollision and WithForces mixins to Companion, set its gravity in the constructor, and add a RectangleHitbox in onLoad.',
+          'You\'re about to add the WithCollision and WithForces mixins to Companion and add a RectangleHitbox in onLoad.',
       proTip:
           'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground. For now the hero bumps into Berry too; lesson 5 lets them pass through each other.',
     );
