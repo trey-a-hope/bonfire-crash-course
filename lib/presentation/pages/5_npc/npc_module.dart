@@ -4,11 +4,11 @@ import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
 import 'package:flutter/material.dart';
 
 const NPC_MODULE = Module(
-  totalSteps: 5,
+  totalSteps: 6,
   moduleName: 'NPC (Ally)',
   completionHeadline: 'NPC Companion Ready!',
   completionSubtitle:
-      'Your companion now stands on the map, animates, collides with the world, talks to the hero, waves hello, and follows them around.',
+      'Your companion now stands on the map, animates, collides with the world, talks to the hero in a short camera-pan cutscene, waves hello, and follows them around.',
   badgeText: 'COMPANION ARCHITECT',
   badgeIcon: Icons.smart_toy_rounded,
   accentColor: Colors.purpleAccent,
@@ -42,6 +42,12 @@ const NPC_MODULE = Module(
       title: 'Wave & Follow',
       description:
           'Waved hello in the dialogue and goodbye with playOnceOther, then followed the hero, passing through them and drawn just behind.',
+    ),
+    MilestoneAchievement(
+      icon: Icons.movie_creation_outlined,
+      title: 'Cutscene',
+      description:
+          'Used gameRef.startScene to pan the camera to Berry, wait for the dialogue with AwaitSceneAction, and pan back to the hero.',
     ),
   ],
   nextLottie: BonfireLottie(height: 100),
