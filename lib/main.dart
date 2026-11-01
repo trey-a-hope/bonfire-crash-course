@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rive/rive.dart';
 import 'presentation/services/window_service.dart';
 
 late final PackageInfo packageInfo;
@@ -12,6 +13,9 @@ Future<void> main() async {
 
   // Initialize MediaKit
   MediaKit.ensureInitialized();
+
+  // Initialize the Rive native runtime used by Rive animations
+  await RiveNative.init();
 
   // Set up desktop window properties (size, center, title bar)
   await WindowService.initializeDesktopWindow();
