@@ -30,6 +30,7 @@ dependencies:
   collection: ^1.19.1
   highlight: ^0.7.0
   flutter_svg: ^2.3.0
+  rive: ^0.14.11
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +48,7 @@ flutter:
     - assets/images/images.jpeg
     - assets/images/getting_started/
     - assets/images/module_diagrams/
+    - assets/rive/
 
 flutter_launcher_icons:
   ios: true

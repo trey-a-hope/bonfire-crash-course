@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
+import 'package:bonfire_crash_course/presentation/rive/bird_rive_animation.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
@@ -91,6 +92,33 @@ class _IntroductionState extends State<Introduction> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Animated Rive bird (tap it to startle). The artboard has
+                    // its own sky background, so frame it like a small window.
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.25),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.4),
+                            blurRadius: 16,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: const BirdRiveAnimation(
+                          width: 240,
+                          height: 180,
+                          expression: BirdExpression.blink,
+                        ),
+                      ),
+                    ),
+                    GapSizes.mediumGap,
+
                     // Pill Badge
                     Container(
                       padding: const EdgeInsets.symmetric(
