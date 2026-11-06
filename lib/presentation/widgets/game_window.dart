@@ -5,7 +5,13 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:signals/signals_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+part 'game_window_error.dart';
+part 'game_window_idle.dart';
+part 'game_window_loading.dart';
+part 'game_window_web_view.dart';
 
 /// Builds the web view that plays the game. [onLoaded] runs once the page has
 /// finished loading, and [onError] runs if the page itself fails to load.
@@ -27,7 +33,7 @@ enum GameWindowState { idle, loading, playing, error }
 /// stays light. Then a spinner shows over the web view until the game has
 /// loaded. If the page can't load, the window offers "Open in browser" and
 /// "Try again". A controls hint and an "Open in browser" link sit underneath.
-class GameWindow extends StatefulWidget {
+class GameWindow extends SignalStatefulWidget {
   /// The game's web address.
   final Uri url;
 
@@ -61,10 +67,12 @@ class GameWindow extends StatefulWidget {
 }
 
 class _GameWindowState extends State<GameWindow> {
-  GameWindowState _state = GameWindowState.idle;
+  /// What the window is showing. Reading it in [build] rebuilds the window
+  /// whenever it changes.
+  final _state = Signal<GameWindowState>(GameWindowState.idle);
 
   /// Bumped on "Try again", so a fresh web view is built.
-  int _attempt = 0;
+  final _attempt = Signal<int>(0);
 
   /// Shows the error if the game hasn't loaded within [GameWindow.loadTimeout],
   /// for example when the web view never starts.
@@ -73,37 +81,40 @@ class _GameWindowState extends State<GameWindow> {
   void _play() {
     _timeout?.cancel();
     _timeout = Timer(GameWindow.loadTimeout, _onError);
-    setState(() {
-      _state = GameWindowState.loading;
-      _attempt++;
+    batch(() {
+      _state.value = GameWindowState.loading;
+      _attempt.value++;
     });
   }
 
   void _onLoaded() {
-    if (!mounted || _state != GameWindowState.loading) return;
+    if (!mounted || _state.value != GameWindowState.loading) return;
     _timeout?.cancel();
-    setState(() => _state = GameWindowState.playing);
+    _state.value = GameWindowState.playing;
   }
 
   /// Only a failure while loading counts: once the game is playing, a later
   /// error (a missing favicon, say) leaves it running.
   void _onError() {
-    if (!mounted || _state != GameWindowState.loading) return;
+    if (!mounted || _state.value != GameWindowState.loading) return;
     _timeout?.cancel();
-    setState(() => _state = GameWindowState.error);
+    _state.value = GameWindowState.error;
   }
 
   @override
   void dispose() {
     _timeout?.cancel();
+    _state.dispose();
+    _attempt.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final state = _state.value;
     final showWebView =
-        _state == GameWindowState.loading || _state == GameWindowState.playing;
+        state == GameWindowState.loading || state == GameWindowState.playing;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,10 +127,10 @@ class _GameWindowState extends State<GameWindow> {
               color: GameWindow.background,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: _state == GameWindowState.playing
+                color: state == GameWindowState.playing
                     ? GameWindow.accent
                     : Colors.white.withValues(alpha: 0.12),
-                width: _state == GameWindowState.playing ? 2 : 1,
+                width: state == GameWindowState.playing ? 2 : 1,
               ),
             ),
             child: Stack(
@@ -127,7 +138,7 @@ class _GameWindowState extends State<GameWindow> {
               children: [
                 if (showWebView)
                   KeyedSubtree(
-                    key: ValueKey(_attempt),
+                    key: ValueKey(_attempt.value),
                     child: widget.webViewBuilder(
                       context,
                       url: widget.url,
@@ -135,9 +146,9 @@ class _GameWindowState extends State<GameWindow> {
                       onError: _onError,
                     ),
                   ),
-                if (_state == GameWindowState.idle) _Idle(onPlay: _play),
-                if (_state == GameWindowState.loading) const _Loading(),
-                if (_state == GameWindowState.error)
+                if (state == GameWindowState.idle) _Idle(onPlay: _play),
+                if (state == GameWindowState.loading) const _Loading(),
+                if (state == GameWindowState.error)
                   _Error(
                     onOpenInBrowser: () => widget.openInBrowser(widget.url),
                     onTryAgain: _play,
@@ -159,7 +170,7 @@ class _GameWindowState extends State<GameWindow> {
                 color: Colors.white.withValues(alpha: 0.7),
               ),
             ),
-            if (_state != GameWindowState.error)
+            if (state != GameWindowState.error)
               TextButton.icon(
                 onPressed: () => widget.openInBrowser(widget.url),
                 iconAlignment: IconAlignment.end,
@@ -176,248 +187,5 @@ class _GameWindowState extends State<GameWindow> {
         ),
       ],
     );
-  }
-}
-
-class _Idle extends StatelessWidget {
-  final VoidCallback onPlay;
-
-  const _Idle({required this.onPlay});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF2A3142), Color(0xFF161A24), GameWindow.background],
-          stops: [0, 0.6, 1],
-        ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Tooltip(
-              message: 'Click to play the template game',
-              child: Material(
-                color: GameWindow.accent.withValues(alpha: 0.3),
-                shape: CircleBorder(
-                  side: BorderSide(
-                    color: GameWindow.accent.withValues(alpha: 0.6),
-                  ),
-                ),
-                child: InkWell(
-                  customBorder: const CircleBorder(),
-                  onTap: onPlay,
-                  child: const SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: Icon(
-                      Icons.play_arrow_rounded,
-                      color: Colors.white,
-                      size: 34,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            GapSizes.smallGap,
-            Text(
-              'Click to play',
-              style: textTheme.titleSmall?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'The finished template game, live in this window',
-              textAlign: TextAlign.center,
-              style: textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Loading extends StatelessWidget {
-  const _Loading();
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: GameWindow.background,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              width: 32,
-              height: 32,
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-                color: GameWindow.accent,
-              ),
-            ),
-            GapSizes.smallGap,
-            Text(
-              'Loading the game…',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.8),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Error extends StatelessWidget {
-  final VoidCallback onOpenInBrowser;
-  final VoidCallback onTryAgain;
-
-  const _Error({required this.onOpenInBrowser, required this.onTryAgain});
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return ColoredBox(
-      color: GameWindow.background,
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.error_outline_rounded,
-                color: Colors.redAccent,
-                size: 28,
-              ),
-              GapSizes.smallGap,
-              Text(
-                "Couldn't load the game",
-                style: textTheme.titleSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Check your connection, or play it in your browser.',
-                textAlign: TextAlign.center,
-                style: textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.7),
-                ),
-              ),
-              GapSizes.smallGap,
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  FilledButton(
-                    onPressed: onOpenInBrowser,
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size(0, 44),
-                      backgroundColor: GameWindow.accent.withValues(
-                        alpha: 0.25,
-                      ),
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('Open in browser'),
-                  ),
-                  OutlinedButton(
-                    onPressed: onTryAgain,
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(0, 44),
-                      foregroundColor: Colors.white,
-                      side: BorderSide(
-                        color: Colors.white.withValues(alpha: 0.2),
-                      ),
-                    ),
-                    child: const Text('Try again'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// The real web view: `flutter_inappwebview`, which runs on both macOS
-/// (WKWebView) and Windows (WebView2).
-Widget _inAppWebView(
-  BuildContext context, {
-  required Uri url,
-  required VoidCallback onLoaded,
-  required VoidCallback onError,
-}) {
-  final supported =
-      !kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.macOS ||
-          defaultTargetPlatform == TargetPlatform.windows);
-  if (!supported) {
-    // flutter_inappwebview isn't set up here (Linux, web): go straight to the
-    // error panel, which offers "Open in browser".
-    WidgetsBinding.instance.addPostFrameCallback((_) => onError());
-    return const SizedBox.shrink();
-  }
-  return InAppWebView(
-    initialUrlRequest: URLRequest(url: WebUri.uri(url)),
-    initialSettings: InAppWebViewSettings(
-      transparentBackground: true,
-      disableContextMenu: true,
-      supportZoom: false,
-    ),
-    onLoadStop: (controller, _) => _waitForGame(controller, onLoaded),
-    onReceivedError: (controller, request, error) {
-      if (request.isForMainFrame ?? false) onError();
-    },
-    onReceivedHttpError: (controller, request, response) {
-      if (request.isForMainFrame ?? false) onError();
-    },
-  );
-}
-
-/// The HTML loads before the Flutter web app inside it has started, so keep
-/// the spinner up until its `flutter-view` exists (up to about 15 s), then
-/// hand it keyboard focus, so A/D, Space, S and W reach the hero.
-Future<void> _waitForGame(
-  InAppWebViewController controller,
-  VoidCallback onLoaded,
-) async {
-  const script =
-      "(function () { var v = document.querySelector('flutter-view'); if (!v) { return false; } window.focus(); v.focus(); return true; })()";
-  try {
-    for (var i = 0; i < 60; i++) {
-      if (await controller.evaluateJavascript(source: script) == true) break;
-      await Future<void>.delayed(const Duration(milliseconds: 250));
-    }
-  } catch (_) {
-    // The web view was closed ("Try again", or the student left the page).
-    return;
-  }
-  onLoaded();
-}
-
-Future<void> _launchInBrowser(Uri url) async {
-  try {
-    await launchUrl(url, mode: LaunchMode.externalApplication);
-  } catch (_) {
-    // Nothing more to offer if the system can't open a browser.
   }
 }
