@@ -162,8 +162,19 @@ void main() {
     final game = tester.getRect(find.byType(GameWindow));
     expect(game.width, greaterThan(1440 * 0.6));
     expect(
+      tester.getTopLeft(find.text('What you will be building today')).dy,
+      lessThan(game.top),
+    );
+    expect(
       tester.getTopLeft(find.text('Cloud-First Development Setup')).dy,
       greaterThan(game.bottom),
     );
+
+    // Three modules on the left, two on the right, in even columns.
+    final one = tester.getRect(find.text('Cloud-First Development Setup'));
+    final four = tester.getRect(find.text('Collisions, Combat & Mechanics'));
+    expect(four.left, greaterThan(one.left + 1440 * 0.3));
+    expect(four.top, closeTo(one.top, 1));
+    expect(find.text("What You'll Build"), findsNothing);
   });
 }
