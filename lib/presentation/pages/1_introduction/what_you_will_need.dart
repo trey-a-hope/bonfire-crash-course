@@ -59,21 +59,21 @@ class WhatYouWillNeed extends StatelessWidget {
                       ),
                       GapSizes.mediumGap,
                       RequirementCard(
-                        icon: Icons.code_rounded,
-                        accentColor: Colors.amberAccent,
-                        badge: 'RECOMMENDED',
-                        title: 'Basic Dart & Flutter Familiarity',
-                        description:
-                            'Comfort with foundational Dart syntax (functions, classes, async) and Flutter widgets is helpful. No previous game development experience is required.',
-                      ),
-                      GapSizes.mediumGap,
-                      RequirementCard(
                         icon: Icons.wifi_rounded,
                         accentColor: Colors.greenAccent,
                         badge: 'REQUIRED',
                         title: 'Internet Connection',
                         description:
                             'A stable internet connection to run Codespaces in the cloud, download game sprite assets, and stream course video walkthroughs.',
+                      ),
+                      GapSizes.mediumGap,
+                      RequirementCard(
+                        icon: Icons.code_rounded,
+                        accentColor: Colors.amberAccent,
+                        badge: 'OPITIONAL',
+                        title: 'Basic Dart & Flutter Familiarity',
+                        description:
+                            'Comfort with foundational Dart syntax (functions, classes, async) and Flutter widgets is helpful. No previous game development experience is required.',
                       ),
                       GapSizes.mediumGap,
                       RequirementCard(
