@@ -10,16 +10,12 @@
       "summary": "Free account for the cloud workspace",
       "concepts": [
         [
-          "60 Free Codespace Hours",
-          "Per month on a 2-core cloud machine"
+          "Free GitHub account",
+          "Key to the template and cloud editor"
         ],
         [
-          "Automatic Cloud Backup",
-          "Code and map assets saved to your repo"
-        ],
-        [
-          "Code From Any Device",
-          "Any browser on Mac, Windows, Linux, tablet"
+          "Already have one?",
+          "Skip to the next step"
         ]
       ]
     },
@@ -30,11 +26,11 @@
       "concepts": [
         [
           "GitHub Codespaces",
-          "Full VS Code + Flutter, zero local setup"
+          "VS Code and Flutter in your browser"
         ],
         [
-          "First-Time Build Duration",
-          "~90 s the first time, under 5 s after"
+          "First launch",
+          "About 90 s the first time, then about 5"
         ]
       ]
     },
@@ -44,16 +40,12 @@
       "summary": "Only if you want to code locally",
       "concepts": [
         [
-          "Why is this step optional?",
+          "Optional",
           "Your Codespace already runs VS Code"
         ],
         [
-          "Flutter extension",
-          "Debugging, run without debug, hot reload"
-        ],
-        [
-          "Dart extension",
-          "Highlighting, code completion, linting"
+          "Flutter and Dart extensions",
+          "Add them once VS Code is installed"
         ]
       ]
     },
@@ -64,7 +56,7 @@
       "concepts": [
         [
           "Bonfire project layout",
-          "Recommended structure, not a strict rule"
+          "Tap a file to see what it does"
         ]
       ]
     },
@@ -74,8 +66,12 @@
       "summary": "Launch the starter game",
       "concepts": [
         [
-          "The Power of Hot Reload",
-          "Save or press r to see changes instantly"
+          "flutter run -d web-server",
+          "Then open port 8080 in your browser"
+        ],
+        [
+          "Hot reload",
+          "Press r in the terminal"
         ]
       ]
     }

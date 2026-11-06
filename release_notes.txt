@@ -3,3 +3,5 @@
 - The game window is now large, at the top of the page, with the five course modules listed underneath it.
 - The game now starts on its own when you open the page, with no play button to click.
 - A "What you will be building today" heading sits above the game, and the five course modules sit underneath it in two columns.
+- BCC-37: The Getting Started pages are short and animated: each one opens with a playful animation, then three quick steps and one button.
+- The VS Code download buttons now give the right installer for Intel and Apple Silicon Macs and for standard Windows PCs.

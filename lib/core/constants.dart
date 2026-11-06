@@ -22,6 +22,6 @@ const DART_FILE_CHARACTERS_COMPANION = '$_CHARACTERS/companion.dart';
 const DART_FILE_GLOBALS = '$_CONSTANTS/globals.dart';
 
 const VSCODE_DOWNLOAD_WINDOWS =
-    'https://code.visualstudio.com/sha/download?build=stable&os=win32-arm64-user';
+    'https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user';
 const VSCODE_DOWNLOAD_MACOS =
-    'https://code.visualstudio.com/sha/download?build=stable&os=darwin-arm64-dmg';
+    'https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal-dmg';

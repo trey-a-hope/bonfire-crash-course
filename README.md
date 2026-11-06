@@ -6,7 +6,7 @@ A desktop course app that teaches you to build a 2D side-scrolling game in Flutt
 
 - **Six modules, ~30 lessons**: Introduction, Getting Started, Map, Hero (Player), Companion (Ally) and Foe (Enemy), ending with a "Bonfire Crash Course Finished!" page. The full outline lives in `lib/core/pane_config.dart`.
 - **Code-along lessons**: each coding lesson shows the objective, key concepts and step-by-step code on the left, with the video walkthrough, a "Time to Code" prompt and a pro tip on the right (`lib/presentation/scaffolds/coding_scaffold.dart`).
-- **One-click setup**: the Getting Started module walks you through creating a GitHub account, opening a Codespace from the template repo, optionally installing VS Code, the template's file structure and running the game.
+- **One-click setup**: the Getting Started module walks you through creating a GitHub account, opening a Codespace from the template repo, optionally installing VS Code, the template's file structure and running the game. Each page is short: a looping Rive animation, three quick steps, one button and a one-line tip (widgets in `lib/presentation/widgets/onboarding/`).
 - **Play the finished game**: the Introduction's "What the course covers" page opens with a large window that plays the template game from its web build (`TEMPLATE_GAME_URL` in `lib/core/constants.dart`, hosted on Codemagic). It starts loading as soon as the page opens, falls back to "Open in browser" if the page can't load, and lives in `lib/presentation/widgets/game_window.dart`. To point it at a new deploy, change that one constant.
 - **Module overviews and completion pages**: every module opens with a diagram of its lessons and closes with milestone badges and the skills you unlocked.
 - **Progress navigation**: a sidebar plus next/previous controls that move through lessons in order (`lib/domain/controllers/progress_navigation_controller.dart`).
@@ -76,6 +76,7 @@ Tests in `test/` cover the pane config, the module overview page, the settings p
 
 - `tool/diagrams/build_module_diagrams.py` builds the module diagrams from `tool/diagrams/specs/*.json`, writing Excalidraw files to `docs/module_diagrams/` and the SVGs the app shows to `assets/images/module_diagrams/`. Run it with `python3 tool/diagrams/build_module_diagrams.py`.
 - `tool/sprites/` holds the generators and previews for the wizard and shark sprite sheets used by the template game (see `tool/sprites/README.md`).
+- `tool/rive/build_getting_started.py` builds the five Getting Started animations (`assets/rive/gs_*.riv`). Each has `State Machine 1` and a `reduceMotion` view-model boolean that shows a still pose. Run it with `python3 tool/rive/build_getting_started.py`.
 - `scripts/start_rive_tunnel.sh` exposes a local Rive MCP server through ngrok so it can be added as a Claude connector while editing animations.
 
 ## Related
