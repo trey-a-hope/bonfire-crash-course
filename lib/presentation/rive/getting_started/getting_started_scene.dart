@@ -1,6 +1,7 @@
 part of 'getting_started_rive.dart';
 
-/// The Getting Started hero animations, one per lesson.
+/// The bundled Rive animations: one hero per Getting Started lesson, plus
+/// the trophy at the top of every module completion page.
 enum GettingStartedScene {
   /// A developer profile card fills in and gets a green check.
   githubAccount(
@@ -40,6 +41,15 @@ enum GettingStartedScene {
     artboardName: 'RunGame',
     semanticLabel: 'Play is pressed and a little hero hops by a campfire',
     fallbackIcon: Icons.sports_esports_rounded,
+  ),
+
+  /// A gold trophy shines in a burst of rays while confetti falls.
+  moduleComplete(
+    fileName: 'module_complete',
+    artboardName: 'ModuleComplete',
+    semanticLabel: 'A gold trophy shines as confetti falls',
+    fallbackIcon: Icons.emoji_events_rounded,
+    fallbackColor: Colors.amberAccent,
   );
 
   const GettingStartedScene({
@@ -47,6 +57,7 @@ enum GettingStartedScene {
     required this.artboardName,
     required this.semanticLabel,
     required this.fallbackIcon,
+    this.fallbackColor = Colors.lightGreenAccent,
   });
 
   /// The file's name in `assets/rive/`, without `.riv`.
@@ -60,6 +71,9 @@ enum GettingStartedScene {
 
   /// Shown instead of the animation if the file can't be loaded.
   final IconData fallbackIcon;
+
+  /// The colour of [fallbackIcon].
+  final Color fallbackColor;
 
   /// Path of the bundled Rive file.
   String get assetPath => 'assets/rive/$fileName.riv';

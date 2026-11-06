@@ -1,12 +1,12 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
-import 'package:bonfire_crash_course/presentation/lotties/_lotties.dart';
+import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
 import 'package:flutter/material.dart';
 
 /// A visually rewarding completion screen displayed when a user finishes a curriculum module.
 ///
-/// Features animated celebration lotties, dynamic milestone badges, unlocked skill cards,
+/// Features an animated Rive trophy, dynamic milestone badges, unlocked skill cards,
 /// module metrics, and a "Next Up" guidance banner.
 class ModuleCompletionPage extends StatelessWidget {
   final Module module;
@@ -25,7 +25,7 @@ class ModuleCompletionPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // 1. Celebration Glow + StarBadgeLottie
+              // 1. Celebration Glow + trophy animation
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -44,10 +44,18 @@ class ModuleCompletionPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 180,
-                    width: 180,
-                    child: StarBadgeLottie(),
+                  Semantics(
+                    image: true,
+                    label: GettingStartedScene.moduleComplete.semanticLabel,
+                    child: const ExcludeSemantics(
+                      child: SizedBox(
+                        height: 220,
+                        width: 220,
+                        child: GettingStartedRive(
+                          scene: GettingStartedScene.moduleComplete,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

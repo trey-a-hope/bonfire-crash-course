@@ -8,3 +8,4 @@
 - BCC-38: Coding lessons now lead with the code. Tap a key concept to see what it does in one line and light up the code it's about; the longer explanations are one tap away.
 - Each lesson's goal and pro tip now fit on a line, and the video walkthrough opens from a button instead of filling the side of the page.
 - The key concept pills have more even padding, with each label centred in its pill.
+- BCC-39: Finishing a module now shows a gold trophy animation, with spinning rays and falling confetti, at the top of the page.
