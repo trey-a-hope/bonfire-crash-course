@@ -161,10 +161,11 @@ void main() {
     // The game leads the page, large, with the five modules underneath.
     final game = tester.getRect(find.byType(GameWindow));
     expect(game.width, greaterThan(1440 * 0.6));
-    expect(
-      tester.getTopLeft(find.text('What you will be building today')).dy,
-      lessThan(game.top),
+    final heading = tester.getRect(
+      find.text('What you will be building today'),
     );
+    expect(heading.bottom, lessThan(game.top));
+    expect(heading.center.dx, closeTo(game.center.dx, 1));
     expect(
       tester.getTopLeft(find.text('Cloud-First Development Setup')).dy,
       greaterThan(game.bottom),
