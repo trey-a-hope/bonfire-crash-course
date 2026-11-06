@@ -29,6 +29,27 @@ Widget _inAppWebView(
       // (Windows) can inspect the game page.
       isInspectable: kDebugMode,
     ),
+    // The web view keeps the mouse wheel for itself, so the page wouldn't
+    // scroll while the pointer is over the game. Pass the wheel back to it.
+    initialUserScripts: UnmodifiableListView([
+      UserScript(
+        source: _forwardWheelScript,
+        injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+      ),
+    ]),
+    onWebViewCreated: (controller) {
+      controller.addJavaScriptHandler(
+        handlerName: _wheelHandler,
+        callback: (args) {
+          final dy = args.isEmpty ? null : args.first;
+          if (dy is! num || !context.mounted) return;
+          final position = Scrollable.maybeOf(context)?.position;
+          if (position is ScrollPositionWithSingleContext) {
+            position.pointerScroll(dy.toDouble());
+          }
+        },
+      );
+    },
     onLoadStop: (controller, _) =>
         _waitForGame(controller, onLoaded: onLoaded, onError: onError),
     onConsoleMessage: (controller, message) {
@@ -42,6 +63,13 @@ Widget _inAppWebView(
     },
   );
 }
+
+/// The name the page uses to send wheel scrolls back to the app.
+const _wheelHandler = 'gameWindowWheel';
+
+/// Sends every vertical wheel scroll on the game page to [_wheelHandler].
+const _forwardWheelScript =
+    "window.addEventListener('wheel', function (e) { if (window.flutter_inappwebview && e.deltaY) { window.flutter_inappwebview.callHandler('$_wheelHandler', e.deltaY); } }, { capture: true, passive: true });";
 
 /// The HTML loads before the Flutter web app inside it has started, so keep
 /// the spinner up until its `flutter-view` exists (up to about 20 s), then
