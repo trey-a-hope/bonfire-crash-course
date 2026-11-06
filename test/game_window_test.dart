@@ -1,0 +1,141 @@
+import 'package:bonfire_crash_course/core/constants.dart';
+import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
+import 'package:bonfire_crash_course/presentation/widgets/game_window.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// Stands in for the real web view, and keeps its callbacks so a test can
+/// say when the page has loaded or failed.
+class FakeWebView {
+  int builds = 0;
+  Uri? url;
+  VoidCallback? onLoaded;
+  VoidCallback? onError;
+
+  Widget build(
+    BuildContext context, {
+    required Uri url,
+    required VoidCallback onLoaded,
+    required VoidCallback onError,
+  }) {
+    builds++;
+    this.url = url;
+    this.onLoaded = onLoaded;
+    this.onError = onError;
+    return const ColoredBox(key: Key('fake-webview'), color: Colors.black);
+  }
+}
+
+void main() {
+  late FakeWebView fake;
+  late List<Uri> opened;
+
+  setUp(() {
+    fake = FakeWebView();
+    opened = [];
+  });
+
+  Future<void> pumpWindow(WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SizedBox(
+            width: 480,
+            child: GameWindow(
+              webViewBuilder: fake.build,
+              openInBrowser: (url) async => opened.add(url),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  testWidgets('starts on "Click to play" without loading the game', (
+    tester,
+  ) async {
+    await pumpWindow(tester);
+
+    expect(find.text('Click to play'), findsOneWidget);
+    expect(find.byKey(const Key('fake-webview')), findsNothing);
+    expect(fake.builds, 0);
+    expect(
+      find.text('A/D walk · Space jump · S melee · W magic bolt'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('clicking play loads the game URL with a spinner until loaded', (
+    tester,
+  ) async {
+    await pumpWindow(tester);
+
+    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+    await tester.pump();
+
+    expect(find.byKey(const Key('fake-webview')), findsOneWidget);
+    expect(fake.url, Uri.parse(TEMPLATE_GAME_URL));
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('Loading the game…'), findsOneWidget);
+    expect(find.text('Click to play'), findsNothing);
+
+    fake.onLoaded!();
+    await tester.pump();
+
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.byKey(const Key('fake-webview')), findsOneWidget);
+  });
+
+  testWidgets(
+    'a failed load shows the error with Open in browser and Try again',
+    (tester) async {
+      await pumpWindow(tester);
+      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+      await tester.pump();
+
+      fake.onError!();
+      await tester.pump();
+
+      expect(find.text("Couldn't load the game"), findsOneWidget);
+      expect(find.byKey(const Key('fake-webview')), findsNothing);
+
+      await tester.tap(find.widgetWithText(FilledButton, 'Open in browser'));
+      expect(opened, [Uri.parse(TEMPLATE_GAME_URL)]);
+
+      await tester.tap(find.text('Try again'));
+      await tester.pump();
+
+      expect(find.text("Couldn't load the game"), findsNothing);
+      expect(find.text('Loading the game…'), findsOneWidget);
+      expect(fake.builds, 2);
+    },
+  );
+
+  testWidgets('the Open in browser link under the window opens the game', (
+    tester,
+  ) async {
+    await pumpWindow(tester);
+
+    await tester.tap(find.widgetWithText(TextButton, 'Open in browser'));
+
+    expect(opened, [Uri.parse(TEMPLATE_GAME_URL)]);
+  });
+
+  testWidgets('"What the course covers" shows the game window', (tester) async {
+    tester.view.physicalSize = const Size(1440, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: WhatTheCourseConvers(gameWebViewBuilder: fake.build),
+        ),
+      ),
+    );
+
+    expect(find.byType(GameWindow), findsOneWidget);
+    expect(find.text('Click to play'), findsOneWidget);
+    expect(fake.builds, 0);
+  });
+}

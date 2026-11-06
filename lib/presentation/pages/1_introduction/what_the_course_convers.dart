@@ -1,11 +1,15 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
 import 'package:bonfire_crash_course/presentation/widgets/check_list_item.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
+import 'package:bonfire_crash_course/presentation/widgets/game_window.dart';
 import 'package:flutter/material.dart';
 
 class WhatTheCourseConvers extends StatelessWidget {
-  const WhatTheCourseConvers({super.key});
+  /// Builds the game window's web view. Tests pass a fake; the app leaves it
+  /// null to use the real one.
+  final GameWebViewBuilder? gameWebViewBuilder;
+
+  const WhatTheCourseConvers({super.key, this.gameWebViewBuilder});
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +143,8 @@ class WhatTheCourseConvers extends StatelessWidget {
                               ),
                             ),
                             GapSizes.mediumGap,
-                            const Center(child: BonfireLottie(height: 160)),
+                            // BCC-36: play the finished template game here.
+                            GameWindow(webViewBuilder: gameWebViewBuilder),
                             GapSizes.mediumGap,
                             const CheckListItem(
                               text:
