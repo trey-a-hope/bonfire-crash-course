@@ -51,33 +51,20 @@ void main() {
     );
   }
 
-  testWidgets('starts on "Click to play" without loading the game', (
+  testWidgets('starts loading the game URL right away, with a spinner', (
     tester,
   ) async {
     await pumpWindow(tester);
 
-    expect(find.text('Click to play'), findsOneWidget);
-    expect(find.byKey(const Key('fake-webview')), findsNothing);
-    expect(fake.builds, 0);
+    expect(fake.builds, 1);
+    expect(fake.url, Uri.parse(TEMPLATE_GAME_URL));
+    expect(find.byKey(const Key('fake-webview')), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.text('Loading the game…'), findsOneWidget);
     expect(
       find.text('A/D walk · Space jump · S melee · W magic bolt'),
       findsOneWidget,
     );
-  });
-
-  testWidgets('clicking play loads the game URL with a spinner until loaded', (
-    tester,
-  ) async {
-    await pumpWindow(tester);
-
-    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
-    await tester.pump();
-
-    expect(find.byKey(const Key('fake-webview')), findsOneWidget);
-    expect(fake.url, Uri.parse(TEMPLATE_GAME_URL));
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    expect(find.text('Loading the game…'), findsOneWidget);
-    expect(find.text('Click to play'), findsNothing);
 
     fake.onLoaded!();
     await tester.pump();
@@ -90,8 +77,6 @@ void main() {
     'a failed load shows the error with Open in browser and Try again',
     (tester) async {
       await pumpWindow(tester);
-      await tester.tap(find.byIcon(Icons.play_arrow_rounded));
-      await tester.pump();
 
       fake.onError!();
       await tester.pump();
@@ -117,8 +102,6 @@ void main() {
     tester,
   ) async {
     await pumpWindow(tester);
-    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
-    await tester.pump();
     fake.onLoaded!();
     await tester.pump();
 
@@ -131,8 +114,6 @@ void main() {
 
   testWidgets('a game that never loads times out to the error', (tester) async {
     await pumpWindow(tester);
-    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
-    await tester.pump();
 
     await tester.pump(GameWindow.loadTimeout);
 
@@ -163,8 +144,7 @@ void main() {
     );
 
     expect(find.byType(GameWindow), findsOneWidget);
-    expect(find.text('Click to play'), findsOneWidget);
-    expect(fake.builds, 0);
+    expect(find.text('Loading the game…'), findsOneWidget);
 
     // The game leads the page, large, with the five modules underneath.
     final game = tester.getRect(find.byType(GameWindow));

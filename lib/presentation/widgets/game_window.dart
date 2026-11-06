@@ -9,7 +9,6 @@ import 'package:signals/signals_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'game_window_error.dart';
-part 'game_window_idle.dart';
 part 'game_window_loading.dart';
 part 'game_window_web_view.dart';
 
@@ -24,14 +23,13 @@ typedef GameWebViewBuilder =
     });
 
 /// What the [GameWindow] is showing.
-enum GameWindowState { idle, loading, playing, error }
+enum GameWindowState { loading, playing, error }
 
-/// A small 16:9 window that plays the finished template game from its web
-/// build ([TEMPLATE_GAME_URL]).
+/// A 16:9 window that plays the finished template game from its web build
+/// ([TEMPLATE_GAME_URL]).
 ///
-/// Nothing is loaded until the student clicks "Click to play", so the page
-/// stays light. Then a spinner shows over the web view until the game has
-/// loaded. If the page can't load, the window offers "Open in browser" and
+/// The game starts loading as soon as the window opens, with a spinner over
+/// the web view until it has loaded. If the page can't load, the window offers "Open in browser" and
 /// "Try again". A controls hint and an "Open in browser" link sit underneath.
 class GameWindow extends SignalStatefulWidget {
   /// The game's web address.
@@ -56,7 +54,7 @@ class GameWindow extends SignalStatefulWidget {
   /// How long the window waits for the game before showing the error.
   static const loadTimeout = Duration(seconds: 30);
 
-  /// The blue used for the play button, spinner and focus ring.
+  /// The blue used for the spinner and focus ring.
   static const accent = Colors.blueAccent;
 
   /// The window's background, behind the game.
@@ -69,7 +67,7 @@ class GameWindow extends SignalStatefulWidget {
 class _GameWindowState extends State<GameWindow> {
   /// What the window is showing. Reading it in [build] rebuilds the window
   /// whenever it changes.
-  final _state = Signal<GameWindowState>(GameWindowState.idle);
+  final _state = Signal<GameWindowState>(GameWindowState.loading);
 
   /// Bumped on "Try again", so a fresh web view is built.
   final _attempt = Signal<int>(0);
@@ -77,6 +75,13 @@ class _GameWindowState extends State<GameWindow> {
   /// Shows the error if the game hasn't loaded within [GameWindow.loadTimeout],
   /// for example when the web view never starts.
   Timer? _timeout;
+
+  @override
+  void initState() {
+    super.initState();
+    // The game starts as soon as the page opens.
+    _play();
+  }
 
   void _play() {
     _timeout?.cancel();
@@ -146,7 +151,6 @@ class _GameWindowState extends State<GameWindow> {
                       onError: _onError,
                     ),
                   ),
-                if (state == GameWindowState.idle) _Idle(onPlay: _play),
                 if (state == GameWindowState.loading) const _Loading(),
                 if (state == GameWindowState.error)
                   _Error(
