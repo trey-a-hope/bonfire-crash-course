@@ -17,22 +17,29 @@ class CreatePlayerComponentPage extends StatelessWidget {
       module: PLAYER_MODULE,
       unitStep: 1,
       title: 'Creating the Player Component',
+      outcome: 'A wizard hero stands on the map, idle or running.',
       objective:
           'Define a Hero component that extends PlatformPlayer, pick a character sprite set, and give it idle and run animations in a Bonfire game.',
 
       concepts: [
         Concept(
           title: 'PlatformPlayer',
+          short: 'Bonfire\'s side-scroller player: walks, jumps and animates.',
+          codeMatch: 'PlatformPlayer',
           subtitle:
               'Bonfire\'s side-scroller player. It handles horizontal movement and jumping, and swaps animations based on what the hero is doing and which way it faces.',
         ),
         Concept(
           title: 'CharacterAsset',
+          short: 'One value that picks every sprite for a character.',
+          codeMatch: 'CharacterAsset',
           subtitle:
               'An enum in lib/core/constants/character_asset.dart that bundles every sprite sheet path for one character (wizard or shark). Switching characters is a one-word change.',
         ),
         Concept(
           title: 'SpriteAnimation',
+          short: 'A sheet sliced into frames that play in order.',
+          codeMatch: 'stepTime',
           subtitle:
               'A sprite sheet sliced into equal frames that play in order. stepTime is how long each frame stays on screen, so a bigger number plays slower.',
         ),

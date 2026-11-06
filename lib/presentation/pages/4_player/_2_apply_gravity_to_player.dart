@@ -17,16 +17,21 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       module: PLAYER_MODULE,
       unitStep: 2,
       title: 'Apply Gravity to Player',
+      outcome: 'The hero falls, pulled down by gravity.',
       objective:
           'Turn on gravity for the whole game, then let it pull the hero down so it falls and lands like a platformer character.',
       concepts: [
         Concept(
           title: 'WithForces',
+          short: 'Lets gravity act on the hero every tick.',
+          codeMatch: 'WithForces',
           subtitle:
               'A Bonfire mixin that lets forces act on a component. Forces are applied every game tick, so gravity keeps pulling the hero down until something solid stops it.',
         ),
         Concept(
           title: 'globalForces',
+          short: 'Gravity for the whole game, set once.',
+          codeMatch: 'globalForces',
           subtitle:
               'Set on BonfireWidget once, it pulls on every component with WithForces. GlobalForcesSettings(gravity: Vector2(0, GRAVITY)) pulls straight down at 300 pixels per second squared; a bigger number makes everything fall faster.',
         ),
