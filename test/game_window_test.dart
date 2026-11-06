@@ -99,6 +99,8 @@ void main() {
       expect(find.text("Couldn't load the game"), findsOneWidget);
       expect(find.byKey(const Key('fake-webview')), findsNothing);
 
+      // Only the error panel's button: the link under the window hides.
+      expect(find.text('Open in browser'), findsOneWidget);
       await tester.tap(find.widgetWithText(FilledButton, 'Open in browser'));
       expect(opened, [Uri.parse(TEMPLATE_GAME_URL)]);
 
@@ -110,6 +112,32 @@ void main() {
       expect(fake.builds, 2);
     },
   );
+
+  testWidgets('an error after the game is playing leaves it running', (
+    tester,
+  ) async {
+    await pumpWindow(tester);
+    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+    await tester.pump();
+    fake.onLoaded!();
+    await tester.pump();
+
+    fake.onError!();
+    await tester.pump();
+
+    expect(find.text("Couldn't load the game"), findsNothing);
+    expect(find.byKey(const Key('fake-webview')), findsOneWidget);
+  });
+
+  testWidgets('a game that never loads times out to the error', (tester) async {
+    await pumpWindow(tester);
+    await tester.tap(find.byIcon(Icons.play_arrow_rounded));
+    await tester.pump();
+
+    await tester.pump(GameWindow.loadTimeout);
+
+    expect(find.text("Couldn't load the game"), findsOneWidget);
+  });
 
   testWidgets('the Open in browser link under the window opens the game', (
     tester,

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,8 +47,11 @@ class GameWindow extends StatefulWidget {
        webViewBuilder = webViewBuilder ?? _inAppWebView,
        openInBrowser = openInBrowser ?? _launchInBrowser;
 
+  /// How long the window waits for the game before showing the error.
+  static const loadTimeout = Duration(seconds: 30);
+
   /// The blue used for the play button, spinner and focus ring.
-  static const accent = Color(0xFF448AFF);
+  static const accent = Colors.blueAccent;
 
   /// The window's background, behind the game.
   static const background = Color(0xFF0B0D12);
@@ -60,19 +66,37 @@ class _GameWindowState extends State<GameWindow> {
   /// Bumped on "Try again", so a fresh web view is built.
   int _attempt = 0;
 
-  void _play() => setState(() {
-    _state = GameWindowState.loading;
-    _attempt++;
-  });
+  /// Shows the error if the game hasn't loaded within [GameWindow.loadTimeout],
+  /// for example when the web view never starts.
+  Timer? _timeout;
+
+  void _play() {
+    _timeout?.cancel();
+    _timeout = Timer(GameWindow.loadTimeout, _onError);
+    setState(() {
+      _state = GameWindowState.loading;
+      _attempt++;
+    });
+  }
 
   void _onLoaded() {
     if (!mounted || _state != GameWindowState.loading) return;
+    _timeout?.cancel();
     setState(() => _state = GameWindowState.playing);
   }
 
+  /// Only a failure while loading counts: once the game is playing, a later
+  /// error (a missing favicon, say) leaves it running.
   void _onError() {
-    if (!mounted) return;
+    if (!mounted || _state != GameWindowState.loading) return;
+    _timeout?.cancel();
     setState(() => _state = GameWindowState.error);
+  }
+
+  @override
+  void dispose() {
+    _timeout?.cancel();
+    super.dispose();
   }
 
   @override
@@ -123,6 +147,7 @@ class _GameWindowState extends State<GameWindow> {
           ),
         ),
         GapSizes.smallGap,
+        // The error panel has its own "Open in browser", so the link hides.
         Wrap(
           alignment: WrapAlignment.spaceBetween,
           crossAxisAlignment: WrapCrossAlignment.center,
@@ -134,18 +159,19 @@ class _GameWindowState extends State<GameWindow> {
                 color: Colors.white.withValues(alpha: 0.7),
               ),
             ),
-            TextButton.icon(
-              onPressed: () => widget.openInBrowser(widget.url),
-              iconAlignment: IconAlignment.end,
-              icon: const Icon(Icons.open_in_new_rounded, size: 14),
-              label: const Text('Open in browser'),
-              style: TextButton.styleFrom(
-                foregroundColor: const Color(0xFF82B1FF),
-                textStyle: textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+            if (_state != GameWindowState.error)
+              TextButton.icon(
+                onPressed: () => widget.openInBrowser(widget.url),
+                iconAlignment: IconAlignment.end,
+                icon: const Icon(Icons.open_in_new_rounded, size: 14),
+                label: const Text('Open in browser'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.blueAccent[100],
+                  textStyle: textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ],
@@ -275,7 +301,7 @@ class _Error extends StatelessWidget {
             children: [
               const Icon(
                 Icons.error_outline_rounded,
-                color: Color(0xFFFF5252),
+                color: Colors.redAccent,
                 size: 28,
               ),
               GapSizes.smallGap,
@@ -340,6 +366,16 @@ Widget _inAppWebView(
   required VoidCallback onLoaded,
   required VoidCallback onError,
 }) {
+  final supported =
+      !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.macOS ||
+          defaultTargetPlatform == TargetPlatform.windows);
+  if (!supported) {
+    // flutter_inappwebview isn't set up here (Linux, web): go straight to the
+    // error panel, which offers "Open in browser".
+    WidgetsBinding.instance.addPostFrameCallback((_) => onError());
+    return const SizedBox.shrink();
+  }
   return InAppWebView(
     initialUrlRequest: URLRequest(url: WebUri.uri(url)),
     initialSettings: InAppWebViewSettings(
@@ -347,24 +383,41 @@ Widget _inAppWebView(
       disableContextMenu: true,
       supportZoom: false,
     ),
-    onLoadStop: (controller, _) async {
-      onLoaded();
-      // Hand keyboard focus to the game page, so A/D, Space, S and W reach
-      // the hero straight away.
-      await controller.evaluateJavascript(
-        source:
-            "window.focus(); var v = document.querySelector('flutter-view') || document.body; if (v) { v.focus(); }",
-      );
-    },
+    onLoadStop: (controller, _) => _waitForGame(controller, onLoaded),
     onReceivedError: (controller, request, error) {
-      if (request.isForMainFrame ?? true) onError();
+      if (request.isForMainFrame ?? false) onError();
     },
     onReceivedHttpError: (controller, request, response) {
-      if (request.isForMainFrame ?? true) onError();
+      if (request.isForMainFrame ?? false) onError();
     },
   );
 }
 
+/// The HTML loads before the Flutter web app inside it has started, so keep
+/// the spinner up until its `flutter-view` exists (up to about 15 s), then
+/// hand it keyboard focus, so A/D, Space, S and W reach the hero.
+Future<void> _waitForGame(
+  InAppWebViewController controller,
+  VoidCallback onLoaded,
+) async {
+  const script =
+      "(function () { var v = document.querySelector('flutter-view'); if (!v) { return false; } window.focus(); v.focus(); return true; })()";
+  try {
+    for (var i = 0; i < 60; i++) {
+      if (await controller.evaluateJavascript(source: script) == true) break;
+      await Future<void>.delayed(const Duration(milliseconds: 250));
+    }
+  } catch (_) {
+    // The web view was closed ("Try again", or the student left the page).
+    return;
+  }
+  onLoaded();
+}
+
 Future<void> _launchInBrowser(Uri url) async {
-  await launchUrl(url, mode: LaunchMode.externalApplication);
+  try {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } catch (_) {
+    // Nothing more to offer if the system can't open a browser.
+  }
 }
