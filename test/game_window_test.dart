@@ -73,6 +73,18 @@ void main() {
     expect(find.byKey(const Key('fake-webview')), findsOneWidget);
   });
 
+  testWidgets('the game keeps its size when it starts playing', (tester) async {
+    await pumpWindow(tester);
+    final webView = find.byKey(const Key('fake-webview'));
+    final loadingSize = tester.getSize(webView);
+
+    fake.onLoaded!();
+    await tester.pump();
+
+    // A resize while the game starts crashes it, so the size must not change.
+    expect(tester.getSize(webView), loadingSize);
+  });
+
   testWidgets(
     'a failed load shows the error with Open in browser and Try again',
     (tester) async {

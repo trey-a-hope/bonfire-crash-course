@@ -132,11 +132,14 @@ class _GameWindowState extends State<GameWindow> {
             decoration: BoxDecoration(
               color: GameWindow.background,
               borderRadius: BorderRadius.circular(12),
+              // Only the colour changes once the game plays. A wider border
+              // would shrink the web view while the game is starting, and the
+              // game crashes on that resize (NaN.floor()), leaving it black.
               border: Border.all(
                 color: state == GameWindowState.playing
                     ? GameWindow.accent
                     : Colors.white.withValues(alpha: 0.12),
-                width: state == GameWindowState.playing ? 2 : 1,
+                width: 2,
               ),
             ),
             child: Stack(
