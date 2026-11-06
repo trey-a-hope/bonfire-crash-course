@@ -1,0 +1,88 @@
+part of 'onboarding.dart';
+
+/// A terminal command in a box with a Copy button. The button reads
+/// "Copied!" for a moment after it's pressed.
+class CommandBox extends SignalStatefulWidget {
+  /// The command to show and copy.
+  final String command;
+
+  const CommandBox({super.key, required this.command});
+
+  /// How long the button reads "Copied!".
+  static const copiedFor = Duration(milliseconds: 1500);
+
+  @override
+  State<CommandBox> createState() => _CommandBoxState();
+}
+
+class _CommandBoxState extends State<CommandBox> {
+  /// True right after the command was copied.
+  final _copied = Signal<bool>(false);
+
+  Timer? _reset;
+
+  Future<void> _copy() async {
+    await Clipboard.setData(ClipboardData(text: widget.command));
+    if (!mounted) return;
+    _copied.value = true;
+    _reset?.cancel();
+    _reset = Timer(CommandBox.copiedFor, () {
+      if (mounted) _copied.value = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    _reset?.cancel();
+    _copied.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final copied = _copied.value;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 8, 8, 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF14141E),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SelectableText(
+                widget.command,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  color: Colors.greenAccent,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          GapSizes.smallGap,
+          TextButton.icon(
+            onPressed: _copy,
+            icon: Icon(
+              copied ? Icons.check_rounded : Icons.copy_rounded,
+              size: 14,
+            ),
+            label: Text(copied ? 'Copied!' : 'Copy'),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white,
+              side: BorderSide(color: Colors.white.withValues(alpha: 0.15)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
