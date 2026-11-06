@@ -34,8 +34,8 @@ class ConceptChips extends StatelessWidget {
         ),
         GapSizes.smallGap,
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 12,
+          runSpacing: 12,
           children: [
             for (var i = 0; i < concepts.length; i++)
               ConceptChip(
