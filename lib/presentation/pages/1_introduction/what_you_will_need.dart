@@ -101,7 +101,7 @@ class WhatYouWillNeed extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  'NICE TO HAVE',
+                  'OPTIONAL',
                   style: textTheme.labelSmall?.copyWith(
                     color: Colors.white.withValues(alpha: 0.6),
                     fontWeight: FontWeight.bold,
