@@ -60,6 +60,10 @@ flutter_launcher_icons:
 
 msix_config:
   display_name: Bonfire Crash Course
-  publisher_display_name: Trey Hope
-  identity_name: com.io.bonfire-crash-course
+  identity_name: treycodes.BonfireCrashCourse
   logo_path: assets/app_icon.png
+  publisher: CN=F58BA3FE-0FCF-4F83-8978-E2D0D64D13D8
+  publisher_display_name: treycodes
+  capabilities: internetClient
+  store: true
+  build_windows: false
