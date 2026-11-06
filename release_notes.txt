@@ -1,0 +1,2 @@
+- BCC-36: The "What the course covers" page now has a small window where you can play the finished template game before you start.
+- If the game can't load, open it in your browser instead with one click.

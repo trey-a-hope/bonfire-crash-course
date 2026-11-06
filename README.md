@@ -7,6 +7,7 @@ A desktop course app that teaches you to build a 2D side-scrolling game in Flutt
 - **Six modules, ~30 lessons**: Introduction, Getting Started, Map, Hero (Player), Companion (Ally) and Foe (Enemy), ending with a "Bonfire Crash Course Finished!" page. The full outline lives in `lib/core/pane_config.dart`.
 - **Code-along lessons**: each coding lesson shows the objective, key concepts and step-by-step code on the left, with the video walkthrough, a "Time to Code" prompt and a pro tip on the right (`lib/presentation/scaffolds/coding_scaffold.dart`).
 - **One-click setup**: the Getting Started module walks you through creating a GitHub account, opening a Codespace from the template repo, optionally installing VS Code, the template's file structure and running the game.
+- **Play the finished game**: the Introduction's "What the course covers" page has a small window that plays the template game from its web build (`TEMPLATE_GAME_URL` in `lib/core/constants.dart`, hosted on Codemagic). It loads only after you click "Click to play", falls back to "Open in browser" if the page can't load, and lives in `lib/presentation/widgets/game_window.dart`. To point it at a new deploy, change that one constant.
 - **Module overviews and completion pages**: every module opens with a diagram of its lessons and closes with milestone badges and the skills you unlocked.
 - **Progress navigation**: a sidebar plus next/previous controls that move through lessons in order (`lib/domain/controllers/progress_navigation_controller.dart`).
 - **Animated UI**: Lottie animations for module badges and celebrations, and Rive animations (`assets/rive/`).
@@ -38,6 +39,7 @@ lib/
 - Flutter, Dart SDK `^3.12.2`
 - `go_router` for navigation and `signals` for state
 - `media_kit` / `media_kit_video` for lesson videos (with macOS and Windows video libs)
+- `flutter_inappwebview` for the game window (WKWebView on macOS, WebView2 on Windows; building for Windows needs NuGet on the machine)
 - `lottie` and `rive` for animations, `flutter_svg` for module diagrams
 - `flutter_highlight` / `highlight` for code snippets
 - `window_manager` for desktop window setup, `package_info_plus` for the version label
@@ -63,7 +65,7 @@ flutter run -d macos     # or -d windows
 flutter test
 ```
 
-Tests in `test/` cover the pane config, the module overview page and the settings page.
+Tests in `test/` cover the pane config, the module overview page, the settings page and the game window (with a fake web view).
 
 ## Building releases
 
