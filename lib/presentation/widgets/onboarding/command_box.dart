@@ -57,17 +57,15 @@ class _CommandBoxState extends State<CommandBox> {
       ),
       child: Row(
         children: [
+          // Wraps on a narrow pane, so the whole command stays readable.
           Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SelectableText(
-                widget.command,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  color: Colors.greenAccent,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
+            child: SelectableText(
+              widget.command,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: Colors.greenAccent,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
