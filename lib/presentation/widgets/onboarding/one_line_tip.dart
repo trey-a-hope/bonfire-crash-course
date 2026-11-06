@@ -10,6 +10,7 @@ class OneLineTip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Icon(
           Icons.lightbulb_outline_rounded,
@@ -17,7 +18,7 @@ class OneLineTip extends StatelessWidget {
           size: 18,
         ),
         GapSizes.smallGap,
-        Expanded(
+        Flexible(
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(

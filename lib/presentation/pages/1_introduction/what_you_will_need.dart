@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 
 part 'need_tile.dart';
 part 'optional_chip.dart';
-part 'zero_setup_card.dart';
+
+// part 'zero_setup_card.dart';
 
 /// What a student needs before starting, in one layout at every window
 /// size: three must-haves side by side, a line of optional extras, a
 /// one-line tip, then a "Zero setup" card with a Rive animation.
 class WhatYouWillNeed extends StatelessWidget {
+  /// The animation's height; the artboard is 16:9.
+  static const animationHeight = 300.0;
+
   const WhatYouWillNeed({super.key});
 
   /// The three things every student needs.
@@ -34,20 +38,6 @@ class WhatYouWillNeed extends StatelessWidget {
       title: 'An internet connection',
       line: 'Your code runs in the cloud.',
       delay: Duration(milliseconds: 240),
-    ),
-  ];
-
-  /// Helpful, but not needed: shown on one line under the tiles.
-  static const optionals = [
-    OptionalChip(
-      icon: Icons.code_rounded,
-      color: Colors.amberAccent,
-      label: 'Some Dart & Flutter basics',
-    ),
-    OptionalChip(
-      icon: Icons.laptop_rounded,
-      color: Colors.purpleAccent,
-      label: 'VS Code on your own computer',
     ),
   ];
 
@@ -79,12 +69,22 @@ class WhatYouWillNeed extends StatelessWidget {
             color: Colors.white.withValues(alpha: 0.75),
           ),
         ),
-        GapSizes.largeGap,
+
         Expanded(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                GapSizes.largeGap,
+                const SizedBox(
+                  height: animationHeight,
+                  width: animationHeight * 16 / 9,
+                  child: GettingStartedRive(
+                    scene: GettingStartedScene.zeroSetup,
+                  ),
+                ),
+                // const ZeroSetupCard(checks: setupChecks),
+                GapSizes.largeGap,
                 // Always three across; the tiles get narrower, not stacked.
                 IntrinsicHeight(
                   child: Row(
@@ -98,28 +98,48 @@ class WhatYouWillNeed extends StatelessWidget {
                   ),
                 ),
                 GapSizes.largeGap,
-                Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text(
-                      'OPTIONAL',
-                      style: textTheme.labelSmall?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.6),
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
+                Align(
+                  alignment: .center,
+                  child: Column(
+                    children: [
+                      Text(
+                        'OPTIONAL',
+                        style: textTheme.labelSmall?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.6),
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        ),
                       ),
-                    ),
-                    ...optionals,
-                  ],
+                      GapSizes.largeGap,
+                      const Align(
+                        alignment: .center,
+                        child: Row(
+                          mainAxisSize: .min,
+                          children: [
+                            OptionalChip(
+                              icon: Icons.code_rounded,
+                              color: Colors.amberAccent,
+                              label: 'Some Dart & Flutter basics',
+                            ),
+                            GapSizes.mediumGap,
+                            OptionalChip(
+                              icon: Icons.laptop_rounded,
+                              color: Colors.purpleAccent,
+                              label: 'VS Code on your own computer',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 GapSizes.largeGap,
-                const OneLineTip(
-                  text: 'Next up: create your free GitHub account.',
+                const Align(
+                  alignment: .center,
+                  child: OneLineTip(
+                    text: 'Next up: create your free GitHub account.',
+                  ),
                 ),
-                GapSizes.largeGap,
-                const ZeroSetupCard(checks: setupChecks),
               ],
             ),
           ),

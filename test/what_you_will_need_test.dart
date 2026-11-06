@@ -34,7 +34,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('tiles, optional line, tip, then the Zero setup animation', (
+  testWidgets('Zero setup animation, tiles, optional line, then tip', (
     tester,
   ) async {
     await pumpPage(tester, const Size(1160, 900));
@@ -58,27 +58,18 @@ void main() {
       find.text('Next up: create your free GitHub account.'),
       findsOneWidget,
     );
-    for (final check in WhatYouWillNeed.setupChecks) {
-      expect(find.text(check), findsOneWidget);
-    }
-
-    // The Lottie is gone; the card plays the Zero setup Rive animation.
+    // The page plays the Zero setup Rive animation.
     final rive = tester.widget<GettingStartedRive>(
-      find.descendant(
-        of: find.byType(ZeroSetupCard),
-        matching: find.byType(GettingStartedRive),
-      ),
+      find.byType(GettingStartedRive),
     );
     expect(rive.scene, GettingStartedScene.zeroSetup);
 
-    // Top to bottom: tiles, optional line, tip, Zero setup card.
+    // Top to bottom: tiles, optional line, tip.
     final tilesY = tester.getTopLeft(find.byType(NeedTile).first).dy;
     final optionalY = tester.getTopLeft(find.text('OPTIONAL')).dy;
     final tipY = tester.getTopLeft(find.byType(OneLineTip)).dy;
-    final cardY = tester.getTopLeft(find.byType(ZeroSetupCard)).dy;
     expect(tilesY, lessThan(optionalY));
     expect(optionalY, lessThan(tipY));
-    expect(tipY, lessThan(cardY));
 
     expect(find.textContaining('OPITIONAL'), findsNothing);
     expect(find.textContaining('Say goodbye'), findsNothing);
@@ -99,13 +90,6 @@ void main() {
           tester.getTopLeft(find.byType(NeedTile).at(i)).dy,
       ];
       expect(ys.toSet(), hasLength(1));
-      // The Zero setup card always sits below the tiles, full width.
-      final card = tester.getRect(find.byType(ZeroSetupCard));
-      final firstTile = tester.getRect(find.byType(NeedTile).first);
-      final lastTile = tester.getRect(find.byType(NeedTile).last);
-      expect(card.top, greaterThan(firstTile.bottom));
-      expect(card.left, moreOrLessEquals(firstTile.left));
-      expect(card.right, moreOrLessEquals(lastTile.right));
     });
   }
 
