@@ -19,8 +19,7 @@ Widget _inAppWebView(
     return const SizedBox.shrink();
   }
   return InAppWebView(
-    // No initial URL: the game is loaded by [_loadWhenSized] once the web
-    // view has a size.
+    initialUrlRequest: URLRequest(url: WebUri.uri(url)),
     initialSettings: InAppWebViewSettings(
       disableContextMenu: true,
       supportZoom: false,
@@ -50,13 +49,9 @@ Widget _inAppWebView(
           }
         },
       );
-      _loadWhenSized(controller, url);
     },
-    onLoadStop: (controller, loaded) {
-      // Skip the blank page the web view starts on.
-      if (loaded?.host != url.host) return;
-      _waitForGame(controller, onLoaded: onLoaded, onError: onError);
-    },
+    onLoadStop: (controller, _) =>
+        _waitForGame(controller, onLoaded: onLoaded, onError: onError),
     onConsoleMessage: (controller, message) {
       if (kDebugMode) debugPrint('[GameWindow] ${message.message}');
     },
@@ -75,26 +70,6 @@ const _wheelHandler = 'gameWindowWheel';
 /// Sends every vertical wheel scroll on the game page to [_wheelHandler].
 const _forwardWheelScript =
     "window.addEventListener('wheel', function (e) { if (window.flutter_inappwebview && e.deltaY) { window.flutter_inappwebview.callHandler('$_wheelHandler', e.deltaY); } }, { capture: true, passive: true });";
-
-/// Loads the game once the web view has been laid out.
-///
-/// The web view starts at 0×0 until Flutter places it. A game started then
-/// fits its camera to a zero-height screen and crashes ("NaN.floor()"), which
-/// leaves the window black. So wait (up to about 5 s) until the page reports a
-/// real size before loading the game.
-Future<void> _loadWhenSized(InAppWebViewController controller, Uri url) async {
-  const script = 'window.innerWidth > 0 && window.innerHeight > 0';
-  try {
-    for (var i = 0; i < 50; i++) {
-      final sized = await controller.evaluateJavascript(source: script);
-      if (sized == true || sized == 1) break;
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-    }
-    await controller.loadUrl(urlRequest: URLRequest(url: WebUri.uri(url)));
-  } catch (_) {
-    // The web view was closed before the game loaded.
-  }
-}
 
 /// The HTML loads before the Flutter web app inside it has started, so keep
 /// the spinner up until its `flutter-view` exists (up to about 20 s), then
