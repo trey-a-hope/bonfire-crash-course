@@ -1,7 +1,8 @@
 part of 'getting_started_rive.dart';
 
 /// The bundled Rive animations: one hero per Getting Started lesson, plus
-/// the trophy at the top of every module completion page.
+/// the trophy at the top of every module completion page, and the cloud
+/// setup scene on "What You Will Need".
 enum GettingStartedScene {
   /// A developer profile card fills in and gets a green check.
   githubAccount(
@@ -50,6 +51,16 @@ enum GettingStartedScene {
     semanticLabel: 'A gold trophy shines as confetti falls',
     fallbackIcon: Icons.emoji_events_rounded,
     fallbackColor: Colors.amberAccent,
+  ),
+
+  /// A cloud drops Flutter, game art and code onto a laptop, which gets a
+  /// green check. Shown on "What You Will Need".
+  zeroSetup(
+    fileName: 'zero_setup',
+    artboardName: 'ZeroSetup',
+    semanticLabel: 'A cloud drops Flutter, game art and code onto a laptop',
+    fallbackIcon: Icons.cloud_done_rounded,
+    fallbackColor: Colors.cyanAccent,
   );
 
   const GettingStartedScene({

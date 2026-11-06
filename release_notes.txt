@@ -10,4 +10,5 @@
 - The key concept pills have more even padding, with each label centred in its pill.
 - BCC-39: Finishing a module now shows a gold trophy animation, with spinning rays and falling confetti, at the top of the page.
 - BCC-40: The Install VS Code page now shows only the steps and download for the computer you are on, with no macOS / Windows switch. Other computers, like Linux, get a link to the VS Code download page.
-- BCC-41: The "What You Will Need" page is now quick to scan: three big tiles for the must-haves, two small "nice to have" chips, and a short "Zero setup" card.
+- BCC-41: The "What You Will Need" page is now quick to scan, with the same layout at every window size: three big tiles for the must-haves, a line of optional extras, and a "Zero setup" card.
+- That card now plays a new Rive animation of a cloud dropping Flutter, game art and code onto a laptop, in place of the Flutter Lottie.

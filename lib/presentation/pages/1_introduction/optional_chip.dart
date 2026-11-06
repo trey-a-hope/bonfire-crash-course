@@ -1,12 +1,12 @@
 part of 'what_you_will_need.dart';
 
-/// A small pill for something helpful but not needed.
-class NiceToHaveChip extends StatelessWidget {
+/// A small pill for something optional.
+class OptionalChip extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String label;
 
-  const NiceToHaveChip({
+  const OptionalChip({
     super.key,
     required this.icon,
     required this.color,

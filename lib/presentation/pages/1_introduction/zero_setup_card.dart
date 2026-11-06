@@ -1,18 +1,15 @@
 part of 'what_you_will_need.dart';
 
-/// "Zero setup": an animation and a few checkmarks for what the cloud
+/// "Zero setup": a Rive animation and a few checkmarks for what the cloud
 /// workspace already has ready.
 class ZeroSetupCard extends StatelessWidget {
-  final Widget animation;
-
   /// At most three short lines.
   final List<String> checks;
 
-  const ZeroSetupCard({
-    super.key,
-    required this.animation,
-    required this.checks,
-  });
+  const ZeroSetupCard({super.key, required this.checks});
+
+  /// The animation's height; the artboard is 16:9.
+  static const animationHeight = 160.0;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +50,13 @@ class ZeroSetupCard extends StatelessWidget {
             ],
           ),
           GapSizes.mediumGap,
-          Center(child: animation),
+          const Center(
+            child: SizedBox(
+              height: animationHeight,
+              width: animationHeight * 16 / 9,
+              child: GettingStartedRive(scene: GettingStartedScene.zeroSetup),
+            ),
+          ),
           GapSizes.mediumGap,
           for (final check in checks)
             Padding(
