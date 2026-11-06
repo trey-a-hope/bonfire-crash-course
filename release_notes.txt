@@ -9,3 +9,4 @@
 - Each lesson's goal and pro tip now fit on a line, and the video walkthrough opens from a button instead of filling the side of the page.
 - The key concept pills have more even padding, with each label centred in its pill.
 - BCC-39: Finishing a module now shows a gold trophy animation, with spinning rays and falling confetti, at the top of the page.
+- BCC-40: The Install VS Code page now shows only the steps and download for the computer you are on, with no macOS / Windows switch. Other computers, like Linux, get a link to the VS Code download page.

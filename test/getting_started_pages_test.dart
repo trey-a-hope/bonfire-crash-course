@@ -3,6 +3,7 @@ import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getti
 import 'package:bonfire_crash_course/presentation/widgets/file_widget_tree.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -65,30 +66,49 @@ void main() {
     expect(find.text('What is GitHub Codespaces?'), findsNothing);
   });
 
-  testWidgets('Install VS Code switches between macOS and Windows', (
-    tester,
-  ) async {
-    await pumpPage(tester, const InstallVSCode());
+  for (final (platform, install) in [
+    (TargetPlatform.macOS, VSCodeInstall.macOS),
+    (TargetPlatform.windows, VSCodeInstall.windows),
+    (TargetPlatform.linux, VSCodeInstall.other),
+  ]) {
+    testWidgets('Install VS Code shows only the ${platform.name} steps', (
+      tester,
+    ) async {
+      debugDefaultTargetPlatformOverride = platform;
+      try {
+        await pumpPage(tester, const InstallVSCode());
 
-    final hero = tester.widget<AnimatedHeroCard>(find.byType(AnimatedHeroCard));
-    expect(hero.scene, GettingStartedScene.vscode);
-    expect(find.text('Cloud vs. Local Setup'), findsNothing);
+        final hero = tester.widget<AnimatedHeroCard>(
+          find.byType(AnimatedHeroCard),
+        );
+        expect(hero.scene, GettingStartedScene.vscode);
+        expect(find.text('Cloud vs. Local Setup'), findsNothing);
 
-    await tester.tap(find.text('macOS'));
-    await tester.pumpAndSettle();
-    expect(stepsOn(tester), InstallVSCode.macSteps);
-    expectShortSteps(stepsOn(tester));
-    var button = tester.widget<OpenLinkButton>(find.byType(OpenLinkButton));
-    expect(button.title, 'Download for macOS');
-    expect(button.url, VSCODE_DOWNLOAD_MACOS);
+        // No platform toggle any more.
+        expect(find.text('macOS'), findsNothing);
+        expect(find.text('Windows'), findsNothing);
 
-    await tester.tap(find.text('Windows'));
-    await tester.pumpAndSettle();
-    expect(stepsOn(tester), InstallVSCode.windowsSteps);
-    expectShortSteps(stepsOn(tester));
-    button = tester.widget<OpenLinkButton>(find.byType(OpenLinkButton));
-    expect(button.title, 'Download for Windows');
-    expect(button.url, VSCODE_DOWNLOAD_WINDOWS);
+        expect(stepsOn(tester), install.steps);
+        expectShortSteps(stepsOn(tester));
+        final button = tester.widget<OpenLinkButton>(
+          find.byType(OpenLinkButton),
+        );
+        expect(button.title, install.buttonTitle);
+        expect(button.url, install.url);
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
+    });
+  }
+
+  test('Install VS Code links each platform to its own download', () {
+    expect(VSCodeInstall.macOS.url, VSCODE_DOWNLOAD_MACOS);
+    expect(VSCodeInstall.windows.url, VSCODE_DOWNLOAD_WINDOWS);
+    expect(VSCodeInstall.other.url, VSCODE_DOWNLOAD_PAGE);
+    expect(
+      VSCodeInstall.forPlatform(TargetPlatform.fuchsia),
+      VSCodeInstall.other,
+    );
   });
 
   testWidgets(
