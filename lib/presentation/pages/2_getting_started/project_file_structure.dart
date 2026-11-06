@@ -36,14 +36,18 @@ class _ProjectFileStructureState extends State<ProjectFileStructure> {
       unitStep: 4,
       title: 'Project File Structure',
       subtitle: 'Tap around. This is the game you are about to build.',
+      // The animation stays on the left, with the picked file's
+      // explanation underneath it. The tree is on the right.
       leftPaneWidgets: [
-        FileTreeWidget(onFileTapped: (node) => _currentNode.value = node),
-      ],
-      rightPaneWidets: [
+        const AnimatedHeroCard(scene: GettingStartedScene.fileStructure),
+        GapSizes.mediumGap,
         if (selectedNode != null)
           _NodeInfoView(node: selectedNode)
         else
           const _PickAFileHint(),
+      ],
+      rightPaneWidets: [
+        FileTreeWidget(onFileTapped: (node) => _currentNode.value = node),
       ],
     );
   }

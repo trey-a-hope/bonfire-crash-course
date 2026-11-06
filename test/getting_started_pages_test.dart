@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
+import 'package:bonfire_crash_course/presentation/widgets/file_widget_tree.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
@@ -90,28 +91,45 @@ void main() {
     expect(button.url, VSCODE_DOWNLOAD_WINDOWS);
   });
 
-  testWidgets('Project File Structure shows the hint until a file is picked', (
-    tester,
-  ) async {
-    await pumpPage(tester, const ProjectFileStructure());
+  testWidgets(
+    'Project File Structure: animation left, tree right, file info below',
+    (tester) async {
+      await pumpPage(tester, const ProjectFileStructure());
 
-    expect(find.byType(Placeholder), findsNothing);
-    final hero = tester.widget<AnimatedHeroCard>(find.byType(AnimatedHeroCard));
-    expect(hero.scene, GettingStartedScene.fileStructure);
-    expect(find.text('Tap a file to see what it does'), findsOneWidget);
+      expect(find.byType(Placeholder), findsNothing);
+      final hero = tester.widget<AnimatedHeroCard>(
+        find.byType(AnimatedHeroCard),
+      );
+      expect(hero.scene, GettingStartedScene.fileStructure);
+      expect(find.text('Tap a file to see what it does'), findsOneWidget);
 
-    // The tree starts fully open.
-    await tester.ensureVisible(find.text('main.dart'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('main.dart'));
-    await tester.pumpAndSettle();
+      // The tree starts fully open.
+      await tester.ensureVisible(find.text('main.dart'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('main.dart'));
+      await tester.pumpAndSettle();
 
-    expect(find.byType(AnimatedHeroCard), findsNothing);
-    expect(
-      find.textContaining('The entry point of the application'),
-      findsOneWidget,
-    );
-  });
+      // The animation stays on the left, with the explanation under it, and
+      // the tree sits on the right.
+      final heroRect = tester.getRect(find.byType(AnimatedHeroCard));
+      final info = find.textContaining('The entry point of the application');
+      expect(info, findsOneWidget);
+      expect(find.text('Tap a file to see what it does'), findsNothing);
+      expect(tester.getTopLeft(info).dy, greaterThan(heroRect.bottom));
+      expect(tester.getTopLeft(info).dx, lessThan(heroRect.right));
+      expect(
+        tester
+            .getTopLeft(
+              find.descendant(
+                of: find.byType(FileTreeWidget),
+                matching: find.text('main.dart'),
+              ),
+            )
+            .dx,
+        greaterThan(heroRect.right),
+      );
+    },
+  );
 
   testWidgets('Run the App copies the run command', (tester) async {
     final copied = <String>[];
