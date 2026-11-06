@@ -1,5 +1,5 @@
-"""Build the Getting Started hero animations and the module complete trophy
-as Rive runtime files.
+"""Build the Getting Started hero animations, the module complete trophy and
+the "What You Will Need" zero setup scene as Rive runtime files.
 
 Usage: python3 tool/rive/build_getting_started.py [out_dir]   (default: assets/rive)
 
@@ -525,6 +525,48 @@ def module_complete():
     return r
 
 
+def zero_setup():
+    """A cloud drops Flutter, game art and code onto a laptop, which gets a green check."""
+    r = start('ZeroSetup')
+    for i, (x, y, col, t0) in enumerate([(70, 60, CYAN, 0.2), (412, 70, LIME, 0.9), (60, 214, PURPLE, 1.6), (420, 210, AMBER, 2.1)]):
+        sparkle(r, f'sp{i}', 'root', x, y, col, 8)
+        twinkle(r, f'sp{i}', t0)
+    check_badge(r, 'check', 'root', 336, 118, 40)
+    pop(r, 'check', 1.95)
+    # the cloud sits in front, so each thing seems to come out of it
+    r.node('cloud', 'root', x=240, y=58)
+    for i, (x, y, w, hh) in enumerate([(-30, 8, 56, 40), (0, -4, 66, 56), (32, 8, 52, 38), (0, 14, 110, 30)]):
+        r.ellipse(f'cloud{i}', 'cloud', x, y, w, hh, color('BBDEFB'))
+    bob(r, 'cloud', 'y', 58, 4)
+    # three things fall from the cloud into the laptop screen, one after another
+    items = [(-62, 0.3), (0, 0.75), (62, 1.2)]
+    for i, (dx, t0) in enumerate(items):
+        h = f'item{i}'
+        r.node(h, 'root', x=240 + dx, y=74, opacity=0)
+        if i == 0:  # Flutter-style chevrons
+            r.poly(h + '_lo', h, [(-2, 2), (8, -8), (18, -8), (3, 7)], color('02569B'))
+            r.poly(h + '_mid', h, [(-2, 2), (3, 7), (18, 22), (8, 22)], BLUE)
+            r.poly(h + '_hi', h, [(-16, 0), (8, -24), (18, -24), (-11, 5)], color('40C4FF'))
+        elif i == 1:  # a little game hero
+            r.rect(h + '_eye', h, 5, -6, 4, 6, CARD_DARK)
+            r.rect(h + '_body', h, 0, 0, 22, 26, GREEN, r=6)
+        else:  # </> code brackets
+            r.poly(h + '_l', h, [(-6, -10), (-16, 0), (-6, 10)], line=PURPLE, thick=4, closed=False)
+            r.poly(h + '_r', h, [(6, -10), (16, 0), (6, 10)], line=PURPLE, thick=4, closed=False)
+            r.poly(h + '_s', h, [(3, -12), (-3, 12)], line=PURPLE, thick=4, closed=False)
+        land = 166
+        r.key(h, 'y', [(0, 74.0), (t0, 74.0), (t0 + 0.45, land + 0.0), (t0 + 0.55, land - 6.0), (t0 + 0.65, land + 0.0),
+                       (DUR - 0.3, land + 0.0), (DUR, 74.0)])
+        r.key(h, 'opacity', [(0, 0.0), (t0, 0.0), (t0 + 0.1, 1.0), (DUR - 0.3, 1.0), (DUR - 0.1, 0.0), (DUR, 0.0)])
+    # laptop
+    r.node('laptop', 'root', x=240, y=170)
+    r.poly('base', 'laptop', [(-128, 56), (-112, 44), (112, 44), (128, 56)], LINE)
+    r.rect('screen', 'laptop', 0, -4, 220, 96, CARD_DARK, r=10)
+    r.rect('lid', 'laptop', 0, -4, 236, 112, CARD, r=14, line=LINE, thick=2)
+    r.finish('ZeroSetup', still_at=2.4)
+    return r
+
+
 SCENES = {
     'gs_github_account': github_account,
     'gs_codespace': codespace,
@@ -532,6 +574,7 @@ SCENES = {
     'gs_file_structure': file_structure,
     'gs_run_game': run_game,
     'module_complete': module_complete,
+    'zero_setup': zero_setup,
 }
 
 if __name__ == '__main__':

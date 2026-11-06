@@ -25,3 +25,4 @@ const VSCODE_DOWNLOAD_WINDOWS =
     'https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user';
 const VSCODE_DOWNLOAD_MACOS =
     'https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal-dmg';
+const VSCODE_DOWNLOAD_PAGE = 'https://code.visualstudio.com/download';

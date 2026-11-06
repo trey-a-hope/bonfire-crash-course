@@ -87,27 +87,24 @@ class WhatTheCourseConvers extends StatelessWidget {
                             stepNumber: '01',
                             icon: Icons.cloud_done_rounded,
                             accentColor: Colors.blueAccent,
-                            title: 'Cloud-First Development Setup',
-                            description:
-                                'Launch your development environment directly in your browser with GitHub Codespaces. Learn how to run, debug, and preview Flutter games with zero local toolchain setup.',
+                            title: 'Map',
+                            description: '?',
                           ),
                           GapSizes.mediumGap,
                           ModuleCard(
                             stepNumber: '02',
                             icon: Icons.map_rounded,
                             accentColor: Colors.greenAccent,
-                            title: 'Tilemaps & World Building',
-                            description:
-                                'Import Tiled JSON maps into Bonfire, render multiple visual layers, configure collision geometry for walls and obstacles, and create layered parallax backgrounds.',
+                            title: 'Hero',
+                            description: '?',
                           ),
                           GapSizes.mediumGap,
                           ModuleCard(
                             stepNumber: '03',
                             icon: Icons.sports_esports_rounded,
                             accentColor: Colors.orangeAccent,
-                            title: 'Player Component & Controls',
-                            description:
-                                'Build a side-scrolling hero with idle, run, jump, and attack sprite animations, and drive it with keyboard controls for moving, double jumping, and melee and ranged attacks.',
+                            title: 'Ally',
+                            description: '?',
                           ),
                         ],
                       ),
@@ -119,20 +116,26 @@ class WhatTheCourseConvers extends StatelessWidget {
                         children: [
                           ModuleCard(
                             stepNumber: '04',
-                            icon: Icons.shield_rounded,
-                            accentColor: Colors.purpleAccent,
-                            title: 'Collisions, Combat & Mechanics',
-                            description:
-                                'Master precise collision detection, implement melee attacks, hitboxes, character life bars, enemy tracking, and interactive environment items.',
+                            icon: Icons.sports_esports_rounded,
+                            accentColor: Colors.orangeAccent,
+                            title: 'Enemy',
+                            description: '?',
                           ),
                           GapSizes.mediumGap,
                           ModuleCard(
                             stepNumber: '05',
+                            icon: Icons.shield_rounded,
+                            accentColor: Colors.purpleAccent,
+                            title: 'Collisions, Combat & Mechanics',
+                            description: '?',
+                          ),
+                          GapSizes.mediumGap,
+                          ModuleCard(
+                            stepNumber: '06',
                             icon: Icons.rocket_launch_rounded,
                             accentColor: Colors.tealAccent,
-                            title: 'Game Loop, Polish & Deployment',
-                            description:
-                                'Fine-tune the game loop, camera follow physics, lighting effects, sound integration, and export your finished game for Web, Desktop, and Mobile.',
+                            title: 'Decorations & Props',
+                            description: '?',
                           ),
                         ],
                       ),
