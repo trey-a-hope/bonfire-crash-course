@@ -1,9 +1,9 @@
 import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
 import 'package:bonfire_crash_course/presentation/widgets/platform_chip.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -29,8 +29,11 @@ class InstallVSCode extends SignalStatefulWidget {
 }
 
 class _InstallVSCodeState extends State<InstallVSCode> {
-  /// Whether the macOS steps are showing (otherwise Windows).
-  late final _showMacOs = Signal<bool>(PlatformResolver.isMacOS);
+  /// Whether the macOS steps are showing (otherwise Windows). Starts on the
+  /// student's own platform.
+  final _showMacOs = Signal<bool>(
+    defaultTargetPlatform == TargetPlatform.macOS,
+  );
 
   @override
   void dispose() {

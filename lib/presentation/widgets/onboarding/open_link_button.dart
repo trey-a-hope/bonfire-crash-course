@@ -27,8 +27,11 @@ class OpenLinkButton extends StatelessWidget {
   });
 
   static Future<void> _launch(Uri uri) async {
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    try {
+      final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (!opened) debugPrint('Could not open $uri');
+    } on PlatformException catch (error) {
+      debugPrint('Could not open $uri: $error');
     }
   }
 

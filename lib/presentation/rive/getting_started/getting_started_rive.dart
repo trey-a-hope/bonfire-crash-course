@@ -74,8 +74,11 @@ class _GettingStartedRiveState extends State<GettingStartedRive> {
 
   Future<void> _load() async {
     final assetPath = widget.scene.assetPath;
+    rive.File? file;
+    rive.RiveWidgetController? controller;
+    rive.ViewModelInstance? viewModel;
     try {
-      final file = await GettingStartedRive.loadFile(assetPath);
+      file = await GettingStartedRive.loadFile(assetPath);
       if (file == null) {
         if (mounted) _failed.value = true;
         return;
@@ -85,7 +88,7 @@ class _GettingStartedRiveState extends State<GettingStartedRive> {
         return;
       }
 
-      final controller = rive.RiveWidgetController(
+      controller = rive.RiveWidgetController(
         file,
         artboardSelector: rive.ArtboardSelector.byName(
           widget.scene.artboardName,
@@ -94,7 +97,7 @@ class _GettingStartedRiveState extends State<GettingStartedRive> {
           GettingStartedRive.stateMachineName,
         ),
       );
-      final viewModel = controller.dataBind(rive.DataBind.auto());
+      viewModel = controller.dataBind(rive.DataBind.auto());
       final reduceMotion = viewModel.boolean(
         GettingStartedRive.reduceMotionProperty,
       );
@@ -107,6 +110,10 @@ class _GettingStartedRiveState extends State<GettingStartedRive> {
     } catch (error, stackTrace) {
       debugPrint('Failed to load $assetPath: $error');
       debugPrintStack(stackTrace: stackTrace);
+      // Free whatever was created before the failure.
+      viewModel?.dispose();
+      controller?.dispose();
+      file?.dispose();
       if (mounted) _failed.value = true;
     }
   }

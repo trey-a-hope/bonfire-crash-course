@@ -29,7 +29,10 @@ class AnimatedHeroCard extends StatelessWidget {
               ),
             ],
           ),
-          child: ExcludeSemantics(child: GettingStartedRive(scene: scene)),
+          // Keyed by scene, so a new scene loads its own file.
+          child: ExcludeSemantics(
+            child: GettingStartedRive(key: ValueKey(scene), scene: scene),
+          ),
         ),
       ),
     );

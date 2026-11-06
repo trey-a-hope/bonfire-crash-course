@@ -199,10 +199,37 @@ void main() {
     );
   });
 
-  test('every scene points at a bundled .riv file', () {
-    for (final scene in GettingStartedScene.values) {
-      expect(scene.assetPath, startsWith('assets/rive/gs_'));
-      expect(scene.assetPath, endsWith('.riv'));
-    }
-  });
+  testWidgets(
+    'every scene is a bundled Rive file with the names the app uses',
+    (tester) async {
+      // The native runtime can't run here, so check the bytes: a Rive file
+      // stores its artboard, state machine and property names as plain text.
+      bool contains(List<int> bytes, String text) {
+        final needle = text.codeUnits;
+        for (var i = 0; i <= bytes.length - needle.length; i++) {
+          var match = true;
+          for (var j = 0; j < needle.length && match; j++) {
+            match = bytes[i + j] == needle[j];
+          }
+          if (match) return true;
+        }
+        return false;
+      }
+
+      for (final scene in GettingStartedScene.values) {
+        final data = await tester.runAsync(
+          () => rootBundle.load(scene.assetPath),
+        );
+        final bytes = data!.buffer.asUint8List();
+        expect(String.fromCharCodes(bytes.take(4)), 'RIVE', reason: scene.name);
+        for (final name in [
+          scene.artboardName,
+          GettingStartedRive.stateMachineName,
+          GettingStartedRive.reduceMotionProperty,
+        ]) {
+          expect(contains(bytes, name), isTrue, reason: '${scene.name}: $name');
+        }
+      }
+    },
+  );
 }

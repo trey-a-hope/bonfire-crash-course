@@ -2,9 +2,10 @@
 
 Usage: python3 tool/rive/build_getting_started.py [out_dir]   (default: assets/rive)
 
-Each file is written directly in Rive's runtime binary format (v7.5), the same
-way as the Scorbord `bet_placed.riv`, because the Rive editor connector wasn't
-connected. The files also open in the Rive editor.
+Each file is written directly in Rive's runtime binary format (v7.5), using the
+type and property keys in `meta.json`. The files also open in the Rive editor.
+`test/getting_started_pages_test.dart` checks each file is bundled and names
+the artboard, state machine and view model property the app looks for.
 
 Every file has the same shape, so one Flutter widget plays all of them:
 

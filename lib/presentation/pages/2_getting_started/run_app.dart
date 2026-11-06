@@ -24,14 +24,14 @@ class RunApp extends StatelessWidget {
           steps: [
             'Open the terminal (Ctrl or Cmd + `)',
             'Run the command below',
-            'Click Open in Browser',
+            'Open port 8080 in your browser',
           ],
         ),
         GapSizes.mediumGap,
         CommandBox(command: runCommand),
         GapSizes.largeGap,
         OneLineTip(
-          text: 'Save a file and the game updates in a second (hot reload).',
+          text: 'Changed some code? Press r in the terminal to hot reload.',
         ),
       ],
     );

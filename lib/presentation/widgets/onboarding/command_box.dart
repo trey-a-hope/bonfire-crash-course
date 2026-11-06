@@ -22,7 +22,13 @@ class _CommandBoxState extends State<CommandBox> {
   Timer? _reset;
 
   Future<void> _copy() async {
-    await Clipboard.setData(ClipboardData(text: widget.command));
+    try {
+      await Clipboard.setData(ClipboardData(text: widget.command));
+    } on PlatformException catch (error) {
+      // The command stays selectable, so it can still be copied by hand.
+      debugPrint('Could not copy the command: $error');
+      return;
+    }
     if (!mounted) return;
     _copied.value = true;
     _reset?.cancel();
