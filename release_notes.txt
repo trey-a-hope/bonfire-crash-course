@@ -5,3 +5,5 @@
 - A "What you will be building today" heading sits above the game, and the five course modules sit underneath it in two columns.
 - BCC-37: The Getting Started pages are short and animated: each one opens with a playful animation, then three quick steps and one button.
 - The VS Code download buttons now give the right installer for Intel and Apple Silicon Macs and for standard Windows PCs.
+- BCC-38: Coding lessons now lead with the code. Tap a key concept to see what it does in one line and light up the code it's about; the longer explanations are one tap away.
+- Each lesson's goal and pro tip now fit on a line, and the video walkthrough opens from a button instead of filling the side of the page.

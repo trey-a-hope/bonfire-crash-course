@@ -9,15 +9,22 @@ class StepsWidget extends StatelessWidget {
   final List<String>? steps;
   final List<CodeStep>? codeSteps;
 
+  /// Lights up the code lines containing this text (code steps only).
+  final String? highlightMatch;
+
   final _StepType _type;
 
   const StepsWidget.simple({super.key, required this.steps})
     : codeSteps = null,
+      highlightMatch = null,
       _type = _StepType.simple;
 
-  const StepsWidget.code({super.key, required this.codeSteps})
-    : steps = null,
-      _type = _StepType.code;
+  const StepsWidget.code({
+    super.key,
+    required this.codeSteps,
+    this.highlightMatch,
+  }) : steps = null,
+       _type = _StepType.code;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +102,7 @@ class StepsWidget extends StatelessWidget {
                   CodeSnippetCard(
                     fileName: codeStep.fileName,
                     code: codeStep.codeSnippet,
+                    highlightMatch: highlightMatch,
                   ),
                 ],
               ),

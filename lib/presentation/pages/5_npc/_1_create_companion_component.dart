@@ -17,21 +17,28 @@ class CreateCompanionComponentPage extends StatelessWidget {
       module: NPC_MODULE,
       unitStep: 1,
       title: 'Creating the Companion Component',
+      outcome:
+          'A companion joins the world next to the hero (not visible yet).',
       objective:
           'Define a Companion component that extends SimpleAlly, give it a size, life and speed, and add it to the game world next to the hero.',
       concepts: [
         Concept(
           title: 'Ally',
+          short: 'An NPC on your side, hurt only by enemies.',
           subtitle:
               'An NPC on the player\'s side. Bonfire\'s Ally is an Npc with the WithLife mixin, so it has health and only takes damage from enemies, never from the hero.',
         ),
         Concept(
           title: 'SimpleAlly',
+          short: 'The Ally type with direction animations.',
+          codeMatch: 'SimpleAlly',
           subtitle:
               'The Ally type with direction animations. Bonfire 4.0 has no PlatformAlly, so the companion starts from SimpleAlly and gets its platform behaviour from mixins in a later lesson.',
         ),
         Concept(
           title: 'components',
+          short: 'BonfireWidget\'s list for everything but the player.',
+          codeMatch: 'components:',
           subtitle:
               'A BonfireWidget list for everything in the world that isn\'t the player, like allies, enemies and decorations.',
         ),

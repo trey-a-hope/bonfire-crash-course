@@ -17,11 +17,14 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       module: PLAYER_MODULE,
       unitStep: 5,
       title: 'Map Boundaries for Player',
+      outcome: 'The hero can\'t walk or fall off the map.',
       objective:
           'Keep the player on the map and prevent it from falling into the void.',
       concepts: [
         Concept(
           title: 'Map Boundaries',
+          short: 'Keeps the hero inside the map.',
+          codeMatch: 'checkBoundaries',
           subtitle: 'Map Boundaries prevent the player from leaving the map.',
         ),
       ],

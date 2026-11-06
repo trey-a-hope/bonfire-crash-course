@@ -17,31 +17,40 @@ class CompanionCutscenePage extends StatelessWidget {
       module: NPC_MODULE,
       unitStep: 6,
       title: 'Berry\'s First-Meeting Cutscene',
+      outcome: 'The camera pans to Berry for the talk, then back to the hero.',
       objective:
           'Turn the first conversation into a short cutscene with Bonfire\'s scene builder: the camera pans and zooms to Berry, the dialogue opens, and when it closes the camera pans back to the hero while Berry waves. The hero gets control back only once the camera is home.',
       concepts: [
         Concept(
           title: 'gameRef.startScene',
+          short: 'Runs scene actions one after another.',
+          codeMatch: 'startScene',
           subtitle:
               'Runs a list of scene actions one after another, each starting when the one before it finishes. While a scene runs, gameRef.sceneBuilderStatus.isRunning is true.',
         ),
         Concept(
           title: 'CameraSceneAction.target',
+          short: 'Pans and zooms the camera to a component.',
+          codeMatch: 'CameraSceneAction.target',
           subtitle:
               'Pans the camera to a component (and zooms, if you give a zoom) over a duration. It drops any fraction of a second, so use whole seconds: Duration(milliseconds: 1500) pans in 1 second.',
         ),
         Concept(
           title: 'AwaitSceneAction',
+          short: 'Waits until the dialogue closes.',
+          codeMatch: 'AwaitSceneAction',
           subtitle:
               'Pauses the scene until a Future completes. Berry\'s scene waits here until the dialogue has closed, then moves on to the pan back.',
         ),
         Concept(
           title: 'sceneBuilderStatus',
+          short: 'Tells you a cutscene is running.',
           subtitle:
               'The hero already returns early from update while a scene runs (Module 4, Map Boundaries for Player), so it stands still and ignores input. Enemies can check it too, so they freeze during cutscenes.',
         ),
         Concept(
           title: 'Other scene actions',
+          short: 'More actions for your own cutscenes.',
           subtitle:
               'DelaySceneAction waits for a duration. MoveToPositionSceneAction walks a component to a position, and MoveWhileSceneAction moves it while a condition holds. CallbackSceneAction runs a function. CameraSceneAction.position pans to a point instead of a component. Extend SceneAction to write your own, and call gameRef.stopScene() to end a running scene early.',
         ),

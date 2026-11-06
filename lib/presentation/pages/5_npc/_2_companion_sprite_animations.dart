@@ -17,16 +17,21 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
       module: NPC_MODULE,
       unitStep: 2,
       title: 'Companion Sprite Animations',
+      outcome: 'Berry the strawberry stands on the ground and animates.',
       objective:
           'Give the companion idle and walk animations from the strawberry sprite sheets, using the same AnimationUtils helper as the hero.',
       concepts: [
         Concept(
           title: 'SimpleDirectionAnimation',
+          short: 'Idle and run animations for each direction.',
+          codeMatch: 'SimpleDirectionAnimation',
           subtitle:
               'Holds an NPC\'s idle and run animations for each direction. Bonfire picks the right one from which way the NPC faces and whether it\'s moving.',
         ),
         Concept(
           title: 'Frame Count (amount)',
+          short: 'How many frames to slice from a sheet.',
+          codeMatch: 'amount',
           subtitle:
               'How many 32x32 frames AnimationUtils slices from a sheet. The strawberry idle sheet has 8 frames (a breath, a stem sway and a blink) and the walk sheet has 4. A wrong amount makes the animation jitter or show half-frames.',
         ),

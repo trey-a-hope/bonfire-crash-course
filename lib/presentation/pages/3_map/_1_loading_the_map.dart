@@ -19,22 +19,29 @@ class LoadingTheMap extends StatelessWidget {
       videoUrl:
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
       videoTitle: 'Loading Tilemaps in Bonfire',
+      outcome: 'Your map fills the screen and the camera stays on it.',
       objective:
           'Load your exported Spritefusion tilemap into Flutter and render your game world\'s terrain, collidable obstacles, and base graphics on screen using BonfireWidget.',
 
       concepts: [
         Concept(
           title: 'BonfireWidget Canvas',
+          short: 'Runs the game loop, camera and components.',
+          codeMatch: 'BonfireWidget(',
           subtitle:
               'The central orchestrator widget that bridges Flame and Bonfire within your Flutter widget tree, running the 60 FPS game loop, tile culling, physics, components, and camera.',
         ),
         Concept(
           title: 'WorldMapBySpritefusion',
+          short: 'Turns map.json into floor tiles and walls.',
+          codeMatch: 'WorldMapBySpritefusion',
           subtitle:
               'Bonfire\'s built-in map loader for Spritefusion maps. It reads map.json and its associated tileset to construct both visual floor tiles and collision boundary grids.',
         ),
         Concept(
           title: 'CameraConfig',
+          short: 'Fits the map and keeps the camera on it.',
+          codeMatch: 'CameraConfig(',
           subtitle:
               'Configures viewport zoom levels (initialMapZoomFit) and clamps camera movement strictly to the map area (moveOnlyMapArea: true) so players cannot wander into empty space.',
         ),

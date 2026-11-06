@@ -16,16 +16,21 @@ class ApplyCustomBackground extends StatelessWidget {
       title: 'Apply a Custom Background',
       subtitle:
           'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
+      outcome: 'A sky drifts on its own behind hills that follow the camera.',
       objective:
           'A common requirement in 2D games is having background elements—such as a sky or drifting clouds—that scroll continuously on their own, independent of the player\'s movement. In Bonfire, you can easily achieve this inside a GameBackground component by using the util.loadParallaxComponent helper.',
 
       concepts: [
         Concept(
           title: 'GameBackground',
+          short: 'The base class for a custom game background.',
+          codeMatch: 'GameBackground',
           subtitle: 'Base to create your custom game background',
         ),
         Concept(
           title: 'ParallaxComponent',
+          short: 'Image layers moving at different speeds, for depth.',
+          codeMatch: 'loadParallaxComponent',
           subtitle:
               'A full parallax, several layers of images drawn out on the screen and each layer moves with different velocities to give an effect of depth.',
         ),

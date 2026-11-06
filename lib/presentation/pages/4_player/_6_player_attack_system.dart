@@ -17,26 +17,35 @@ class PlayerAttackSystemPage extends StatelessWidget {
       module: PLAYER_MODULE,
       unitStep: 6,
       title: 'Player Attack System',
+      outcome: 'S swings a melee strike and W fires a magic bolt.',
       objective:
           'Give the hero a close-range melee strike on S and a projectile attack on W, each with its own one-shot animation played on the hero.',
       concepts: [
         Concept(
           title: 'Melee Attack (attack.melee)',
+          short: 'A short, invisible hit area beside the hero.',
+          codeMatch: 'melee',
           subtitle:
               'Spawns a short-lived, invisible damage area beside the hero. Any enemy inside it takes damage and, with withPush enabled, is knocked back. The swing itself is drawn in the hero\'s own attack sheet.',
         ),
         Concept(
           title: 'Ranged Attack (attack.range)',
+          short: 'Fires a projectile the way the hero faces.',
+          codeMatch: 'range',
           subtitle:
               'Fires a flying projectile in the facing direction. It damages the first enemy it hits and is destroyed when it reaches a wall. The projectile uses its own 16x16 sheet.',
         ),
         Concept(
           title: 'playOnceOther',
+          short: 'Plays an attack once, then goes back to idle.',
+          codeMatch: 'playOnceOther',
           subtitle:
               'Plays an extra animation registered under others once, then returns to the normal idle/run animation. runToTheEnd: true stops walking or landing from cutting the attack short.',
         ),
         Concept(
           title: 'Release Frame',
+          short: 'Fires the bolt on the frame it leaves the hand.',
+          codeMatch: 'ReleaseFrame',
           subtitle:
               'The cast sheet shows the projectile leaving the hero\'s hand. CharacterAsset.attackRangeReleaseFrame says which frame that is, and the real projectile is fired after that delay so the hand-off looks seamless.',
         ),

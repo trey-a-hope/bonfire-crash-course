@@ -1,20 +1,23 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
-import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
-import 'package:bonfire_crash_course/presentation/widgets/course_video_player.dart';
+import 'package:bonfire_crash_course/presentation/widgets/lesson/lesson.dart';
+import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart'
+    show OneLineTip;
 import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:signals/signals_flutter.dart';
 
 /// A standardized split-pane layout scaffold for interactive coding lessons.
 ///
-/// Implements a responsive desktop layout with structured curriculum
-/// presentation (Objective, Key Concepts, Code Implementation) on the left (flex 3),
-/// and the video walkthrough, Time to Code and Pro-Tip on the right (flex 2).
-class CodingScaffold extends SignalWidget {
+/// The code leads. On the left (flex 3), the key concepts are chips above the
+/// code steps: tapping one shows what it does in one line and lights up the
+/// code lines it's about, with the full explanation behind "Learn more". On
+/// the right (flex 2), the lesson's result sits in one line (the objective
+/// and what you're about to type are behind "Learn more"), then a one-line
+/// pro-tip and a button that opens the video walkthrough.
+class CodingScaffold extends SignalStatefulWidget {
   /// The module metadata (module name, total steps, accent color).
   final Module module;
 
@@ -30,24 +33,27 @@ class CodingScaffold extends SignalWidget {
   /// Optional subtitle or high-level overview.
   final String? subtitle;
 
-  /// Widget displaying the core objective of the lesson.
+  /// The full objective of the lesson, shown behind "Learn more".
   final String objective;
 
-  /// Key conceptual breakdown cards for this lesson.
+  /// What the student has when the lesson is done, in one line.
+  final String outcome;
+
+  /// The lesson's key concepts, shown as chips above the code.
   final List<Concept> concepts;
 
   /// Step-by-step code implementation instructions.
   final List<CodeStep> codeSteps;
 
   /// One or two sentences telling the student what they're about to type,
-  /// shown under "Time to Code" below the video.
+  /// shown with the objective behind "Learn more".
   final String timeToCodeStatement;
 
-  /// One or two sentences of quick advice for this lesson, shown in the
-  /// Pro-Tip card. The card is hidden when this is null.
+  /// Quick advice for this lesson, shown as a one-line tip. Hidden when
+  /// this is null.
   final String? proTip;
 
-  /// URL for the embedded lesson video walkthrough.
+  /// URL for the lesson video walkthrough, opened on demand.
   final String videoUrl;
 
   /// Optional title override for the video player header.
@@ -61,6 +67,7 @@ class CodingScaffold extends SignalWidget {
     required this.title,
     this.subtitle,
     required this.objective,
+    required this.outcome,
     required this.concepts,
     required this.codeSteps,
     required this.timeToCodeStatement,
@@ -70,37 +77,55 @@ class CodingScaffold extends SignalWidget {
   });
 
   @override
+  State<CodingScaffold> createState() => _CodingScaffoldState();
+}
+
+class _CodingScaffoldState extends State<CodingScaffold> {
+  /// Index of the concept being explained; the first one to begin with.
+  late final _selected = Signal<int?>(widget.concepts.isEmpty ? null : 0);
+
+  @override
+  void dispose() {
+    _selected.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final selected = _selected.value;
+    final concepts = widget.concepts;
+    final picked = selected == null || selected >= concepts.length
+        ? null
+        : concepts[selected];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Module progression badge & step tracker
         StepBadgeHeader(
-          title: module.moduleName.toUpperCase(),
-          currentStep: unitStep,
-          totalSteps: module.totalSteps,
-          color: module.accentColor,
-          extra: unitExtra,
+          title: widget.module.moduleName.toUpperCase(),
+          currentStep: widget.unitStep,
+          totalSteps: widget.module.totalSteps,
+          color: widget.module.accentColor,
+          extra: widget.unitExtra,
         ),
         GapSizes.smallGap,
 
         // Page title
         Text(
-          title,
+          widget.title,
           style: textTheme.headlineLarge?.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        GapSizes.smallGap,
 
         // Optional subtitle
-        if (subtitle != null) ...[
+        if (widget.subtitle != null) ...[
           GapSizes.xsGap,
           Text(
-            subtitle!,
+            widget.subtitle!,
             style: textTheme.bodyLarge?.copyWith(
               color: Colors.white.withValues(alpha: 0.75),
             ),
@@ -113,99 +138,53 @@ class CodingScaffold extends SignalWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Left Column: Objective, Concepts & Code Implementation (Flex 3)
+              // Left Column: concept chips & code steps (Flex 3)
               Expanded(
                 flex: 3,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppCard.objective(
-                        title: 'Lesson Objective',
-                        description: objective,
-                      ),
-                      GapSizes.largeGap,
-
-                      // Key Concepts Section
                       if (concepts.isNotEmpty) ...[
-                        Text(
-                          'Key Concepts',
-                          style: textTheme.headlineSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        GapSizes.smallGap,
-                        ...concepts.mapIndexed(
-                          (i, concept) => i == concepts.length
-                              ? AppCard.lightbulb(
-                                  title: concept.title,
-                                  description: concept.subtitle,
-                                )
-                              : Column(
-                                  children: [
-                                    AppCard.lightbulb(
-                                      title: concept.title,
-                                      description: concept.subtitle,
-                                    ),
-                                    GapSizes.smallGap,
-                                  ],
-                                ),
+                        ConceptChips(
+                          concepts: concepts,
+                          selected: picked == null ? null : selected,
+                          onSelected: (index) => _selected.value = index,
                         ),
                         GapSizes.mediumGap,
                       ],
-
-                      // Code Steps Section
-                      if (codeSteps.isNotEmpty) ...[
-                        Text(
-                          'Code Implementation',
-                          style: textTheme.headlineSmall?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      if (widget.codeSteps.isNotEmpty)
+                        StepsWidget.code(
+                          codeSteps: widget.codeSteps,
+                          highlightMatch: picked?.codeMatch,
                         ),
-                        GapSizes.smallGap,
-                        StepsWidget.code(codeSteps: codeSteps),
-                        GapSizes.mediumGap,
-                      ],
                     ],
                   ),
                 ),
               ),
               GapSizes.largeGap,
 
-              // Right Column: Video Walkthrough, Time to Code & Pro-Tip (Flex 2)
+              // Right Column: outcome, pro-tip & walkthrough (Flex 2)
               Expanded(
                 flex: 2,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Video Player Container
-                      CourseVideoPlayer(
-                        videoUrl: videoUrl,
-                        title: videoTitle ?? '$title Tutorial',
+                      LessonOutcomeCard(
+                        outcome: widget.outcome,
+                        objective: widget.objective,
+                        timeToCodeStatement: widget.timeToCodeStatement,
                       ),
-                      GapSizes.mediumGap,
-
-                      // Time to Code: what the student is about to type
-                      Text(
-                        'Time to Code',
-                        style: textTheme.headlineSmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      GapSizes.smallGap,
-                      AppCard.action(
-                        title: "What You're About to Type",
-                        description: timeToCodeStatement,
-                      ),
-
-                      if (proTip != null) ...[
+                      if (widget.proTip != null) ...[
                         GapSizes.mediumGap,
-                        AppCard.info(title: 'Pro-Tip', description: proTip!),
+                        OneLineTip(text: widget.proTip!),
                       ],
+                      GapSizes.mediumGap,
+                      WalkthroughButton(
+                        videoUrl: widget.videoUrl,
+                        title: widget.videoTitle ?? '${widget.title} Tutorial',
+                      ),
                     ],
                   ),
                 ),

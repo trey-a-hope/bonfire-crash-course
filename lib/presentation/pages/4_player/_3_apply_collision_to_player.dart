@@ -17,11 +17,14 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
       module: PLAYER_MODULE,
       unitStep: 3,
       title: 'Apply Collision to Player',
+      outcome: 'The hero lands on the ground instead of falling through.',
       objective:
           'Apply collision to the player component in a Bonfire game by configuring its shape, size, and physics properties.',
       concepts: [
         Concept(
           title: 'RectangleHitbox',
+          short: 'The hero\'s solid shape.',
+          codeMatch: 'RectangleHitbox',
           subtitle:
               'Defines the collision area of the player component as a rectangle.',
         ),
