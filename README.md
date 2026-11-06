@@ -72,6 +72,23 @@ Tests in `test/` cover the pane config, the module overview page, the settings p
 - **Windows**: `dart run msix:create` builds an MSIX installer using the `msix_config` in `pubspec.yaml`.
 - **macOS DMG**: the scripts live in `macos/scripts/`. `build_dmg.sh` runs `flutter build macos --release`, and `notarize_dmg.sh` signs and notarizes the build (it also runs on Codemagic). Copy `example.env` to `macos/scripts/.env` and fill in `DEVELOPER_ID_P12` (base64 Developer ID certificate), `DEVELOPER_ID_P12_PASSWORD` and `APP_SPECIFIC_PASSWORD` first; `.env` is gitignored.
 
+## Microsoft Store builds
+
+The Codemagic **Windows (Prod)** workflow sends each build to the Microsoft Store with `scripts/publish_ms_store.py`, run as its Post-build script. Codemagic's built-in Microsoft Store publishing is turned off on purpose: after committing the submission it waits for the Store to start certification and fails the build when that takes more than a few minutes, even though the submission went through.
+
+The script finds the `.msix` under `build/` (or packages one with `dart run msix:create`), creates a new Partner Center submission, replaces its package with the new one, sets the release notes of every listing to `release_notes.txt`, uploads it and commits it. It then waits only until the Store accepts the commit (status `PreProcessing` or later), usually a minute or two. Certification carries on in Partner Center and can take up to three business days.
+
+- **Fails the build** for real problems: a missing setting, rejected credentials, a submission already in progress in Partner Center (the Store allows one at a time), or a commit the Store rejects. The log line starts with `[ms-store] ERROR:` and says what to fix.
+- **Doesn't fail the build** when the Store is slow. If the commit is still processing after 10 minutes, it logs a `[ms-store] WARNING:` and passes, since the submission is already in.
+
+Setup in Codemagic:
+
+1. In **Windows (Prod)**, under **Distribution > Microsoft Partner Center**, untick **Enable publishing to Microsoft Store**.
+2. Open **Post-build script** and add `python scripts/publish_ms_store.py`.
+3. Add these to the workflow's **Environment variables**, with **Secure** on for the secret: `MS_STORE_TENANT_ID`, `MS_STORE_CLIENT_ID` and `MS_STORE_CLIENT_SECRET` (the Azure AD app linked to Partner Center, the same one Codemagic's Microsoft Partner Center integration uses), and `MS_STORE_APP_ID` = `9PG9KP1X3JH6`.
+
+Client secrets expire: when the log says `Azure AD refused the credentials`, create a new secret for the app in Azure (**App registrations > the app > Certificates & secrets**) and replace `MS_STORE_CLIENT_SECRET`. `python3 test/scripts/publish_ms_store_test.py` tests the script against a local fake of Azure AD and the Store submission API.
+
 ## Course tooling
 
 - `tool/diagrams/build_module_diagrams.py` builds the module diagrams from `tool/diagrams/specs/*.json`, writing Excalidraw files to `docs/module_diagrams/` and the SVGs the app shows to `assets/images/module_diagrams/`. Run it with `python3 tool/diagrams/build_module_diagrams.py`.
