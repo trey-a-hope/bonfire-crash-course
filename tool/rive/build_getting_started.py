@@ -1,4 +1,5 @@
-"""Build the five Getting Started hero animations as Rive runtime files.
+"""Build the Getting Started hero animations and the module complete trophy
+as Rive runtime files.
 
 Usage: python3 tool/rive/build_getting_started.py [out_dir]   (default: assets/rive)
 
@@ -9,7 +10,8 @@ the artboard, state machine and view model property the app looks for.
 
 Every file has the same shape, so one Flutter widget plays all of them:
 
-* Artboard: named after the scene (see SCENES), 480 x 270, transparent.
+* Artboard: named after the scene (see SCENES), 480 x 270 (the trophy is
+  300 x 300), transparent.
 * View model `GettingStarted` with one boolean, `reduceMotion`.
 * Animations: `loop` (3 s, loops seamlessly) and `still` (1 frame, the pose
   shown when reduced motion is on).
@@ -70,6 +72,7 @@ class Riv:
         self.ci = {}
         self.count = 0
         self.tracks = {}
+        self.linear = set()
 
     def add(self, cls, **p):
         self.objs.append((cls, p))
@@ -117,6 +120,11 @@ class Riv:
         self.rect(h + '_r', h, w / 2, 0, w, hh, col, r=hh / 2 if r is None else r)
 
     # animation ----------------------------------------------------------
+    def key_linear(self, h, prop, kfs):
+        """Like key, but moves at a steady speed (for spins that loop)."""
+        self.key(h, prop, kfs)
+        self.linear.add((h, prop))
+
     def key(self, h, prop, kfs):
         """kfs: [(seconds, value)], must start at 0 and end at DUR with equal values."""
         assert kfs[0][0] == 0 and abs(kfs[-1][0] - DUR) < 1e-9, (h, prop)
@@ -139,9 +147,10 @@ class Riv:
                 self.add('KeyedObject', objectId=self.ci[h])
                 for prop, kfs in trk.items():
                     self.add('KeyedProperty', propertyKey=node_props[prop])
+                    smooth = eased and (h, prop) not in self.linear
                     for fr, v in frames_of(kfs):
                         kw = ({'interpolationType': 2, 'interpolatorId': ease}
-                              if eased else {'interpolationType': 1})
+                              if smooth else {'interpolationType': 1})
                         self.add('KeyFrameDouble', frame=fr, value=v, **kw)
 
         def loop_frames(kfs):
@@ -206,14 +215,14 @@ class Riv:
         open(path, 'wb').write(hdr + body)
 
 
-def start(artboard):
+def start(artboard, w=W, h=H):
     r = Riv()
     r.add('Backboard')
     r.add('ViewModel', name='GettingStarted')
     r.add('ViewModelPropertyBoolean', name='reduceMotion')
     r.add('ViewModelInstance', viewModelId=0, name='Instance')
     r.add('ViewModelInstanceBoolean', v5=0, viewModelPropertyId=0)
-    r.comp('art', 'Artboard', name=artboard, width=W, height=H,
+    r.comp('art', 'Artboard', name=artboard, width=w, height=h,
            defaultStateMachineId=0, viewModelId=0, clip=True)
     r.node('root', 'art', name='Scene')
     return r
@@ -455,12 +464,74 @@ def run_game():
     return r
 
 
+def module_complete():
+    """A gold trophy shines in a burst of rays while confetti falls."""
+    S = 300
+    r = start('ModuleComplete', S, S)
+    GOLD = color('FFC107'); GOLD_DARK = color('FFA000'); GOLD_LIGHT = color('FFE082')
+    # confetti on top of everything, falling at staggered times
+    conf = [(46, 0.0, PURPLE, 0.6), (92, 0.9, CYAN, -0.4), (138, 0.3, LIME, 0.8), (178, 1.2, RED, -0.7),
+            (220, 0.5, AMBER, 0.5), (258, 1.0, BLUE, -0.6), (70, 1.5, TEAL, 0.9), (240, 1.7, ORANGE, -0.8),
+            (118, 2.1, PURPLE, 0.7), (200, 2.3, CYAN, -0.5)]
+    for i, (x, t0, col, spin) in enumerate(conf):
+        h = f'cf{i}'
+        r.node(h, 'root', x=x, y=-20)
+        r.rect(h + '_r', h, 0, 0, 7, 12, col, r=2)
+        t1 = min(t0 + 1.4, DUR)
+        r.key(h, 'y', [(0, -20.0), (t0, -20.0), (t1, 320.0), (DUR, 320.0)] if t1 < DUR else [(0, -20.0), (t0, -20.0), (DUR, 320.0)])
+        r.key(h, 'rotation', [(0, 0.0), (t0, 0.0), (t1, spin * 6.0), (DUR, spin * 6.0)] if t1 < DUR else [(0, 0.0), (t0, 0.0), (DUR, spin * 6.0)])
+    # sparkles around the cup
+    for i, (x, y, col, t0) in enumerate([(70, 92, WHITE, 0.1), (232, 78, GOLD_LIGHT, 0.7), (246, 176, WHITE, 1.3), (58, 190, GOLD_LIGHT, 1.9)]):
+        sparkle(r, f'sp{i}', 'root', x, y, col, 9)
+        twinkle(r, f'sp{i}', t0)
+    # the trophy, bobbing gently
+    r.node('trophy', 'root', x=150, y=158)
+    bob(r, 'trophy', 'y', 158.0, 4.0)
+    # star on the cup, pulsing
+    r.node('star', 'trophy', x=0, y=-40)
+    pts = []
+    for k in range(10):
+        a = -math.pi / 2 + k * math.pi / 5
+        rad = 14 if k % 2 == 0 else 6
+        pts.append((rad * math.cos(a), rad * math.sin(a)))
+    r.poly('star_s', 'star', pts, WHITE)
+    pulse = [(DUR * i / 6, 1.0 + (0.18 if i % 2 else 0.0)) for i in range(7)]
+    r.key('star', 'scaleX', pulse); r.key('star', 'scaleY', pulse)
+    # shine sweeping across the bowl
+    r.node('shine', 'trophy', x=-30, y=-40, rotation=0.35, opacity=0)
+    r.rect('shine_r', 'shine', 0, 0, 8, 56, color('FFFFFF', 150), r=4)
+    r.key('shine', 'x', [(0, -30.0), (1.6, -30.0), (2.2, 30.0), (DUR, 30.0)])
+    r.key('shine', 'opacity', [(0, 0.0), (1.6, 0.0), (1.75, 1.0), (2.05, 1.0), (2.2, 0.0), (DUR, 0.0)])
+    # cup
+    r.rect('rim', 'trophy', 0, -72, 108, 10, GOLD_LIGHT, r=5)
+    r.poly('bowl', 'trophy', [(-50, -70), (50, -70), (44, -30), (22, -4), (-22, -4), (-44, -30)], GOLD)
+    r.ellipse('handle_l', 'trophy', -50, -46, 36, 36, line=GOLD_DARK, thick=8)
+    r.ellipse('handle_r', 'trophy', 50, -46, 36, 36, line=GOLD_DARK, thick=8)
+    r.rect('stem', 'trophy', 0, 10, 16, 28, GOLD_DARK)
+    r.rect('collar', 'trophy', 0, 26, 50, 8, GOLD, r=3)
+    r.rect('plate', 'trophy', 0, 46, 40, 8, GOLD_LIGHT, r=2)
+    r.rect('plinth', 'trophy', 0, 46, 88, 24, color('5D4037'), r=5)
+    # a burst of rays behind, turning slowly (12 rays, so a 1/12 turn loops)
+    r.node('rays', 'root', x=150, y=130)
+    for k in range(12):
+        a = k * math.pi / 6
+        ca, sa = math.cos(a), math.sin(a)
+        far, half = 118, 0.1
+        r.poly(f'ray{k}', 'rays', [(0, 0), (far * math.cos(a - half), far * math.sin(a - half)),
+                                   (far * math.cos(a + half), far * math.sin(a + half))], color('FFC107', 46))
+    r.key_linear('rays', 'rotation', [(0, 0.0), (DUR, math.pi / 6)])
+    r.ellipse('glow', 'root', 150, 130, 170, 170, color('FFC107', 34))
+    r.finish('ModuleComplete', still_at=1.0)
+    return r
+
+
 SCENES = {
     'gs_github_account': github_account,
     'gs_codespace': codespace,
     'gs_vscode': vscode,
     'gs_file_structure': file_structure,
     'gs_run_game': run_game,
+    'module_complete': module_complete,
 }
 
 if __name__ == '__main__':
