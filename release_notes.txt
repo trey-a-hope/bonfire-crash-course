@@ -1,3 +1,6 @@
+Bonfire Crash Course v26.11.1
+
+What's new
 - BCC-36: The "What the course covers" page now has a small window where you can play the finished template game before you start.
 - If the game can't load, open it in your browser instead with one click.
 - The game window is now large, at the top of the page, with the five course modules listed underneath it.
