@@ -165,5 +165,13 @@ void main() {
     expect(find.byType(GameWindow), findsOneWidget);
     expect(find.text('Click to play'), findsOneWidget);
     expect(fake.builds, 0);
+
+    // The game leads the page, large, with the five modules underneath.
+    final game = tester.getRect(find.byType(GameWindow));
+    expect(game.width, greaterThan(1440 * 0.6));
+    expect(
+      tester.getTopLeft(find.text('Cloud-First Development Setup')).dy,
+      greaterThan(game.bottom),
+    );
   });
 }
