@@ -488,7 +488,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.bonfireCrashCourse.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.treycodes.bonfire-crash-course.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bonfire_crash_course.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/bonfire_crash_course";
@@ -503,7 +503,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.bonfireCrashCourse.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.treycodes.bonfire-crash-course.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bonfire_crash_course.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/bonfire_crash_course";
@@ -518,7 +518,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.bonfireCrashCourse.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.treycodes.bonfire-crash-course.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/bonfire_crash_course.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/bonfire_crash_course";
