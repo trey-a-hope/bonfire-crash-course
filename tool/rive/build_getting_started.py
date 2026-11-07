@@ -526,7 +526,7 @@ def module_complete():
 
 
 def zero_setup():
-    """A cloud drops Flutter, game art and code onto a laptop, which gets a green check."""
+    """A cloud drops GitHub, a web browser and Wi-Fi onto a laptop, which gets a green check."""
     r = start('ZeroSetup')
     for i, (x, y, col, t0) in enumerate([(70, 60, CYAN, 0.2), (412, 70, LIME, 0.9), (60, 214, PURPLE, 1.6), (420, 210, AMBER, 2.1)]):
         sparkle(r, f'sp{i}', 'root', x, y, col, 8)
@@ -538,22 +538,35 @@ def zero_setup():
     for i, (x, y, w, hh) in enumerate([(-30, 8, 56, 40), (0, -4, 66, 56), (32, 8, 52, 38), (0, 14, 110, 30)]):
         r.ellipse(f'cloud{i}', 'cloud', x, y, w, hh, color('BBDEFB'))
     bob(r, 'cloud', 'y', 58, 4)
-    # three things fall from the cloud into the laptop screen, one after another
+    # the three things a student needs (GitHub, a browser, an internet
+    # connection) fall from the cloud into the laptop screen, one after another
     items = [(-62, 0.3), (0, 0.75), (62, 1.2)]
     for i, (dx, t0) in enumerate(items):
         h = f'item{i}'
         r.node(h, 'root', x=240 + dx, y=74, opacity=0)
-        if i == 0:  # Flutter-style chevrons
-            r.poly(h + '_lo', h, [(-2, 2), (8, -8), (18, -8), (3, 7)], color('02569B'))
-            r.poly(h + '_mid', h, [(-2, 2), (3, 7), (18, 22), (8, 22)], BLUE)
-            r.poly(h + '_hi', h, [(-16, 0), (8, -24), (18, -24), (-11, 5)], color('40C4FF'))
-        elif i == 1:  # a little game hero
-            r.rect(h + '_eye', h, 5, -6, 4, 6, CARD_DARK)
-            r.rect(h + '_body', h, 0, 0, 22, 26, GREEN, r=6)
-        else:  # </> code brackets
-            r.poly(h + '_l', h, [(-6, -10), (-16, 0), (-6, 10)], line=PURPLE, thick=4, closed=False)
-            r.poly(h + '_r', h, [(6, -10), (16, 0), (6, 10)], line=PURPLE, thick=4, closed=False)
-            r.poly(h + '_s', h, [(3, -12), (-3, 12)], line=PURPLE, thick=4, closed=False)
+        if i == 0:  # GitHub: a cat silhouette in a blue disc
+            cat = CARD_DARK
+            r.ellipse(h + '_head', h, 0, -2, 20, 16, cat)
+            r.poly(h + '_ear_l', h, [(-10, -4), (-8, -14), (-2, -9)], cat)
+            r.poly(h + '_ear_r', h, [(10, -4), (8, -14), (2, -9)], cat)
+            r.rect(h + '_neck', h, 0, 9, 8, 10, cat, r=2)
+            r.poly(h + '_tail', h, [(-4, 7), (-10, 6), (-12, 3)], line=cat, thick=2.5, closed=False)
+            r.ellipse(h + '_disc', h, 0, 0, 36, 36, BLUE)
+        elif i == 1:  # web browser: a generic globe
+            g = CYAN
+            r.ellipse(h + '_meridian', h, 0, 0, 13, 30, line=g, thick=2.5)
+            r.poly(h + '_equator', h, [(-15, 0), (15, 0)], line=g, thick=2.5, closed=False)
+            for j, yy in enumerate((-8, 8)):
+                half = math.sqrt(15 ** 2 - yy ** 2) - 1
+                r.poly(f'{h}_lat{j}', h, [(-half, yy), (half, yy)], line=g, thick=2.5, closed=False)
+            r.ellipse(h + '_rim', h, 0, 0, 30, 30, line=g, thick=3)
+        else:  # internet connection: a Wi-Fi symbol
+            cy = 9
+            r.ellipse(h + '_dot', h, 0, cy, 7, 7, GREEN)
+            for j, rad in enumerate((8, 15, 22)):
+                pts = [(rad * math.cos(a), cy + rad * math.sin(a))
+                       for a in (math.radians(-135 + 90 * k / 10) for k in range(11))]
+                r.poly(f'{h}_arc{j}', h, pts, line=GREEN, thick=4, closed=False)
         land = 166
         r.key(h, 'y', [(0, 74.0), (t0, 74.0), (t0 + 0.45, land + 0.0), (t0 + 0.55, land - 6.0), (t0 + 0.65, land + 0.0),
                        (DUR - 0.3, land + 0.0), (DUR, 74.0)])
