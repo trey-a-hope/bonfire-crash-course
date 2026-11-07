@@ -63,6 +63,11 @@ void main() {
       find.byType(GettingStartedRive),
     );
     expect(rive.scene, GettingStartedScene.zeroSetup);
+    // Its icons are the three needs: GitHub, a web browser and Wi-Fi.
+    expect(
+      rive.scene.semanticLabel,
+      'A cloud drops GitHub, a web browser and Wi-Fi onto a laptop',
+    );
 
     // Top to bottom: tiles, optional line, tip.
     final tilesY = tester.getTopLeft(find.byType(NeedTile).first).dy;

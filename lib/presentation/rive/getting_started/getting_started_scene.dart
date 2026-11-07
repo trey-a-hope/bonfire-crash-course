@@ -53,12 +53,14 @@ enum GettingStartedScene {
     fallbackColor: Colors.amberAccent,
   ),
 
-  /// A cloud drops Flutter, game art and code onto a laptop, which gets a
-  /// green check. Shown on "What You Will Need".
+  /// A cloud drops GitHub, a web browser and Wi-Fi (the three things a
+  /// student needs) onto a laptop, which gets a green check. Shown on
+  /// "What You Will Need".
   zeroSetup(
     fileName: 'zero_setup',
     artboardName: 'ZeroSetup',
-    semanticLabel: 'A cloud drops Flutter, game art and code onto a laptop',
+    semanticLabel:
+        'A cloud drops GitHub, a web browser and Wi-Fi onto a laptop',
     fallbackIcon: Icons.cloud_done_rounded,
     fallbackColor: Colors.cyanAccent,
   );
