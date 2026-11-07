@@ -46,4 +46,21 @@ void main() {
 
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('diagram card spans the full width of the content area', (
+    tester,
+  ) async {
+    for (final width in [500.0, 1280.0, 1920.0]) {
+      await _pump(tester, Size(width, 900));
+
+      final card = find.ancestor(
+        of: find.byType(SvgPicture),
+        matching: find.byType(Container),
+      );
+      // 24px of page padding on each side, and no cap on the column.
+      expect(tester.getSize(card.first).width, width - 48);
+      expect(tester.getSize(find.byType(SvgPicture)).width, width - 48 - 2);
+      expect(tester.takeException(), isNull);
+    }
+  });
 }

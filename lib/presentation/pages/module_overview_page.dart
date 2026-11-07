@@ -51,94 +51,83 @@ class ModuleOverviewPage extends StatelessWidget {
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 880),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Module pill
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: accentColor.withValues(alpha: 0.35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Module pill
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            decoration: BoxDecoration(
+              color: accentColor.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: accentColor.withValues(alpha: 0.35)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, color: accentColor, size: 15),
+                GapSizes.smallGap,
+                Text(
+                  'MODULE $moduleNumber • OVERVIEW',
+                  style: textTheme.labelMedium?.copyWith(
+                    color: accentColor,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
                   ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(icon, color: accentColor, size: 15),
-                    GapSizes.smallGap,
-                    Text(
-                      'MODULE $moduleNumber • OVERVIEW',
-                      style: textTheme.labelMedium?.copyWith(
-                        color: accentColor,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GapSizes.mediumGap,
-
-              // Module name
-              Text(
-                moduleName,
-                style: textTheme.headlineLarge?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              GapSizes.smallGap,
-
-              // Tagline
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 620),
-                child: Text(
-                  "$tagline. Here's everything this module covers before you start the first lesson.",
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.8),
-                  ),
-                ),
-              ),
-              GapSizes.largeGap,
-
-              // Diagram card: the SVG keeps its own white background
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.1),
-                  ),
-                ),
-                child: SvgPicture.asset(
-                  diagramAsset,
-                  fit: BoxFit.contain,
-                  semanticsLabel:
-                      '$moduleName module diagram: its lessons, their key concepts, and what students finish with.',
-                ),
-              ),
-              GapSizes.mediumGap,
-
-              Text(
-                '$lessons in this module. Press Next to start with $firstLessonTitle.',
-                style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.6),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          GapSizes.mediumGap,
+
+          // Module name
+          Text(
+            moduleName,
+            style: textTheme.headlineLarge?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          GapSizes.smallGap,
+
+          // Tagline
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 620),
+            child: Text(
+              "$tagline. Here's everything this module covers before you start the first lesson.",
+              style: textTheme.bodyLarge?.copyWith(
+                color: Colors.white.withValues(alpha: 0.8),
+              ),
+            ),
+          ),
+          GapSizes.largeGap,
+
+          // Diagram card: spans the full width of the content area, and the
+          // SVG fills it edge to edge on its own white background.
+          Container(
+            width: double.infinity,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            ),
+            child: SvgPicture.asset(
+              diagramAsset,
+              fit: BoxFit.fitWidth,
+              semanticsLabel:
+                  '$moduleName module diagram: its lessons, their key concepts, and what students finish with.',
+            ),
+          ),
+          GapSizes.mediumGap,
+
+          Text(
+            '$lessons in this module. Press Next to start with $firstLessonTitle.',
+            style: textTheme.bodyMedium?.copyWith(
+              color: Colors.white.withValues(alpha: 0.6),
+            ),
+          ),
+        ],
       ),
     );
   }
