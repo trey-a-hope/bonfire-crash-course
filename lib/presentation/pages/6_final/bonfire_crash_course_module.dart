@@ -14,28 +14,22 @@ const BONFIRE_CRASH_COURSE = Module(
   accentColor: Colors.amberAccent,
   achievements: [
     MilestoneAchievement(
-      icon: Icons.auto_awesome_rounded,
-      title: 'Bonfire Engine Master',
+      icon: Icons.sports_esports_rounded,
+      title: 'A complete 2D game',
       description:
-          'Orchestrated Flame game loops, component hierarchies, and state management.',
+          'Map, hero, companion and enemy all running together in Flutter with Bonfire.',
     ),
     MilestoneAchievement(
-      icon: Icons.public_rounded,
-      title: 'World Architecture',
+      icon: Icons.extension_rounded,
+      title: 'Patterns you can reuse',
       description:
-          'Crafted interactive tilemaps, dynamic parallax scenes, and camera rigs.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.bolt_rounded,
-      title: 'Entity Dynamics',
-      description:
-          'Programmed animated player controls, physics boundaries, and game triggers.',
+          'Components, sprite sheets, collision and cutscenes work the same way in your next game.',
     ),
     MilestoneAchievement(
       icon: Icons.rocket_launch_rounded,
-      title: 'Ready for Indie Publishing',
+      title: 'Ready to ship',
       description:
-          'Equipped with tools and patterns to launch 2D indie titles across desktop, mobile, and web.',
+          'Flutter builds your game for web, desktop and mobile from the same code.',
     ),
   ],
   nextLottie: PlayerLottie(height: 100),

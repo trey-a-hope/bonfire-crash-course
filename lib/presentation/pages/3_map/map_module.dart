@@ -15,27 +15,21 @@ const MAP_MODULE = Module(
   achievements: [
     MilestoneAchievement(
       icon: Icons.layers_rounded,
-      title: 'Tilemap Integration',
+      title: 'Map loaded',
       description:
-          'Parsed Spritefusion map data and rendered terrain & collidable grids.',
+          'Your Sprite Fusion tilemap draws the ground, and its collision tiles keep everyone from falling through.',
     ),
     MilestoneAchievement(
-      icon: Icons.filter_hdr_rounded,
-      title: 'Parallax Scenery',
+      icon: Icons.landscape_rounded,
+      title: 'Parallax sky',
       description:
-          'Layered sky and cloud assets with auto-scrolling depth velocities.',
+          'Sky and cloud layers scroll at different speeds behind the map for depth.',
     ),
     MilestoneAchievement(
       icon: Icons.videocam_rounded,
-      title: 'Camera Boundaries',
+      title: 'Camera inside the map',
       description:
-          'Clamped camera motion strictly inside the map bounds with zoom fitting.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.grid_on_rounded,
-      title: 'World Physics',
-      description:
-          'Constructed collision obstacles to prevent characters from falling off.',
+          'The camera stays within the map edges and zooms to fit the screen.',
     ),
   ],
   nextLottie: PlayerLottie(height: 100),
