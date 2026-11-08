@@ -1,6 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 
 /// The first page of a module: its diagram, shown before the module's lessons.
 ///
@@ -104,20 +104,15 @@ class ModuleOverviewPage extends StatelessWidget {
 
           // Diagram card: spans the full width of the content area, and the
           // SVG fills it edge to edge on its own white background.
-          Container(
+          // Click it to open a full-window, zoomable view.
+          HeroImage(
+            imagePath: diagramAsset,
             width: double.infinity,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-            ),
-            child: SvgPicture.asset(
-              diagramAsset,
-              fit: BoxFit.fitWidth,
-              semanticsLabel:
-                  '$moduleName module diagram: its lessons, their key concepts, and what students finish with.',
-            ),
+            fit: BoxFit.fitWidth,
+            backgroundColor: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            semanticsLabel:
+                '$moduleName module diagram: its lessons, their key concepts, and what students finish with.',
           ),
           GapSizes.mediumGap,
 

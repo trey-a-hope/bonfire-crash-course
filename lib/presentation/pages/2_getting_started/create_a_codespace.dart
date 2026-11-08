@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 
@@ -23,9 +24,11 @@ class CreateACodespace extends StatelessWidget {
       subtitle:
           'VS Code and Flutter, ready in your browser. Nothing to install.',
       leftPaneWidgets: [
-        ClipRRect(
+        HeroImage(
+          imagePath: SCREENSHOT,
+          width: double.infinity,
+          fit: BoxFit.fitWidth,
           borderRadius: BorderRadius.circular(16),
-          child: Image.asset(SCREENSHOT, width: double.infinity),
         ),
       ],
       rightPaneWidets: const [
