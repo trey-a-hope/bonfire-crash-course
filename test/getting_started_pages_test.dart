@@ -1,4 +1,5 @@
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
+import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/file_widget_tree.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
@@ -111,9 +112,12 @@ void main() {
   });
 
   testWidgets(
-    'Project File Structure: animation left, tree right, file info below',
+    'Starter Project Files: animation left, tree right, file info below',
     (tester) async {
-      await pumpPage(tester, const ProjectFileStructure());
+      await pumpPage(tester, const StarterProjectFilesPage());
+
+      expect(find.text('Starter Project Files'), findsOneWidget);
+      expect(find.text(StarterProjectFilesPage.note), findsOneWidget);
 
       expect(find.byType(Placeholder), findsNothing);
       final hero = tester.widget<AnimatedHeroCard>(

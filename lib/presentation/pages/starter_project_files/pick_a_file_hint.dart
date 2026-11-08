@@ -1,4 +1,4 @@
-part of 'project_file_structure.dart';
+part of 'starter_project_files_page.dart';
 
 /// A nudge under the animation, shown until a file is picked.
 class _PickAFileHint extends StatelessWidget {

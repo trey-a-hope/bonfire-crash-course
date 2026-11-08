@@ -1,4 +1,4 @@
-part of 'project_file_structure.dart';
+part of 'starter_project_files_page.dart';
 
 /// What the picked file does.
 class _NodeInfoView extends StatelessWidget {

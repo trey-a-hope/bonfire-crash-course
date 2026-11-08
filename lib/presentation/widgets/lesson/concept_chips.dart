@@ -27,7 +27,7 @@ class ConceptChips extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tap a word to see what it does and where it goes',
+          'Key concepts of this chapter',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white.withValues(alpha: 0.7),
           ),

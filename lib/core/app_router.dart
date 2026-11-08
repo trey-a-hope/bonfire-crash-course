@@ -1,6 +1,7 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -30,6 +31,13 @@ final GoRouter appRouter = GoRouter(
       path: SettingsPage.path,
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const SettingsPage(),
+    ),
+
+    // The starter project tour is a reference page, also outside progress
+    GoRoute(
+      path: StarterProjectFilesPage.path,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const StarterProjectFilesPage(),
     ),
 
     StatefulShellRoute.indexedStack(
