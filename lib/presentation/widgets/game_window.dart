@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,11 @@ import 'package:url_launcher/url_launcher.dart';
 part 'game_window_error.dart';
 part 'game_window_loading.dart';
 part 'game_window_web_view.dart';
+
+/// Where the finished template game's web build is hosted (Codemagic). The
+/// "What the course covers" page plays it in a small window.
+const TEMPLATE_GAME_URL =
+    'https://bonfire-crash-course-template.codemagic.app/';
 
 /// Builds the web view that plays the game. [onLoaded] runs once the page has
 /// finished loading, and [onError] runs if the page itself fails to load.

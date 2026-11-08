@@ -60,11 +60,6 @@ final List<PaneInfo> panes = [
         child: InstallVSCode(),
       ),
       PaneInfo(
-        title: 'Project File Structure',
-        path: '/getting-started/project-file-structure',
-        child: ProjectFileStructure(),
-      ),
-      PaneInfo(
         title: 'Run the App',
         path: '/getting-started/run-app',
         child: RunApp(),

@@ -1,9 +1,13 @@
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'map_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
+const _DART_FILE_PARALLAX_BACKGROUND =
+    'lib/presentation/backgrounds/parallax_background.dart';
 
 class ApplyCustomBackground extends StatelessWidget {
   const ApplyCustomBackground({super.key});
@@ -39,7 +43,7 @@ class ApplyCustomBackground extends StatelessWidget {
         CodeStep(
           description:
               'Create a new class that extends the GameBackground class. Title it "ParallaxBackground."',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// A custom [GameBackground] that renders layered parallax scrolling backgrounds.
 class ParallaxBackground extends GameBackground {
@@ -54,7 +58,7 @@ class ParallaxBackground extends GameBackground {
         CodeStep(
           description:
               'Declare nullable ParallaxComponent fields to hold references to your sky/clouds and mountains/hills background layers.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// Parallax layer for constant auto-scrolling sky and clouds.
 ParallaxComponent? _skyAndClouds;
@@ -66,7 +70,7 @@ ParallaxComponent? _mountainsAndHills;
         CodeStep(
           description:
               'Define an asynchronous helper method named _addParallax to handle loading and mounting the parallax layers.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// Asynchronously loads and attaches the parallax components to the background.
 void _addParallax() async {}
@@ -76,7 +80,7 @@ void _addParallax() async {}
         CodeStep(
           description:
               'Use util.loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Load sky and clouds with independent horizontal motion
 _skyAndClouds = await util.loadParallaxComponent(
@@ -95,7 +99,7 @@ add(_skyAndClouds!);
         CodeStep(
           description:
               'Use util.loadCameraParallaxComponent to load mountains and hills layers that react to camera movement for visual depth perspective, then add it to the component.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Load mountains and hills attached to camera motion for depth perspective
 _mountainsAndHills = await util.loadCameraParallaxComponent(
@@ -114,7 +118,7 @@ add(_mountainsAndHills!);
         CodeStep(
           description:
               'Invoke _addParallax inside onLoad so the background layers load when the component mounts. It should come after the "await super.onLoad();"',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 @override
 Future<void> onLoad() async {
@@ -127,7 +131,7 @@ Future<void> onLoad() async {
         CodeStep(
           description:
               'Override onGameResize to handle changes whenever the top-level game canvas or window size changes.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 @override
 // Called whenever the size of the top-level Canvas changes.
@@ -140,7 +144,7 @@ void onGameResize(Vector2 size) {
         CodeStep(
           description:
               'Re-initialize parallax components on resize when not in cutscene/scene building by removing existing layers and re-adding them.',
-          fileName: DART_FILE_PARALLAX_BACKGROUND,
+          fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Re-initialize parallax components on resize when not in cutscene/scene building
 if (!gameRef.sceneBuilderStatus.isRunning) {
@@ -154,7 +158,7 @@ if (!gameRef.sceneBuilderStatus.isRunning) {
         CodeStep(
           description:
               'Pass an instance of ParallaxBackground to the background parameter of BonfireWidget to render the parallax background behind your game world.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {

@@ -1,10 +1,11 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'player_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class PlayerAttackSystemPage extends StatelessWidget {
   const PlayerAttackSystemPage({super.key});
@@ -54,7 +55,7 @@ class PlayerAttackSystemPage extends StatelessWidget {
         CodeStep(
           description:
               'Add the WithAttack mixin to the Hero class. It gives the hero the attack.melee and attack.range API.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class Hero extends PlatformPlayer
     with WithForces, KeyboardEventListener, ScreenBoundaryChecker, WithAttack {
@@ -65,7 +66,7 @@ class Hero extends PlatformPlayer
         CodeStep(
           description:
               'Register the attack sheets under others in PlatformAnimations. Frame counts come from CharacterAsset, and loop: false makes each one play once.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Attack sheets play once on the hero's body, one per direction.
 others: {
@@ -99,7 +100,7 @@ others: {
         CodeStep(
           description:
               'Track whether an attack is playing so attacks can\'t be spammed, and add a helper that plays the attack for the direction the hero faces.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 /// True while an attack animation is playing, so attacks can't be spammed
 /// faster than the hero can swing.
@@ -123,7 +124,7 @@ void _playAttackAnimation(String leftKey, String rightKey) {
         CodeStep(
           description:
               'Create the melee attack: play the swing, then spawn an invisible 32x32 hit area in front of the hero.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 void _meleeAttack() {
   if (_isAttacking) return;
@@ -145,7 +146,7 @@ void _meleeAttack() {
         CodeStep(
           description:
               'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 void _rangeAttack() {
   if (_isAttacking) return;
@@ -183,7 +184,7 @@ void _rangeAttack() {
         CodeStep(
           description:
               'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 case LogicalKeyboardKey.keyW:
   _rangeAttack();

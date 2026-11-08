@@ -3,6 +3,7 @@ import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
 import 'package:flutter/material.dart';
@@ -214,16 +215,22 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
               ),
             ),
 
-            // Bottom Footer: Settings & Progress
+            // Bottom Footer: Starter Project Files, Settings & Progress
             const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: SidebarItemTile(
-                icon: const Icon(Icons.settings_rounded),
-                title: 'Settings',
+                icon: const Icon(Icons.folder_open_rounded),
+                title: 'Starter Project Files',
                 isSelected: false,
-                onTap: () => context.push(SettingsPage.path),
+                onTap: () => context.push(StarterProjectFilesPage.path),
               ),
+            ),
+            SidebarItemTile(
+              icon: const Icon(Icons.settings_rounded),
+              title: 'Settings',
+              isSelected: false,
+              onTap: () => context.push(SettingsPage.path),
             ),
             Padding(
               padding: const EdgeInsetsGeometry.all(16),

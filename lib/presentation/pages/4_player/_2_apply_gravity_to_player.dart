@@ -1,10 +1,13 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'player_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
+const _DART_FILE_GLOBALS = 'lib/core/constants/globals.dart';
 
 class ApplyGravityToPlayerPage extends StatelessWidget {
   const ApplyGravityToPlayerPage({super.key});
@@ -40,7 +43,7 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
         CodeStep(
           description:
               'Find GRAVITY in globals.dart. It\'s how hard gravity pulls, in pixels per second squared, kept in one place so every character falls the same way.',
-          fileName: DART_FILE_GLOBALS,
+          fileName: _DART_FILE_GLOBALS,
           codeSnippet: '''
 /// How hard gravity pulls everything down, in pixels per second squared.
 /// `GameScreen` sets it once for the whole game with `globalForces`, and it
@@ -52,7 +55,7 @@ const GRAVITY = 300.0;
         CodeStep(
           description:
               'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
   ...
@@ -67,7 +70,7 @@ return BonfireWidget(
         CodeStep(
           description:
               'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class Hero extends PlatformPlayer with WithForces { ... }
 ''',

@@ -15,7 +15,7 @@ class RunApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const InstructionsScaffold(
       module: GETTING_STARTED_MODULE,
-      unitStep: 5,
+      unitStep: 4,
       title: 'Run the App',
       subtitle: 'One command, and your game is live.',
       leftPaneWidgets: [AnimatedHeroCard(scene: GettingStartedScene.runGame)],
@@ -32,6 +32,11 @@ class RunApp extends StatelessWidget {
         GapSizes.largeGap,
         OneLineTip(
           text: 'Changed some code? Press r in the terminal to hot reload.',
+        ),
+        GapSizes.mediumGap,
+        OneLineTip(
+          text:
+              'Curious what\'s inside? Open Starter Project Files in the sidebar anytime.',
         ),
       ],
     );

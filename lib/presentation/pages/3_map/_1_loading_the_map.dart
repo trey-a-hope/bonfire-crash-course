@@ -1,9 +1,11 @@
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'map_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 
 class LoadingTheMap extends StatelessWidget {
   const LoadingTheMap({super.key});
@@ -50,7 +52,7 @@ class LoadingTheMap extends StatelessWidget {
         CodeStep(
           description:
               'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
@@ -68,7 +70,7 @@ Widget build(BuildContext context) {
         CodeStep(
           description:
               'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 // Class use to configure camera behavior.
 final _cameraConfig = CameraConfig(

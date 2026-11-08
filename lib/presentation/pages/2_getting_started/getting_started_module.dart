@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 const GETTING_STARTED_MODULE = Module(
   moduleName: 'Getting Started',
-  totalSteps: 5,
+  totalSteps: 4,
   completionHeadline: 'Environment Ready!',
   completionSubtitle:
       'Great start! Your development workspace is set up and ready for 2D game creation in Flutter.',
