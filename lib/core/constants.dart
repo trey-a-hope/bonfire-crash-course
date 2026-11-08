@@ -1,6 +1,3 @@
-const CODE_SPACES_TEMPLATE_URL =
-    'https://github.com/codespaces/new?repo=trey-a-hope/bonfire_crash_course_template';
-
 /// Where the finished template game's web build is hosted (Codemagic). The
 /// "What the course covers" page plays it in a small window.
 const TEMPLATE_GAME_URL =

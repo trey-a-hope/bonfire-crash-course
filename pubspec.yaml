@@ -45,6 +45,8 @@ flutter:
   assets:
     - assets/videos/flight.mp4
     - assets/images/module_diagrams/
+    - assets/images/getting_started/
+    - assets/images/screenshots/
     - assets/rive/
 
 flutter_launcher_icons:

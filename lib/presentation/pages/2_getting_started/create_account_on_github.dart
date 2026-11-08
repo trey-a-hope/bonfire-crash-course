@@ -9,23 +9,30 @@ class CreateAccountOnGithub extends StatelessWidget {
   const CreateAccountOnGithub({super.key});
 
   static const String githubSignupUrl = 'https://github.com/signup';
+  static const String bannerAsset =
+      'assets/images/screenshots/create_github_account.png';
 
   @override
   Widget build(BuildContext context) {
-    return const InstructionsScaffold(
+    return InstructionsScaffold(
       module: GETTING_STARTED_MODULE,
       unitStep: 1,
       title: 'Create an Account on GitHub',
       subtitle: 'Your free key to the course template and cloud editor.',
       leftPaneWidgets: [
-        AnimatedHeroCard(scene: GettingStartedScene.githubAccount),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(bannerAsset, width: double.infinity),
+        ),
       ],
-      rightPaneWidets: [
+      rightPaneWidets: const [
+        AnimatedHeroCard(scene: GettingStartedScene.githubAccount),
+        GapSizes.largeGap,
+
         QuickSteps(
           steps: [
             'Open GitHub sign up',
-            'Pick a username and password',
-            'Verify your email',
+            'Sign in with Google, Apple, or email/password',
           ],
         ),
         GapSizes.largeGap,

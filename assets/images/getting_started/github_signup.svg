@@ -1,0 +1,31 @@
+<svg viewBox="0 0 720 240" width="720" height="240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="240" rx="16" fill="#161b22"/>
+  <rect x="1" y="1" width="718" height="238" rx="16" fill="none" stroke="#b2ff59" stroke-opacity="0.35" stroke-width="2"/>
+  <!-- browser window -->
+  <rect x="40" y="32" width="380" height="176" rx="10" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <rect x="40" y="32" width="380" height="30" rx="10" fill="#21262d"/>
+  <rect x="40" y="52" width="380" height="10" fill="#21262d"/>
+  <circle cx="60" cy="47" r="5" fill="#ff5f56"/>
+  <circle cx="78" cy="47" r="5" fill="#ffbd2e"/>
+  <circle cx="96" cy="47" r="5" fill="#27c93f"/>
+  <rect x="116" y="39" width="280" height="16" rx="8" fill="#0d1117"/>
+  <text x="130" y="51" font-family="monospace" font-size="11" fill="#8b949e">github.com/signup</text>
+  <!-- form -->
+  <text x="64" y="90" font-family="sans-serif" font-size="14" font-weight="600" fill="#e6edf3">Create your account</text>
+  <rect x="64" y="102" width="220" height="22" rx="5" fill="#161b22" stroke="#30363d"/>
+  <text x="74" y="117" font-family="sans-serif" font-size="11" fill="#8b949e">username</text>
+  <rect x="64" y="132" width="220" height="22" rx="5" fill="#161b22" stroke="#30363d"/>
+  <text x="74" y="147" font-family="sans-serif" font-size="11" fill="#8b949e">••••••••</text>
+  <rect x="64" y="166" width="120" height="26" rx="6" fill="#b2ff59"/>
+  <text x="124" y="183" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#0d1117">Sign up</text>
+  <!-- envelope -->
+  <rect x="316" y="104" width="76" height="52" rx="6" fill="#21262d" stroke="#b2ff59" stroke-width="2"/>
+  <polyline points="316,108 354,136 392,108" fill="none" stroke="#b2ff59" stroke-width="2"/>
+  <circle cx="390" cy="104" r="11" fill="#b2ff59"/>
+  <polyline points="384,104 388,108 396,100" fill="none" stroke="#0d1117" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- copy -->
+  <text x="460" y="96" font-family="sans-serif" font-size="22" font-weight="700" fill="#e6edf3">Free account,</text>
+  <text x="460" y="124" font-family="sans-serif" font-size="22" font-weight="700" fill="#b2ff59">two minutes.</text>
+  <text x="460" y="154" font-family="sans-serif" font-size="13" fill="#8b949e">Unlocks the course template</text>
+  <text x="460" y="172" font-family="sans-serif" font-size="13" fill="#8b949e">and the cloud editor.</text>
+</svg>
