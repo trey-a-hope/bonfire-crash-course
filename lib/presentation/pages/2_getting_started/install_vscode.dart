@@ -1,4 +1,3 @@
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
@@ -9,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'getting_started_module.dart';
 
 part 'vscode_install.dart';
+
+/// Where the VS Code download buttons send the student.
+const VSCODE_DOWNLOAD_PAGE = 'https://code.visualstudio.com/download';
 
 /// Shows only the VS Code instructions for the computer the app runs on.
 class InstallVSCode extends StatelessWidget {

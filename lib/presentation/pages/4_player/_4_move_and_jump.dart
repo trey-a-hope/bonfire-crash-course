@@ -1,10 +1,12 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'player_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class MoveAndJumpPage extends StatelessWidget {
   const MoveAndJumpPage({super.key});
@@ -39,7 +41,7 @@ class MoveAndJumpPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add KeyboardEventListener mixin to the hero class.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class Hero ... with KeyboardEventListener { ... }
 ''',
@@ -47,7 +49,7 @@ class Hero ... with KeyboardEventListener { ... }
         CodeStep(
           description:
               'Configure jump animations using PlatformJumpAnimations.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 jump: PlatformJumpAnimations(
   jumpUpRight: AnimationUtils.loadAnimation(_asset.jumpRight, amount: 6),
@@ -61,7 +63,7 @@ jump: PlatformJumpAnimations(
         CodeStep(
           description:
               'Add the countJumps property to the player constructor to enable double jumping.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 countJumps: 2,
 ''',
@@ -69,7 +71,7 @@ countJumps: 2,
         CodeStep(
           description:
               'Override the onKeyboard method. On key down, Space jumps, A moves left, and D moves right.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
 bool onKeyboard(
@@ -105,7 +107,7 @@ bool onKeyboard(
         CodeStep(
           description:
               'Handle key up so the hero stops when A or D is released, or keeps walking the other way if the opposite key is still held. Add this branch after the KeyDownEvent block.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 } else if (event is KeyUpEvent) {
   switch (event.logicalKey) {
@@ -134,7 +136,7 @@ bool onKeyboard(
         CodeStep(
           description:
               'Register a Keyboard controller on BonfireWidget so the game forwards key presses to the hero.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 playerControllers: [
   // Here you enable receive keyboard interaction

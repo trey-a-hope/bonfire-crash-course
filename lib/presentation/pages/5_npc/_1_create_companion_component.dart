@@ -1,10 +1,13 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'npc_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
+const _DART_FILE_CHARACTERS_COMPANION =
+    'lib/presentation/characters/companion.dart';
 
 class CreateCompanionComponentPage extends StatelessWidget {
   const CreateCompanionComponentPage({super.key});
@@ -47,7 +50,7 @@ class CreateCompanionComponentPage extends StatelessWidget {
         CodeStep(
           description:
               'Create companion.dart and a class named Companion that extends SimpleAlly.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet:
               '''/// A friendly NPC that stands on the map and talks to the hero.
 ///
@@ -59,7 +62,7 @@ class Companion extends SimpleAlly {
         CodeStep(
           description:
               'Define the Companion constructor, passing the spawn position, the frame size, its life and its speed to the superclass.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Creates the companion at [position] (in pixels from the map's top-left).
 Companion(Vector2 position)
@@ -77,7 +80,7 @@ Companion(Vector2 position)
         CodeStep(
           description:
               'Import companion.dart in game_screen.dart, then add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (24, 7) is the row just above the ground in map 01, on a flat stretch of open ground, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
-          fileName: DART_FILE_GAME_SCREEN,
+          fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 import 'package:counter_app/presentation/characters/companion.dart';
 ...

@@ -1,10 +1,11 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'player_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class MapBoundariesForPlayerPage extends StatelessWidget {
   const MapBoundariesForPlayerPage({super.key});
@@ -31,7 +32,7 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add the ScreenBoundaryChecker mixin to the Hero class.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class Hero ... with ScreenBoundaryChecker { ... }
 ''',
@@ -39,7 +40,7 @@ class Hero ... with ScreenBoundaryChecker { ... }
         CodeStep(
           description:
               'Override the update method to keep the player on the map.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 /// Called every game tick to update the player's state.
 @override

@@ -1,4 +1,3 @@
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
 import 'package:bonfire_crash_course/presentation/widgets/file_widget_tree.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';

@@ -1,10 +1,12 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'npc_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_CHARACTERS_COMPANION =
+    'lib/presentation/characters/companion.dart';
 
 class CompanionWaveAndFollowPage extends StatelessWidget {
   const CompanionWaveAndFollowPage({super.key});
@@ -61,7 +63,7 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
         CodeStep(
           description:
               'Add the FollowAction enum above the Companion class, and update the class comment to say what the companion now does.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// What the companion does this tick while following the hero.
 enum FollowAction {
@@ -90,7 +92,7 @@ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
         CodeStep(
           description:
               'Add the follow fields after _talkRadius: how close the companion walks up to the hero, how far it can see them, and whether it is following yet.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// How close (in pixels) the hero must be before the companion talks.
 static const _talkRadius = 48.0;
@@ -117,7 +119,7 @@ bool _isFollowing = false;
         CodeStep(
           description:
               'In onLoad, after the hitbox, add collision.onBlockMovementListener so the hero and the companion pass through each other. Return false (let the movement through) only when the other component is the Player.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Runs once when the companion is added to the game.
 @override
@@ -139,7 +141,7 @@ Future<void> onLoad() async {
         CodeStep(
           description:
               'Override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Draw order: Bonfire draws components with a higher priority on top,
 /// based on how low they stand on screen. The companion takes one less
@@ -156,7 +158,7 @@ int get priority {
         CodeStep(
           description:
               'Update update: follow the hero once _isFollowing is true, before checking whether to talk.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Called every game tick: follows the hero (after the first talk) and
 /// checks whether the hero is close enough to talk.
@@ -175,7 +177,7 @@ void update(double dt) {
         CodeStep(
           description:
               'Write the static followAction function, which decides what to do from three plain values: how far across the hero is, how far away they are, and whether the way is clear.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Decides what the companion does this tick while following.
 ///
@@ -203,7 +205,7 @@ static FollowAction followAction({
         CodeStep(
           description:
               'Write _follow, which measures the hero from the hitbox centres, asks followAction what to do and walks left, right or stops. Add _stopWalking, which clears only the horizontal speed so a fall carries on.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Walks along the ground towards the hero and stops a short way off.
 ///
@@ -250,7 +252,7 @@ void _stopWalking() {
         CodeStep(
           description:
               'Below the Companion class, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// The companion's face in the first line of dialogue: waves hello once,
 /// then switches to [_talkingFace].
@@ -295,7 +297,7 @@ class _WaveThenTalkState extends State<_WaveThenTalk> {
         CodeStep(
           description:
               'Add the in-world wave: a _waveAnimation key with the other fields, and the wave sheet in the SimpleDirectionAnimation\'s others map after runLeft. loop: false plays it once.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Key of the wave animation in the animation's `others` map.
 static const _waveAnimation = 'wave';
@@ -318,7 +320,7 @@ animation: SimpleDirectionAnimation(
         CodeStep(
           description:
               'Update _talk: stop the companion too, give the first line the _WaveThenTalk face, and in onClose resume the game, play the in-world wave with playOnceOther and start following when its Future completes.',
-          fileName: DART_FILE_CHARACTERS_COMPANION,
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 /// Pauses the game and opens the dialogue (only once). When it closes,
 /// the companion waves and then follows the hero.

@@ -1,10 +1,11 @@
-import 'package:bonfire_crash_course/core/constants.dart';
-
 import 'player_module.dart';
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class ApplyCollisionToPlayerPage extends StatelessWidget {
   const ApplyCollisionToPlayerPage({super.key});
@@ -33,7 +34,7 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
         CodeStep(
           description:
               'By default, the player doesn’t have a shape for the physics engine to detect. Add a hitbox to give the hero volume.',
-          fileName: DART_FILE_CHARACTERS_HERO,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 /// Runs once when the hero is added to the game.
 @override

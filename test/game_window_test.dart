@@ -1,4 +1,3 @@
-import 'package:bonfire_crash_course/core/constants.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/what_the_course_convers.dart';
 import 'package:bonfire_crash_course/presentation/widgets/game_window.dart';
 import 'package:flutter/material.dart';
