@@ -61,7 +61,7 @@ void main() {
     expect(hero.scene, GettingStartedScene.codespace);
     expectShortSteps(stepsOn(tester));
     final button = tester.widget<OpenLinkButton>(find.byType(OpenLinkButton));
-    expect(button.url, CODE_SPACES_TEMPLATE_URL);
+    expect(button.url, CreateACodespace.CODE_SPACES_TEMPLATE_URL);
     expect(find.text('Visual Walkthrough'), findsNothing);
     expect(find.text('What is GitHub Codespaces?'), findsNothing);
   });
@@ -101,9 +101,9 @@ void main() {
     });
   }
 
-  test('Install VS Code links each platform to its own download', () {
-    expect(VSCodeInstall.macOS.url, VSCODE_DOWNLOAD_MACOS);
-    expect(VSCodeInstall.windows.url, VSCODE_DOWNLOAD_WINDOWS);
+  test('Install VS Code links every platform to the download page', () {
+    expect(VSCodeInstall.macOS.url, VSCODE_DOWNLOAD_PAGE);
+    expect(VSCodeInstall.windows.url, VSCODE_DOWNLOAD_PAGE);
     expect(VSCodeInstall.other.url, VSCODE_DOWNLOAD_PAGE);
     expect(
       VSCodeInstall.forPlatform(TargetPlatform.fuchsia),

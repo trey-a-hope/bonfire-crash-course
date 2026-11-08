@@ -17,11 +17,11 @@ class VSCodeInstall {
   static const macOS = VSCodeInstall(
     steps: [
       'Download VS Code for macOS',
-      'Drag it into Applications',
-      'Add the Flutter and Dart extensions',
+      'Continue with the installation process',
+      'Add the Flutter and Dart extensions within VS Code',
     ],
     buttonTitle: 'Download for macOS',
-    url: VSCODE_DOWNLOAD_MACOS,
+    url: VSCODE_DOWNLOAD_PAGE,
     icon: Icons.apple,
   );
 
@@ -32,7 +32,7 @@ class VSCodeInstall {
       'Add the Flutter and Dart extensions',
     ],
     buttonTitle: 'Download for Windows',
-    url: VSCODE_DOWNLOAD_WINDOWS,
+    url: VSCODE_DOWNLOAD_PAGE,
     icon: Icons.desktop_windows_rounded,
   );
 
