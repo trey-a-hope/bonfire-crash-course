@@ -15,33 +15,20 @@ const PLAYER_MODULE = Module(
   achievements: [
     MilestoneAchievement(
       icon: Icons.directions_run_rounded,
-      title: 'Sprite Animations',
+      title: 'Hero animated',
       description:
-          'Created smooth idle, walking, and action sprite animations.',
+          'Idle, walk and attack animations play from the sprite sheets.',
     ),
     MilestoneAchievement(
       icon: Icons.sports_esports_rounded,
-      title: 'Fluid Controls',
+      title: 'Moves and jumps',
       description:
-          'Wired A/D movement, Space double jumps, and W/S attacks to the keyboard.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.center_focus_strong_rounded,
-      title: 'Target Tracking',
-      description:
-          'Locked the camera viewport to smoothly follow player movement.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.shield_rounded,
-      title: 'Collision Hitbox',
-      description:
-          'Configured precision hitboxes to interact with map obstacles.',
+          'A and D to move, Space to jump (twice for a double jump), with gravity and collision.',
     ),
     MilestoneAchievement(
       icon: Icons.flash_on_rounded,
-      title: 'Combat Ready',
-      description:
-          'Armed the hero with a melee strike and a projectile attack.',
+      title: 'Ready to fight',
+      description: 'W fires a magic bolt and S swings a melee strike.',
     ),
   ],
   nextLottie: EnemyLottie(height: 100),

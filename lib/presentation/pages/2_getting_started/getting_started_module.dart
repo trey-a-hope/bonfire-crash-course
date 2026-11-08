@@ -14,28 +14,21 @@ const GETTING_STARTED_MODULE = Module(
   accentColor: Colors.lightGreenAccent,
   achievements: [
     MilestoneAchievement(
-      icon: Icons.code_rounded,
-      title: 'Developer Account',
-      description:
-          'Created and authenticated your GitHub workspace for cloud source control.',
+      icon: Icons.person_rounded,
+      title: 'GitHub account ready',
+      description: 'Your free key to the course template and the cloud editor.',
     ),
     MilestoneAchievement(
       icon: Icons.cloud_done_rounded,
-      title: 'Cloud Codespace',
+      title: 'Codespace set up',
       description:
-          'Spun up a cloud-hosted development container configured with Flutter.',
+          "VS Code and Flutter in your browser. Stop it when you're done to save your free hours.",
     ),
     MilestoneAchievement(
-      icon: Icons.build_circle_rounded,
-      title: 'IDE Tooling',
+      icon: Icons.play_circle_rounded,
+      title: 'Starter game running',
       description:
-          'Configured VS Code with Flutter and Dart tooling for seamless development.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.play_arrow_rounded,
-      title: 'Project Bootstrapped',
-      description:
-          'Successfully launched and verified the Bonfire starter game loop.',
+          'You ran the starter game on port 8080. Press r in the terminal to hot reload.',
     ),
   ],
   nextLottie: MapLottie(height: 100),

@@ -14,40 +14,22 @@ const NPC_MODULE = Module(
   accentColor: Colors.purpleAccent,
   achievements: [
     MilestoneAchievement(
-      icon: Icons.person_add_alt_1_rounded,
-      title: 'NPC Component',
+      icon: Icons.person_add_rounded,
+      title: 'Berry joins the world',
       description:
-          'Extended SimpleAlly to build a friendly Companion that joins the game world.',
+          'Your companion stands on the map, animates and stops at walls.',
     ),
     MilestoneAchievement(
-      icon: Icons.animation_rounded,
-      title: 'Sprite Animations',
+      icon: Icons.chat_bubble_rounded,
+      title: 'Talks and waves',
       description:
-          'Gave the companion idle and walk animations from the strawberry sheets.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.shield_rounded,
-      title: 'Hitbox & Collision',
-      description:
-          'Added gravity, collision and a hitbox so the companion stands on the map and stops at walls.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.chat_bubble_outline_rounded,
-      title: 'Dialogue & Interaction',
-      description:
-          'Used vision.seePlayer to open a TalkDialog, with an animated face, when the hero comes close.',
+          'When the hero comes close, the camera pans to Berry, a dialogue opens and Berry waves hello.',
     ),
     MilestoneAchievement(
       icon: Icons.directions_walk_rounded,
-      title: 'Wave & Follow',
+      title: 'Follows the hero',
       description:
-          'Waved hello in the dialogue and goodbye with playOnceOther, then followed the hero, passing through them and drawn just behind.',
-    ),
-    MilestoneAchievement(
-      icon: Icons.movie_creation_outlined,
-      title: 'Cutscene',
-      description:
-          'Used gameRef.startScene to pan the camera to Berry, wait for the dialogue with AwaitSceneAction, and pan back to the hero.',
+          'After the first talk, Berry follows the hero around the map.',
     ),
   ],
   nextLottie: BonfireLottie(height: 100),

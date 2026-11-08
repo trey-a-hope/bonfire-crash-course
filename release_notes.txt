@@ -18,3 +18,4 @@ What's new
 - BCC-42: The "What You Will Need" animation now drops a GitHub logo, a web browser globe and a Wi-Fi symbol onto the laptop, matching the three things you need.
 - The app now has its own ID (com.treycodes.bonfire_crash_course on Android and Linux, com.treycodes.bonfire-crash-course on macOS and iOS) instead of the Flutter placeholder, so it's ready for the app stores.
 - BCC-44: The diagram on each module's overview page now stretches across the whole page, with no empty space on the right or white border around it.
+- BCC-45: Each module's finish page now recaps what you did in that module in three short cards, in place of the "100% Complete", "Milestone Achieved" and "Live in Game" cards. Getting Started shows your GitHub account, your Codespace (with a tip to stop it and save hours) and your running starter game (with the hot reload key).

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 /// A visually rewarding completion screen displayed when a user finishes a curriculum module.
 ///
-/// Features an animated Rive trophy, dynamic milestone badges, unlocked skill cards,
-/// module metrics, and a "Next Up" guidance banner.
+/// Features an animated Rive trophy, the module's badge, recap cards for what
+/// the student did in the module, and a "Next Up" guidance banner.
 class ModuleCompletionPage extends StatelessWidget {
   final Module module;
 
@@ -116,37 +116,8 @@ class ModuleCompletionPage extends StatelessWidget {
               ),
               GapSizes.mediumGap,
 
-              // 4. Milestone Metrics Summary Cards
-              const Row(
-                children: [
-                  Expanded(
-                    child: MetricCard(
-                      icon: Icons.check_circle_rounded,
-                      color: Colors.greenAccent,
-                      title: '100% Complete',
-                      subtitle: 'All checkpoints passed',
-                    ),
-                  ),
-                  GapSizes.mediumGap,
-                  Expanded(
-                    child: MetricCard(
-                      icon: Icons.workspace_premium_rounded,
-                      color: Colors.yellowAccent,
-                      title: 'Milestone Achieved',
-                      subtitle: 'Skill badge earned',
-                    ),
-                  ),
-                  GapSizes.mediumGap,
-                  Expanded(
-                    child: MetricCard(
-                      icon: Icons.sports_esports_rounded,
-                      color: Colors.cyanAccent,
-                      title: 'Live in Game',
-                      subtitle: 'Code verified in engine',
-                    ),
-                  ),
-                ],
-              ),
+              // 4. Recap of what the student did in this module
+              _RecapGrid(module: module),
               GapSizes.mediumGap,
 
               // 6. Up Next Guidance Banner
@@ -203,11 +174,13 @@ class ModuleCompletionPage extends StatelessWidget {
                                 size: 14,
                               ),
                               GapSizes.xsGap,
-                              Text(
-                                module.nextModuleTitle,
-                                style: textTheme.titleSmall?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                              Flexible(
+                                child: Text(
+                                  module.nextModuleTitle,
+                                  style: textTheme.titleSmall?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],
@@ -233,6 +206,64 @@ class ModuleCompletionPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// The module's [Module.achievements], as cards three to a row on wide
+/// windows, fewer on narrow ones. Cards in a row share the tallest one's height.
+class _RecapGrid extends StatelessWidget {
+  final Module module;
+
+  const _RecapGrid({required this.module});
+
+  static const _spacing = 16.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final items = module.achievements;
+    if (items.isEmpty) return const SizedBox.shrink();
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final columns = width >= 720
+            ? 3
+            : width >= 460
+            ? 2
+            : 1;
+
+        final rows = <Widget>[];
+        for (var i = 0; i < items.length; i += columns) {
+          final cells = <Widget>[];
+          for (var c = 0; c < columns; c++) {
+            if (c > 0) cells.add(const SizedBox(width: _spacing));
+            final index = i + c;
+            cells.add(
+              Expanded(
+                child: index < items.length
+                    ? MetricCard(
+                        icon: items[index].icon,
+                        color: module.accentColor,
+                        title: items[index].title,
+                        subtitle: items[index].description,
+                      )
+                    : const SizedBox.shrink(),
+              ),
+            );
+          }
+          if (rows.isNotEmpty) rows.add(const SizedBox(height: _spacing));
+          rows.add(
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: cells,
+              ),
+            ),
+          );
+        }
+        return Column(children: rows);
+      },
     );
   }
 }

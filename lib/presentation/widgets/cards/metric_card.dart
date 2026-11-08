@@ -27,6 +27,7 @@ class MetricCard extends StatelessWidget {
         border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(10),
@@ -52,7 +53,8 @@ class MetricCard extends StatelessWidget {
                 Text(
                   subtitle,
                   style: textTheme.bodySmall?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.65),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    height: 1.4,
                   ),
                 ),
               ],
