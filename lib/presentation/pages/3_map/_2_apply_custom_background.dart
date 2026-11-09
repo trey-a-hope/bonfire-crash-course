@@ -4,6 +4,7 @@ import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
+// TODO (CHECKPOINT PAGE)
 /// Paths of the template files this page edits.
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_PARALLAX_BACKGROUND =
@@ -29,7 +30,8 @@ class ApplyCustomBackground extends StatelessWidget {
           title: 'GameBackground',
           short: 'The base class for a custom game background.',
           codeMatch: 'GameBackground',
-          subtitle: 'Base to create your custom game background',
+          subtitle:
+              'The base class for a custom game background. Extend it to build your own background; Bonfire draws it behind the map and everything else in the game.',
         ),
         Concept(
           title: 'ParallaxComponent',

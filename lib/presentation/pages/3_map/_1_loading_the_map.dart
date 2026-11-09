@@ -27,7 +27,7 @@ class LoadingTheMap extends StatelessWidget {
 
       concepts: [
         Concept(
-          title: 'BonfireWidget Canvas',
+          title: 'BonfireWidget',
           short: 'Runs the game loop, camera and components.',
           codeMatch: 'BonfireWidget(',
           subtitle:
