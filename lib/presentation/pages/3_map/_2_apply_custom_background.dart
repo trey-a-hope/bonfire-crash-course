@@ -36,7 +36,7 @@ class ApplyCustomBackground extends StatelessWidget {
         Concept(
           title: 'ParallaxComponent',
           short: 'Image layers moving at different speeds, for depth.',
-          codeMatch: 'loadParallaxComponent',
+          codeMatch: 'ParallaxComponent?',
           subtitle:
               'A full parallax, several layers of images drawn out on the screen and each layer moves with different velocities to give an effect of depth.',
         ),
@@ -58,62 +58,49 @@ class ParallaxBackground extends GameBackground {
 ''',
         ),
         CodeStep(
-          description:
-              'Declare nullable ParallaxComponent fields to hold references to your sky/clouds and mountains/hills background layers.',
+          description: 'Add variables for building the parallax',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-/// Parallax layer for constant auto-scrolling sky and clouds.
-ParallaxComponent? _skyAndClouds;
-/// Parallax layer for camera-tracked mountains and hills.
-ParallaxComponent? _mountainsAndHills;
+/// How fast the back layer slides, per pixel the camera moves.
+static const baseSpeed = 9.4;
+
+/// How much faster each layer slides than the one behind it.
+static const speedMultiplier = 1.6;
+
+/// The cave's layers, back to front
+static const layers = [CAVE_BACK, CAVE_FAR, CAVE_MID, CAVE_NEAR];
+
+/// The four cave layers, in one component that follows the camera.
+ParallaxComponent? cave;
 ''',
         ),
-
         CodeStep(
           description:
-              'Define an asynchronous helper method named _addParallax to handle loading and mounting the parallax layers.',
+              'Define an asynchronous helper method to handle loading and mounting the parallax layers.',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// Asynchronously loads and attaches the parallax components to the background.
-void _addParallax() async {}
+void addParallax() async {}
 ''',
         ),
 
         CodeStep(
           description:
-              'Use util.loadParallaxComponent to create an auto-scrolling layer for the sky and clouds that moves continuously across the screen, then add it to the component.',
+              'Inside the addParallax method, define the layers and their velocities',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-// Load sky and clouds with independent horizontal motion
-_skyAndClouds = await util.loadParallaxComponent(
-  [
-    ParallaxImageData(SKY),
-    ParallaxImageData(CLOUDS),
-  ],
-  baseVelocity: Vector2(10, 0),
-  velocityMultiplierDelta: Vector2(1.5, 1),
+// A camera parallax only moves when the camera does.
+final cave = await util.loadCameraParallaxComponent(
+  [for (final layer in layers) ParallaxImageData(layer)],
+  baseVelocity: Vector2(baseSpeed, 0),
+  velocityMultiplierDelta: Vector2(speedMultiplier, 1),
+  // FilterQuality.none scales the pixel art with hard edges instead of blurring it.
+  filterQuality: FilterQuality.none,
 );
 
-add(_skyAndClouds!);
-''',
-        ),
-
-        CodeStep(
-          description:
-              'Use util.loadCameraParallaxComponent to load mountains and hills layers that react to camera movement for visual depth perspective, then add it to the component.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
-          codeSnippet: '''
-// Load mountains and hills attached to camera motion for depth perspective
-_mountainsAndHills = await util.loadCameraParallaxComponent(
-  [
-    ParallaxImageData(MOUNTAINS),
-    ParallaxImageData(HILLS),
-  ],
-  baseVelocity: Vector2(10, 0),
-  velocityMultiplierDelta: Vector2(3, 1),
-);
-
-add(_mountainsAndHills!);
+_cave?.removeFromParent();
+_cave = cave;
+add(cave);
 ''',
         ),
 
@@ -124,8 +111,7 @@ add(_mountainsAndHills!);
           codeSnippet: '''
 @override
 Future<void> onLoad() async {
-  ...;
-  _addParallax();
+  addParallax();
 }
 ''',
         ),
@@ -135,24 +121,16 @@ Future<void> onLoad() async {
               'Override onGameResize to handle changes whenever the top-level game canvas or window size changes.',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-@override
 // Called whenever the size of the top-level Canvas changes.
+@override
 void onGameResize(Vector2 size) {
   super.onGameResize(size);
-}
-''',
-        ),
 
-        CodeStep(
-          description:
-              'Re-initialize parallax components on resize when not in cutscene/scene building by removing existing layers and re-adding them.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
-          codeSnippet: '''
-// Re-initialize parallax components on resize when not in cutscene/scene building
-if (!gameRef.sceneBuilderStatus.isRunning) {
-  _skyAndClouds?.removeFromParent();
-  _mountainsAndHills?.removeFromParent();
-  _addParallax();
+  // Reload the parallax on resize when not in cutscene/scene building.
+  final isRunning = gameRef.sceneBuilderStatus.isRunning;
+  if (!isRunning) {
+    addParallax();
+  }
 }
 ''',
         ),
@@ -165,7 +143,6 @@ if (!gameRef.sceneBuilderStatus.isRunning) {
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    ...,
     background: ParallaxBackground(),
   );
 }
