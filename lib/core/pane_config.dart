@@ -98,9 +98,14 @@ final List<PaneInfo> panes = [
         child: LoadingTheMap(),
       ),
       PaneInfo(
-        title: 'Apply a Custom Background',
-        path: '/map/apply-a-custom-background',
-        child: ApplyCustomBackground(),
+        title: 'Create Parallax Background',
+        path: '/map/create-parallax-background',
+        child: CreateParallaxBackground(),
+      ),
+      PaneInfo(
+        title: 'Add Parallax Background',
+        path: '/map/add-parallax-background',
+        child: AddParallaxBackground(),
       ),
       PaneInfo(
         title: 'Map Finished!',

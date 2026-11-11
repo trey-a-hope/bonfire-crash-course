@@ -1,0 +1,64 @@
+import 'map_module.dart';
+import 'package:bonfire_crash_course/domain/models/concept.dart';
+import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
+import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
+import 'package:flutter/material.dart';
+
+/// Paths of the template files this page edits.
+const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
+
+class AddParallaxBackground extends StatelessWidget {
+  const AddParallaxBackground({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CodingScaffold(
+      module: MAP_MODULE,
+      unitStep: 3,
+      title: 'Add Parallax Background',
+      subtitle: 'Apply the parallax background to your game world.',
+      outcome: 'The parallax background is now applied to your game world.',
+      objective:
+          'The game world should now display a parallax background with a sky that moves independently of the player.',
+      concepts: [
+        Concept(
+          title: 'MoveCameraUsingGesture',
+          short: 'Drag to move the camera.',
+          codeMatch: 'MoveCameraUsingGesture',
+          subtitle:
+              'A Bonfire mixin for game components that moves the camera when you drag with a mouse or finger, so you can look around the map without moving the player.',
+        ),
+      ],
+      codeSteps: [
+        CodeStep(
+          description:
+              'Inside GameScreen, create a ParallaxBackground instance and store it in a final field, so the same background is reused every time build runs.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+final background = ParallaxBackground();
+''',
+        ),
+        CodeStep(
+          description:
+              'In the build method, pass the background to BonfireWidget\'s background parameter and add a CameraDrag instance to its components list.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+@override
+Widget build(BuildContext context) {
+  return BonfireWidget(
+    background: background,
+    components: [CameraDrag()],
+  );
+}
+''',
+        ),
+      ],
+      timeToCodeStatement:
+          'You\'re about to create a ParallaxBackground class in parallax_background.dart with a sky layer that scrolls on its own and a hills layer that follows the camera, then pass it to BonfireWidget\'s background.',
+      proTip:
+          'Layers draw in the order you add them, so add the far-away sky first and the closer hills after it, or the hills will be hidden behind the sky.',
+      videoUrl:
+          'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
+    );
+  }
+}

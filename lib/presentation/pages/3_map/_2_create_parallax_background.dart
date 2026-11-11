@@ -4,21 +4,20 @@ import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:flutter/material.dart';
 
-// TODO (CHECKPOINT PAGE)
 /// Paths of the template files this page edits.
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_PARALLAX_BACKGROUND =
     'lib/presentation/backgrounds/parallax_background.dart';
 
-class ApplyCustomBackground extends StatelessWidget {
-  const ApplyCustomBackground({super.key});
+class CreateParallaxBackground extends StatelessWidget {
+  const CreateParallaxBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const CodingScaffold(
       module: MAP_MODULE,
       unitStep: 2,
-      title: 'Apply a Custom Background',
+      title: 'Create Parallax Background',
       subtitle:
           'Load a parallax background with multiple scrolling layers to create a dynamic and immersive game environment.',
       outcome: 'A sky drifts on its own behind hills that follow the camera.',

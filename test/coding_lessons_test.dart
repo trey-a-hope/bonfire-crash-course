@@ -15,7 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// Every page built on [CodingScaffold].
 const lessons = <String, Widget>{
   'Loading the Map': LoadingTheMap(),
-  'Apply a Custom Background': ApplyCustomBackground(),
+  'Create Parallax Background': CreateParallaxBackground(),
   'Create Player Component': CreatePlayerComponentPage(),
   'Apply Gravity to Player': ApplyGravityToPlayerPage(),
   'Apply Collision to Player': ApplyCollisionToPlayerPage(),
