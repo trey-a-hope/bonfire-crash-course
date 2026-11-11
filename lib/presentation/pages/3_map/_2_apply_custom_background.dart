@@ -48,13 +48,7 @@ class ApplyCustomBackground extends StatelessWidget {
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// A custom [GameBackground] that renders layered parallax scrolling backgrounds.
-class ParallaxBackground extends GameBackground {
-  // Load assets for the background.
-  @override
-  Future<void> onLoad() async {
-    await super.onLoad();
-  }
-}
+class ParallaxBackground extends GameBackground {}
 ''',
         ),
         CodeStep(
@@ -109,8 +103,10 @@ add(cave);
               'Invoke _addParallax inside onLoad so the background layers load when the component mounts. It should come after the "await super.onLoad();"',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
+/// Overrides the default onLoad method to load the parallax layers.
 @override
 Future<void> onLoad() async {
+  await super.onLoad();
   addParallax();
 }
 ''',
@@ -125,7 +121,6 @@ Future<void> onLoad() async {
 @override
 void onGameResize(Vector2 size) {
   super.onGameResize(size);
-
   // Reload the parallax on resize when not in cutscene/scene building.
   final isRunning = gameRef.sceneBuilderStatus.isRunning;
   if (!isRunning) {
