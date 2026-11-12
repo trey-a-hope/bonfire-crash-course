@@ -32,12 +32,23 @@ class AddParallaxBackground extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Inside GameScreen, create a ParallaxBackground instance and store it in a final field, so the same background is reused every time build runs.',
+              'Create a component that uses MoveCameraUsingGesture to allow the user to move the camera by dragging.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// Mixin used to move camera with gestures (touch or mouse).
+class CameraDrag extends GameComponent with MoveCameraUsingGesture {}
+''',
+        ),
+        CodeStep(
+          description:
+              'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 final background = ParallaxBackground();
+final cameraDrag = CameraDrag();
 ''',
         ),
+
         CodeStep(
           description:
               'In the build method, pass the background to BonfireWidget\'s background parameter and add a CameraDrag instance to its components list.',
@@ -47,7 +58,7 @@ final background = ParallaxBackground();
 Widget build(BuildContext context) {
   return BonfireWidget(
     background: background,
-    components: [CameraDrag()],
+    components: [cameraDrag],
   );
 }
 ''',

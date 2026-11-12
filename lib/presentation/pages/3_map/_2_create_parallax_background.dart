@@ -91,8 +91,13 @@ final cave = await util.loadCameraParallaxComponent(
   filterQuality: FilterQuality.none,
 );
 
+// Takes the old cave layers out of the background. 
 _cave?.removeFromParent();
+
+// Remembers the new component, so the next resize knows which one to remove.
 _cave = cave;
+
+// Puts the new layers into the background so they draw.
 add(cave);
 ''',
         ),
