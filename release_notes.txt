@@ -1,21 +1,4 @@
-Bonfire Crash Course v26.11.1
+Bonfire Crash Course v26.x.x
 
 What's new
-- BCC-36: The "What the course covers" page now has a small window where you can play the finished template game before you start.
-- If the game can't load, open it in your browser instead with one click.
-- The game window is now large, at the top of the page, with the five course modules listed underneath it.
-- The game now starts on its own when you open the page, with no play button to click.
-- A "What you will be building today" heading sits above the game, and the five course modules sit underneath it in two columns.
-- BCC-37: The Getting Started pages are short and animated: each one opens with a playful animation, then three quick steps and one button.
-- The VS Code download buttons now give the right installer for Intel and Apple Silicon Macs and for standard Windows PCs.
-- BCC-38: Coding lessons now lead with the code. Tap a key concept to see what it does in one line and light up the code it's about; the longer explanations are one tap away.
-- Each lesson's goal and pro tip now fit on a line, and the video walkthrough opens from a button instead of filling the side of the page.
-- The key concept pills have more even padding, with each label centred in its pill.
-- BCC-39: Finishing a module now shows a gold trophy animation, with spinning rays and falling confetti, at the top of the page.
-- BCC-40: The Install VS Code page now shows only the steps and download for the computer you are on, with no macOS / Windows switch. Other computers, like Linux, get a link to the VS Code download page.
-- BCC-41: The "What You Will Need" page is now quick to scan, with the same layout at every window size: three big tiles for the must-haves, a line of optional extras, and a "Zero setup" card.
-- That card now plays a new Rive animation of a cloud dropping Flutter, game art and code onto a laptop, in place of the Flutter Lottie.
-- BCC-42: The "What You Will Need" animation now drops a GitHub logo, a web browser globe and a Wi-Fi symbol onto the laptop, matching the three things you need.
-- The app now has its own ID (com.treycodes.bonfire_crash_course on Android and Linux, com.treycodes.bonfire-crash-course on macOS and iOS) instead of the Flutter placeholder, so it's ready for the app stores.
-- BCC-44: The diagram on each module's overview page now stretches across the whole page, with no empty space on the right or white border around it.
-- BCC-45: Each module's finish page now recaps what you did in that module in three short cards, in place of the "100% Complete", "Milestone Achieved" and "Live in Game" cards. Getting Started shows your GitHub account, your Codespace (with a tip to stop it and save hours) and your running starter game (with the hot reload key).
+- ? 

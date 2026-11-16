@@ -26,7 +26,13 @@ class LearnMoreButton extends StatelessWidget {
           context,
         ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
       ),
-      child: Text(expanded ? 'Show less' : 'Learn more'),
+      child: Text(
+        expanded ? 'Show less' : 'Learn more',
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+          color: Colors.lightBlueAccent,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 }

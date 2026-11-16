@@ -30,7 +30,12 @@ class WalkthroughButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       icon: const Icon(Icons.play_arrow_rounded, size: 18),
-      label: const Text('Watch the walkthrough'),
+      label: Text(
+        'Watch the walkthrough',
+        style: Theme.of(
+          context,
+        ).textTheme.labelLarge?.copyWith(color: Colors.white),
+      ),
     );
   }
 }

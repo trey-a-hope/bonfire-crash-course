@@ -310,6 +310,7 @@ class _FileTreeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     // Render file item with indent and file type icon
     if (!node.isDirectory) {
       return Padding(
@@ -322,7 +323,7 @@ class _FileTreeWidget extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 node.name,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
+                style: textTheme.bodySmall!.copyWith(fontFamily: 'monospace'),
               ),
             ],
           ),
@@ -341,10 +342,9 @@ class _FileTreeWidget extends StatelessWidget {
         leading: const Icon(Icons.folder, size: 18, color: Colors.amber),
         title: Text(
           node.name,
-          style: const TextStyle(
+          style: textTheme.bodyMedium!.copyWith(
             fontFamily: 'monospace',
             fontWeight: FontWeight.w600,
-            fontSize: 13,
           ),
         ),
         children: node.children

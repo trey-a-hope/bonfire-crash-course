@@ -36,8 +36,18 @@ class StepsWidget extends StatelessWidget {
           ...steps!.mapIndexed(
             (index, step) => ListTile(
               leading: const Icon(Icons.lightbulb, color: Colors.amber),
-              title: Text('Step ${index + 1}'),
-              subtitle: Text(step),
+              title: Text(
+                'Step ${index + 1}',
+                style: textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              subtitle: Text(
+                step,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ),
           ),
         ],

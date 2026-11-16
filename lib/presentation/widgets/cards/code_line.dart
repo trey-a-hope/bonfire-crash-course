@@ -29,8 +29,9 @@ class _CodeLine extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 13),
       child: Text.rich(
-        TextSpan(style: style, children: spans.isEmpty ? null : spans),
+        TextSpan(children: spans.isEmpty ? null : spans),
         key: lit ? const ValueKey('code-line-lit') : null,
+        style: style,
         softWrap: true,
       ),
     );

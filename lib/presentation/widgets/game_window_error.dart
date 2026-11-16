@@ -56,7 +56,12 @@ class _Error extends StatelessWidget {
                       ),
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text('Open in browser'),
+                    child: Text(
+                      'Open in browser',
+                      style: textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   OutlinedButton(
                     onPressed: onTryAgain,
@@ -67,7 +72,12 @@ class _Error extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.2),
                       ),
                     ),
-                    child: const Text('Try again'),
+                    child: Text(
+                      'Try again',
+                      style: textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),

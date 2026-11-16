@@ -53,10 +53,9 @@ class ConceptChip extends StatelessWidget {
                   textHeightBehavior: const TextHeightBehavior(
                     leadingDistribution: TextLeadingDistribution.even,
                   ),
-                  style: const TextStyle(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
                     fontFamily: 'monospace',
-                    fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

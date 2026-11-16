@@ -187,7 +187,13 @@ class _GameWindowState extends State<GameWindow> {
                 onPressed: () => widget.openInBrowser(widget.url),
                 iconAlignment: IconAlignment.end,
                 icon: const Icon(Icons.open_in_new_rounded, size: 14),
-                label: const Text('Open in browser'),
+                label: Text(
+                  'Open in browser',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: Colors.blueAccent[100],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.blueAccent[100],
                   textStyle: textTheme.bodySmall?.copyWith(

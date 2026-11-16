@@ -130,7 +130,6 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                               'Interactive Guide',
                               style: textTheme.bodySmall?.copyWith(
                                 color: Colors.white38,
-                                fontSize: 11.5,
                               ),
                             ),
                           ],
@@ -191,8 +190,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                             : null,
                         title: Text(
                           pane.title,
-                          style: TextStyle(
-                            fontSize: 13.5,
+                          style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: isAnyChildActive
                                 ? Colors.white
@@ -243,7 +241,6 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                         'Progress',
                         style: textTheme.bodySmall?.copyWith(
                           color: Colors.white54,
-                          fontSize: 11.5,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -251,7 +248,6 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                         '${progressPercentage.toInt()}%',
                         style: textTheme.bodySmall?.copyWith(
                           color: progressColor,
-                          fontSize: 11.5,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

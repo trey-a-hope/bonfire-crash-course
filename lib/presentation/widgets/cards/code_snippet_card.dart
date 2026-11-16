@@ -93,9 +93,8 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
     final match = widget.highlightMatch;
     final sourceLines = code.split('\n');
 
-    final rootStyle = TextStyle(
+    final rootStyle = Theme.of(context).textTheme.bodyMedium!.copyWith(
       fontFamily: 'monospace',
-      fontSize: 13,
       height: 1.5,
       color: atomOneDarkTheme['root']?.color ?? const Color(0xffabb2bf),
     );
@@ -128,6 +127,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   @override
   Widget build(BuildContext context) {
     final copied = _copied.value;
+    final textTheme = Theme.of(context).textTheme;
     return Material(
       color: Colors.transparent,
       child: Container(
@@ -161,9 +161,8 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                           child: Text(
                             widget.fileName,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: textTheme.bodyMedium?.copyWith(
                               color: Colors.white70,
-                              fontSize: 12,
                               fontFamily: 'monospace',
                             ),
                           ),
@@ -190,11 +189,10 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                           GapSizes.xsGap,
                           Text(
                             copied ? 'Copied' : 'Copy',
-                            style: TextStyle(
+                            style: textTheme.bodyMedium?.copyWith(
                               color: copied
                                   ? Colors.greenAccent
                                   : Colors.white60,
-                              fontSize: 11,
                             ),
                           ),
                         ],

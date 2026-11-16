@@ -61,10 +61,9 @@ class _CommandBoxState extends State<CommandBox> {
           Expanded(
             child: SelectableText(
               widget.command,
-              style: const TextStyle(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontFamily: 'monospace',
                 color: Colors.greenAccent,
-                fontSize: 13,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -76,7 +75,12 @@ class _CommandBoxState extends State<CommandBox> {
               copied ? Icons.check_rounded : Icons.copy_rounded,
               size: 14,
             ),
-            label: Text(copied ? 'Copied!' : 'Copy'),
+            label: Text(
+              copied ? 'Copied!' : 'Copy',
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(color: Colors.white),
+            ),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,
               side: BorderSide(color: Colors.white.withValues(alpha: 0.15)),

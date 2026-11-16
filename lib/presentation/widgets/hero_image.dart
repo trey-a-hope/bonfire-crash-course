@@ -251,6 +251,7 @@ class EnlargedImageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final textTheme = Theme.of(context).textTheme;
 
     return CallbackShortcuts(
       bindings: {
@@ -343,12 +344,12 @@ class EnlargedImageViewer extends StatelessWidget {
                             child: Text(
                               caption,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.2,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.2,
+                                  ),
                             ),
                           ),
                         ],
@@ -394,10 +395,10 @@ class EnlargedImageViewer extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.1),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.pinch_rounded,
                           size: 14,
                           color: Colors.white60,
@@ -405,7 +406,9 @@ class EnlargedImageViewer extends StatelessWidget {
                         GapSizes.smallGap,
                         Text(
                           'Scroll / pinch to zoom',
-                          style: TextStyle(fontSize: 12, color: Colors.white60),
+                          style: textTheme.bodySmall!.copyWith(
+                            color: Colors.white60,
+                          ),
                         ),
                       ],
                     ),

@@ -187,7 +187,6 @@ class _IntroductionState extends State<Introduction> {
                         textAlign: TextAlign.center,
                         style: textTheme.bodyLarge?.copyWith(
                           color: Colors.white.withValues(alpha: 0.9),
-                          fontSize: 16,
                           height: 1.5,
                           shadows: [
                             Shadow(

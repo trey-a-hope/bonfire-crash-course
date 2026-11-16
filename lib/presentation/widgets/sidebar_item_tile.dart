@@ -65,8 +65,7 @@ class SidebarItemTile extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 13.0,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: isSelected
                           ? FontWeight.w600
                           : FontWeight.normal,
