@@ -1,4 +1,3 @@
-Bonfire Crash Course v26.x.x
+Bonfire Crash Course v26.11.2
 
 What's new
-- ? 
