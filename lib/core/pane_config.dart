@@ -54,11 +54,6 @@ final List<PaneInfo> panes = [
         path: '/getting-started/create-a-codespace',
         child: CreateACodespace(),
       ),
-      // PaneInfo(
-      //   title: 'Install VSCode (Optional)',
-      //   path: '/getting-started/install-vscode',
-      //   child: InstallVSCode(),
-      // ),
       PaneInfo(
         title: 'Run the App',
         path: '/getting-started/run-app',

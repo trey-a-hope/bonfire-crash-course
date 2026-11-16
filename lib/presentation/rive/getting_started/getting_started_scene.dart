@@ -20,14 +20,6 @@ enum GettingStartedScene {
     fallbackIcon: Icons.cloud_download_rounded,
   ),
 
-  /// Colorful lines of code type themselves into an editor.
-  vscode(
-    fileName: 'gs_vscode',
-    artboardName: 'VsCode',
-    semanticLabel: 'Colorful lines of code type themselves into an editor',
-    fallbackIcon: Icons.code_rounded,
-  ),
-
   /// A folder opens and its files hop out one after another.
   fileStructure(
     fileName: 'gs_file_structure',

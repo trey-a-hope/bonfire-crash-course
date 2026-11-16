@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 part 'need_tile.dart';
 part 'optional_chip.dart';
 
-// part 'zero_setup_card.dart';
-
 /// What a student needs before starting, in one layout at every window
 /// size: three must-haves side by side, a line of optional extras, a
 /// one-line tip, then a "Zero setup" card with a Rive animation.
@@ -83,7 +81,6 @@ class WhatYouWillNeed extends StatelessWidget {
                     scene: GettingStartedScene.zeroSetup,
                   ),
                 ),
-                // const ZeroSetupCard(checks: setupChecks),
                 GapSizes.largeGap,
                 // Always three across; the tiles get narrower, not stacked.
                 IntrinsicHeight(
@@ -120,12 +117,6 @@ class WhatYouWillNeed extends StatelessWidget {
                               icon: Icons.code_rounded,
                               color: Colors.amberAccent,
                               label: 'Some Dart & Flutter basics',
-                            ),
-                            GapSizes.mediumGap,
-                            OptionalChip(
-                              icon: Icons.laptop_rounded,
-                              color: Colors.purpleAccent,
-                              label: 'VS Code on your own computer',
                             ),
                           ],
                         ),

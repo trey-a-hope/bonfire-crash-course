@@ -6,8 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:flutter_test/flutter_test.dart';
 
-// import 'package:bonfire_crash_course/main.dart';
-
 void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     expect(true, isTrue);
