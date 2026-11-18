@@ -11,7 +11,7 @@ import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/5_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_overview_page.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 final List<PaneInfo> panes = [
   // Introduction

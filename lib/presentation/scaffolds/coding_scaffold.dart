@@ -6,7 +6,7 @@ import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.
     show OneLineTip;
 import 'package:bonfire_crash_course/presentation/widgets/step_badge_header.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:signals/signals_flutter.dart';
 
 /// A standardized split-pane layout scaffold for interactive coding lessons.

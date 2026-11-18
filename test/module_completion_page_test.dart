@@ -6,7 +6,7 @@ import 'package:bonfire_crash_course/presentation/pages/6_final/bonfire_crash_co
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

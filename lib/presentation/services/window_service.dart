@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// A utility service that manages desktop window configuration and lifecycle.

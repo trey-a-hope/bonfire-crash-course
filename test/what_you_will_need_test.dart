@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduction.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

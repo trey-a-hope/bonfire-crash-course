@@ -8,7 +8,7 @@ import 'package:bonfire_crash_course/presentation/pages/5_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/code_snippet_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/lesson/lesson.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:lottie/lottie.dart';
 
 /// An abstract base widget for standardized Lottie animations across the application.

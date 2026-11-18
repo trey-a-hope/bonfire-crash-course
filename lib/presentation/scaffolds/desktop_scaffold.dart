@@ -6,7 +6,7 @@ import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/page_navigator.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 

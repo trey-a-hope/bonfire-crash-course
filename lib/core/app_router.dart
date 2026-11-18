@@ -3,7 +3,7 @@ import 'package:bonfire_crash_course/domain/controllers/progress_navigation_cont
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

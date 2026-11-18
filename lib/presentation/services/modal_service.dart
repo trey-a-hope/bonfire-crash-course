@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/main.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ModalService {
   static Future<bool?> showConfirmation(

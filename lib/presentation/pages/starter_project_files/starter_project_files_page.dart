@@ -3,7 +3,7 @@ import 'package:bonfire_crash_course/domain/controllers/progress_navigation_cont
 import 'package:bonfire_crash_course/presentation/widgets/cards/app_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/file_widget_tree.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
 

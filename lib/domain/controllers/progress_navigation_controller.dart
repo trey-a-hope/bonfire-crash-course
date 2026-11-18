@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:go_router/go_router.dart';
 import 'package:signals/signals_flutter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A controller managing the active page/screen navigation index across the app.
 ///

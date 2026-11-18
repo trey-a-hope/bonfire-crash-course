@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/presentation/lotties/i_lottie.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 
 /// Encapsulates metadata, progress metrics, and celebration details for a course module.

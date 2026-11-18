@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/domain/controllers/progress_navigation_cont
 import 'package:bonfire_crash_course/domain/controllers/settings_controller.dart';
 import 'package:bonfire_crash_course/main.dart';
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';

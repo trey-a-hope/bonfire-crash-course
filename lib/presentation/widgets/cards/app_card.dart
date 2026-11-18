@@ -1,5 +1,5 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 enum CardType {
   info(color: Colors.cyanAccent, icon: Icons.info),

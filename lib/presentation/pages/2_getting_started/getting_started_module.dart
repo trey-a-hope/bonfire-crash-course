@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/map_lottie.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const GETTING_STARTED_MODULE = Module(
   moduleName: 'Getting Started',

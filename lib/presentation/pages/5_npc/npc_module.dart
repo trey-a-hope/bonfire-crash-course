@@ -1,7 +1,7 @@
 import 'package:bonfire_crash_course/domain/models/milestone_achievement.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/bonfire_lottie.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const NPC_MODULE = Module(
   totalSteps: 6,

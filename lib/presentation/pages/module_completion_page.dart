@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A visually rewarding completion screen displayed when a user finishes a curriculum module.
 ///
