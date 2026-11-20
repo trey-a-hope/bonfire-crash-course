@@ -44,8 +44,8 @@ class CameraDrag extends GameComponent with MoveCameraUsingGesture {}
               'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-final background = ParallaxBackground();
-final cameraDrag = CameraDrag();
+final _background = ParallaxBackground();
+final _cameraDrag = CameraDrag();
 ''',
         ),
 
@@ -57,8 +57,8 @@ final cameraDrag = CameraDrag();
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    background: background,
-    components: [cameraDrag],
+    background: _background,
+    components: [_cameraDrag],
   );
 }
 ''',

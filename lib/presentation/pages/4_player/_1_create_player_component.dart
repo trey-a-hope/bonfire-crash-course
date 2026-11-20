@@ -70,7 +70,7 @@ Hero(Vector2 position)
     : super(
         position: position,
         // Size on screen; matches one 32x32 frame.
-        size: Vector2.all(32),
+        size: Vector2.all(TILE_SIZE),
       );
 ''',
         ),
@@ -79,41 +79,6 @@ Hero(Vector2 position)
               'Pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''static const _asset = CharacterAsset.wizard;
-''',
-        ),
-        CodeStep(
-          description:
-              'Create an AnimationUtils helper that turns a sprite sheet into a SpriteAnimation. Every animation in the course goes through it, and loop: false is used later for one-shot attacks.',
-          fileName: _DART_FILE_ANIMATION_UTILS,
-          codeSnippet: '''
-/// Utility helpers for loading sprite animations.
-abstract class AnimationUtils {
-  /// Turns a sprite sheet into a looping animation.
-  ///
-  /// - [path]: Asset path relative to `assets/images/`.
-  /// - [amount]: Number of frames in the sheet (defaults to 4).
-  /// - [stepTime]: Duration (in seconds) per frame.
-  /// - [textureSize]: Frame dimension (defaults to 32x32).
-  /// - [loop]: Whether the animation repeats (defaults to true). Use false for
-  ///   one-shot animations such as attacks.
-  static Future<SpriteAnimation> loadAnimation(
-    String path, {
-    int amount = 4,
-    double stepTime = 0.1,
-    Vector2? textureSize,
-    bool loop = true,
-  }) {
-    return SpriteAnimation.load(
-      path,
-      SpriteAnimationData.sequenced(
-        amount: amount,
-        stepTime: stepTime,
-        textureSize: textureSize ?? Vector2.all(32),
-        loop: loop,
-      ),
-    );
-  }
-}
 ''',
         ),
         CodeStep(

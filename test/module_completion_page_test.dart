@@ -1,8 +1,8 @@
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/getting_started_module.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/map_module.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/player_module.dart';
-import 'package:bonfire_crash_course/presentation/pages/5_npc/npc_module.dart';
-import 'package:bonfire_crash_course/presentation/pages/6_final/bonfire_crash_course_module.dart';
+import 'package:bonfire_crash_course/presentation/pages/6_npc/npc_module.dart';
+import 'package:bonfire_crash_course/presentation/pages/7_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/rive/getting_started/getting_started_rive.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';

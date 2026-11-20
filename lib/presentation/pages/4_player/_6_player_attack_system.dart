@@ -57,10 +57,7 @@ class PlayerAttackSystemPage extends StatelessWidget {
               'Add the WithAttack mixin to the Hero class. It gives the hero the attack.melee and attack.range API.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero extends PlatformPlayer
-    with WithForces, KeyboardEventListener, ScreenBoundaryChecker, WithAttack {
-  ...
-}
+class Hero extends PlatformPlayer ... WithAttack { ... }
 ''',
         ),
         CodeStep(
@@ -134,7 +131,7 @@ void _meleeAttack() {
   // only needs an invisible hitbox in front of the hero (no animation here).
   attack.melee(
     damage: 20,
-    size: Vector2.all(32),
+    size: Vector2.all(TILE_SIZE),
     direction: _isFacingLeft ? Direction.left : Direction.right,
     withPush: true,
     sizePush: 8,
@@ -170,7 +167,7 @@ void _rangeAttack() {
         textureSize: Vector2.all(16),
       ),
       size: Vector2.all(16),
-      destroySize: Vector2.all(32),
+      destroySize: Vector2.all(TILE_SIZE),
       direction: facingLeft ? Direction.left : Direction.right,
       speed: 220,
       damage: 15,
@@ -186,12 +183,15 @@ void _rangeAttack() {
               'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-case LogicalKeyboardKey.keyW:
-  _rangeAttack();
-  return true;
-case LogicalKeyboardKey.keyS:
-  _meleeAttack();
-  return true;
+@override
+void onJoystickAction(JoystickActionEvent event) {
+  if (event.event == ActionEvent.DOWN) {
+    ... ,
+    if (event.id == LogicalKeyboardKey.keyW) _rangeAttack();
+    if (event.id == LogicalKeyboardKey.keyS) _meleeAttack();
+  }
+  super.onJoystickAction(event);
+}
 ''',
         ),
       ],

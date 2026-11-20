@@ -164,7 +164,7 @@ class _Face extends StatelessWidget {
       data: SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2.all(32),
+        textureSize: Vector2.all(TILE_SIZE),
         loop: loop,
       ),
       onComplete: onComplete,

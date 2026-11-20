@@ -4,7 +4,7 @@ import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jum
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/5_npc/_npc.dart';
+import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/code_snippet_card.dart';
 import 'package:bonfire_crash_course/presentation/widgets/lesson/lesson.dart';

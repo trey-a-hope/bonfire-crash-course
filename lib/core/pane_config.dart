@@ -2,13 +2,14 @@ import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collis
 import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
-import 'package:bonfire_crash_course/presentation/pages/6_final/bonfire_crash_course_module.dart';
+import 'package:bonfire_crash_course/presentation/pages/5_enemy/_enemy.dart';
+import 'package:bonfire_crash_course/presentation/pages/7_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/5_npc/_npc.dart';
+import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_overview_page.dart';
 import 'package:material_ui/material_ui.dart';
@@ -168,6 +169,25 @@ final List<PaneInfo> panes = [
     ],
   ),
 
+  // Enemy
+  const PaneInfo(
+    icon: Icon(Icons.help),
+    title: 'Foe (Enemy)',
+    path: '/enemy',
+    children: [
+      PaneInfo(
+        title: 'Creating the Enemy Component',
+        path: '/enemy/enemy-component',
+        child: CreateEnemyComponentPage(),
+      ),
+      PaneInfo(
+        title: 'Enemy Finished!',
+        path: '/enemy/congrats',
+        child: ModuleCompletionPage(module: ENEMY_MODULE),
+      ),
+    ],
+  ),
+
   // NPC
   const PaneInfo(
     icon: Icon(Icons.help),
@@ -222,25 +242,6 @@ final List<PaneInfo> panes = [
         title: 'NPC Finished!',
         path: '/ally/congrats',
         child: ModuleCompletionPage(module: NPC_MODULE),
-      ),
-    ],
-  ),
-
-  // Enemy
-  const PaneInfo(
-    icon: Icon(Icons.help),
-    title: 'Foe (Enemy)',
-    path: '/enemy',
-    children: [
-      PaneInfo(
-        title: 'Creating the Enemy Component',
-        path: '/enemy/enemy-component',
-        child: Placeholder(color: Colors.red),
-      ),
-      PaneInfo(
-        title: 'Enemy Finished!',
-        path: '/enemy/congrats',
-        child: Placeholder(color: Colors.green),
       ),
     ],
   ),

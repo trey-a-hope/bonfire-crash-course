@@ -69,7 +69,7 @@ Companion(Vector2 position)
     : super(
         position: position,
         // Size on screen; matches one 32x32 frame.
-        size: Vector2.all(32),
+        size: Vector2.all(TILE_SIZE),
         life: 100,
         // Same speed as the hero (Bonfire's default, 80), so it keeps up
         // instead of falling behind and losing sight of them.

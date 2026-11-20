@@ -133,20 +133,6 @@ void onGameResize(Vector2 size) {
 }
 ''',
         ),
-
-        CodeStep(
-          description:
-              'Pass an instance of ParallaxBackground to the background parameter of BonfireWidget to render the parallax background behind your game world.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-@override
-Widget build(BuildContext context) {
-  return BonfireWidget(
-    background: ParallaxBackground(),
-  );
-}
-''',
-        ),
       ],
       timeToCodeStatement:
           'You\'re about to create a ParallaxBackground class in parallax_background.dart with a sky layer that scrolls on its own and a hills layer that follows the camera, then pass it to BonfireWidget\'s background.',

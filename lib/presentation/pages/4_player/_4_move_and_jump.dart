@@ -74,62 +74,11 @@ countJumps: 2,
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
-bool onKeyboard(
-  KeyEvent event,
-  Set<LogicalKeyboardKey> keysPressed,
-) {
-  if (event is KeyDownEvent) {
-    switch (event.logicalKey) {
-      case LogicalKeyboardKey.space:
-        jumper.jump();
-        return true;
-      case LogicalKeyboardKey.keyA:
-        onJoystickChangeDirectional(
-          JoystickDirectionalEvent(
-            directional: JoystickMoveDirectional.MOVE_LEFT,
-          ),
-        );
-        return true;
-      case LogicalKeyboardKey.keyD:
-        onJoystickChangeDirectional(
-          JoystickDirectionalEvent(
-            directional: JoystickMoveDirectional.MOVE_RIGHT,
-          ),
-        );
-        return true;
-    }
+void onJoystickAction(JoystickActionEvent event) {
+  if (event.event == ActionEvent.DOWN) {
+    if (event.id == LogicalKeyboardKey.space) jumper.jump();
   }
-
-  return super.onKeyboard(event, keysPressed);
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'Handle key up so the hero stops when A or D is released, or keeps walking the other way if the opposite key is still held. Add this branch after the KeyDownEvent block.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-} else if (event is KeyUpEvent) {
-  switch (event.logicalKey) {
-    case LogicalKeyboardKey.keyA:
-      onJoystickChangeDirectional(
-        JoystickDirectionalEvent(
-          directional: keysPressed.contains(LogicalKeyboardKey.keyD)
-              ? JoystickMoveDirectional.MOVE_RIGHT
-              : JoystickMoveDirectional.IDLE,
-        ),
-      );
-      return true;
-    case LogicalKeyboardKey.keyD:
-      onJoystickChangeDirectional(
-        JoystickDirectionalEvent(
-          directional: keysPressed.contains(LogicalKeyboardKey.keyA)
-              ? JoystickMoveDirectional.MOVE_LEFT
-              : JoystickMoveDirectional.IDLE,
-        ),
-      );
-      return true;
-  }
+  super.onJoystickAction(event);
 }
 ''',
         ),
@@ -142,16 +91,13 @@ playerControllers: [
   // Here you enable receive keyboard interaction
   Keyboard(
     config: KeyboardConfig(
-      enable:
-          true, // Use to enable or disable keyboard events (default is true)
       acceptedKeys: [
         // You can pass specific Keys accepted. If null accept all keys
         LogicalKeyboardKey.space,
       ],
       directionalKeys: [
-        KeyboardDirectionalKeys.arrows(),
-        KeyboardDirectionalKeys.wasd(),
-      ], // Type of the directional (arrows or wasd)
+        KeyboardDirectionalKeys.arrows(), 
+      ],  
     ),
   )
 ],
