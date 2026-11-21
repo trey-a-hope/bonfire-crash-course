@@ -41,28 +41,13 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Find GRAVITY in globals.dart. It\'s how hard gravity pulls, in pixels per second squared, kept in one place so every character falls the same way.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-/// How hard gravity pulls everything down, in pixels per second squared.
-/// `GameScreen` sets it once for the whole game with `globalForces`, and it
-/// pulls on every character that has the `WithForces` mixin. Don't also call
-/// `forces.setGravity` on a character: the two add up.
-const GRAVITY = 300.0;
-''',
-        ),
-        CodeStep(
-          description:
               'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
-  ...
-  background: _background,
   // Gravity for the whole game. It pulls on every character with the
   // WithForces mixin (the hero, the companion and the foe).
-  globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY)),
-  ...
+  globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY))
 );
 ''',
         ),

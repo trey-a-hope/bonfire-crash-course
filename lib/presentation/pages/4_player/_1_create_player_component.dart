@@ -68,7 +68,7 @@ Hero(Vector2 position)
     : super(
         position: position,
         // Size on screen; matches one 32x32 frame.
-        size: Vector2.all(TILE_SIZE),
+        size: Vector2(100, 100),
       );
 ''',
         ),
@@ -92,14 +92,6 @@ animation: PlatformAnimations(
   idleLeft: AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
   idleRight: AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
 ),   
-''',
-        ),
-        CodeStep(
-          description:
-              'Flutter has its own Hero widget, so hide it when importing material.dart in game_screen.dart. Without this, Hero(...) is an ambiguous import and the game won\'t compile.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-import 'package:flutter/material.dart' hide Hero;
 ''',
         ),
         CodeStep(

@@ -66,32 +66,9 @@ class Hero extends PlatformPlayer ... WithAttack { ... }
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Attack sheets play once on the hero's body, one per direction.
-others: {
-  MELEE_ATTACK_LEFT: AnimationUtils.loadAnimation(
-    _asset.attackMeleeLeft,
-    amount: _asset.attackMeleeFrames,
-    stepTime: ATTACK_STEP_TIME,
-    loop: false,
-  ),
-  MELEE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
-    _asset.attackMeleeRight,
-    amount: _asset.attackMeleeFrames,
-    stepTime: ATTACK_STEP_TIME,
-    loop: false,
-  ),
-  RANGE_ATTACK_LEFT: AnimationUtils.loadAnimation(
-    _asset.attackRangeLeft,
-    amount: _asset.attackRangeFrames,
-    stepTime: ATTACK_STEP_TIME,
-    loop: false,
-  ),
-  RANGE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
-    _asset.attackRangeRight,
-    amount: _asset.attackRangeFrames,
-    stepTime: ATTACK_STEP_TIME,
-    loop: false,
-  ),
-},
+animation: PlatformAnimations(
+  others: AnimationUtils.buildAttackAnimations(asset: _asset),
+),
 ''',
         ),
         CodeStep(
@@ -102,20 +79,6 @@ others: {
 /// True while an attack animation is playing, so attacks can't be spammed
 /// faster than the hero can swing.
 bool _isAttacking = false;
-
-/// Whether the hero is facing left (based on the last horizontal move).
-bool get _isFacingLeft => hDirection.isLeftSide;
-
-/// Plays the attack animation for the hero's facing direction on the hero
-/// itself. `runToTheEnd` keeps walking or landing from cutting it short.
-void _playAttackAnimation(String leftKey, String rightKey) {
-  _isAttacking = true;
-  animation?.playOnceOther(
-    _isFacingLeft ? leftKey : rightKey,
-    runToTheEnd: true,
-    onFinish: () => _isAttacking = false,
-  );
-}
 ''',
         ),
         CodeStep(
@@ -125,14 +88,21 @@ void _playAttackAnimation(String leftKey, String rightKey) {
           codeSnippet: '''
 void _meleeAttack() {
   if (_isAttacking) return;
-  _playAttackAnimation(MELEE_ATTACK_LEFT, MELEE_ATTACK_RIGHT);
+  _isAttacking = true;
+
+  AnimationUtils.playAttackAnimation(
+    attackLeft: MELEE_ATTACK_LEFT,
+    attackRight: MELEE_ATTACK_RIGHT,
+    animation: animation!,
+    direction: hDirection,
+    onFinish: () => _isAttacking = false,
+  );
 
   // The swing and sparks are drawn in the hero's own sheet, so the attack
   // only needs an invisible hitbox in front of the hero (no animation here).
   attack.melee(
     damage: 20,
     size: Vector2.all(TILE_SIZE),
-    direction: _isFacingLeft ? Direction.left : Direction.right,
     withPush: true,
     sizePush: 8,
     attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
@@ -145,37 +115,34 @@ void _meleeAttack() {
               'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-void _rangeAttack() {
-  if (_isAttacking) return;
-  final facingLeft = _isFacingLeft;
-  _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
+  void _rangeAttack() {
+    if (_isAttacking) return;
+    _isAttacking = true;
 
-  // Fire the projectile on the sheet's release frame so it picks up where
-  // the projectile drawn in the hero's hand leaves off.
-  final releaseDelay = Duration(
-    milliseconds:
-        ((_asset.attackRangeReleaseFrame - 1) * ATTACK_STEP_TIME * 1000)
-            .round(),
-  );
+    AnimationUtils.playAttackAnimation(
+      attackLeft: RANGE_ATTACK_LEFT,
+      attackRight: RANGE_ATTACK_RIGHT,
+      animation: animation!,
+      direction: hDirection,
+      onFinish: () => _isAttacking = false,
+    );
 
-  Future.delayed(releaseDelay, () {
-    if (!isMounted) return;
     attack.range(
-      // The projectile is its own 16x16 sheet, not the hero's cast sheet.
       animation: AnimationUtils.loadAnimation(
-        facingLeft ? _asset.projectileLeft : _asset.projectileRight,
+        path: hDirection.isLeftSide
+            ? _asset.projectileLeft
+            : _asset.projectileRight,
         textureSize: Vector2.all(16),
       ),
       size: Vector2.all(16),
       destroySize: Vector2.all(TILE_SIZE),
-      direction: facingLeft ? Direction.left : Direction.right,
+      direction: hDirection,
       speed: 220,
       damage: 15,
       marginFromOrigin: 8,
       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
     );
-  });
-}
+  }
 ''',
         ),
         CodeStep(
@@ -186,9 +153,8 @@ void _rangeAttack() {
 @override
 void onJoystickAction(JoystickActionEvent event) {
   if (event.event == ActionEvent.DOWN) {
-    ... ,
-    if (event.id == LogicalKeyboardKey.keyW) _rangeAttack();
-    if (event.id == LogicalKeyboardKey.keyS) _meleeAttack();
+    if (event.id == LogicalKeyboardKey.keyA) _rangeAttack();
+    if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
   }
   super.onJoystickAction(event);
 }
