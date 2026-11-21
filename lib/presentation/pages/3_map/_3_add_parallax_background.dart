@@ -32,15 +32,6 @@ class AddParallaxBackground extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Create a component that uses MoveCameraUsingGesture to allow the user to move the camera by dragging.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-// Mixin used to move camera with gestures (touch or mouse).
-class CameraDrag extends GameComponent with MoveCameraUsingGesture {}
-''',
-        ),
-        CodeStep(
-          description:
               'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''

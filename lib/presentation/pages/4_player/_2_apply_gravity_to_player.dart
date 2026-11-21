@@ -7,7 +7,6 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
-const _DART_FILE_GLOBALS = 'lib/core/constants/globals.dart';
 
 class ApplyGravityToPlayerPage extends StatelessWidget {
   const ApplyGravityToPlayerPage({super.key});

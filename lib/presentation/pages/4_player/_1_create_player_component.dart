@@ -7,8 +7,6 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
-const _DART_FILE_ANIMATION_UTILS =
-    'lib/presentation/characters/util/animation_utils.dart';
 
 class CreatePlayerComponentPage extends StatelessWidget {
   const CreatePlayerComponentPage({super.key});

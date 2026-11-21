@@ -5,7 +5,6 @@ import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
 
 /// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_PARALLAX_BACKGROUND =
     'lib/presentation/backgrounds/parallax_background.dart';
 
