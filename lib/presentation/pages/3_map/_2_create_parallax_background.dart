@@ -55,16 +55,16 @@ class ParallaxBackground extends GameBackground {}
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// How fast the back layer slides, per pixel the camera moves.
-static const baseSpeed = 9.4;
+static const _baseSpeed = 9.4;
 
 /// How much faster each layer slides than the one behind it.
-static const speedMultiplier = 1.6;
+static const _speedMultiplier = 1.6;
 
 /// The cave's layers, back to front
-static const layers = [CAVE_BACK, CAVE_FAR, CAVE_MID, CAVE_NEAR];
+static const _layers = [CAVE_BACK, CAVE_FAR, CAVE_MID, CAVE_NEAR];
 
 /// The four cave layers, in one component that follows the camera.
-ParallaxComponent? cave;
+ParallaxComponent? _cave;
 ''',
         ),
         CodeStep(
@@ -73,7 +73,7 @@ ParallaxComponent? cave;
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 /// Asynchronously loads and attaches the parallax components to the background.
-void addParallax() async {}
+void _addParallax() async {}
 ''',
         ),
 
@@ -82,13 +82,21 @@ void addParallax() async {}
               'Inside the addParallax method, define the layers and their velocities',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
-// A camera parallax only moves when the camera does.
+// How fast the scene scrolls.
+final baseVelocity = Vector2(baseSpeed, 0);
+
+// How much faster each layer moves than the one behind it.
+final velocityMultiplierDelta = Vector2(speedMultiplier, 1);
+
+// Keep pixel art crisp instead of blurry.
+final quality = FilterQuality.none;
+
+// Put it all together into the cave background.
 final cave = await util.loadCameraParallaxComponent(
-  [for (final layer in layers) ParallaxImageData(layer)],
-  baseVelocity: Vector2(baseSpeed, 0),
-  velocityMultiplierDelta: Vector2(speedMultiplier, 1),
-  // FilterQuality.none scales the pixel art with hard edges instead of blurring it.
-  filterQuality: FilterQuality.none,
+  _layers,
+  baseVelocity: baseVelocity,
+  velocityMultiplierDelta: velocityMultiplierDelta,
+  filterQuality: quality,
 );
 
 // Takes the old cave layers out of the background. 
