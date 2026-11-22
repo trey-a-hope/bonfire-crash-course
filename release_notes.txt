@@ -1,4 +1,4 @@
-Bonfire Crash Course v26.11.4
+Bonfire Crash Course v26.11.5
 
 What's new
 - Map, Player and NPC now open straight on their first lesson; their lesson diagrams moved to the Content Outline in the sidebar footer.

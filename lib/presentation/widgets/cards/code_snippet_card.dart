@@ -51,7 +51,7 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   /// confirmation feedback for 2 seconds.
   Future<void> _copyCode() async {
     try {
-      await Clipboard.setData(ClipboardData(text: widget.code.trim()));
+      await Clipboard.setData(ClipboardData(text: _copyableCode(widget.code)));
     } catch (error) {
       debugPrint('Copy failed: $error');
       return;
@@ -60,6 +60,68 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
     _copied.value = true;
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) _copied.value = false;
+  }
+
+  /// The snippet with every comment removed, ready to paste into a file.
+  ///
+  /// Uses the highlighter's parse tree, so `//` inside a string is safe.
+  /// Lines that held only a comment are dropped entirely, so no stray blank
+  /// lines are left behind.
+  String _copyableCode(String code) {
+    final lines = <StringBuffer>[StringBuffer()];
+    final hadComment = <bool>[false];
+
+    void newLine() {
+      lines.add(StringBuffer());
+      hadComment.add(false);
+    }
+
+    String textOf(Node n) =>
+        (n.value ?? '') + (n.children ?? const <Node>[]).map(textOf).join();
+
+    void visit(Node node) {
+      if (node.className == 'comment') {
+        // Skip the text, but remember which lines it touched.
+        hadComment[hadComment.length - 1] = true;
+        for (final _ in '\n'.allMatches(textOf(node))) {
+          newLine();
+          hadComment[hadComment.length - 1] = true;
+        }
+        return;
+      }
+      if (node.value != null) {
+        final parts = node.value!.split('\n');
+        for (var i = 0; i < parts.length; i++) {
+          if (i > 0) newLine();
+          lines.last.write(parts[i]);
+        }
+      }
+      for (final child in node.children ?? const <Node>[]) {
+        visit(child);
+      }
+    }
+
+    for (final node in highlight.parse(code, language: 'dart').nodes ?? []) {
+      visit(node);
+    }
+
+    final kept = <String>[];
+    for (var i = 0; i < lines.length; i++) {
+      final text = lines[i].toString().trimRight(); // no trailing whitespace
+      if (hadComment[i] && text.isEmpty) continue; // comment-only line
+      kept.add(text);
+    }
+    return _dedent(kept).join('\n').trim();
+  }
+
+  /// Removes the indentation shared by every non-empty line.
+  List<String> _dedent(List<String> lines) {
+    final indents = lines
+        .where((l) => l.trim().isNotEmpty)
+        .map((l) => l.length - l.trimLeft().length);
+    if (indents.isEmpty) return lines;
+    final cut = indents.reduce((a, b) => a < b ? a : b);
+    return [for (final l in lines) l.length >= cut ? l.substring(cut) : l];
   }
 
   /// Flattens the highlighted tree into styled runs, split into lines.
