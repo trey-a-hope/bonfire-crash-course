@@ -51,12 +51,8 @@ class Hero ... with KeyboardEventListener { ... }
               'Configure jump animations using PlatformJumpAnimations.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-jump: PlatformJumpAnimations(
-  jumpUpRight: AnimationUtils.loadAnimation(_asset.jumpRight, amount: 6),
-  jumpDownRight: AnimationUtils.loadAnimation(_asset.jumpRight, amount: 6),
-  jumpUpLeft: AnimationUtils.loadAnimation(_asset.jumpLeft, amount: 6),
-  jumpDownLeft: AnimationUtils.loadAnimation(_asset.jumpLeft, amount: 6),
-),
+animation: SpriteTools.buildAnimations(asset: _asset)
+              .copyWith(jump: SpriteTools.buildJumpAnimations(asset: _asset))
 ''',
         ),
 
@@ -87,20 +83,7 @@ void onJoystickAction(JoystickActionEvent event) {
               'Register a Keyboard controller on BonfireWidget so the game forwards key presses to the hero.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-playerControllers: [
-  // Here you enable receive keyboard interaction
-  Keyboard(
-    config: KeyboardConfig(
-      acceptedKeys: [
-        // You can pass specific Keys accepted. If null accept all keys
-        LogicalKeyboardKey.space,
-      ],
-      directionalKeys: [
-        KeyboardDirectionalKeys.arrows(), 
-      ],  
-    ),
-  )
-],
+playerControllers: [DefaultKeyboard()],
 ''',
         ),
       ],

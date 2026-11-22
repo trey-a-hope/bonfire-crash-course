@@ -81,20 +81,23 @@ void _addParallax() async {}
               'Inside the addParallax method, define the layers and their velocities',
           fileName: _DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
+
+final layers = _layers.map(ParallaxImageData.new);
+
 // How fast the scene scrolls.
-final baseVelocity = Vector2(baseSpeed, 0);
+final baseVelocity = Vector2(_baseSpeed, 0);
 
 // How much faster each layer moves than the one behind it.
-final velocityMultiplierDelta = Vector2(speedMultiplier, 1);
+final velocityMultiplierDelta = Vector2(_speedMultiplier, 1);
 
 // Keep pixel art crisp instead of blurry.
 final quality = FilterQuality.none;
 
 // Put it all together into the cave background.
 final cave = await util.loadCameraParallaxComponent(
-  _layers,
-  baseVelocity: baseVelocity,
-  velocityMultiplierDelta: velocityMultiplierDelta,
+  layers,
+  baseVelocity: _baseVelocity,
+  velocityMultiplierDelta: _velocityMultiplierDelta,
   filterQuality: quality,
 );
 
@@ -118,7 +121,7 @@ add(cave);
 @override
 Future<void> onLoad() async {
   await super.onLoad();
-  addParallax();
+  _addParallax();
 }
 ''',
         ),

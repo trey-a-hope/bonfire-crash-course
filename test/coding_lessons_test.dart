@@ -2,7 +2,7 @@ import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collision_to_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_melee.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
@@ -21,7 +21,7 @@ const lessons = <String, Widget>{
   'Apply Collision to Player': ApplyCollisionToPlayerPage(),
   'Move and Jump': MoveAndJumpPage(),
   'Map Boundaries for Player': MapBoundariesForPlayerPage(),
-  'Player Attack System': PlayerAttackSystemPage(),
+  'Player Attack System': PlayerAttackMeleePage(),
   'Create Companion Component': CreateCompanionComponentPage(),
   'Companion Sprite Animations': CompanionSpriteAnimationsPage(),
   'Apply Gravity and Collision to Companion':

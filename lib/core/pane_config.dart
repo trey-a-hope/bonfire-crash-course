@@ -1,7 +1,8 @@
 import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collision_to_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_melee.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_7_player_attack_range.dart';
 import 'package:bonfire_crash_course/presentation/pages/5_enemy/_enemy.dart';
 import 'package:bonfire_crash_course/presentation/pages/7_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
@@ -9,7 +10,6 @@ import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduc
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -108,7 +108,7 @@ final List<PaneInfo> panes = [
   // Player
   const PaneInfo(
     icon: Icon(Icons.person),
-    title: 'Hero (Player)',
+    title: 'Player',
     path: '/player',
     children: [
       PaneInfo(
@@ -137,9 +137,14 @@ final List<PaneInfo> panes = [
         child: MapBoundariesForPlayerPage(),
       ),
       PaneInfo(
-        title: 'Player Attack System',
-        path: '/player/player-attack-system',
-        child: PlayerAttackSystemPage(),
+        title: 'Player Attack (Melee)',
+        path: '/player/player-attack-melee',
+        child: PlayerAttackMeleePage(),
+      ),
+      PaneInfo(
+        title: 'Player Attack (Range)',
+        path: '/player/player-attack-range',
+        child: PlayerAttackRangePage(),
       ),
       PaneInfo(
         title: 'Player Finished!',
@@ -152,7 +157,7 @@ final List<PaneInfo> panes = [
   // Enemy
   const PaneInfo(
     icon: Icon(Icons.help),
-    title: 'Foe (Enemy)',
+    title: 'Enemy',
     path: '/enemy',
     children: [
       PaneInfo(

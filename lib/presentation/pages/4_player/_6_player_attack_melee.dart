@@ -7,8 +7,8 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
-class PlayerAttackSystemPage extends StatelessWidget {
-  const PlayerAttackSystemPage({super.key});
+class PlayerAttackMeleePage extends StatelessWidget {
+  const PlayerAttackMeleePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +17,9 @@ class PlayerAttackSystemPage extends StatelessWidget {
           'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4',
       module: PLAYER_MODULE,
       unitStep: 6,
-      title: 'Player Attack System',
-      outcome: 'S swings a melee strike and W fires a magic bolt.',
-      objective:
-          'Give the hero a close-range melee strike on S and a projectile attack on W, each with its own one-shot animation played on the hero.',
+      title: 'Player Attack Melee',
+      outcome: 'S swings a melee strike',
+      objective: '?',
       concepts: [
         Concept(
           title: 'Melee Attack (attack.melee)',
@@ -30,25 +29,11 @@ class PlayerAttackSystemPage extends StatelessWidget {
               'Spawns a short-lived, invisible damage area beside the hero. Any enemy inside it takes damage and, with withPush enabled, is knocked back. The swing itself is drawn in the hero\'s own attack sheet.',
         ),
         Concept(
-          title: 'Ranged Attack (attack.range)',
-          short: 'Fires a projectile the way the hero faces.',
-          codeMatch: 'range',
-          subtitle:
-              'Fires a flying projectile in the facing direction. It damages the first enemy it hits and is destroyed when it reaches a wall. The projectile uses its own 16x16 sheet.',
-        ),
-        Concept(
           title: 'playOnceOther',
           short: 'Plays an attack once, then goes back to idle.',
           codeMatch: 'playOnceOther',
           subtitle:
               'Plays an extra animation registered under others once, then returns to the normal idle/run animation. runToTheEnd: true stops walking or landing from cutting the attack short.',
-        ),
-        Concept(
-          title: 'Release Frame',
-          short: 'Fires the bolt on the frame it leaves the hand.',
-          codeMatch: 'ReleaseFrame',
-          subtitle:
-              'The cast sheet shows the projectile leaving the hero\'s hand. CharacterAsset.attackRangeReleaseFrame says which frame that is, and the real projectile is fired after that delay so the hand-off looks seamless.',
         ),
       ],
       codeSteps: [
@@ -66,9 +51,10 @@ class Hero extends PlatformPlayer ... WithAttack { ... }
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Attack sheets play once on the hero's body, one per direction.
-animation: PlatformAnimations(
-  others: AnimationUtils.buildAttackAnimations(asset: _asset),
-),
+animation: SpriteTools.buildAnimations(asset: _asset).copyWith(
+    jump: SpriteTools.buildJumpAnimations(asset: _asset),
+    others: SpriteTools.buildAttackAnimations(asset: _asset),
+  ),
 ''',
         ),
         CodeStep(
@@ -110,41 +96,7 @@ void _meleeAttack() {
 }
 ''',
         ),
-        CodeStep(
-          description:
-              'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-  void _rangeAttack() {
-    if (_isAttacking) return;
-    _isAttacking = true;
 
-    AnimationUtils.playAttackAnimation(
-      attackLeft: RANGE_ATTACK_LEFT,
-      attackRight: RANGE_ATTACK_RIGHT,
-      animation: animation!,
-      direction: hDirection,
-      onFinish: () => _isAttacking = false,
-    );
-
-    attack.range(
-      animation: AnimationUtils.loadAnimation(
-        path: hDirection.isLeftSide
-            ? _asset.projectileLeft
-            : _asset.projectileRight,
-        textureSize: Vector2.all(16),
-      ),
-      size: Vector2.all(16),
-      destroySize: Vector2.all(TILE_SIZE),
-      direction: hDirection,
-      speed: 220,
-      damage: 15,
-      marginFromOrigin: 8,
-      attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
-    );
-  }
-''',
-        ),
         CodeStep(
           description:
               'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
@@ -153,7 +105,6 @@ void _meleeAttack() {
 @override
 void onJoystickAction(JoystickActionEvent event) {
   if (event.event == ActionEvent.DOWN) {
-    if (event.id == LogicalKeyboardKey.keyA) _rangeAttack();
     if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
   }
   super.onJoystickAction(event);

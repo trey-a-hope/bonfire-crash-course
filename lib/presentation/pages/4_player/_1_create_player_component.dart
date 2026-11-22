@@ -84,13 +84,7 @@ Hero(Vector2 position)
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Which animation to play for each state and direction.
-animation: PlatformAnimations(
-  runLeft: AnimationUtils.loadAnimation(_asset.runLeft),
-  runRight: AnimationUtils.loadAnimation(_asset.runRight),
-  // Idle uses a larger stepTime so it plays slower than walking.
-  idleLeft: AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
-  idleRight: AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
-),   
+animation: SpriteTools.buildAnimations(asset: _asset),
 ''',
         ),
         CodeStep(
