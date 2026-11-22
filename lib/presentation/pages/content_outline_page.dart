@@ -2,12 +2,18 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 
-/// The first page of a module: its diagram, shown before the module's lessons.
+/// One module's page in the "Content Outline" section at the end of the
+/// course: a look back at the module's diagram after the course is finished.
+///
+/// The Content Outline pane in `lib/core/pane_config.dart` lists one of these
+/// per module that has a diagram (Map, Player and NPC). Modules no longer open
+/// with this page, so a module's sidebar entry goes straight to its first
+/// lesson.
 ///
 /// The diagram comes from `assets/images/module_diagrams/`, which
 /// `tool/diagrams/build_module_diagrams.py` writes from the module's spec.
 /// This page is not a lesson, so it has no "STEP X OF N" badge.
-class ModuleOverviewPage extends StatelessWidget {
+class ContentOutlinePage extends StatelessWidget {
   /// The module's position in the course (e.g. 3 for Map).
   final int moduleNumber;
 
@@ -23,16 +29,15 @@ class ModuleOverviewPage extends StatelessWidget {
   /// Thematic accent color for the module pill.
   final Color accentColor;
 
-  /// Number of lessons in the module.
+  /// Number of lessons in the module (its pages other than the completion
+  /// page), shown in the footer line.
   final int lessonCount;
-
-  /// Title of the lesson the Next button opens.
-  final String firstLessonTitle;
 
   /// Asset path of the module's diagram SVG.
   final String diagramAsset;
 
-  const ModuleOverviewPage({
+  /// Creates the outline page for one module.
+  const ContentOutlinePage({
     super.key,
     required this.moduleNumber,
     required this.moduleName,
@@ -40,13 +45,13 @@ class ModuleOverviewPage extends StatelessWidget {
     required this.icon,
     required this.accentColor,
     required this.lessonCount,
-    required this.firstLessonTitle,
     required this.diagramAsset,
   });
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    // Singular for a one-lesson module, so the footer never reads "1 lessons".
     final lessons = lessonCount == 1 ? '1 lesson' : '$lessonCount lessons';
 
     return SingleChildScrollView(
@@ -54,7 +59,7 @@ class ModuleOverviewPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Module pill
+          // Section pill: names the Content Outline and which module this is.
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
             decoration: BoxDecoration(
@@ -68,7 +73,7 @@ class ModuleOverviewPage extends StatelessWidget {
                 Icon(icon, color: accentColor, size: 15),
                 GapSizes.smallGap,
                 Text(
-                  'MODULE $moduleNumber • OVERVIEW',
+                  'CONTENT OUTLINE • MODULE $moduleNumber',
                   style: textTheme.labelMedium?.copyWith(
                     color: accentColor,
                     fontWeight: FontWeight.bold,
@@ -90,11 +95,11 @@ class ModuleOverviewPage extends StatelessWidget {
           ),
           GapSizes.smallGap,
 
-          // Tagline
+          // Intro: the tagline, framed as a look back over a finished module.
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 620),
             child: Text(
-              "$tagline. Here's everything this module covers before you start the first lesson.",
+              "$tagline. Here's a look back at everything this module covered.",
               style: textTheme.bodyLarge?.copyWith(
                 color: Colors.white.withValues(alpha: 0.8),
               ),
@@ -116,8 +121,9 @@ class ModuleOverviewPage extends StatelessWidget {
           ),
           GapSizes.mediumGap,
 
+          // Footer: lesson count, and a pointer to the other outlines.
           Text(
-            '$lessons in this module. Press Next to start with $firstLessonTitle.',
+            "$lessons in this module. Use the sidebar to review another module's outline.",
             style: textTheme.bodyMedium?.copyWith(
               color: Colors.white.withValues(alpha: 0.6),
             ),

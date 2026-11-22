@@ -9,6 +9,10 @@ import 'package:material_ui/material_ui.dart';
 /// Uses [Signal] to provide reactive state management, keeping navigation elements
 /// like sidebars and next/previous page controls in sync.
 class ProgressNavigationController {
+  /// Goes to the pane after the current one in [navigateablePanes], if any.
+  ///
+  /// From the "Bonfire Crash Course Finished!" page this opens the first
+  /// Content Outline page, which comes after it in `pane_config.dart`.
   static void next(BuildContext context) {
     final currentPath = GoRouterState.of(context).matchedLocation;
     final currentIndex = navigateablePanes.indexWhere(
@@ -19,6 +23,7 @@ class ProgressNavigationController {
     }
   }
 
+  /// Goes to the pane before the current one in [navigateablePanes], if any.
   static void previous(BuildContext context) {
     final currentPath = GoRouterState.of(context).matchedLocation;
     final currentIndex = navigateablePanes.indexWhere(
@@ -29,18 +34,31 @@ class ProgressNavigationController {
     }
   }
 
-  static double progress(StatefulNavigationShell shell) {
-    final currentIndex = shell.currentIndex;
-    final total = screens.length - 1;
+  /// Course progress for the shell's current branch, from 0 to 100.
+  static double progress(StatefulNavigationShell shell) =>
+      progressAt(shell.currentIndex);
 
-    // As a fraction between 0.0 and 1.0 (ideal for LinearProgressIndicator):
-    double progress = total > 0 ? currentIndex / total : 0.0; // 0.5
+  /// Course progress, from 0 to 100, for the pane at [index] in
+  /// [navigateablePanes].
+  ///
+  /// It reaches 100 on the last course page ("Bonfire Crash Course
+  /// Finished!"). The Content Outline pages after it are a review, not part
+  /// of the course, so they also read 100 instead of pushing the finish page
+  /// below it.
+  static double progressAt(int index) {
+    final total = courseEndIndex;
+    if (total <= 0) return 0.0;
+    return (index / total).clamp(0.0, 1.0) * 100;
+  }
 
-    // As a percentage value (0 to 100):
-    double percentage = progress * 100; // 50.0
-
-    // Formatted as a string:
-    return percentage;
+  /// Index in [navigateablePanes] of the last page that counts toward
+  /// progress: the last pane before the Content Outline section.
+  static int get courseEndIndex {
+    final panes = navigateablePanes;
+    final firstOutline = panes.indexWhere(
+      (pane) => pane.path.startsWith('$contentOutlinePath/'),
+    );
+    return (firstOutline == -1 ? panes.length : firstOutline) - 1;
   }
 
   /// Flattened list of all pane items that have a screen (child != null).
@@ -51,7 +69,8 @@ class ProgressNavigationController {
   static List<Widget> get screens =>
       navigateablePanes.map((pane) => pane.child!).toList();
 
-  /// Recursively extract only items that have content/screens
+  /// Recursively extracts only the items that have content/screens, in
+  /// sidebar order.
   static List<PaneInfo> _extractNavigateablePanes(List<PaneInfo> items) {
     final List<PaneInfo> result = [];
     for (final item in items) {

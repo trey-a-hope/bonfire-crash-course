@@ -9,7 +9,8 @@ Writes docs/module_diagrams/module_<n>_<slug>.excalidraw (one per module),
 docs/module_diagrams/bonfire_modules_all.excalidraw (every module in its own frame),
 docs/module_diagrams/svg/module_<n>_<slug>.svg (inline preview), and
 assets/images/module_diagrams/module_<n>_<slug>.svg (the copy the app shows on each
-module's overview page, with styles inlined for flutter_svg).
+module's Content Outline page, with styles inlined for flutter_svg). A spec's
+"overview_page" key keeps its old name: false means no app copy or Content Outline page.
 """
 import glob, json, math, os, random, re
 
@@ -202,7 +203,7 @@ def main():
         app_svg = os.path.join(APP_OUT, name + '.svg')
         if spec.get('overview_page', True):
             open(app_svg, 'w').write(to_app_svg(spec))
-        elif os.path.exists(app_svg):  # "overview_page": false = no overview page in the app
+        elif os.path.exists(app_svg):  # "overview_page": false = no Content Outline page in the app
             os.remove(app_svg)
         fid = f'frame_{spec["number"]}'
         els, w, h = to_excalidraw(spec, ox=x + 40, oy=40, frame=fid, prefix=f'm{spec["number"]}_')
