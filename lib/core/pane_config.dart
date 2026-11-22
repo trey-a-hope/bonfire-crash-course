@@ -172,48 +172,48 @@ final List<PaneInfo> panes = [
   ),
 
   // NPC
-  const PaneInfo(
-    icon: Icon(Icons.help),
-    title: 'Companion (Ally)',
-    path: '/npc',
-    children: [
-      PaneInfo(
-        title: 'Creating the Companion Component',
-        path: '/npc/companion-component',
-        child: CreateCompanionComponentPage(),
-      ),
-      PaneInfo(
-        title: 'Companion Sprite Animations',
-        path: '/npc/companion-sprite-animations',
-        child: CompanionSpriteAnimationsPage(),
-      ),
-      PaneInfo(
-        title: 'Apply Gravity and Collision to Companion',
-        path: '/npc/apply-gravity-and-collision-to-companion',
-        child: ApplyGravityAndCollisionToCompanionPage(),
-      ),
-      PaneInfo(
-        title: 'Companion Dialogue',
-        path: '/npc/companion-dialogue',
-        child: CompanionDialoguePage(),
-      ),
-      PaneInfo(
-        title: 'Make Berry Wave and Follow the Hero',
-        path: '/npc/companion-wave-and-follow',
-        child: CompanionWaveAndFollowPage(),
-      ),
-      PaneInfo(
-        title: 'Berry\'s First-Meeting Cutscene',
-        path: '/npc/companion-cutscene',
-        child: CompanionCutscenePage(),
-      ),
-      PaneInfo(
-        title: 'NPC Finished!',
-        path: '/ally/congrats',
-        child: ModuleCompletionPage(module: NPC_MODULE),
-      ),
-    ],
-  ),
+  // const PaneInfo(
+  //   icon: Icon(Icons.help),
+  //   title: 'Companion (Ally)',
+  //   path: '/npc',
+  //   children: [
+  //     PaneInfo(
+  //       title: 'Creating the Companion Component',
+  //       path: '/npc/companion-component',
+  //       child: CreateCompanionComponentPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Companion Sprite Animations',
+  //       path: '/npc/companion-sprite-animations',
+  //       child: CompanionSpriteAnimationsPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Apply Gravity and Collision to Companion',
+  //       path: '/npc/apply-gravity-and-collision-to-companion',
+  //       child: ApplyGravityAndCollisionToCompanionPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Companion Dialogue',
+  //       path: '/npc/companion-dialogue',
+  //       child: CompanionDialoguePage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Make Berry Wave and Follow the Hero',
+  //       path: '/npc/companion-wave-and-follow',
+  //       child: CompanionWaveAndFollowPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Berry\'s First-Meeting Cutscene',
+  //       path: '/npc/companion-cutscene',
+  //       child: CompanionCutscenePage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'NPC Finished!',
+  //       path: '/ally/congrats',
+  //       child: ModuleCompletionPage(module: NPC_MODULE),
+  //     ),
+  //   ],
+  // ),
 
   // Congrats
   const PaneInfo(
