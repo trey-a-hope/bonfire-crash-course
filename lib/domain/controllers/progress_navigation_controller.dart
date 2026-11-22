@@ -10,9 +10,6 @@ import 'package:material_ui/material_ui.dart';
 /// like sidebars and next/previous page controls in sync.
 class ProgressNavigationController {
   /// Goes to the pane after the current one in [navigateablePanes], if any.
-  ///
-  /// From the "Bonfire Crash Course Finished!" page this opens the first
-  /// Content Outline page, which comes after it in `pane_config.dart`.
   static void next(BuildContext context) {
     final currentPath = GoRouterState.of(context).matchedLocation;
     final currentIndex = navigateablePanes.indexWhere(
@@ -35,30 +32,20 @@ class ProgressNavigationController {
   }
 
   /// Course progress for the shell's current branch, from 0 to 100.
-  static double progress(StatefulNavigationShell shell) =>
-      progressAt(shell.currentIndex);
-
-  /// Course progress, from 0 to 100, for the pane at [index] in
-  /// [navigateablePanes].
   ///
-  /// It reaches 100 on the last course page ("Bonfire Crash Course
-  /// Finished!"). The Content Outline pages after it are a review, not part
-  /// of the course, so they also read 100 instead of pushing the finish page
-  /// below it.
-  static double progressAt(int index) {
-    final total = courseEndIndex;
-    if (total <= 0) return 0.0;
-    return (index / total).clamp(0.0, 1.0) * 100;
-  }
+  /// It reaches 100 on the last pane, "Bonfire Crash Course Finished!".
+  static double progress(StatefulNavigationShell shell) {
+    final currentIndex = shell.currentIndex;
+    final total = screens.length - 1;
 
-  /// Index in [navigateablePanes] of the last page that counts toward
-  /// progress: the last pane before the Content Outline section.
-  static int get courseEndIndex {
-    final panes = navigateablePanes;
-    final firstOutline = panes.indexWhere(
-      (pane) => pane.path.startsWith('$contentOutlinePath/'),
-    );
-    return (firstOutline == -1 ? panes.length : firstOutline) - 1;
+    // As a fraction between 0.0 and 1.0 (ideal for LinearProgressIndicator):
+    double progress = total > 0 ? currentIndex / total : 0.0; // 0.5
+
+    // As a percentage value (0 to 100):
+    double percentage = progress * 100; // 50.0
+
+    // Formatted as a string:
+    return percentage;
   }
 
   /// Flattened list of all pane items that have a screen (child != null).

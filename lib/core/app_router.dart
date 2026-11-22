@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
+import 'package:bonfire_crash_course/presentation/pages/content_outline/content_outline_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
@@ -38,6 +39,14 @@ final GoRouter appRouter = GoRouter(
       path: StarterProjectFilesPage.path,
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => const StarterProjectFilesPage(),
+    ),
+
+    // The Content Outline maps every module's lessons; a reference page too,
+    // so it never counts toward progress
+    GoRoute(
+      path: ContentOutlinePage.path,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => const ContentOutlinePage(),
     ),
 
     StatefulShellRoute.indexedStack(

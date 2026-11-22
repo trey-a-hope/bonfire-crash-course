@@ -1,5 +1,5 @@
 Bonfire Crash Course v26.11.4
 
 What's new
-- Map, Player and NPC now open straight on their first lesson.
-- New Content Outline section after the finish page shows each module's lesson diagram as a look back.
+- Map, Player and NPC now open straight on their first lesson; their lesson diagrams moved to the Content Outline in the sidebar footer.
+- New Content Outline page, at the bottom of the sidebar next to Starter Project Files and Settings, maps every module's lessons on one page.

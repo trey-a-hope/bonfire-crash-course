@@ -11,20 +11,17 @@ import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/content_outline_page.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Route of the "Content Outline" section, the last pane in [panes].
-///
-/// Its pages review each module's diagram after the course is finished, so
-/// they come after the "Bonfire Crash Course Finished!" page and don't count
-/// toward course progress.
-const contentOutlinePath = '/content-outline';
 
 /// Every module and lesson in the course, in order, as a tree of panes.
 ///
 /// The sidebar lists these top to bottom, `app_router.dart` turns the leaves
-/// into routes, and Previous/Next walk the leaves in this order.
+/// into routes, and Previous/Next walk the leaves in this order. The last
+/// pane, "Bonfire Crash Course Finished!", is where progress reaches 100%.
+///
+/// Reference pages (Content Outline, Starter Project Files and Settings) are
+/// not panes: they are sidebar footer links with their own routes in
+/// `app_router.dart`, so they stay out of Previous/Next and progress.
 final List<PaneInfo> panes = [
   // Introduction
   const PaneInfo(
@@ -221,54 +218,5 @@ final List<PaneInfo> panes = [
     title: 'Bonfire Crash Course Finished!',
     path: '/congrats',
     child: ModuleCompletionPage(module: BONFIRE_CRASH_COURSE),
-  ),
-
-  // Content Outline: a look back at each module's diagram, after the course
-  // is finished. Not part of course progress (see [contentOutlinePath]).
-  const PaneInfo(
-    icon: Icon(Icons.list_alt),
-    title: 'Content Outline',
-    path: contentOutlinePath,
-    children: [
-      PaneInfo(
-        title: 'Map',
-        path: '$contentOutlinePath/map',
-        child: ContentOutlinePage(
-          moduleNumber: 3,
-          moduleName: 'Map',
-          tagline: 'Build the game world',
-          icon: Icons.map,
-          accentColor: Colors.deepOrangeAccent,
-          lessonCount: 3,
-          diagramAsset: 'assets/images/module_diagrams/module_3_map.svg',
-        ),
-      ),
-      PaneInfo(
-        title: 'Player',
-        path: '$contentOutlinePath/player',
-        child: ContentOutlinePage(
-          moduleNumber: 4,
-          moduleName: 'Player',
-          tagline: 'Build and control the hero',
-          icon: Icons.person,
-          accentColor: Colors.cyanAccent,
-          lessonCount: 6,
-          diagramAsset: 'assets/images/module_diagrams/module_4_player.svg',
-        ),
-      ),
-      PaneInfo(
-        title: 'NPC (Ally)',
-        path: '$contentOutlinePath/npc',
-        child: ContentOutlinePage(
-          moduleNumber: 5,
-          moduleName: 'NPC (Ally)',
-          tagline: 'Add a friendly character',
-          icon: Icons.help,
-          accentColor: Colors.purpleAccent,
-          lessonCount: 6,
-          diagramAsset: 'assets/images/module_diagrams/module_5_npc_ally.svg',
-        ),
-      ),
-    ],
   ),
 ];

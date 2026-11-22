@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
-import 'package:bonfire_crash_course/presentation/pages/content_outline_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/content_outline/content_outline_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -29,10 +27,11 @@ void main() {
     });
   }
 
-  // Modules open on their first lesson now; their diagrams moved to the
-  // Content Outline at the end of the course.
-  for (final pane in panes.where((p) => p.path != contentOutlinePath)) {
+  // Modules open on their first lesson now; their diagrams live on the
+  // Content Outline page, a sidebar footer link outside the course panes.
+  for (final pane in panes) {
     test('${pane.title} has no outline page', () {
+      expect(pane.child, isNot(isA<ContentOutlinePage>()));
       expect(
         pane.children.map((p) => p.child),
         isNot(contains(isA<ContentOutlinePage>())),
@@ -49,73 +48,27 @@ void main() {
     expect(firstPath('Companion (Ally)'), '/npc/companion-component');
   });
 
-  // The Content Outline: last pane, one page per module with a diagram.
-  group('Content Outline', () {
-    final outline = panes.last;
-
-    test('is the last pane, right after the finish page', () {
-      expect(outline.title, 'Content Outline');
-      expect(outline.path, '/content-outline');
-      expect(panes[panes.length - 2].path, '/congrats');
-      expect(outline.children.map((p) => (p.title, p.path)), [
-        ('Map', '/content-outline/map'),
-        ('Player', '/content-outline/player'),
-        ('NPC (Ally)', '/content-outline/npc'),
-      ]);
-    });
-
-    // Each outline page's module and lesson count match the real module.
-    const moduleFor = {
-      '/content-outline/map': 'Map',
-      '/content-outline/player': 'Hero (Player)',
-      '/content-outline/npc': 'Companion (Ally)',
-    };
-
-    for (final entry in moduleFor.entries) {
-      test('${entry.key} matches ${entry.value} and its diagram exists', () {
-        final page =
-            outline.children.firstWhere((p) => p.path == entry.key).child!
-                as ContentOutlinePage;
-        final module = panes.firstWhere((p) => p.title == entry.value);
-        final lessons = module.children.where(
-          (p) => p.child is! ModuleCompletionPage,
-        );
-
-        expect(File(page.diagramAsset).existsSync(), isTrue);
-        expect(page.lessonCount, lessons.length);
-      });
-    }
-  });
-
   // Previous/Next and the progress bar walk navigateablePanes in order.
   group('navigation order', () {
     final paths = ProgressNavigationController.navigateablePanes
         .map((p) => p.path)
         .toList();
 
-    test('Next from the finish page opens the Content Outline', () {
-      final congrats = paths.indexOf('/congrats');
+    test('the finish page is the last pane, so progress ends at 100%', () {
+      expect(panes.last.title, 'Bonfire Crash Course Finished!');
+      expect(paths.last, '/congrats');
+    });
 
-      expect(congrats, isNot(-1));
-      expect(paths[congrats + 1], '/content-outline/map');
-      expect(paths.last, '/content-outline/npc');
+    test('the Content Outline is not in Previous/Next or progress', () {
+      expect(panes.map((p) => p.title), isNot(contains('Content Outline')));
+      expect(
+        paths.where((p) => p.startsWith(ContentOutlinePage.path)),
+        isEmpty,
+      );
     });
 
     test('no overview pages are left', () {
       expect(paths.where((p) => p.endsWith('/overview')), isEmpty);
-    });
-
-    test('progress reaches 100 on the finish page and stays there', () {
-      final congrats = paths.indexOf('/congrats');
-
-      expect(ProgressNavigationController.courseEndIndex, congrats);
-      expect(ProgressNavigationController.progressAt(0), 0);
-      expect(
-        ProgressNavigationController.progressAt(congrats - 1),
-        lessThan(100),
-      );
-      expect(ProgressNavigationController.progressAt(congrats), 100);
-      expect(ProgressNavigationController.progressAt(paths.length - 1), 100);
     });
   });
 
