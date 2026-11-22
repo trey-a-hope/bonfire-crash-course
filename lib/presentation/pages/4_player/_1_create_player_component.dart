@@ -54,8 +54,7 @@ class CreatePlayerComponentPage extends StatelessWidget {
           codeSnippet: '''/// The playable hero character.
 ///
 /// [PlatformPlayer] gives us side-scroller movement and jumping.
-class Hero extends PlatformPlayer {
-}
+class Hero extends PlatformPlayer { ... }
 ''',
         ),
         CodeStep(
