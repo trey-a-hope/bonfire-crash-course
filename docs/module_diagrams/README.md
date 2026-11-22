@@ -8,11 +8,11 @@ with (the module's completion-page achievements). Build steps and pro tips are l
 - `bonfire_modules_all.excalidraw`: every module as its own frame (artboard) in one scene.
 - `svg/`: plain previews of each module.
 
-The app shows each diagram on its module's overview page, from
-`assets/images/module_diagrams/`. Those copies have their colors written as
+The app shows each diagram in that module's section of the Content Outline page,
+opened from the sidebar footer, from `assets/images/module_diagrams/`. Those copies have their colors written as
 attributes and plain arrowheads, so they don't rely on `<style>`, classes or `<marker>`,
 which flutter_svg doesn't fully support. Introduction and Getting Started have
-`"overview_page": false` in their specs, so they get no app copy or overview page.
+`"overview_page": false` in their specs, so they get no app copy or Content Outline section.
 
 Open a file at excalidraw.com (or import it into Excalidraw+) to view or edit it.
 

@@ -1,7 +1,8 @@
 import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collision_to_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_system.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_melee.dart';
+import 'package:bonfire_crash_course/presentation/pages/4_player/_7_player_attack_range.dart';
 import 'package:bonfire_crash_course/presentation/pages/5_enemy/_enemy.dart';
 import 'package:bonfire_crash_course/presentation/pages/7_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
@@ -9,11 +10,18 @@ import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduc
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
 import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/6_npc/_npc.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/module_overview_page.dart';
 import 'package:material_ui/material_ui.dart';
 
+/// Every module and lesson in the course, in order, as a tree of panes.
+///
+/// The sidebar lists these top to bottom, `app_router.dart` turns the leaves
+/// into routes, and Previous/Next walk the leaves in this order. The last
+/// pane, "Bonfire Crash Course Finished!", is where progress reaches 100%.
+///
+/// Reference pages (Content Outline, Starter Project Files and Settings) are
+/// not panes: they are sidebar footer links with their own routes in
+/// `app_router.dart`, so they stay out of Previous/Next and progress.
 final List<PaneInfo> panes = [
   // Introduction
   const PaneInfo(
@@ -75,20 +83,6 @@ final List<PaneInfo> panes = [
     path: '/map',
     children: [
       PaneInfo(
-        title: 'Map Overview',
-        path: '/map/overview',
-        child: ModuleOverviewPage(
-          moduleNumber: 3,
-          moduleName: 'Map',
-          tagline: 'Build the game world',
-          icon: Icons.map,
-          accentColor: Colors.deepOrangeAccent,
-          lessonCount: 2,
-          firstLessonTitle: 'Loading the Map',
-          diagramAsset: 'assets/images/module_diagrams/module_3_map.svg',
-        ),
-      ),
-      PaneInfo(
         title: 'Loading the Map',
         path: '/map/loading-the-map',
         child: LoadingTheMap(),
@@ -114,23 +108,9 @@ final List<PaneInfo> panes = [
   // Player
   const PaneInfo(
     icon: Icon(Icons.person),
-    title: 'Hero (Player)',
+    title: 'Player',
     path: '/player',
     children: [
-      PaneInfo(
-        title: 'Player Overview',
-        path: '/player/overview',
-        child: ModuleOverviewPage(
-          moduleNumber: 4,
-          moduleName: 'Player',
-          tagline: 'Build and control the hero',
-          icon: Icons.person,
-          accentColor: Colors.cyanAccent,
-          lessonCount: 6,
-          firstLessonTitle: 'Creating the Player Component',
-          diagramAsset: 'assets/images/module_diagrams/module_4_player.svg',
-        ),
-      ),
       PaneInfo(
         title: 'Creating the Player Component',
         path: '/player/player-component',
@@ -157,9 +137,14 @@ final List<PaneInfo> panes = [
         child: MapBoundariesForPlayerPage(),
       ),
       PaneInfo(
-        title: 'Player Attack System',
-        path: '/player/player-attack-system',
-        child: PlayerAttackSystemPage(),
+        title: 'Player Attack (Melee)',
+        path: '/player/player-attack-melee',
+        child: PlayerAttackMeleePage(),
+      ),
+      PaneInfo(
+        title: 'Player Attack (Range)',
+        path: '/player/player-attack-range',
+        child: PlayerAttackRangePage(),
       ),
       PaneInfo(
         title: 'Player Finished!',
@@ -172,7 +157,7 @@ final List<PaneInfo> panes = [
   // Enemy
   const PaneInfo(
     icon: Icon(Icons.help),
-    title: 'Foe (Enemy)',
+    title: 'Enemy',
     path: '/enemy',
     children: [
       PaneInfo(
@@ -189,62 +174,48 @@ final List<PaneInfo> panes = [
   ),
 
   // NPC
-  const PaneInfo(
-    icon: Icon(Icons.help),
-    title: 'Companion (Ally)',
-    path: '/npc',
-    children: [
-      PaneInfo(
-        title: 'NPC Overview',
-        path: '/npc/overview',
-        child: ModuleOverviewPage(
-          moduleNumber: 5,
-          moduleName: 'NPC (Ally)',
-          tagline: 'Add a friendly character',
-          icon: Icons.help,
-          accentColor: Colors.purpleAccent,
-          lessonCount: 6,
-          firstLessonTitle: 'Creating the Companion Component',
-          diagramAsset: 'assets/images/module_diagrams/module_5_npc_ally.svg',
-        ),
-      ),
-      PaneInfo(
-        title: 'Creating the Companion Component',
-        path: '/npc/companion-component',
-        child: CreateCompanionComponentPage(),
-      ),
-      PaneInfo(
-        title: 'Companion Sprite Animations',
-        path: '/npc/companion-sprite-animations',
-        child: CompanionSpriteAnimationsPage(),
-      ),
-      PaneInfo(
-        title: 'Apply Gravity and Collision to Companion',
-        path: '/npc/apply-gravity-and-collision-to-companion',
-        child: ApplyGravityAndCollisionToCompanionPage(),
-      ),
-      PaneInfo(
-        title: 'Companion Dialogue',
-        path: '/npc/companion-dialogue',
-        child: CompanionDialoguePage(),
-      ),
-      PaneInfo(
-        title: 'Make Berry Wave and Follow the Hero',
-        path: '/npc/companion-wave-and-follow',
-        child: CompanionWaveAndFollowPage(),
-      ),
-      PaneInfo(
-        title: 'Berry\'s First-Meeting Cutscene',
-        path: '/npc/companion-cutscene',
-        child: CompanionCutscenePage(),
-      ),
-      PaneInfo(
-        title: 'NPC Finished!',
-        path: '/ally/congrats',
-        child: ModuleCompletionPage(module: NPC_MODULE),
-      ),
-    ],
-  ),
+  // const PaneInfo(
+  //   icon: Icon(Icons.help),
+  //   title: 'Companion (Ally)',
+  //   path: '/npc',
+  //   children: [
+  //     PaneInfo(
+  //       title: 'Creating the Companion Component',
+  //       path: '/npc/companion-component',
+  //       child: CreateCompanionComponentPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Companion Sprite Animations',
+  //       path: '/npc/companion-sprite-animations',
+  //       child: CompanionSpriteAnimationsPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Apply Gravity and Collision to Companion',
+  //       path: '/npc/apply-gravity-and-collision-to-companion',
+  //       child: ApplyGravityAndCollisionToCompanionPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Companion Dialogue',
+  //       path: '/npc/companion-dialogue',
+  //       child: CompanionDialoguePage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Make Berry Wave and Follow the Hero',
+  //       path: '/npc/companion-wave-and-follow',
+  //       child: CompanionWaveAndFollowPage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'Berry\'s First-Meeting Cutscene',
+  //       path: '/npc/companion-cutscene',
+  //       child: CompanionCutscenePage(),
+  //     ),
+  //     PaneInfo(
+  //       title: 'NPC Finished!',
+  //       path: '/ally/congrats',
+  //       child: ModuleCompletionPage(module: NPC_MODULE),
+  //     ),
+  //   ],
+  // ),
 
   // Congrats
   const PaneInfo(

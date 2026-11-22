@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
+import 'package:bonfire_crash_course/presentation/pages/content_outline/content_outline_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
@@ -14,8 +15,8 @@ import 'package:go_router/go_router.dart';
 /// * a branding header,
 /// * a scrollable list of course panes built from [panes], where parent panes
 ///   become collapsible groups,
-/// * a footer with links to the starter project files and settings, plus a
-///   bar showing overall course progress.
+/// * a footer with links to the Content Outline, the starter project files
+///   and settings, plus a bar showing overall course progress.
 class Sidebar extends StatelessWidget {
   /// The index of the active branch in
   /// [ProgressNavigationController.navigateablePanes]. Used to highlight the
@@ -188,16 +189,24 @@ class Sidebar extends StatelessWidget {
               ),
             ),
 
-            // Bottom Footer: Starter Project Files, Settings & Progress
+            // Bottom Footer: reference pages pushed over the course shell
+            // (never "selected", since they aren't course branches), then
+            // Progress.
             const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: SidebarItemTile(
-                icon: const Icon(Icons.folder_open_rounded),
-                title: 'Starter Project Files',
+                icon: const Icon(Icons.list_alt),
+                title: 'Content Outline',
                 isSelected: false,
-                onTap: () => context.push(StarterProjectFilesPage.path),
+                onTap: () => context.push(ContentOutlinePage.path),
               ),
+            ),
+            SidebarItemTile(
+              icon: const Icon(Icons.folder_open_rounded),
+              title: 'Starter Project Files',
+              isSelected: false,
+              onTap: () => context.push(StarterProjectFilesPage.path),
             ),
             SidebarItemTile(
               icon: const Icon(Icons.settings_rounded),

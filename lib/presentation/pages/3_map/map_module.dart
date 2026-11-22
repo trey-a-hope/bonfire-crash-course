@@ -3,9 +3,15 @@ import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/player_lottie.dart';
 import 'package:material_ui/material_ui.dart';
 
+/// The Map module (module 3): its step count for the "STEP X OF N" badge and
+/// its completion page content.
+///
+/// [Module.totalSteps] matches the module's three lessons in
+/// `lib/core/pane_config.dart` (Loading the Map, Create Parallax Background,
+/// Add Parallax Background).
 const MAP_MODULE = Module(
   moduleName: 'Map',
-  totalSteps: 2,
+  totalSteps: 3,
   completionHeadline: 'Map & World Complete!',
   completionSubtitle:
       'You successfully loaded a 2D tilemap, added animated parallax backgrounds, and configured viewport boundaries.',

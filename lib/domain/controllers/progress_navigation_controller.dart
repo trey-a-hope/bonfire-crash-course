@@ -9,6 +9,7 @@ import 'package:material_ui/material_ui.dart';
 /// Uses [Signal] to provide reactive state management, keeping navigation elements
 /// like sidebars and next/previous page controls in sync.
 class ProgressNavigationController {
+  /// Goes to the pane after the current one in [navigateablePanes], if any.
   static void next(BuildContext context) {
     final currentPath = GoRouterState.of(context).matchedLocation;
     final currentIndex = navigateablePanes.indexWhere(
@@ -19,6 +20,7 @@ class ProgressNavigationController {
     }
   }
 
+  /// Goes to the pane before the current one in [navigateablePanes], if any.
   static void previous(BuildContext context) {
     final currentPath = GoRouterState.of(context).matchedLocation;
     final currentIndex = navigateablePanes.indexWhere(
@@ -29,6 +31,9 @@ class ProgressNavigationController {
     }
   }
 
+  /// Course progress for the shell's current branch, from 0 to 100.
+  ///
+  /// It reaches 100 on the last pane, "Bonfire Crash Course Finished!".
   static double progress(StatefulNavigationShell shell) {
     final currentIndex = shell.currentIndex;
     final total = screens.length - 1;
@@ -51,7 +56,8 @@ class ProgressNavigationController {
   static List<Widget> get screens =>
       navigateablePanes.map((pane) => pane.child!).toList();
 
-  /// Recursively extract only items that have content/screens
+  /// Recursively extracts only the items that have content/screens, in
+  /// sidebar order.
   static List<PaneInfo> _extractNavigateablePanes(List<PaneInfo> items) {
     final List<PaneInfo> result = [];
     for (final item in items) {

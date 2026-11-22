@@ -8,14 +8,14 @@ A desktop course app that teaches you to build a 2D side-scrolling game in Flutt
 - **Code-along lessons**: each coding lesson leads with its code. The key concepts are chips above the steps: tapping one shows what it does in one line and lights up the code lines it's about, with the full explanation behind "Learn more". On the right, the lesson's result is one line (the full objective and "what you're about to type" are behind "Learn more"), then a one-line pro tip and a button that opens the video walkthrough (`lib/presentation/scaffolds/coding_scaffold.dart`, widgets in `lib/presentation/widgets/lesson/`). Each `Concept` has a `short` line and an optional `codeMatch`, the text that marks its code lines; `test/coding_lessons_test.dart` checks every match is really in the lesson's code.
 - **One-click setup**: the Getting Started module walks you through creating a GitHub account, opening a Codespace from the template repo, optionally installing VS Code, the template's file structure and running the game. Each page is short: a looping Rive animation, three quick steps, one button and a one-line tip (widgets in `lib/presentation/widgets/onboarding/`).
 - **Play the finished game**: the Introduction's "What the course covers" page opens with a large window that plays the template game from its web build (`TEMPLATE_GAME_URL` at the top of that widget's file, hosted on Codemagic). It starts loading as soon as the page opens, falls back to "Open in browser" if the page can't load, and lives in `lib/presentation/widgets/game_window.dart`. To point it at a new deploy, change that one constant.
-- **Module overviews and completion pages**: every module opens with a diagram of its lessons and closes with a Rive trophy, the module's badge and recap cards of what you did in it (each module's `achievements` list in its `*_module.dart`).
+- **Completion pages and Content Outline**: every module closes with a Rive trophy, the module's badge and recap cards of what you did in it (each module's `achievements` list in its `*_module.dart`). The Content Outline, linked at the bottom of the sidebar next to Starter Project Files and Settings, is one page with the diagram of each module's lessons (Map, Player and NPC) (`lib/presentation/pages/content_outline/`). Like those pages it sits outside the course, so it isn't in Previous/Next and doesn't count toward progress.
 - **Progress navigation**: a sidebar plus next/previous controls that move through lessons in order (`lib/domain/controllers/progress_navigation_controller.dart`).
 - **Animated UI**: Lottie animations for module badges, and Rive animations (`assets/rive/`) for Getting Started and the module completion trophy.
 - **Settings**: app version, open source licenses, video volume and lesson reminders.
 
 ## How it works
 
-The app is a `MaterialApp.router` with a dark Material 3 theme. `lib/core/pane_config.dart` defines every module and lesson as a tree of panes, and `lib/core/app_router.dart` turns that tree into `go_router` routes inside a `StatefulShellRoute`, so each lesson keeps its state as you move around. Parent paths redirect to their first lesson, and Settings sits outside the course shell so it doesn't count toward progress. App state such as settings and navigation uses `signals`.
+The app is a `MaterialApp.router` with a dark Material 3 theme. `lib/core/pane_config.dart` defines every module and lesson as a tree of panes, and `lib/core/app_router.dart` turns that tree into `go_router` routes inside a `StatefulShellRoute`, so each lesson keeps its state as you move around. Parent paths redirect to their first lesson, and the sidebar footer pages (Content Outline, Starter Project Files and Settings) sit outside the course shell so they don't count toward progress. App state such as settings and navigation uses `signals`.
 
 On startup, `lib/main.dart` initializes `media_kit` (lesson videos), the Rive native runtime and the desktop window (`window_manager`) before running the app.
 
@@ -65,7 +65,7 @@ flutter run -d macos     # or -d windows
 flutter test
 ```
 
-Tests in `test/` cover the pane config, the module overview page, the settings page and the game window (with a fake web view).
+Tests in `test/` cover the pane config and navigation order, the Content Outline page and its sidebar link, the settings page and the game window (with a fake web view).
 
 ## Building releases
 

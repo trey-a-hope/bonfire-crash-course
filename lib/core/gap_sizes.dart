@@ -20,4 +20,8 @@ class GapSizes {
 
   /// Extra large gap: 32 logical pixels.
   static const xlGap = Gap(32);
+
+  /// Extra extra large gap: 48 logical pixels, e.g. between the module
+  /// sections of the Content Outline page.
+  static const xxlGap = Gap(48);
 }
