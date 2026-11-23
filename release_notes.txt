@@ -1,4 +1,7 @@
 Bonfire Crash Course v26.11.6
 
 What's new
-- 
+- Windows builds now ship with an installer, so you can install the course like any other desktop app.
+- Player lessons are shorter and cleaner: the hero class is now HeroPlayer, and the jump and attack animation setup steps were folded into the main animation step.
+- Melee and range attack lessons now use SpriteTools for attack animations and projectiles.
+- Fixed variable and method names in the Map parallax background snippets.

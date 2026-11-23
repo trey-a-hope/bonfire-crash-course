@@ -4,7 +4,7 @@ import 'package:bonfire_crash_course/presentation/lotties/enemy_lottie.dart';
 import 'package:material_ui/material_ui.dart';
 
 const PLAYER_MODULE = Module(
-  totalSteps: 6,
+  totalSteps: 7,
   moduleName: 'Player',
   completionHeadline: 'Player Character Ready!',
   completionSubtitle:

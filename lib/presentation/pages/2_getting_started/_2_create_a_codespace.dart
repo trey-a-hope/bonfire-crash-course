@@ -4,7 +4,7 @@ import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
 import 'package:material_ui/material_ui.dart';
 
-import 'getting_started_module.dart';
+import '../../../core/modules/getting_started_module.dart';
 
 class CreateACodespace extends StatelessWidget {
   static const String CODE_SPACES_TEMPLATE_URL =

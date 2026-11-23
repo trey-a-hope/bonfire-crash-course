@@ -1,8 +1,8 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
-import 'package:bonfire_crash_course/presentation/pages/content_outline/content_outline_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/settings_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/starter_project_files/starter_project_files_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/settings_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';

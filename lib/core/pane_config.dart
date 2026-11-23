@@ -1,10 +1,4 @@
-import 'package:bonfire_crash_course/presentation/pages/4_player/_3_apply_collision_to_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_4_move_and_jump.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_5_map_boundaries_for_player.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_6_player_attack_melee.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/_7_player_attack_range.dart';
 import 'package:bonfire_crash_course/presentation/pages/5_enemy/_enemy.dart';
-import 'package:bonfire_crash_course/presentation/pages/7_final/bonfire_crash_course_module.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/1_introduction/_introduction.dart';
 import 'package:bonfire_crash_course/presentation/pages/2_getting_started/_getting_started.dart';
@@ -12,6 +6,8 @@ import 'package:bonfire_crash_course/presentation/pages/3_map/_map.dart';
 import 'package:bonfire_crash_course/presentation/pages/4_player/_player.dart';
 import 'package:bonfire_crash_course/presentation/pages/module_completion_page.dart';
 import 'package:material_ui/material_ui.dart';
+
+import 'modules/_modules.dart';
 
 /// Every module and lesson in the course, in order, as a tree of panes.
 ///

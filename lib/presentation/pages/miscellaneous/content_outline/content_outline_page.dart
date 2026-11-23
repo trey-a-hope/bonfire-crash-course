@@ -1,9 +1,9 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
-import 'package:bonfire_crash_course/presentation/pages/3_map/map_module.dart';
-import 'package:bonfire_crash_course/presentation/pages/4_player/player_module.dart';
-import 'package:bonfire_crash_course/presentation/pages/6_npc/npc_module.dart';
+import 'package:bonfire_crash_course/core/modules/map_module.dart';
+import 'package:bonfire_crash_course/core/modules/player_module.dart';
+import 'package:bonfire_crash_course/core/modules/npc_module.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
