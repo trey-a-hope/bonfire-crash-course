@@ -69,7 +69,8 @@ Tests in `test/` cover the pane config and navigation order, the Content Outline
 
 ## Building releases
 
-- **Windows**: `dart run msix:create` builds an MSIX installer using the `msix_config` in `pubspec.yaml`.
+- **Windows (Microsoft Store)**: `dart run msix:create` builds an MSIX using the `msix_config` in `pubspec.yaml`. Codemagic produces the Store build.
+- **Windows (local devices)**: `.\scripts\build_local_exe.ps1` builds a single-file installer for installing on a few devices without the Store. It needs [Inno Setup 6](https://jrsoftware.org/isdl.php). The script runs `flutter build windows --release`, reads the version from `pubspec.yaml`, and packages the result with `installer/bonfire_crash_course.iss`. The output is `build\bonfire_crash_course_setup_<version>.exe`. Copy it to a device and run it; it installs per-user, so no admin rights are needed. It is unsigned, so SmartScreen may warn once (More info, then Run anyway).
 - **macOS DMG**: the scripts live in `macos/scripts/`. `build_dmg.sh` runs `flutter build macos --release`, and `notarize_dmg.sh` signs and notarizes the build (it also runs on Codemagic). Copy `example.env` to `macos/scripts/.env` and fill in `DEVELOPER_ID_P12` (base64 Developer ID certificate), `DEVELOPER_ID_P12_PASSWORD` and `APP_SPECIFIC_PASSWORD` first; `.env` is gitignored.
 
 ## Course tooling
