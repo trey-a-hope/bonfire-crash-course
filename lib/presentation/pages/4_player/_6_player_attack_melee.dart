@@ -47,18 +47,6 @@ class Hero extends PlatformPlayer ... WithAttack { ... }
         ),
         CodeStep(
           description:
-              'Register the attack sheets under others in PlatformAnimations. Frame counts come from CharacterAsset, and loop: false makes each one play once.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-// Attack sheets play once on the hero's body, one per direction.
-animation: SpriteTools.buildAnimations(asset: _asset).copyWith(
-    jump: SpriteTools.buildJumpAnimations(asset: _asset),
-    others: SpriteTools.buildAttackAnimations(asset: _asset),
-  ),
-''',
-        ),
-        CodeStep(
-          description:
               'Track whether an attack is playing so attacks can\'t be spammed, and add a helper that plays the attack for the direction the hero faces.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
@@ -76,7 +64,7 @@ void _meleeAttack() {
   if (_isAttacking) return;
   _isAttacking = true;
 
-  AnimationUtils.playAttackAnimation(
+  SpriteTools.playAttackAnimation(
     attackLeft: MELEE_ATTACK_LEFT,
     attackRight: MELEE_ATTACK_RIGHT,
     animation: animation!,

@@ -54,7 +54,7 @@ class CreatePlayerComponentPage extends StatelessWidget {
           codeSnippet: '''/// The playable hero character.
 ///
 /// [PlatformPlayer] gives us side-scroller movement and jumping.
-class Hero extends PlatformPlayer { ... }
+class HeroPlayer extends PlatformPlayer { ... }
 ''',
         ),
         CodeStep(
@@ -63,7 +63,7 @@ class Hero extends PlatformPlayer { ... }
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 /// Creates the hero at [position] (in pixels from the map's top-left).
-Hero(Vector2 position)
+HeroPlayer(Vector2 position)
     : super(
         position: position,
         // Size on screen; matches one 32x32 frame.
@@ -84,7 +84,7 @@ Hero(Vector2 position)
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 // Which animation to play for each state and direction.
-animation: SpriteTools.buildAnimations(asset: _asset),
+animation: SpriteTools.buildAnimation(asset: _asset),
 ''',
         ),
         CodeStep(
@@ -95,7 +95,7 @@ animation: SpriteTools.buildAnimations(asset: _asset),
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    player: Hero(Vector2(100, 100)),
+    player: HeroPlayer(Vector2(100, 100)),
   );
 }
 ''',

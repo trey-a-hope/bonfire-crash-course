@@ -40,7 +40,7 @@ class PlayerAttackRangePage extends StatelessWidget {
     if (_isAttacking) return;
     _isAttacking = true;
 
-    AnimationUtils.playAttackAnimation(
+    SpriteTools.playAttackAnimation(
       attackLeft: RANGE_ATTACK_LEFT,
       attackRight: RANGE_ATTACK_RIGHT,
       animation: animation!,
@@ -49,11 +49,9 @@ class PlayerAttackRangePage extends StatelessWidget {
     );
 
     attack.range(
-      animation: AnimationUtils.loadAnimation(
-        path: hDirection.isLeftSide
-            ? _asset.projectileLeft
-            : _asset.projectileRight,
-        textureSize: Vector2.all(16),
+      animation: SpriteTools.loadProjectileAnimation(
+        asset: _asset,
+        direction: hDirection,
       ),
       size: Vector2.all(16),
       destroySize: Vector2.all(TILE_SIZE),

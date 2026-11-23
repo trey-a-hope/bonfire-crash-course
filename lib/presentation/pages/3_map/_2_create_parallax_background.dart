@@ -96,8 +96,8 @@ final quality = FilterQuality.none;
 // Put it all together into the cave background.
 final cave = await util.loadCameraParallaxComponent(
   layers,
-  baseVelocity: _baseVelocity,
-  velocityMultiplierDelta: _velocityMultiplierDelta,
+  baseVelocity: baseVelocity,
+  velocityMultiplierDelta: velocityMultiplierDelta,
   filterQuality: quality,
 );
 
@@ -138,7 +138,7 @@ void onGameResize(Vector2 size) {
   // Reload the parallax on resize when not in cutscene/scene building.
   final isRunning = gameRef.sceneBuilderStatus.isRunning;
   if (!isRunning) {
-    addParallax();
+    _addParallax();
   }
 }
 ''',

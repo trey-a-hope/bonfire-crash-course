@@ -46,15 +46,6 @@ class MoveAndJumpPage extends StatelessWidget {
 class Hero ... with KeyboardEventListener { ... }
 ''',
         ),
-        CodeStep(
-          description:
-              'Configure jump animations using PlatformJumpAnimations.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-animation: SpriteTools.buildAnimations(asset: _asset)
-              .copyWith(jump: SpriteTools.buildJumpAnimations(asset: _asset))
-''',
-        ),
 
         CodeStep(
           description:
