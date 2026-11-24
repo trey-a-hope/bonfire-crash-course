@@ -10,7 +10,8 @@ const _DART_FILE_CHARACTERS_MINOR_ENEMY =
 
 /// Enemy lesson 2, "Apply Behavior": gives MinorEnemy an AI with the
 /// UseBehavior mixin, a behaviors list and a BCondition that chases and
-/// melees a living hero in sight, and patrols otherwise. Routed at
+/// melees a living hero in sight, and patrols otherwise, and switches its
+/// melee to AttackOriginEnum.ENEMY so it hurts the hero. Routed at
 /// `/enemy/apply-behavior` in `lib/core/pane_config.dart`.
 class ApplyBehaviorPage extends StatelessWidget {
   const ApplyBehaviorPage({super.key});
@@ -123,9 +124,18 @@ doBehavior: BSeeAndMoveToTarget(
 doElseBehavior: randomMovement,
 ''',
         ),
+        CodeStep(
+          description:
+              'In MinorEnemy\'s _meleeAttack, set attackFrom to AttackOriginEnum.ENEMY. The code copied from HeroPlayer still says PLAYER_OR_ALLY, so the enemy\'s strike would never hurt the hero.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''_meleeAttack(
+      attackFrom: AttackOriginEnum.ENEMY,
+)
+''',
+        ),
       ],
       timeToCodeStatement:
-          'You\'re about to add UseBehavior to MinorEnemy, override its behaviors list, write a randomMovement patrol, and build a BCondition that chases and melees a living hero in sight and patrols otherwise.',
+          'You\'re about to add UseBehavior to MinorEnemy, override its behaviors list, write a randomMovement patrol, and build a BCondition that chases and melees a living hero in sight and patrols otherwise, then make its melee an enemy attack.',
       proTip:
           'Change radiusVision to make the enemy notice the hero from farther away or only up close, and change maxDistance in randomMovement to make its patrol wider or tighter.',
     );

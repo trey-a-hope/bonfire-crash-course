@@ -167,6 +167,21 @@ final List<PaneInfo> panes = [
         child: ApplyBehaviorPage(),
       ),
       PaneInfo(
+        title: 'Apply Lifebar',
+        path: '/enemy/apply-lifebar',
+        child: ApplyLifebarPage(),
+      ),
+      PaneInfo(
+        title: 'Respond to Hurt',
+        path: '/enemy/respond-to-hurt',
+        child: RespondToHurtPage(),
+      ),
+      PaneInfo(
+        title: 'Respond to Die',
+        path: '/enemy/respond-to-die',
+        child: RespondToDiePage(),
+      ),
+      PaneInfo(
         title: 'Enemy Finished!',
         path: '/enemy/congrats',
         child: ModuleCompletionPage(module: ENEMY_MODULE),
