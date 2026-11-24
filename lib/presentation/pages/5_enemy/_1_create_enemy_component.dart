@@ -52,9 +52,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
               '\n• Copy and paste the HeroPlayer into the MinorEnemy.'
               '\n• Change the title from HeroPlayer to MinorEnemy.'
               '\n• Change the component type from PlatformPlayer to PlatformEnemy.'
-              '\n• Remove the KeyboardEventListener.'
-              '\n• Delete onJoystickAction.'
-              '\n• Delete the _rangeAttack.',
+              '\n• Remove the KeyboardEventListener.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''/// A basic enemy, built from the hero's code without the controls.
 ///
@@ -69,9 +67,37 @@ class MinorEnemy extends PlatformEnemy
           animation: SpriteTools.buildAnimation(asset: _asset),
         );
 
-  // The rest stays as it was copied from HeroPlayer: _asset, onLoad and
-  // its hitbox, _isAttacking and _meleeAttack.
+  // The rest stays as it was copied from HeroPlayer for now: _asset, onLoad
+  // and its hitbox, _isAttacking, _meleeAttack, _rangeAttack and
+  // onJoystickAction. The next step deletes the last two.
   ...
+}
+''',
+        ),
+        CodeStep(
+          // Shown as plain text, so each "\n• " starts a new bullet line.
+          description:
+              'Remove the player-only controls that MinorEnemy no longer needs:'
+              '\n• Delete onJoystickAction.'
+              '\n• Delete the _rangeAttack.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // Mirrors the signatures from the Player lessons so the learner can
+          // spot both members in the copied code.
+          codeSnippet: '''class MinorEnemy extends PlatformEnemy
+    with WithForces, ScreenBoundaryChecker, WithAttack {
+  ...
+
+  // Delete: the joystick and keyboard handler. Nothing presses keys for
+  // an enemy.
+  @override
+  void onJoystickAction(JoystickActionEvent event) {
+    ...
+  }
+
+  // Delete: the projectile attack. This enemy only uses _meleeAttack.
+  void _rangeAttack() {
+    ...
+  }
 }
 ''',
         ),
