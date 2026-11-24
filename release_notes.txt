@@ -1,3 +1,5 @@
 Bonfire Crash Course v26.11.7
 
 What's new
+- New Enemy lessons: build a MinorEnemy from the hero's code, then give it a behavior tree that patrols and chases the hero.
+- The player's size in the first Player lesson is now one tile (TILE_SIZE) instead of 100x100.
