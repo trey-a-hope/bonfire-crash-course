@@ -15,16 +15,16 @@ class WindowService {
   /// Once ready, the window is shown and focused.
   ///
   /// Throws an [UnsupportedError] if executed on a non-desktop platform.
-  static Future<void> initializeDesktopWindow() async {
+  static Future<void> initializeDesktopWindow(Size size) async {
     if (!PlatformResolver.isDesktop) {
       throw UnsupportedError('This app only supports desktop platforms.');
     }
 
     await windowManager.ensureInitialized();
 
-    const windowOptions = WindowOptions(
-      size: Size(1400, 900),
-      minimumSize: Size(1200, 720),
+    final windowOptions = WindowOptions(
+      size: const Size(1400, 900),
+      minimumSize: Size(size.width / 2, 720),
       center: true,
       // Keep the native title bar: it provides window dragging, edge
       // resizing, and the minimize/maximize/close buttons. A hidden title

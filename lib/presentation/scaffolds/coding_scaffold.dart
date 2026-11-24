@@ -158,19 +158,6 @@ class _CodingScaffoldState extends State<CodingScaffold> {
                           codeSteps: widget.codeSteps,
                           highlightMatch: picked?.codeMatch,
                         ),
-                    ],
-                  ),
-                ),
-              ),
-              GapSizes.largeGap,
-
-              // Right Column: outcome, pro-tip & walkthrough (Flex 2)
-              Expanded(
-                flex: 2,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
                       LessonOutcomeCard(
                         outcome: widget.outcome,
                         objective: widget.objective,

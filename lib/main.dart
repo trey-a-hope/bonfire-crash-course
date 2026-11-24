@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:bonfire_crash_course/core/app_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:media_kit/media_kit.dart';
@@ -17,9 +20,9 @@ Future<void> main() async {
   // Initialize the Rive native runtime used by Rive animations
   await RiveNative.init();
 
-  // Set up desktop window properties (size, center, title bar)
-  await WindowService.initializeDesktopWindow();
-
+  final display = PlatformDispatcher.instance.displays.first;
+  final screen = display.size / display.devicePixelRatio;
+  await WindowService.initializeDesktopWindow(screen);
   packageInfo = await PackageInfo.fromPlatform();
 
   runApp(const DesktopApp());
