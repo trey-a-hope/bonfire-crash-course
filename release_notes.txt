@@ -1,7 +1,3 @@
-Bonfire Crash Course v26.11.9
+Bonfire Crash Course v26.11.10
 
 What's new
-- New Enemy lessons: Apply Lifebar, Respond to Hurt and Respond to Die give the enemy and the hero life bars, hurt animations and death animations.
-- Apply Behavior has a new last step that makes the enemy's melee an enemy attack, so it hurts the hero.
-- New Enemy lessons: build a MinorEnemy from the hero's code, then give it a behavior tree that patrols and chases the hero.
-- The player's size in the first Player lesson is now one tile (TILE_SIZE) instead of 100x100.
