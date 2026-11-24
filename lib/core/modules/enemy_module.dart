@@ -6,11 +6,11 @@ import 'package:material_ui/material_ui.dart';
 /// The Enemy module (module 5): its step count for the "STEP X OF N" badge
 /// and its completion page content.
 ///
-/// [Module.totalSteps] matches the module's two lessons in
+/// [Module.totalSteps] matches the module's five lessons in
 /// `lib/core/pane_config.dart` (Creating the Enemy Component, Apply
-/// Behavior).
+/// Behavior, Apply Lifebar, Respond to Hurt, Respond to Die).
 const ENEMY_MODULE = Module(
-  totalSteps: 2,
+  totalSteps: 5,
   moduleName: 'Enemy',
   completionHeadline: 'Enemy Character Ready!',
   completionSubtitle:
