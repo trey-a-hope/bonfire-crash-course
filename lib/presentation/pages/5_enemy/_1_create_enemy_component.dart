@@ -6,8 +6,13 @@ import 'package:material_ui/material_ui.dart';
 
 /// Paths of the template files this page edits.
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
+const _DART_FILE_CHARACTERS_MINOR_ENEMY =
+    'lib/presentation/characters/minor_enemy.dart';
 
+/// Enemy lesson 1, "Creating the Enemy Component": turns a copy of the
+/// HeroPlayer class into a MinorEnemy that extends PlatformEnemy, then adds
+/// it to BonfireWidget's components in game_screen.dart. Routed at
+/// `/enemy/enemy-component` in `lib/core/pane_config.dart`.
 class CreateEnemyComponentPage extends StatelessWidget {
   const CreateEnemyComponentPage({super.key});
 
@@ -19,107 +24,84 @@ class CreateEnemyComponentPage extends StatelessWidget {
       module: ENEMY_MODULE,
       unitStep: 1,
       title: 'Creating the Enemy Component',
-      outcome: 'A wizard hero stands on the map, idle or running.',
+      outcome: 'A minor enemy stands on the map next to the hero.',
       objective:
-          'Define a Hero component that extends PlatformPlayer, pick a character sprite set, and give it idle and run animations in a Bonfire game.',
+          'Reuse the HeroPlayer code to build a MinorEnemy that extends PlatformEnemy, strip out the player-only controls, and add it to the game.',
 
       concepts: [
         Concept(
-          title: 'PlatformPlayer',
-          short: 'Bonfire\'s side-scroller player: walks, jumps and animates.',
-          codeMatch: 'PlatformPlayer',
+          title: 'PlatformEnemy',
+          short: 'The enemy twin of PlatformPlayer.',
+          codeMatch: 'PlatformEnemy',
           subtitle:
-              'Bonfire\'s side-scroller player. It handles horizontal movement and jumping, and swaps animations based on what the hero is doing and which way it faces.',
+              'The enemy version of PlatformPlayer. It moves, jumps and animates the same way, has life that the hero\'s attacks can take away, and is never driven by the keyboard or a joystick.',
         ),
         Concept(
-          title: 'CharacterAsset',
-          short: 'One value that picks every sprite for a character.',
-          codeMatch: 'CharacterAsset',
+          title: 'components',
+          short: 'BonfireWidget\'s list for everything but the player.',
+          codeMatch: 'components:',
           subtitle:
-              'An enum in lib/core/constants/character_asset.dart that bundles every sprite sheet path for one character (wizard or shark). Switching characters is a one-word change.',
-        ),
-        Concept(
-          title: 'SpriteAnimation',
-          short: 'A sheet sliced into frames that play in order.',
-          codeMatch: 'stepTime',
-          subtitle:
-              'A sprite sheet sliced into equal frames that play in order. stepTime is how long each frame stays on screen, so a bigger number plays slower.',
+              'A BonfireWidget list for everything in the world that isn\'t the player, like enemies, allies and decorations. Each entry is placed by its position in pixels from the map\'s top-left.',
         ),
       ],
       codeSteps: [
         CodeStep(
+          // Shown as plain text, so each "\n• " starts a new bullet line.
           description:
-              'Create a new class named Hero that extends PlatformPlayer to enable side-scroller movement and jumping.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''/// The playable hero character.
-///
-/// [PlatformPlayer] gives us side-scroller movement and jumping.
-class Hero extends PlatformPlayer {
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'Define the Hero constructor, passing the initial spawn position and frame dimensions to the superclass.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+              'Create the MinorEnemy class in minor_enemy.dart from the hero\'s code:'
+              '\n• Copy and paste the HeroPlayer into the MinorEnemy.'
+              '\n• Change the class name from HeroPlayer to MinorEnemy.'
+              '\n• Change the component type from PlatformPlayer to PlatformEnemy.'
+              '\n• Remove the KeyboardEventListener.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-/// Creates the hero at [position] (in pixels from the map's top-left).
-Hero(Vector2 position)
+/// Creates the enemy at [position] (in pixels from the map's top-left).
+MinorEnemy(Vector2 position)
     : super(
         position: position,
-        // Size on screen; matches one 32x32 frame.
         size: Vector2.all(TILE_SIZE),
+        animation: SpriteTools.buildAnimation(asset: _asset),
       );
+
+// The rest stays as it was copied from HeroPlayer for now: _asset, onLoad
+// and its hitbox, _isAttacking, _meleeAttack, _rangeAttack and
+// onJoystickAction. The next step deletes the last two.
 ''',
         ),
         CodeStep(
+          // Shown as plain text, so each "\n• " starts a new bullet line.
           description:
-              'Pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''static const _asset = CharacterAsset.wizard;
-''',
-        ),
-        CodeStep(
-          description:
-              'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+              'Remove the player-only controls that MinorEnemy no longer needs:'
+              '\n• Delete onJoystickAction.'
+              '\n• Delete the _rangeAttack.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // Mirrors the signatures from the Player lessons so the learner can
+          // spot both members in the copied code.
           codeSnippet: '''
-// Which animation to play for each state and direction.
-animation: PlatformAnimations(
-  runLeft: AnimationUtils.loadAnimation(_asset.runLeft),
-  runRight: AnimationUtils.loadAnimation(_asset.runRight),
-  // Idle uses a larger stepTime so it plays slower than walking.
-  idleLeft: AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
-  idleRight: AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
-),   
-''',
-        ),
-        CodeStep(
-          description:
-              'Flutter has its own Hero widget, so hide it when importing material.dart in game_screen.dart. Without this, Hero(...) is an ambiguous import and the game won\'t compile.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-import 'package:flutter/material.dart' hide Hero;
-''',
-        ),
-        CodeStep(
-          description:
-              'Instantiate Hero with an initial position and pass it to the player property in BonfireWidget.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
+// Delete: the joystick and keyboard handler. Nothing presses keys for
+// an enemy.
 @override
-Widget build(BuildContext context) {
-  return BonfireWidget(
-    player: Hero(Vector2(100, 100)),
-  );
+void onJoystickAction(JoystickActionEvent event) {
+  ...
 }
+
+// Delete: the projectile attack. This enemy only uses _meleeAttack.
+void _rangeAttack() {
+  ...
+}
+''',
+        ),
+        CodeStep(
+          description: 'Add the minor enemy to the game.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''components: [ MinorEnemy(Vector2(1000, 100)) ],
 ''',
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to create the Hero class in hero.dart with its constructor and idle and run animations, write the AnimationUtils helper, and pass a Hero to BonfireWidget\'s player.',
+          'You\'re about to copy HeroPlayer into minor_enemy.dart, turn it into a MinorEnemy that extends PlatformEnemy, remove the keyboard and joystick code and the range attack, and add a MinorEnemy to BonfireWidget\'s components.',
       proTip:
-          'To try a different character, change CharacterAsset.wizard to CharacterAsset.shark and save; every sprite path comes from that one value, so nothing else has to change.',
+          'Change the CharacterAsset in MinorEnemy (for example to CharacterAsset.shark) so the enemy doesn\'t look exactly like your hero.',
     );
   }
 }

@@ -162,6 +162,11 @@ final List<PaneInfo> panes = [
         child: CreateEnemyComponentPage(),
       ),
       PaneInfo(
+        title: 'Apply Behavior',
+        path: '/enemy/apply-behavior',
+        child: ApplyBehaviorPage(),
+      ),
+      PaneInfo(
         title: 'Enemy Finished!',
         path: '/enemy/congrats',
         child: ModuleCompletionPage(module: ENEMY_MODULE),

@@ -8,6 +8,10 @@ import 'package:material_ui/material_ui.dart';
 const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
+/// Player lesson 1, "Creating the Player Component": creates the HeroPlayer
+/// class in hero.dart and passes it to BonfireWidget's player in
+/// game_screen.dart. Routed at `/player/player-component` in
+/// `lib/core/pane_config.dart`.
 class CreatePlayerComponentPage extends StatelessWidget {
   const CreatePlayerComponentPage({super.key});
 
@@ -66,8 +70,9 @@ class HeroPlayer extends PlatformPlayer { ... }
 HeroPlayer(Vector2 position)
     : super(
         position: position,
-        // Size on screen; matches one 32x32 frame.
-        size: Vector2(100, 100),
+        // Size on screen: one tile (TILE_SIZE, 32 pixels) square,
+        // matching one 32x32 frame.
+        size: Vector2.all(TILE_SIZE),
       );
 ''',
         ),

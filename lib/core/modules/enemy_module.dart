@@ -3,8 +3,14 @@ import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/presentation/lotties/enemy_lottie.dart';
 import 'package:material_ui/material_ui.dart';
 
+/// The Enemy module (module 5): its step count for the "STEP X OF N" badge
+/// and its completion page content.
+///
+/// [Module.totalSteps] matches the module's two lessons in
+/// `lib/core/pane_config.dart` (Creating the Enemy Component, Apply
+/// Behavior).
 const ENEMY_MODULE = Module(
-  totalSteps: 6,
+  totalSteps: 2,
   moduleName: 'Enemy',
   completionHeadline: 'Enemy Character Ready!',
   completionSubtitle:
