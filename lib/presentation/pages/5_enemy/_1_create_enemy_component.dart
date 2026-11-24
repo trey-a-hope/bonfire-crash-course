@@ -50,28 +50,22 @@ class CreateEnemyComponentPage extends StatelessWidget {
           description:
               'Create the MinorEnemy class in minor_enemy.dart from the hero\'s code:'
               '\n• Copy and paste the HeroPlayer into the MinorEnemy.'
-              '\n• Change the title from HeroPlayer to MinorEnemy.'
+              '\n• Change the class name from HeroPlayer to MinorEnemy.'
               '\n• Change the component type from PlatformPlayer to PlatformEnemy.'
               '\n• Remove the KeyboardEventListener.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''/// A basic enemy, built from the hero's code without the controls.
-///
-/// [PlatformEnemy] is the enemy version of [PlatformPlayer].
-class MinorEnemy extends PlatformEnemy
-    with WithForces, ScreenBoundaryChecker, WithAttack {
-  /// Creates the enemy at [position] (in pixels from the map's top-left).
-  MinorEnemy(Vector2 position)
-      : super(
-          position: position,
-          size: Vector2.all(TILE_SIZE),
-          animation: SpriteTools.buildAnimation(asset: _asset),
-        );
+          codeSnippet: '''
+/// Creates the enemy at [position] (in pixels from the map's top-left).
+MinorEnemy(Vector2 position)
+    : super(
+        position: position,
+        size: Vector2.all(TILE_SIZE),
+        animation: SpriteTools.buildAnimation(asset: _asset),
+      );
 
-  // The rest stays as it was copied from HeroPlayer for now: _asset, onLoad
-  // and its hitbox, _isAttacking, _meleeAttack, _rangeAttack and
-  // onJoystickAction. The next step deletes the last two.
-  ...
-}
+// The rest stays as it was copied from HeroPlayer for now: _asset, onLoad
+// and its hitbox, _isAttacking, _meleeAttack, _rangeAttack and
+// onJoystickAction. The next step deletes the last two.
 ''',
         ),
         CodeStep(
@@ -83,21 +77,17 @@ class MinorEnemy extends PlatformEnemy
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           // Mirrors the signatures from the Player lessons so the learner can
           // spot both members in the copied code.
-          codeSnippet: '''class MinorEnemy extends PlatformEnemy
-    with WithForces, ScreenBoundaryChecker, WithAttack {
+          codeSnippet: '''
+// Delete: the joystick and keyboard handler. Nothing presses keys for
+// an enemy.
+@override
+void onJoystickAction(JoystickActionEvent event) {
   ...
+}
 
-  // Delete: the joystick and keyboard handler. Nothing presses keys for
-  // an enemy.
-  @override
-  void onJoystickAction(JoystickActionEvent event) {
-    ...
-  }
-
-  // Delete: the projectile attack. This enemy only uses _meleeAttack.
-  void _rangeAttack() {
-    ...
-  }
+// Delete: the projectile attack. This enemy only uses _meleeAttack.
+void _rangeAttack() {
+  ...
 }
 ''',
         ),

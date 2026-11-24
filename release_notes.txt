@@ -1,4 +1,4 @@
-Bonfire Crash Course v26.11.7
+Bonfire Crash Course v26.11.8
 
 What's new
 - New Enemy lessons: build a MinorEnemy from the hero's code, then give it a behavior tree that patrols and chases the hero.
