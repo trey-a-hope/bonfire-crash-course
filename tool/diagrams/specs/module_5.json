@@ -1,66 +1,125 @@
 {
   "number": 5,
-  "name": "NPC (Ally)",
-  "badge": "COMPANION ARCHITECT",
-  "tagline": "Add a friendly character",
+  "name": "Enemy",
+  "badge": "ENEMY THWARPER",
+  "tagline": "Add an enemy to fight",
   "lessons": [
     {
       "number": 1,
-      "title": "Creating the Companion Component",
-      "summary": "A SimpleAlly added to the world",
+      "title": "Creating the Enemy Component",
+      "summary": "A minor enemy beside the hero",
       "concepts": [
-        ["Ally", "An NPC on the player's side, with life"],
-        ["SimpleAlly", "No PlatformAlly in Bonfire 4.0"],
-        ["components", "Everything in the world but the player"]
+        [
+          "PlatformEnemy",
+          "The enemy twin of PlatformPlayer"
+        ],
+        [
+          "components",
+          "BonfireWidget's list for all but the player"
+        ]
       ]
     },
     {
       "number": 2,
-      "title": "Companion Sprite Animations",
-      "summary": "Strawberry idle and walk sheets",
+      "title": "Apply Behavior",
+      "summary": "Wander, then chase the hero",
       "concepts": [
-        ["SimpleDirectionAnimation", "Idle and run animations per direction"],
-        ["Frame Count (amount)", "Idle is 8 frames, walk is 4"]
+        [
+          "UseBehavior",
+          "Runs a list of behaviors every frame"
+        ],
+        [
+          "BCondition",
+          "If this, do that; otherwise, do something else"
+        ],
+        [
+          "BSeeAndMoveToTarget",
+          "Chase the hero within 5 tiles"
+        ],
+        [
+          "BRandomMovement",
+          "Wander at random when no one is near"
+        ]
       ]
     },
     {
       "number": 3,
-      "title": "Gravity and Collision",
-      "summary": "Stand on the map, stop at walls",
+      "title": "Apply Lifebar",
+      "summary": "Life and a bar over each character",
       "concepts": [
-        ["WithCollision", "Stops moving when it hits something"],
-        ["WithForces", "Same gravity as the hero"],
-        ["RectangleHitbox", "The companion's solid shape"]
+        [
+          "WithLifeBar",
+          "Draws a life bar over a character"
+        ],
+        [
+          "life",
+          "How much damage a character can take"
+        ],
+        [
+          "lifeBar.setup",
+          "Styles the life bar"
+        ]
       ]
     },
     {
       "number": 4,
-      "title": "Companion Dialogue",
-      "summary": "Talk when the hero comes close",
+      "title": "Respond to Hurt",
+      "summary": "Flinch when an attack lands",
       "concepts": [
-        ["vision.seePlayer", "Is the hero within 48 px?"],
-        ["TalkDialog and Say", "Built-in dialogue box, line by line"],
-        ["pauseEngine / resumeEngine", "Freeze the game while it talks"]
+        [
+          "onMount",
+          "Runs once the component joins the game"
+        ],
+        [
+          "onReceiveDamageListener",
+          "Calls you back on every hit"
+        ],
+        [
+          "playOnceOther",
+          "Plays the hurt animation one time"
+        ]
       ]
     },
     {
       "number": 5,
-      "title": "Make Berry Wave and Follow the Hero",
-      "summary": "Wave hello, then tag along",
+      "title": "Respond to Die",
+      "summary": "Fall when life reaches 0",
       "concepts": [
-        ["FollowAction and followAction", "Stop, lost, left or right each tick"],
-        ["canMove, moveLeft and moveRight", "Walk on the ground, wait at walls"],
-        ["onBlockMovementListener", "Pass through the hero, not tiles"],
-        ["priority (draw order)", "Always drawn just behind the hero"],
-        ["Two waves", "Hello in the portrait, goodbye in the world"]
+        [
+          "onDieListener",
+          "Calls you back when life hits 0"
+        ],
+        [
+          "pauseBehaviors",
+          "Turns off the AI"
+        ],
+        [
+          "removeFromParent",
+          "Takes the component out of the game"
+        ]
       ]
     }
   ],
   "outcomes": [
-    ["Companion Component", "A SimpleAlly in the game world"],
-    ["Sprite Animations", "Strawberry idle and walk sheets"],
-    ["Hitbox & Collision", "Stands on the map, stops at walls"],
-    ["Dialogue & Interaction", "Talks once when the hero comes close"],
-    ["Wave & Follow", "Waves hello, then follows the hero"]
+    [
+      "Enemy Component",
+      "A minor enemy stands on the map"
+    ],
+    [
+      "Enemy AI",
+      "Wanders, then chases and strikes the hero"
+    ],
+    [
+      "Life Bars",
+      "Red over the enemy, green over the hero"
+    ],
+    [
+      "Hurt Reactions",
+      "A hurt animation on every hit"
+    ],
+    [
+      "Death",
+      "Death animation, then gone from the game"
+    ]
   ]
 }

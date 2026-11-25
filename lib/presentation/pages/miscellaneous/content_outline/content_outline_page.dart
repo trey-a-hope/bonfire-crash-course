@@ -3,7 +3,7 @@ import 'package:bonfire_crash_course/domain/controllers/progress_navigation_cont
 import 'package:bonfire_crash_course/domain/models/module.dart';
 import 'package:bonfire_crash_course/core/modules/map_module.dart';
 import 'package:bonfire_crash_course/core/modules/player_module.dart';
-import 'package:bonfire_crash_course/core/modules/npc_module.dart';
+import 'package:bonfire_crash_course/core/modules/enemy_module.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +12,7 @@ part 'content_outline_section.dart';
 part 'module_pill.dart';
 
 /// The Content Outline: one page that maps every module with a diagram (Map,
-/// Player and NPC), opened from the sidebar footer.
+/// Player and Enemy), opened from the sidebar footer.
 ///
 /// Like Settings and Starter Project Files, it sits outside the course shell
 /// (see `lib/core/app_router.dart`), so it has no Previous/Next controls and
@@ -126,12 +126,12 @@ class ContentOutlinePage extends StatelessWidget {
                   GapSizes.xxlGap,
                   const _ContentOutlineSection(
                     moduleNumber: 5,
-                    module: NPC_MODULE,
-                    tagline: 'Add a friendly character',
-                    icon: Icons.help,
-                    accentColor: Colors.purpleAccent,
+                    module: ENEMY_MODULE,
+                    tagline: 'Add an enemy to fight',
+                    icon: Icons.dangerous,
+                    accentColor: Colors.redAccent,
                     diagramAsset:
-                        'assets/images/module_diagrams/module_5_npc_ally.svg',
+                        'assets/images/module_diagrams/module_5_enemy.svg',
                   ),
                 ],
               ),

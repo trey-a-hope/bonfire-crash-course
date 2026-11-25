@@ -1,3 +1,5 @@
 Bonfire Crash Course v26.11.10
 
 What's new
+- The Content Outline now covers Map, Player and Enemy, with diagrams updated to match every lesson in each module.
+- New Enemy diagram for its five lessons, from creating the enemy to responding when it dies.
