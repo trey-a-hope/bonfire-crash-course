@@ -11,30 +11,45 @@
       "concepts": [
         [
           "BonfireWidget",
-          "Runs the game loop, camera and physics"
+          "Runs the game loop, camera and components"
         ],
         [
           "WorldMapBySpritefusion",
-          "Reads map.json: floor tiles + collision grid"
+          "Turns map.json into floor tiles and walls"
         ],
         [
           "CameraConfig",
-          "Zoom fit, and keeps the camera in the map"
+          "Fits the map and keeps the camera on it"
         ]
       ]
     },
     {
       "number": 2,
-      "title": "Custom Background",
-      "summary": "Add a scrolling parallax sky",
+      "title": "Create Parallax Background",
+      "summary": "Build a layered, scrolling sky",
       "concepts": [
         [
           "GameBackground",
-          "Base class for ParallaxBackground"
+          "Base class for a custom game background"
         ],
         [
           "ParallaxComponent",
           "Layers at different speeds give depth"
+        ]
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Add Parallax Background",
+      "summary": "Put the background in the world",
+      "concepts": [
+        [
+          "BonfireWidget background",
+          "Pass in the ParallaxBackground"
+        ],
+        [
+          "MoveCameraUsingGesture",
+          "Drag to move the camera"
         ]
       ]
     }
@@ -45,16 +60,16 @@
       "Terrain and collision grid rendered"
     ],
     [
-      "Parallax Scenery",
-      "Sky and clouds scroll with depth"
-    ],
-    [
       "Camera Boundaries",
-      "Camera clamped inside the map"
+      "Camera fits and stays inside the map"
     ],
     [
-      "World Physics",
-      "Collision obstacles stop falling off"
+      "Parallax Scenery",
+      "Sky drifts behind hills that follow you"
+    ],
+    [
+      "Camera Drag",
+      "Drag to look around the map"
     ]
   ]
 }

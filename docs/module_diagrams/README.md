@@ -11,7 +11,7 @@ with (the module's completion-page achievements). Build steps and pro tips are l
 The app shows each diagram in that module's section of the Content Outline page,
 opened from the sidebar footer, from `assets/images/module_diagrams/`. Those copies have their colors written as
 attributes and plain arrowheads, so they don't rely on `<style>`, classes or `<marker>`,
-which flutter_svg doesn't fully support. Introduction and Getting Started have
+which flutter_svg doesn't fully support. Introduction, Getting Started and NPC have
 `"overview_page": false` in their specs, so they get no app copy or Content Outline section.
 
 Open a file at excalidraw.com (or import it into Excalidraw+) to view or edit it.
@@ -26,5 +26,5 @@ then run (it also rewrites the app copies):
 python3 tool/diagrams/build_module_diagrams.py
 ```
 
-Only lessons with concept cards get a column. The Enemy module and the final
-course-completion page have no lessons yet, so they have no diagram.
+Only lessons with concept cards get a column. NPC is Module 6 while it's out of
+the course. The final course-completion page has no lessons, so it has no diagram.
