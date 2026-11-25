@@ -1,11 +1,9 @@
-import 'dart:async';
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/presentation/rive/bird_rive_animation.dart';
 import 'package:bonfire_crash_course/presentation/widgets/glass_button.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:media_kit/media_kit.dart';
-import 'package:media_kit_video/media_kit_video.dart';
+import 'package:video_player/video_player.dart';
 
 class Introduction extends StatefulWidget {
   const Introduction({super.key});
@@ -15,11 +13,9 @@ class Introduction extends StatefulWidget {
 }
 
 class _IntroductionState extends State<Introduction> {
-  final _player = Player();
-  late final _controller = VideoController(_player);
-  StreamSubscription? _errorSubscription;
+  VideoPlayerController? _controller;
 
-  static const String _localVideoPath = 'asset:///assets/videos/flight.mp4';
+  static const String _localVideoAsset = 'assets/videos/flight.mp4';
   static const String _remoteVideoUrl =
       'https://pub-d3f44d01ffd44d388d0301d76139d55e.r2.dev/flight.mp4';
 
@@ -30,20 +26,48 @@ class _IntroductionState extends State<Introduction> {
   }
 
   Future<void> _initVideo() async {
-    await _player.setPlaylistMode(PlaylistMode.loop);
-    await _player.setVolume(0);
+    VideoPlayerController? controller;
 
-    _errorSubscription = _player.stream.error.listen((error) {
-      _player.open(Media(_remoteVideoUrl));
-    });
+    final local = VideoPlayerController.asset(_localVideoAsset);
+    try {
+      await local.initialize();
+      controller = local;
+    } catch (_) {
+      await local.dispose();
+    }
 
-    await _player.open(Media(_localVideoPath));
+    if (controller == null && mounted) {
+      final remote = VideoPlayerController.networkUrl(
+        Uri.parse(_remoteVideoUrl),
+      );
+      try {
+        await remote.initialize();
+        controller = remote;
+      } catch (_) {
+        await remote.dispose();
+      }
+    }
+
+    if (controller == null) return;
+
+    if (!mounted) {
+      await controller.dispose();
+      return;
+    }
+
+    _controller = controller;
+    await controller.setLooping(true);
+    await controller.setVolume(0);
+    await controller.play();
+
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void dispose() {
-    _errorSubscription?.cancel();
-    _player.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -69,7 +93,23 @@ class _IntroductionState extends State<Introduction> {
           fit: StackFit.expand,
           children: [
             // Full background video without player controls
-            Video(controller: _controller, controls: null, fit: BoxFit.cover),
+            if (_controller case final controller?
+                when controller.value.isInitialized)
+              FittedBox(
+                fit: BoxFit.cover,
+                clipBehavior: Clip.hardEdge,
+                child: SizedBox(
+                  width: controller.value.size.width > 0
+                      ? controller.value.size.width
+                      : 1920,
+                  height: controller.value.size.height > 0
+                      ? controller.value.size.height
+                      : 1080,
+                  child: VideoPlayer(controller),
+                ),
+              )
+            else
+              const ColoredBox(color: Colors.black),
 
             // Dark opacity overlay to make the text pop
             Container(

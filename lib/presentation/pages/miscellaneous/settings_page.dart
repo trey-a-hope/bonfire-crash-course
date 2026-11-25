@@ -67,8 +67,6 @@ class SettingsPage extends StatelessWidget {
                   const _AboutSection(),
                   GapSizes.largeGap,
                   const _VolumeSection(),
-                  GapSizes.largeGap,
-                  const _NotificationsSection(),
                 ],
               ),
             ),
@@ -156,37 +154,6 @@ class _VolumeSection extends SignalWidget {
             semanticFormatterCallback: (value) => '${(value * 100).round()}%',
             onChanged: SettingsController.setVolume,
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class _NotificationsSection extends SignalWidget {
-  const _NotificationsSection();
-
-  @override
-  Widget build(BuildContext context) {
-    final enabled = SettingsController.notificationsEnabled.value;
-
-    return SettingsSection(
-      title: 'Notifications',
-      children: [
-        SettingsTile(
-          icon: enabled
-              ? Icons.notifications_active_rounded
-              : Icons.notifications_off_rounded,
-          color: Colors.amberAccent,
-          title: 'Lesson reminders',
-          subtitle: enabled
-              ? 'On. We will remind you to pick up where you left off.'
-              : 'Off. You will not get lesson reminders.',
-          trailing: Switch(
-            key: const Key('settings_notifications_switch'),
-            value: enabled,
-            onChanged: SettingsController.setNotificationsEnabled,
-          ),
-          onTap: () => SettingsController.setNotificationsEnabled(!enabled),
         ),
       ],
     );

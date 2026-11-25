@@ -1,14 +1,13 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
-import 'package:bonfire_crash_course/presentation/widgets/game_window.dart';
 import 'package:material_ui/material_ui.dart';
 
 class WhatTheCourseConvers extends StatelessWidget {
   /// Builds the game window's web view. Tests pass a fake; the app leaves it
   /// null to use the real one.
-  final GameWebViewBuilder? gameWebViewBuilder;
+  // final GameWebViewBuilder? gameWebViewBuilder;
 
-  const WhatTheCourseConvers({super.key, this.gameWebViewBuilder});
+  const WhatTheCourseConvers({super.key});
 
   /// The most of the screen's height the game window may take, so the whole
   /// game stays in view on short screens.
@@ -41,8 +40,6 @@ class WhatTheCourseConvers extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // BCC-36: play the finished template game first, as large as
-                // the window allows while still leaving room to see it whole.
                 Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
@@ -69,11 +66,12 @@ class WhatTheCourseConvers extends StatelessWidget {
                             ),
                           ),
                         ),
-                        GameWindow(webViewBuilder: gameWebViewBuilder),
                       ],
                     ),
                   ),
                 ),
+                GapSizes.largeGap,
+                const Placeholder(),
                 GapSizes.largeGap,
                 // The five course modules, split into two even columns.
                 const Row(
@@ -90,22 +88,15 @@ class WhatTheCourseConvers extends StatelessWidget {
                             title: 'Map',
                             description: '?',
                           ),
-                          GapSizes.mediumGap,
-                          ModuleCard(
-                            stepNumber: '02',
-                            icon: Icons.map_rounded,
-                            accentColor: Colors.greenAccent,
-                            title: 'Hero',
-                            description: '?',
-                          ),
-                          GapSizes.mediumGap,
+                          GapSizes.largeGap,
                           ModuleCard(
                             stepNumber: '03',
                             icon: Icons.sports_esports_rounded,
                             accentColor: Colors.orangeAccent,
-                            title: 'Ally',
+                            title: 'Enemy',
                             description: '?',
                           ),
+                          GapSizes.mediumGap,
                         ],
                       ),
                     ),
@@ -115,26 +106,10 @@ class WhatTheCourseConvers extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           ModuleCard(
-                            stepNumber: '04',
-                            icon: Icons.sports_esports_rounded,
-                            accentColor: Colors.orangeAccent,
-                            title: 'Enemy',
-                            description: '?',
-                          ),
-                          GapSizes.mediumGap,
-                          ModuleCard(
-                            stepNumber: '05',
-                            icon: Icons.shield_rounded,
-                            accentColor: Colors.purpleAccent,
-                            title: 'Collisions, Combat & Mechanics',
-                            description: '?',
-                          ),
-                          GapSizes.mediumGap,
-                          ModuleCard(
-                            stepNumber: '06',
-                            icon: Icons.rocket_launch_rounded,
-                            accentColor: Colors.tealAccent,
-                            title: 'Decorations & Props',
+                            stepNumber: '02',
+                            icon: Icons.map_rounded,
+                            accentColor: Colors.greenAccent,
+                            title: 'Player',
                             description: '?',
                           ),
                         ],
