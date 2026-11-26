@@ -53,7 +53,7 @@ class LoadingTheMap extends StatelessWidget {
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
-    // Bonfire widget that manages the game loop, rendering, and components.
+-    return Placeholder(color: Colors.green);
 +    return BonfireWidget(
 +        map: WorldMapBySpritefusion(
 +            WorldMapReader.fromAsset(MAP_ONE),
