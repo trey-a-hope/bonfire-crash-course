@@ -136,18 +136,36 @@ void main() {
 
   // What the Copy button puts on the clipboard.
   group('copyableCodeSnippet', () {
-    test('drops removed lines and strips markers from added ones', () {
+    test('copies only the added lines, without markers', () {
       expect(
         copyableCodeSnippet(_addedSnippet),
-        'return BonfireWidget(\n'
-        '  map: WorldMapBySpritefusion(...),\n'
-        '  components: [ MinorEnemy(Vector2(1000, 100)) ],\n'
-        ');',
+        'components: [ MinorEnemy(Vector2(1000, 100)) ],',
       );
+      expect(copyableCodeSnippet('keep();\n- gone();\n+ added();'), 'added();');
+    });
+
+    test('copies the Loading the Map step as the green lines', () {
       expect(
-        copyableCodeSnippet('keep();\n- gone();\n+ added();'),
-        'keep();\nadded();',
+        copyableCodeSnippet('''
+@override
+Widget build(BuildContext context) {
+-    return Placeholder(color: Colors.green);
++    return BonfireWidget(
++        map: WorldMapBySpritefusion(
++            WorldMapReader.fromAsset(MAP_ONE),
++        ),
+    );
+}
+'''),
+        'return BonfireWidget(\n'
+        '    map: WorldMapBySpritefusion(\n'
+        '        WorldMapReader.fromAsset(MAP_ONE),\n'
+        '    ),',
       );
+    });
+
+    test('drops removed lines when nothing is added', () {
+      expect(copyableCodeSnippet('keep();\n- gone();'), 'keep();');
     });
 
     test('still strips comments, so an all-removed snippet copies '
@@ -239,7 +257,7 @@ void main() {
       handle.dispose();
     });
 
-    testWidgets('Copy puts the snippet without removed lines on the '
+    testWidgets('Copy puts only the added lines on the '
         'clipboard', (tester) async {
       // Records what Copy writes to the platform clipboard.
       String? copied;
@@ -262,7 +280,7 @@ void main() {
       await _pumpCard(tester, 'keep();\n- gone();\n+ added();');
       await tester.tap(find.text('Copy'));
       await tester.pump();
-      expect(copied, 'keep();\nadded();');
+      expect(copied, 'added();');
       // Let the 2-second "Copied" timer finish.
       await tester.pump(const Duration(seconds: 2));
     });

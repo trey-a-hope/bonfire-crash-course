@@ -56,18 +56,23 @@ ParsedCodeSnippet parseCodeSnippet(String snippet) {
 
 /// The text the Copy button puts on the clipboard for [snippet].
 ///
-/// Removed lines are dropped and added lines keep their code without the
-/// marker. Then every comment is removed and the shared indentation is cut,
-/// as before markers existed.
+/// When the snippet has added lines, only those are copied, without their
+/// markers: they are the code the learner types in. Otherwise removed lines
+/// are dropped and the rest is copied. Then every comment is removed and the
+/// shared indentation is cut, as before markers existed.
 @visibleForTesting
 String copyableCodeSnippet(String snippet) {
   // Untrimmed on purpose: trimming would strip the first line's indentation
   // and change how much the dedent cuts.
   final (:lines, :kinds) = _readMarkers(snippet);
+  final hasAdded = kinds.contains(CodeLineKind.added);
   return _withoutComments(
     [
       for (var i = 0; i < lines.length; i++)
-        if (kinds[i] != CodeLineKind.removed) lines[i],
+        if (hasAdded
+            ? kinds[i] == CodeLineKind.added
+            : kinds[i] != CodeLineKind.removed)
+          lines[i],
     ].join('\n'),
   );
 }
