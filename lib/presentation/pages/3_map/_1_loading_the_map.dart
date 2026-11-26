@@ -57,12 +57,10 @@ class LoadingTheMap extends StatelessWidget {
 @override
 Widget build(BuildContext context) {
     // Bonfire widget that manages the game loop, rendering, and components.
-    return BonfireWidget(
-        // Represents the 2D world where game entities interact.
-        map: WorldMapBySpritefusion(
-            // Load the map asset bundled with your project.
-            WorldMapReader.fromAsset(MAP_ONE),
-        ),
++    return BonfireWidget(
++        map: WorldMapBySpritefusion(
++            WorldMapReader.fromAsset(MAP_ONE),
++        ),
     );
 }
 ''',
