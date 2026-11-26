@@ -560,10 +560,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
                     inactiveTrackColor: Colors.white24,
                     thumbColor: Colors.white,
                   ),
-                  child: Slider(
-                    value: _volume,
-                    onChanged: _setVolume,
-                  ),
+                  child: Slider(value: _volume, onChanged: _setVolume),
                 ),
               ),
               IconButton(

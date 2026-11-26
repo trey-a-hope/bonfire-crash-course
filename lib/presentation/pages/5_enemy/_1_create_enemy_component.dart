@@ -76,25 +76,31 @@ MinorEnemy(Vector2 position)
               '\n• Delete the _rangeAttack.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           // Mirrors the signatures from the Player lessons so the learner can
-          // spot both members in the copied code.
+          // spot both members in the copied code. The "- " markers show each
+          // line as removed.
           codeSnippet: '''
-// Delete: the joystick and keyboard handler. Nothing presses keys for
-// an enemy.
-@override
-void onJoystickAction(JoystickActionEvent event) {
-  ...
-}
+// The joystick and keyboard handler. Nothing presses keys for an enemy.
+- @override
+- void onJoystickAction(JoystickActionEvent event) {
+-   ...
+- }
 
-// Delete: the projectile attack. This enemy only uses _meleeAttack.
-void _rangeAttack() {
-  ...
-}
+// The projectile attack. This enemy only uses _meleeAttack.
+- void _rangeAttack() {
+-   ...
+- }
 ''',
         ),
         CodeStep(
           description: 'Add the minor enemy to the game.',
           fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''components: [ MinorEnemy(Vector2(1000, 100)) ],
+          // The "+ " marker shows the components line as the one to add.
+          codeSnippet: '''
+return BonfireWidget(
+  map: WorldMapBySpritefusion(...),
++   components: [ MinorEnemy(Vector2(1000, 100)) ],
+  ...
+);
 ''',
         ),
       ],

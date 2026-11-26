@@ -43,11 +43,12 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
           description:
               'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
           fileName: _DART_FILE_GAME_SCREEN,
+          // The "+ " marker shows globalForces as the line to add.
           codeSnippet: '''
 return BonfireWidget(
   // Gravity for the whole game. It pulls on every character with the
   // WithForces mixin (the hero, the companion and the foe).
-  globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY))
++   globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY))
 );
 ''',
         ),
