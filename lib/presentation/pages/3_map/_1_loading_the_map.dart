@@ -47,10 +47,18 @@ class LoadingTheMap extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// This will bring in all the tools we need from the Bonfire package.
++ import 'package:bonfire/bonfire.dart';
+''',
+        ),
+        CodeStep(
           description:
               'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
           fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
+          codeSnippet: ''' 
 @override
 Widget build(BuildContext context) {
 -    return Placeholder(color: Colors.green);
@@ -58,7 +66,7 @@ Widget build(BuildContext context) {
 +        map: WorldMapBySpritefusion(
 +            WorldMapReader.fromAsset(MAP_ONE),
 +        ),
-    );
++    );
 }
 ''',
         ),
@@ -67,21 +75,25 @@ Widget build(BuildContext context) {
               'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// Class use to configure camera behavior.
-final _cameraConfig = CameraConfig(
-    // Automatic zoom with base some configurations.
-    initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
-    // When this true the camera remains within the map area
-    moveOnlyMapArea: true,
-);
-
-@override
-Widget build(BuildContext context) {
-    return BonfireWidget(
-        cameraConfig: _cameraConfig,
-        ... // Other parameters
-    );
-}
++ final _cameraConfig = CameraConfig(
++     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
++     moveOnlyMapArea: true,
++ );
+''',
+        ),
+        CodeStep(
+          description: 'Tell BonfireWidget to use your camera config.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+  @override
+  Widget build(BuildContext context) {
+      return BonfireWidget(
++           cameraConfig: _cameraConfig,
+          map: WorldMapBySpritefusion(
+              WorldMapReader.fromAsset(MAP_ONE),
+          ),
+      );
+  }
 ''',
         ),
       ],
