@@ -50,8 +50,7 @@ class ApplyBehaviorPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add the UseBehavior mixin to the MinorEnemy class, after its other mixins.',
+          description: 'Add the UseBehavior mixin to MinorEnemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy extends PlatformEnemy ...
@@ -60,17 +59,11 @@ class MinorEnemy extends PlatformEnemy ...
 ''',
         ),
         CodeStep(
-          description:
-              'Override the behaviors getter in MinorEnemy. It starts as an empty list; the next steps fill it.',
+          description: 'Override the behaviors getter. It starts empty.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy ... {
   ...
-+   /// AI behavior tree, evaluated every frame from top to bottom.
-+   ///
-+   /// - Player within 5 tiles: chase and melee when adjacent.
-+   /// - Player out of sight: patrol.
-+   /// - No player, or player is dead: patrol.
 +   @override
 +   List<Behavior> get behaviors => [];
 }
@@ -78,14 +71,12 @@ class MinorEnemy ... {
         ),
         CodeStep(
           description:
-              'Add a randomMovement getter below behaviors. It is the patrol the enemy falls back to whenever it isn\'t chasing.',
+              'Add randomMovement, the patrol the enemy falls back to.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 @override
 List<Behavior> get behaviors => [];
 
-+ /// Idle patrol: wander up to 4 tiles at half speed.
-+ /// A getter, so each use gets its own fresh instance.
 + Behavior get randomMovement => BRandomMovement(
 +       speed: speed / 2,
 +       maxDistance: (TILE_SIZE * 4),
@@ -93,8 +84,7 @@ List<Behavior> get behaviors => [];
 ''',
         ),
         CodeStep(
-          description:
-              'Inside the square brackets of the behaviors list, add a BCondition. The next three steps go inside its parentheses.',
+          description: 'Add a BCondition inside the behaviors list.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 @override
@@ -105,11 +95,10 @@ List<Behavior> get behaviors => [
         ),
         CodeStep(
           description:
-              'Give the BCondition its condition: true only while the game has a player who is still alive.',
+              'Give the BCondition a condition: a living player exists.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-+   // Only engage while there's a living player to target.
 +   condition: (dt, component, game) {
 +     return game.player != null && game.player?.isDead == false;
 +   },
@@ -117,17 +106,11 @@ BCondition(
 ''',
         ),
         CodeStep(
-          description:
-              'Below condition, add doBehavior: what the enemy does while the condition is true. It chases the hero within 5 tiles and melee attacks when it reaches them, or patrols when the hero is out of sight.',
+          description: 'Chase and melee the hero within 5 tiles in doBehavior.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-  condition: (dt, component, game) {
-    ...
-  },
-+   // Player within 5 tiles: chase them down,
-+   // and melee as soon as we're close enough to touch.
-+   // Otherwise, patrol.
+  condition: ...,
 +   doBehavior: BSeeAndMoveToTarget(
 +     target: gameRef.player!,
 +     radiusVision: TILE_SIZE * 5,
@@ -139,27 +122,20 @@ BCondition(
         ),
         CodeStep(
           description:
-              'Below doBehavior, add doElseBehavior: what the enemy does while the condition is false. With no living player to chase, it patrols.',
+              'Patrol in doElseBehavior when there is no living player.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-  condition: (dt, component, game) {
-    ...
-  },
-  doBehavior: BSeeAndMoveToTarget(
-    ...
-  ),
-+   // No player, or the player is dead: patrol.
+  condition: ...,
+  doBehavior: ...,
 +   doElseBehavior: randomMovement,
 )
 ''',
         ),
         CodeStep(
           description:
-              'In MinorEnemy\'s _meleeAttack, set attackFrom to AttackOriginEnum.ENEMY. The code copied from HeroPlayer still says PLAYER_OR_ALLY, so the enemy\'s strike would never hurt the hero.',
+              'Make the enemy\'s melee hurt the hero: set attackFrom to ENEMY.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          // The "- " line is the attackFrom copied from HeroPlayer's
-          // _meleeAttack; the "+ " line replaces it.
           codeSnippet: '''
 _meleeAttack(
 -       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,

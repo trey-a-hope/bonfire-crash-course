@@ -68,8 +68,7 @@ class ApplyLifebarPage extends StatelessWidget {
           codeSnippet: _IMPORTS_SNIPPET,
         ),
         CodeStep(
-          description:
-              'Add the WithLifeBar mixin to the MinorEnemy class, after its other mixins.',
+          description: 'Add the WithLifeBar mixin to MinorEnemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy extends PlatformEnemy ...
@@ -78,41 +77,33 @@ class MinorEnemy extends PlatformEnemy ...
 ''',
         ),
         CodeStep(
-          description:
-              'In the MinorEnemy constructor\'s super(...) call, give the enemy 50 life.',
+          description: 'Give MinorEnemy 50 life.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 MinorEnemy(Vector2 position)
     : super(
         position: position,
-+         life: 50,
++       life: 50,
         ...
       );
 ''',
         ),
         CodeStep(
           description:
-              'Give the MinorEnemy constructor a body, right after super(...), that sets up a red life bar with rounded corners.',
+              'Style MinorEnemy\'s life bar in red with rounded corners.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 MinorEnemy(Vector2 position)
-    : super(
-        ...
--       );
-+       )
-+ {
+    : super(...) {
 +   lifeBar.setup(
 +     backgroundColor: Colors.red,
-+     borderRadius: BorderRadius.all(
-+       Radius.circular(8),
-+     ),
++     borderRadius: BorderRadius.circular(8),
 +   );
-+ }
+}
 ''',
         ),
         CodeStep(
-          description:
-              'Add the WithLifeBar mixin to the HeroPlayer class, after its other mixins.',
+          description: 'Add the WithLifeBar mixin to HeroPlayer.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ...
@@ -121,36 +112,29 @@ class HeroPlayer extends PlatformPlayer ...
 ''',
         ),
         CodeStep(
-          description:
-              'In the HeroPlayer constructor\'s super(...) call, give the hero 100 life.',
+          description: 'Give HeroPlayer 100 life.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
         position: position,
-+         life: 100,
++       life: 100,
         ...
       );
 ''',
         ),
         CodeStep(
           description:
-              'Give the HeroPlayer constructor a body, right after super(...), that sets up a green life bar with rounded corners.',
+              'Style HeroPlayer\'s life bar in green with rounded corners.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
-    : super(
-        ...
--       );
-+       )
-+ {
+    : super(...) {
 +   lifeBar.setup(
 +     backgroundColor: Colors.green,
-+     borderRadius: BorderRadius.all(
-+       Radius.circular(8),
-+     ),
++     borderRadius: BorderRadius.circular(8),
 +   );
-+ }
+}
 ''',
         ),
       ],

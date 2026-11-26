@@ -10,40 +10,6 @@ const _DART_FILE_CHARACTERS_MINOR_ENEMY =
 const _DART_FILE_CHARACTERS_HERO_PLAYER =
     'lib/presentation/characters/hero_player.dart';
 
-/// The hurt code, shared word for word by MinorEnemy and HeroPlayer. Every
-/// line is marked "+ " as added, indented to sit inside the class.
-const _HURT_SNIPPET = '''
-+   @override
-+   void onMount() {
-+     super.onMount();
-+     life.onReceiveDamageListener(_onHurt);
-+   }
-+
-+   /// Called every time an attack hits the foe.
-+   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
-+     animation?.playOnceOther(
-+       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
-+       runToTheEnd: true,
-+     );
-+   }
-''';
-
-/// The hurt code inside MinorEnemy, so the learner sees it goes in the class.
-const _MINOR_ENEMY_HURT_SNIPPET =
-    '''
-class MinorEnemy ... {
-  ...
-$_HURT_SNIPPET}
-''';
-
-/// The hurt code inside HeroPlayer, so the learner sees it goes in the class.
-const _HERO_PLAYER_HURT_SNIPPET =
-    '''
-class HeroPlayer ... {
-  ...
-$_HURT_SNIPPET}
-''';
-
 /// Enemy lesson 4, "Respond to Hurt": registers a damage listener in
 /// onMount for MinorEnemy and HeroPlayer that plays the hurt animation once
 /// for the direction the character faces. Routed at `/enemy/respond-to-hurt`
@@ -85,16 +51,55 @@ class RespondToHurtPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'In MinorEnemy, override onMount to listen for damage, and add _onHurt to play the hurt animation for the direction the enemy faces.',
+          description: 'Override onMount in MinorEnemy to listen for damage.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: _MINOR_ENEMY_HURT_SNIPPET,
+          codeSnippet: '''
+class MinorEnemy ... {
+  ...
++   @override
++   void onMount() {
++     super.onMount();
++     life.onReceiveDamageListener(_onHurt);
++   }
+}
+''',
         ),
         CodeStep(
           description:
-              'Copy the exact same onMount and _onHurt into HeroPlayer.',
+              'Add _onHurt to play the hurt animation for the facing direction.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''
+class MinorEnemy ... {
+  ...
++   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
++     animation?.playOnceOther(
++       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
++       runToTheEnd: true,
++     );
++   }
+}
+''',
+        ),
+        CodeStep(
+          description: 'Copy the same onMount and _onHurt into HeroPlayer.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: _HERO_PLAYER_HURT_SNIPPET,
+          codeSnippet: '''
+class HeroPlayer ... {
+  ...
++   @override
++   void onMount() {
++     super.onMount();
++     life.onReceiveDamageListener(_onHurt);
++   }
++
++   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
++     animation?.playOnceOther(
++       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
++       runToTheEnd: true,
++     );
++   }
+}
+''',
         ),
       ],
       timeToCodeStatement:

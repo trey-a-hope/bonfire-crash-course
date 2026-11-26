@@ -64,7 +64,7 @@ class RespondToDiePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'In MinorEnemy, add _onDie: drop the life bar, pause the behaviors, stop, and play the death animation once before removing the enemy.',
+              'Add _onDie to MinorEnemy to drop the bar, stop and play the death animation.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy ... {
@@ -83,14 +83,12 @@ class MinorEnemy ... {
 ''',
         ),
         CodeStep(
-          description:
-              'In MinorEnemy\'s onMount, listen for death and call _onDie.',
+          description: 'Listen for death in MinorEnemy\'s onMount.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),
         CodeStep(
-          description:
-              'Copy the exact same _onDie into HeroPlayer, then remove the pauseBehaviors() line. The hero has no behaviors to pause.',
+          description: 'Copy _onDie into HeroPlayer, without pauseBehaviors().',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 class HeroPlayer ... {
@@ -108,8 +106,7 @@ class HeroPlayer ... {
 ''',
         ),
         CodeStep(
-          description:
-              'In HeroPlayer\'s onMount, listen for death and call _onDie.',
+          description: 'Listen for death in HeroPlayer\'s onMount.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),

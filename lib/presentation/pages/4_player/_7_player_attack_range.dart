@@ -31,16 +31,13 @@ class PlayerAttackRangePage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
+          description: 'Create _rangeAttack and play the cast animation.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
-  ...
 +   void _rangeAttack() {
 +     if (_isAttacking) return;
 +     _isAttacking = true;
-+
 +     SpriteTools.playAttackAnimation(
 +       attackLeft: RANGE_ATTACK_LEFT,
 +       attackRight: RANGE_ATTACK_RIGHT,
@@ -48,35 +45,51 @@ class HeroPlayer extends PlatformPlayer ... {
 +       direction: hDirection,
 +       onFinish: () => _isAttacking = false,
 +     );
-+
-+     attack.range(
-+       animation: SpriteTools.loadProjectileAnimation(
-+         asset: _asset,
-+         direction: hDirection,
-+       ),
-+       size: Vector2.all(16),
-+       destroySize: Vector2.all(TILE_SIZE),
-+       direction: hDirection,
-+       speed: 220,
-+       damage: 15,
-+       marginFromOrigin: 8,
-+       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
-+     );
 +   }
 }
 ''',
         ),
         CodeStep(
-          description:
-              'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
+          description: 'Fire a 16x16 projectile in the facing direction.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+void _rangeAttack() {
+     if (_isAttacking) return;
+     _isAttacking = true;
+     SpriteTools.playAttackAnimation(
+       attackLeft: RANGE_ATTACK_LEFT,
+       attackRight: RANGE_ATTACK_RIGHT,
+       animation: animation!,
+       direction: hDirection,
+       onFinish: () => _isAttacking = false,
+     );
+
++   attack.range(
++     animation: SpriteTools.loadProjectileAnimation(
++       asset: _asset,
++       direction: hDirection,
++     ),
++     size: Vector2.all(16),
++     destroySize: Vector2.all(TILE_SIZE),
++     direction: hDirection,
++     speed: 220,
++     damage: 15,
++     marginFromOrigin: 8,
++     attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
++   );
+}
+''',
+        ),
+        CodeStep(
+          description: 'Map W to the range attack in onJoystickAction.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
 void onJoystickAction(JoystickActionEvent event) {
   if (event.event == ActionEvent.DOWN) {
     if (event.id == LogicalKeyboardKey.space) jumper.jump();
-    if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
-+     if (event.id == LogicalKeyboardKey.keyA) _rangeAttack();
+    if (event.id == LogicalKeyboardKey.keyS) _meleeAttack();
++     if (event.id == LogicalKeyboardKey.keyW) _rangeAttack();
   }
   super.onJoystickAction(event);
 }

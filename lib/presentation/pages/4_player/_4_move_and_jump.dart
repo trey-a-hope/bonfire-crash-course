@@ -41,7 +41,6 @@ class MoveAndJumpPage extends StatelessWidget {
           description: 'Add all imports at the top of hero.dart.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-// Flutter's services library, for LogicalKeyboardKey.
 + import 'package:flutter/services.dart';
 ''',
         ),
@@ -49,39 +48,35 @@ class MoveAndJumpPage extends StatelessWidget {
           description: 'Add all imports at the top of game_screen.dart.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// The template's keyboard setup: arrow keys move, Space, A and D are actions.
 + import 'package:bonfire_crash_course_playground/core/keyboards/default_keyboard.dart';
 ''',
         ),
         CodeStep(
-          description: 'Add KeyboardEventListener mixin to the hero class.',
+          description: 'Add the KeyboardEventListener mixin to HeroPlayer.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-+ class Hero ... with KeyboardEventListener { ... }
++ class HeroPlayer ... with KeyboardEventListener { ... }
 ''',
         ),
-
         CodeStep(
           description:
-              'Add the countJumps property to the player constructor to enable double jumping.',
+              'Set countJumps to 2 in the constructor to allow a double jump.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
         position: position,
         size: Vector2.all(TILE_SIZE),
-        animation: SpriteTools.buildAnimation(asset: _asset),
-+         countJumps: 2,
++       countJumps: 2,
       );
 ''',
         ),
         CodeStep(
           description:
-              'Override the onKeyboard method. On key down, Space jumps, A moves left, and D moves right.',
+              'Override onJoystickAction so Space makes the hero jump.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
-  ...
 +   @override
 +   void onJoystickAction(JoystickActionEvent event) {
 +     if (event.event == ActionEvent.DOWN) {
@@ -93,8 +88,7 @@ class HeroPlayer extends PlatformPlayer ... {
 ''',
         ),
         CodeStep(
-          description:
-              'Register a Keyboard controller on BonfireWidget so the game forwards key presses to the hero.',
+          description: 'Register the keyboard controller on BonfireWidget.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
