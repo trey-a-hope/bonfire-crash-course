@@ -342,7 +342,6 @@ class ParallaxBackground extends GameBackground {
 +   @override
 +   void onGameResize(Vector2 size) {
 +     super.onGameResize(size);
-+     // Reload the parallax on resize when not in cutscene/scene building.
 +     final isRunning = gameRef.sceneBuilderStatus.isRunning;
 +     if (!isRunning) {
 +       _addParallax();
