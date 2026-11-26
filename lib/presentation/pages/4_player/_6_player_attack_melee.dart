@@ -40,7 +40,7 @@ class PlayerAttackMeleePage extends StatelessWidget {
               'Add the WithAttack mixin to the Hero class. It gives the hero the attack.melee and attack.range API.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero extends PlatformPlayer ... WithAttack { ... }
++ class Hero extends PlatformPlayer ... WithAttack { ... }
 ''',
         ),
         CodeStep(
@@ -48,9 +48,14 @@ class Hero extends PlatformPlayer ... WithAttack { ... }
               'Track whether an attack is playing so attacks can\'t be spammed, and add a helper that plays the attack for the direction the hero faces.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// True while an attack animation is playing, so attacks can't be spammed
-/// faster than the hero can swing.
-bool _isAttacking = false;
+class HeroPlayer extends PlatformPlayer ... {
+  static const _asset = CharacterAsset.wizard;
+
++   /// True while an attack animation is playing, so attacks can't be spammed
++   /// faster than the hero can swing.
++   bool _isAttacking = false;
+  ...
+}
 ''',
         ),
         CodeStep(
@@ -58,27 +63,30 @@ bool _isAttacking = false;
               'Create the melee attack: play the swing, then spawn an invisible 32x32 hit area in front of the hero.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-void _meleeAttack() {
-  if (_isAttacking) return;
-  _isAttacking = true;
-
-  SpriteTools.playAttackAnimation(
-    attackLeft: MELEE_ATTACK_LEFT,
-    attackRight: MELEE_ATTACK_RIGHT,
-    animation: animation!,
-    direction: hDirection,
-    onFinish: () => _isAttacking = false,
-  );
-
-  // The swing and sparks are drawn in the hero's own sheet, so the attack
-  // only needs an invisible hitbox in front of the hero (no animation here).
-  attack.melee(
-    damage: 20,
-    size: Vector2.all(TILE_SIZE),
-    withPush: true,
-    sizePush: 8,
-    attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
-  );
+class HeroPlayer extends PlatformPlayer ... {
+  ...
++   void _meleeAttack() {
++     if (_isAttacking) return;
++     _isAttacking = true;
++
++     SpriteTools.playAttackAnimation(
++       attackLeft: MELEE_ATTACK_LEFT,
++       attackRight: MELEE_ATTACK_RIGHT,
++       animation: animation!,
++       direction: hDirection,
++       onFinish: () => _isAttacking = false,
++     );
++
++     // The swing and sparks are drawn in the hero's own sheet, so the attack
++     // only needs an invisible hitbox in front of the hero (no animation here).
++     attack.melee(
++       damage: 20,
++       size: Vector2.all(TILE_SIZE),
++       withPush: true,
++       sizePush: 8,
++       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
++     );
++   }
 }
 ''',
         ),
@@ -91,7 +99,8 @@ void _meleeAttack() {
 @override
 void onJoystickAction(JoystickActionEvent event) {
   if (event.event == ActionEvent.DOWN) {
-    if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
+    if (event.id == LogicalKeyboardKey.space) jumper.jump();
++     if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
   }
   super.onJoystickAction(event);
 }

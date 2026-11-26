@@ -30,10 +30,18 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+// The template's mixin that keeps a component inside the map.
++ import 'package:bonfire_crash_course_playground/core/mixins/screen_boundary_checker.dart';
+''',
+        ),
+        CodeStep(
           description: 'Add the ScreenBoundaryChecker mixin to the Hero class.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero ... with ScreenBoundaryChecker { ... }
++ class Hero ... with ScreenBoundaryChecker { ... }
 ''',
         ),
         CodeStep(
@@ -41,15 +49,18 @@ class Hero ... with ScreenBoundaryChecker { ... }
               'Override the update method to keep the player on the map.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Called every game tick to update the player's state.
-@override
-void update(double dt) {
-  // Pause player logic and movement while a cutscene/cinematic scene is active.
-  if (gameRef.sceneBuilderStatus.isRunning) return;
-  // Constrain the player to stay within the map/screen boundaries.
-  checkBoundaries();
-  // Run standard PlatformPlayer animation updates.
-  super.update(dt);
+class HeroPlayer extends PlatformPlayer ... {
+  ...
++   /// Called every game tick to update the player's state.
++   @override
++   void update(double dt) {
++     // Pause player logic and movement while a cutscene/cinematic scene is active.
++     if (gameRef.sceneBuilderStatus.isRunning) return;
++     // Constrain the player to stay within the map/screen boundaries.
++     checkBoundaries();
++     // Run standard PlatformPlayer animation updates.
++     super.update(dt);
++   }
 }
 ''',
         ),

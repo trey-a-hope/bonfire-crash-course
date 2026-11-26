@@ -50,10 +50,12 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
           codeSnippet: '''
 /// A friendly NPC that stands on the map and talks to the hero.
 ///
-/// [SimpleAlly] is Bonfire's Ally: an NPC on the player's side. Bonfire 4.0
-/// has no `PlatformAlly`, so [WithCollision] and [WithForces] give it the
-/// same platform behaviour the hero gets from [PlatformPlayer].
-class Companion extends SimpleAlly with WithCollision, WithForces { ... }
+- /// [SimpleAlly] is Bonfire's Ally: an NPC on the player's side.
++ /// [SimpleAlly] is Bonfire's Ally: an NPC on the player's side. Bonfire 4.0
++ /// has no `PlatformAlly`, so [WithCollision] and [WithForces] give it the
++ /// same platform behaviour the hero gets from [PlatformPlayer].
+- class Companion extends SimpleAlly {
++ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
 ''',
         ),
         CodeStep(
@@ -61,14 +63,14 @@ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
               'Override onLoad and add a RectangleHitbox the same size as the companion.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-/// Runs once when the companion is added to the game.
-@override
-Future<void> onLoad() async {
-  // The hitbox is the companion's solid shape: it stands on the ground
-  // and stops at walls.
-  add(RectangleHitbox(size: size));
-  return super.onLoad();
-}
++ /// Runs once when the companion is added to the game.
++ @override
++ Future<void> onLoad() async {
++   // The hitbox is the companion's solid shape: it stands on the ground
++   // and stops at walls.
++   add(RectangleHitbox(size: size));
++   return super.onLoad();
++ }
 ''',
         ),
       ],

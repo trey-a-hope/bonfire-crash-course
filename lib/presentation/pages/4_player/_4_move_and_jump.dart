@@ -38,10 +38,26 @@ class MoveAndJumpPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top of hero.dart.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+// Flutter's services library, for LogicalKeyboardKey.
++ import 'package:flutter/services.dart';
+''',
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of game_screen.dart.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// The template's keyboard setup: arrow keys move, Space, A and D are actions.
++ import 'package:bonfire_crash_course_playground/core/keyboards/default_keyboard.dart';
+''',
+        ),
+        CodeStep(
           description: 'Add KeyboardEventListener mixin to the hero class.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero ... with KeyboardEventListener { ... }
++ class Hero ... with KeyboardEventListener { ... }
 ''',
         ),
 
@@ -50,7 +66,13 @@ class Hero ... with KeyboardEventListener { ... }
               'Add the countJumps property to the player constructor to enable double jumping.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-countJumps: 2,
+HeroPlayer(Vector2 position)
+    : super(
+        position: position,
+        size: Vector2.all(TILE_SIZE),
+        animation: SpriteTools.buildAnimation(asset: _asset),
++         countJumps: 2,
+      );
 ''',
         ),
         CodeStep(
@@ -58,12 +80,15 @@ countJumps: 2,
               'Override the onKeyboard method. On key down, Space jumps, A moves left, and D moves right.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-@override
-void onJoystickAction(JoystickActionEvent event) {
-  if (event.event == ActionEvent.DOWN) {
-    if (event.id == LogicalKeyboardKey.space) jumper.jump();
-  }
-  super.onJoystickAction(event);
+class HeroPlayer extends PlatformPlayer ... {
+  ...
++   @override
++   void onJoystickAction(JoystickActionEvent event) {
++     if (event.event == ActionEvent.DOWN) {
++       if (event.id == LogicalKeyboardKey.space) jumper.jump();
++     }
++     super.onJoystickAction(event);
++   }
 }
 ''',
         ),
@@ -72,7 +97,11 @@ void onJoystickAction(JoystickActionEvent event) {
               'Register a Keyboard controller on BonfireWidget so the game forwards key presses to the hero.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-playerControllers: [DefaultKeyboard()],
+return BonfireWidget(
++   playerControllers: [DefaultKeyboard()],
+  player: HeroPlayer(Vector2(100, 100)),
+  ...
+);
 ''',
         ),
       ],

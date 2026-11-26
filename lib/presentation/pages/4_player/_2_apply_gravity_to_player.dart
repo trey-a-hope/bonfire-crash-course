@@ -55,7 +55,7 @@ return BonfireWidget(
               'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero ... with WithForces { ... }
++ class Hero ... with WithForces { ... }
 ''',
         ),
       ],

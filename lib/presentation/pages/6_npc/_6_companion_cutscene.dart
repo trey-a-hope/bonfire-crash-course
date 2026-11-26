@@ -56,18 +56,26 @@ class CompanionCutscenePage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add an import for dart:async at the top of companion.dart, for the Completer the dialogue uses. Then add two constants to the Companion class, above _talk: how much the camera zooms in on Berry, and how long each pan takes.',
+          description: 'Add all imports at the top.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-/// How much closer the camera zooms in on the companion while it talks.
-static const _talkZoom = 1.25;
-
-/// How long the camera takes to pan to the companion, and back to the
-/// hero afterwards.
-///
-/// Whole seconds only: [CameraSceneAction] drops any fraction of a second.
-static const _panDuration = Duration(seconds: 1);
+// For the Completer the dialogue uses.
++ import 'dart:async';
+''',
+        ),
+        CodeStep(
+          description:
+              'Add two constants to the Companion class, above _talk: how much the camera zooms in on Berry, and how long each pan takes.',
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
++ /// How much closer the camera zooms in on the companion while it talks.
++ static const _talkZoom = 1.25;
++
++ /// How long the camera takes to pan to the companion, and back to the
++ /// hero afterwards.
++ ///
++ /// Whole seconds only: [CameraSceneAction] drops any fraction of a second.
++ static const _panDuration = Duration(seconds: 1);
 ''',
         ),
         CodeStep(
@@ -75,43 +83,49 @@ static const _panDuration = Duration(seconds: 1);
               'Replace _talk with the cutscene. It still runs only once and stops the hero and Berry, then remembers the current zoom and starts a scene with three actions: pan to Berry, wait for the dialogue, and pan back to the hero.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-/// Plays the first conversation as a short cutscene (only once): the
-/// camera pans to the companion, the dialogue opens, and when it closes
-/// the camera pans back to the hero. The companion waves on the way back,
-/// then follows the hero.
-void _talk() {
-  if (_hasTalked) return;
-  _hasTalked = true;
+- /// Pauses the game and opens the dialogue (only once). When it closes,
+- /// the companion waves and then follows the hero.
+- void _talk() {
+-   ...
+- }
 
-  final hero = gameRef.player;
-  if (hero == null) return;
-
-  // Stop the hero, and the companion if it was following.
-  hero.onJoystickChangeDirectional(
-    JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
-  );
-  _stopWalking();
-
-  // The zoom the game had before the cutscene, to go back to after it.
-  final zoom = gameRef.camera.zoom;
-
-  // A scene runs its actions one after another. While it runs the hero
-  // ignores input and stands still (see Hero.update), so the player gets
-  // control back only once the camera is back on the hero.
-  gameRef.startScene([
-    // Pan (and zoom in a little) to the companion.
-    CameraSceneAction.target(
-      this,
-      zoom: zoom * _talkZoom,
-      duration: _panDuration,
-    ),
-    // Talk, and wait here until the dialogue closes.
-    AwaitSceneAction(wait: _showDialogue),
-    // Pan back to the hero at the original zoom. The camera keeps
-    // following the hero after this.
-    CameraSceneAction.target(hero, zoom: zoom, duration: _panDuration),
-  ]);
-}
++ /// Plays the first conversation as a short cutscene (only once): the
++ /// camera pans to the companion, the dialogue opens, and when it closes
++ /// the camera pans back to the hero. The companion waves on the way back,
++ /// then follows the hero.
++ void _talk() {
++   if (_hasTalked) return;
++   _hasTalked = true;
++
++   final hero = gameRef.player;
++   if (hero == null) return;
++
++   // Stop the hero, and the companion if it was following.
++   hero.onJoystickChangeDirectional(
++     JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
++   );
++   _stopWalking();
++
++   // The zoom the game had before the cutscene, to go back to after it.
++   final zoom = gameRef.camera.zoom;
++
++   // A scene runs its actions one after another. While it runs the hero
++   // ignores input and stands still (see Hero.update), so the player gets
++   // control back only once the camera is back on the hero.
++   gameRef.startScene([
++     // Pan (and zoom in a little) to the companion.
++     CameraSceneAction.target(
++       this,
++       zoom: zoom * _talkZoom,
++       duration: _panDuration,
++     ),
++     // Talk, and wait here until the dialogue closes.
++     AwaitSceneAction(wait: _showDialogue),
++     // Pan back to the hero at the original zoom. The camera keeps
++     // following the hero after this.
++     CameraSceneAction.target(hero, zoom: zoom, duration: _panDuration),
++   ]);
++ }
 ''',
         ),
         CodeStep(
@@ -119,44 +133,44 @@ void _talk() {
               'Move the dialogue into _showDialogue, which AwaitSceneAction waits on. It is the dialogue code from the last lesson, with one change: a Completer. Its future is returned straight away, and completing it in onClose tells the scene the dialogue is done.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
-/// Pauses the game and shows the dialogue. Completes once it has closed
-/// and the game is running again; the companion starts its wave then.
-Future<void> _showDialogue() {
-  final closed = Completer<void>();
-
-  // Freeze the game right away, before the dialogue opens. Opening it can
-  // stall the app for a moment; if the game kept running, that stall would
-  // become one huge physics step and a hero in mid-jump could fall
-  // straight through the ground.
-  gameRef.pauseEngine();
-
-  TalkDialog.show(
-    context,
-    [
-      // The first line waves hello in the dialogue itself, since the game
-      // (and the companion in it) is frozen.
-      _say('Oh, hi there! I\'m Berry.', face: const _WaveThenTalk()),
-      _say('Watch your step, the hills around here are tricky.'),
-      _say('Mind if I tag along?'),
-    ],
-    // Runs once the dialogue is gone from the screen.
-    onClose: () {
-      gameRef.resumeEngine();
-      // Wave once more (while the camera pans back), then follow the hero
-      // from now on. playOnceOther returns a Future that completes when
-      // the wave ends (or right away if there is no wave), so following
-      // always starts.
-      final wave = animation?.playOnceOther(
-        _waveAnimation,
-        // Without this, the switch back to idle would cut the wave short.
-        runToTheEnd: true,
-      );
-      (wave ?? Future.value()).then((_) => _isFollowing = true);
-      closed.complete();
-    },
-  );
-  return closed.future;
-}
++ /// Pauses the game and shows the dialogue. Completes once it has closed
++ /// and the game is running again; the companion starts its wave then.
++ Future<void> _showDialogue() {
++   final closed = Completer<void>();
++
++   // Freeze the game right away, before the dialogue opens. Opening it can
++   // stall the app for a moment; if the game kept running, that stall would
++   // become one huge physics step and a hero in mid-jump could fall
++   // straight through the ground.
++   gameRef.pauseEngine();
++
++   TalkDialog.show(
++     context,
++     [
++       // The first line waves hello in the dialogue itself, since the game
++       // (and the companion in it) is frozen.
++       _say('Oh, hi there! I\'m Berry.', face: const _WaveThenTalk()),
++       _say('Watch your step, the hills around here are tricky.'),
++       _say('Mind if I tag along?'),
++     ],
++     // Runs once the dialogue is gone from the screen.
++     onClose: () {
++       gameRef.resumeEngine();
++       // Wave once more (while the camera pans back), then follow the hero
++       // from now on. playOnceOther returns a Future that completes when
++       // the wave ends (or right away if there is no wave), so following
++       // always starts.
++       final wave = animation?.playOnceOther(
++         _waveAnimation,
++         // Without this, the switch back to idle would cut the wave short.
++         runToTheEnd: true,
++       );
++       (wave ?? Future.value()).then((_) => _isFollowing = true);
++       closed.complete();
++     },
++   );
++   return closed.future;
++ }
 ''',
         ),
       ],

@@ -44,6 +44,30 @@ class CreateEnemyComponentPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top of minor_enemy.dart.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''
+// PlatformEnemy, Vector2, the hitbox and the attack API.
++ import 'package:bonfire/bonfire.dart';
+// The sprite sheet paths for each character.
++ import 'package:bonfire_crash_course_playground/core/constants/character_asset.dart';
+// TILE_SIZE and the attack animation names.
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
+// The ScreenBoundaryChecker mixin copied over from HeroPlayer.
++ import 'package:bonfire_crash_course_playground/core/mixins/screen_boundary_checker.dart';
+// SpriteTools, which builds and plays the character's animations.
++ import 'package:bonfire_crash_course_playground/core/utils/sprite_tools.dart';
+''',
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of game_screen.dart.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// The MinorEnemy class you're about to write.
++ import 'package:bonfire_crash_course_playground/presentation/characters/minor_enemy.dart';
+''',
+        ),
+        CodeStep(
           // Shown as plain text, so each "\n• " starts a new bullet line.
           description:
               'Create the MinorEnemy class in minor_enemy.dart from the hero\'s code:'
@@ -52,9 +76,12 @@ class CreateEnemyComponentPage extends StatelessWidget {
               '\n• Change the component type from PlatformPlayer to PlatformEnemy.'
               '\n• Remove the KeyboardEventListener.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // The "- " and "+ " markers show the constructor's rename; the
+          // lines below it stay as they were copied.
           codeSnippet: '''
 /// Creates the enemy at [position] (in pixels from the map's top-left).
-MinorEnemy(Vector2 position)
+- HeroPlayer(Vector2 position)
++ MinorEnemy(Vector2 position)
     : super(
         position: position,
         size: Vector2.all(TILE_SIZE),
@@ -92,9 +119,12 @@ MinorEnemy(Vector2 position)
         CodeStep(
           description: 'Add the minor enemy to the game.',
           fileName: _DART_FILE_GAME_SCREEN,
-          // Just the added line, so Copy pastes straight into BonfireWidget.
+          // The "+ " marker shows components as the line to add; Copy
+          // copies only that line.
           codeSnippet: '''
-+ components: [ MinorEnemy(Vector2(1000, 100)) ],
+return BonfireWidget(
++   components: [ MinorEnemy(Vector2(1000, 100)) ],
+);
 ''',
         ),
       ],

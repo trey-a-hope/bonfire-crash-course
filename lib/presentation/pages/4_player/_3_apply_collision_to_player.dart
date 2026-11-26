@@ -35,13 +35,16 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
               'By default, the player doesn’t have a shape for the physics engine to detect. Add a hitbox to give the hero volume.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Runs once when the hero is added to the game.
-@override
-Future<void> onLoad() async {
-  // The hitbox is the hero's solid shape.
-  // Without it, the hero falls straight through the ground.
-  add(RectangleHitbox(size: size));
-  return super.onLoad();
+class HeroPlayer extends PlatformPlayer ... {
+  ...
++   /// Runs once when the hero is added to the game.
++   @override
++   Future<void> onLoad() async {
++     // The hitbox is the hero's solid shape.
++     // Without it, the hero falls straight through the ground.
++     add(RectangleHitbox(size: size));
++     return super.onLoad();
++   }
 }
 ''',
         ),

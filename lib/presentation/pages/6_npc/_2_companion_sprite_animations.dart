@@ -45,32 +45,32 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
 Companion(Vector2 position)
     : super(
         ... // position, size, life, speed
-        // The strawberry faces the camera, so left and right share a sheet.
-        animation: SimpleDirectionAnimation(
-          // Idle breathes, sways its stem and blinks: 8 frames, played slowly.
-          idleRight: AnimationUtils.loadAnimation(
-            STRAWBERRY_IDLE,
-            amount: 8,
-            stepTime: 0.15,
-          ),
-          idleLeft: AnimationUtils.loadAnimation(
-            STRAWBERRY_IDLE,
-            amount: 8,
-            stepTime: 0.15,
-          ),
-          // Walk steps quickly enough to match the speed, so the feet
-          // don't look like they're sliding.
-          runRight: AnimationUtils.loadAnimation(
-            STRAWBERRY_WALK,
-            amount: 4,
-            stepTime: 0.08,
-          ),
-          runLeft: AnimationUtils.loadAnimation(
-            STRAWBERRY_WALK,
-            amount: 4,
-            stepTime: 0.08,
-          ),
-        ),
++         // The strawberry faces the camera, so left and right share a sheet.
++         animation: SimpleDirectionAnimation(
++           // Idle breathes, sways its stem and blinks: 8 frames, played slowly.
++           idleRight: AnimationUtils.loadAnimation(
++             STRAWBERRY_IDLE,
++             amount: 8,
++             stepTime: 0.15,
++           ),
++           idleLeft: AnimationUtils.loadAnimation(
++             STRAWBERRY_IDLE,
++             amount: 8,
++             stepTime: 0.15,
++           ),
++           // Walk steps quickly enough to match the speed, so the feet
++           // don't look like they're sliding.
++           runRight: AnimationUtils.loadAnimation(
++             STRAWBERRY_WALK,
++             amount: 4,
++             stepTime: 0.08,
++           ),
++           runLeft: AnimationUtils.loadAnimation(
++             STRAWBERRY_WALK,
++             amount: 4,
++             stepTime: 0.08,
++           ),
++         ),
       );
 ''',
         ),

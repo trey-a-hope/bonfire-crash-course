@@ -30,12 +30,23 @@ class AddParallaxBackground extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// The background you just built and the template's camera drag component.
++ import 'package:bonfire_crash_course_playground/presentation/backgrounds/parallax_background.dart';
++ import 'package:bonfire_crash_course_playground/presentation/components/camera_drag.dart';
+''',
+        ),
+        CodeStep(
           description:
               'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-final _background = ParallaxBackground();
-final _cameraDrag = CameraDrag();
+class _GameScreenState extends State<GameScreen> {
++   final _background = ParallaxBackground();
++   final _cameraDrag = CameraDrag();
+}
 ''',
         ),
 
@@ -47,8 +58,8 @@ final _cameraDrag = CameraDrag();
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    background: _background,
-    components: [_cameraDrag],
++     background: _background,
++     components: [_cameraDrag],
   );
 }
 ''',

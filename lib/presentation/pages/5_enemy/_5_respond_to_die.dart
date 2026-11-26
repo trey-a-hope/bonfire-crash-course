@@ -11,9 +11,14 @@ const _DART_FILE_CHARACTERS_HERO_PLAYER =
     'lib/presentation/characters/hero_player.dart';
 
 /// The onMount that hooks up _onDie, shared by MinorEnemy and HeroPlayer.
-const _ON_MOUNT_SNIPPET = '''@override
+/// The unmarked lines are the onMount from the Respond to Hurt lesson; the
+/// "+ " line is the one to add.
+const _ON_MOUNT_SNIPPET = '''
+@override
 void onMount() {
-  life.onDieListener(_onDie);
+  super.onMount();
+  life.onReceiveDamageListener(_onHurt);
++   life.onDieListener(_onDie);
 }
 ''';
 
@@ -61,15 +66,19 @@ class RespondToDiePage extends StatelessWidget {
           description:
               'In MinorEnemy, add _onDie: drop the life bar, pause the behaviors, stop, and play the death animation once before removing the enemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''void _onDie() {
-  lifeBar.dispose();
-  pauseBehaviors();
-  stop();
-  animation?.playOnceOther(
-    hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
-    runToTheEnd: true,
-    onFinish: removeFromParent,
-  );
+          codeSnippet: '''
+class MinorEnemy ... {
+  ...
++   void _onDie() {
++     lifeBar.dispose();
++     pauseBehaviors();
++     stop();
++     animation?.playOnceOther(
++       hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
++       runToTheEnd: true,
++       onFinish: removeFromParent,
++     );
++   }
 }
 ''',
         ),
@@ -83,14 +92,18 @@ class RespondToDiePage extends StatelessWidget {
           description:
               'Copy the exact same _onDie into HeroPlayer, then remove the pauseBehaviors() line. The hero has no behaviors to pause.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''void _onDie() {
-  lifeBar.dispose();
-  stop();
-  animation?.playOnceOther(
-    hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
-    runToTheEnd: true,
-    onFinish: removeFromParent,
-  );
+          codeSnippet: '''
+class HeroPlayer ... {
+  ...
++   void _onDie() {
++     lifeBar.dispose();
++     stop();
++     animation?.playOnceOther(
++       hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
++       runToTheEnd: true,
++       onFinish: removeFromParent,
++     );
++   }
 }
 ''',
         ),

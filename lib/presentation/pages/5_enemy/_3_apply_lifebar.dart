@@ -10,6 +10,13 @@ const _DART_FILE_CHARACTERS_MINOR_ENEMY =
 const _DART_FILE_CHARACTERS_HERO_PLAYER =
     'lib/presentation/characters/hero_player.dart';
 
+/// The import both character files need for the life bar's colors and
+/// corners.
+const _IMPORTS_SNIPPET = '''
+// Colors, BorderRadius and Radius for styling the life bar.
++ import 'package:material_ui/material_ui.dart';
+''';
+
 /// Enemy lesson 3, "Apply Lifebar": gives MinorEnemy (50 life, red bar) and
 /// HeroPlayer (100 life, green bar) the WithLifeBar mixin, a starting life
 /// and a styled life bar. Routed at `/enemy/apply-lifebar` in
@@ -51,59 +58,99 @@ class ApplyLifebarPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top of minor_enemy.dart.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: _IMPORTS_SNIPPET,
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of hero_player.dart.',
+          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          codeSnippet: _IMPORTS_SNIPPET,
+        ),
+        CodeStep(
           description:
               'Add the WithLifeBar mixin to the MinorEnemy class, after its other mixins.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''with WithLifeBar
+          codeSnippet: '''
+class MinorEnemy extends PlatformEnemy ...
++     with WithLifeBar
+{ ... }
 ''',
         ),
         CodeStep(
           description:
               'In the MinorEnemy constructor\'s super(...) call, give the enemy 50 life.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''life: 50,
+          codeSnippet: '''
+MinorEnemy(Vector2 position)
+    : super(
+        position: position,
++         life: 50,
+        ...
+      );
 ''',
         ),
         CodeStep(
           description:
               'Give the MinorEnemy constructor a body, right after super(...), that sets up a red life bar with rounded corners.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''{
-  lifeBar.setup(
-    backgroundColor: Colors.red,
-    borderRadius: BorderRadius.all(
-      Radius.circular(8),
-    ),
-  );
-}
+          codeSnippet: '''
+MinorEnemy(Vector2 position)
+    : super(
+        ...
+-       );
++       )
++ {
++   lifeBar.setup(
++     backgroundColor: Colors.red,
++     borderRadius: BorderRadius.all(
++       Radius.circular(8),
++     ),
++   );
++ }
 ''',
         ),
         CodeStep(
           description:
               'Add the WithLifeBar mixin to the HeroPlayer class, after its other mixins.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''with WithLifeBar
+          codeSnippet: '''
+class HeroPlayer extends PlatformPlayer ...
++     with WithLifeBar
+{ ... }
 ''',
         ),
         CodeStep(
           description:
               'In the HeroPlayer constructor\'s super(...) call, give the hero 100 life.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''life: 100,
+          codeSnippet: '''
+HeroPlayer(Vector2 position)
+    : super(
+        position: position,
++         life: 100,
+        ...
+      );
 ''',
         ),
         CodeStep(
           description:
               'Give the HeroPlayer constructor a body, right after super(...), that sets up a green life bar with rounded corners.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''{
-  lifeBar.setup(
-    backgroundColor: Colors.green,
-    borderRadius: BorderRadius.all(
-      Radius.circular(8),
-    ),
-  );
-}
+          codeSnippet: '''
+HeroPlayer(Vector2 position)
+    : super(
+        ...
+-       );
++       )
++ {
++   lifeBar.setup(
++     backgroundColor: Colors.green,
++     borderRadius: BorderRadius.all(
++       Radius.circular(8),
++     ),
++   );
++ }
 ''',
         ),
       ],
