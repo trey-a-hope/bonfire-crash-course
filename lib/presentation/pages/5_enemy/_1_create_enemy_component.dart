@@ -44,17 +44,6 @@ class CreateEnemyComponentPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description: 'Add all imports at the top of minor_enemy.dart.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''
-+ import 'package:bonfire/bonfire.dart';
-+ import 'package:bonfire_crash_course_playground/core/constants/character_asset.dart';
-+ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
-+ import 'package:bonfire_crash_course_playground/core/mixins/screen_boundary_checker.dart';
-+ import 'package:bonfire_crash_course_playground/core/utils/sprite_tools.dart';
-''',
-        ),
-        CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
@@ -66,8 +55,10 @@ class CreateEnemyComponentPage extends StatelessWidget {
               'Copy HeroPlayer into minor_enemy.dart and rename it MinorEnemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-- class HeroPlayer extends PlatformPlayer { ... }
-+ class MinorEnemy extends PlatformEnemy { ... }
+- class HeroPlayer extends PlatformPlayer
+    with WithForces, KeyboardEventListener, ScreenBoundaryChecker, WithAttack {
++ class MinorEnemy extends PlatformEnemy
+    with WithForces, ScreenBoundaryChecker, WithAttack {
 ''',
         ),
         CodeStep(
@@ -103,7 +94,10 @@ class CreateEnemyComponentPage extends StatelessWidget {
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
-+   components: [ MinorEnemy(Vector2(1000, 100)) ],
+    components: [
+      _cameraDrag,
++      MinorEnemy(Vector2(200, 200)),
+    ],
 );
 ''',
         ),

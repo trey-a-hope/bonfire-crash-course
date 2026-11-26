@@ -67,8 +67,7 @@ class RespondToDiePage extends StatelessWidget {
               'Add _onDie to MinorEnemy to drop the bar, stop and play the death animation.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy ... {
-  ...
+class MinorEnemy {
 +   void _onDie() {
 +     lifeBar.dispose();
 +     pauseBehaviors();
@@ -91,8 +90,7 @@ class MinorEnemy ... {
           description: 'Copy _onDie into HeroPlayer, without pauseBehaviors().',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
-class HeroPlayer ... {
-  ...
+class HeroPlayer {
 +   void _onDie() {
 +     lifeBar.dispose();
 +     stop();

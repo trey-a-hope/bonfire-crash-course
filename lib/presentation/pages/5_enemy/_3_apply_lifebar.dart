@@ -71,9 +71,7 @@ class ApplyLifebarPage extends StatelessWidget {
           description: 'Add the WithLifeBar mixin to MinorEnemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy extends PlatformEnemy ...
-+     with WithLifeBar
-{ ... }
++ WithLifeBar {
 ''',
         ),
         CodeStep(
@@ -94,21 +92,20 @@ MinorEnemy(Vector2 position)
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 MinorEnemy(Vector2 position)
-    : super(...) {
+-    : super();
++    : super() {
 +   lifeBar.setup(
 +     backgroundColor: Colors.red,
 +     borderRadius: BorderRadius.circular(8),
 +   );
-}
++ }
 ''',
         ),
         CodeStep(
           description: 'Add the WithLifeBar mixin to HeroPlayer.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
-class HeroPlayer extends PlatformPlayer ...
-+     with WithLifeBar
-{ ... }
++ WithLifeBar 
 ''',
         ),
         CodeStep(
@@ -119,7 +116,6 @@ HeroPlayer(Vector2 position)
     : super(
         position: position,
 +       life: 100,
-        ...
       );
 ''',
         ),

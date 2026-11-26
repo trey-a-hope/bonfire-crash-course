@@ -53,9 +53,10 @@ class ApplyBehaviorPage extends StatelessWidget {
           description: 'Add the UseBehavior mixin to MinorEnemy.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy extends PlatformEnemy ...
-+     with UseBehavior
-{ ... }
+ class MinorEnemy extends PlatformEnemy
+-    with WithForces, ScreenBoundaryChecker, WithAttack {
+ class MinorEnemy extends PlatformEnemy
++    with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
 ''',
         ),
         CodeStep(
@@ -63,7 +64,6 @@ class MinorEnemy extends PlatformEnemy ...
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy ... {
-  ...
 +   @override
 +   List<Behavior> get behaviors => [];
 }
@@ -74,9 +74,6 @@ class MinorEnemy ... {
               'Add randomMovement, the patrol the enemy falls back to.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-@override
-List<Behavior> get behaviors => [];
-
 + Behavior get randomMovement => BRandomMovement(
 +       speed: speed / 2,
 +       maxDistance: (TILE_SIZE * 4),
@@ -110,7 +107,6 @@ BCondition(
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-  condition: ...,
 +   doBehavior: BSeeAndMoveToTarget(
 +     target: gameRef.player!,
 +     radiusVision: TILE_SIZE * 5,

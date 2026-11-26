@@ -54,8 +54,7 @@ class RespondToHurtPage extends StatelessWidget {
           description: 'Override onMount in MinorEnemy to listen for damage.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy ... {
-  ...
+class MinorEnemy {
 +   @override
 +   void onMount() {
 +     super.onMount();
@@ -69,8 +68,7 @@ class MinorEnemy ... {
               'Add _onHurt to play the hurt animation for the facing direction.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy ... {
-  ...
+class MinorEnemy {
 +   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
 +     animation?.playOnceOther(
 +       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
@@ -84,14 +82,20 @@ class MinorEnemy ... {
           description: 'Copy the same onMount and _onHurt into HeroPlayer.',
           fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
-class HeroPlayer ... {
-  ...
+class HeroPlayer {
 +   @override
 +   void onMount() {
 +     super.onMount();
 +     life.onReceiveDamageListener(_onHurt);
 +   }
-+
+}
+''',
+        ),
+        CodeStep(
+          description: 'Copy the same onMount and _onHurt into HeroPlayer.',
+          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          codeSnippet: '''
+class HeroPlayer {
 +   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
 +     animation?.playOnceOther(
 +       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
