@@ -303,6 +303,8 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   @override
   Widget build(BuildContext context) {
     final copied = _copied.value;
+    // A step that only removes code leaves nothing to paste, so hide Copy.
+    final canCopy = copyableCodeSnippet(widget.code).isNotEmpty;
     final textTheme = Theme.of(context).textTheme;
     return Material(
       color: Colors.transparent,
@@ -347,34 +349,37 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                     ),
                   ),
                   // Copy to clipboard button with animated state feedback
-                  InkWell(
-                    onTap: _copyCode,
-                    borderRadius: BorderRadius.circular(4),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 2,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            copied ? Icons.check_rounded : Icons.copy_rounded,
-                            size: 14,
-                            color: copied ? Colors.greenAccent : Colors.white60,
-                          ),
-                          GapSizes.xsGap,
-                          Text(
-                            copied ? 'Copied' : 'Copy',
-                            style: textTheme.bodyMedium?.copyWith(
+                  if (canCopy)
+                    InkWell(
+                      onTap: _copyCode,
+                      borderRadius: BorderRadius.circular(4),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              copied ? Icons.check_rounded : Icons.copy_rounded,
+                              size: 14,
                               color: copied
                                   ? Colors.greenAccent
                                   : Colors.white60,
                             ),
-                          ),
-                        ],
+                            GapSizes.xsGap,
+                            Text(
+                              copied ? 'Copied' : 'Copy',
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: copied
+                                    ? Colors.greenAccent
+                                    : Colors.white60,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),

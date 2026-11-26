@@ -94,13 +94,9 @@ MinorEnemy(Vector2 position)
         CodeStep(
           description: 'Add the minor enemy to the game.',
           fileName: _DART_FILE_GAME_SCREEN,
-          // The "+ " marker shows the components line as the one to add.
+          // Just the added line, so Copy pastes straight into BonfireWidget.
           codeSnippet: '''
-return BonfireWidget(
-  map: WorldMapBySpritefusion(...),
-+   components: [ MinorEnemy(Vector2(1000, 100)) ],
-  ...
-);
++ components: [ MinorEnemy(Vector2(1000, 100)) ],
 ''',
         ),
       ],

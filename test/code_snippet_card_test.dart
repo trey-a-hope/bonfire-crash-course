@@ -303,5 +303,15 @@ void main() {
       // Let the 2-second "Copied" timer finish.
       await tester.pump(const Duration(seconds: 2));
     });
+
+    testWidgets('hides Copy when every line is removed', (tester) async {
+      await _pumpCard(tester, _removedSnippet);
+      expect(find.text('Copy'), findsNothing);
+    });
+
+    testWidgets('shows Copy when something is left to paste', (tester) async {
+      await _pumpCard(tester, _addedSnippet);
+      expect(find.text('Copy'), findsOneWidget);
+    });
   });
 }
