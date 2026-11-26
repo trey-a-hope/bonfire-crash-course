@@ -32,14 +32,16 @@ const _HURT_SNIPPET = '''
 const _MINOR_ENEMY_HURT_SNIPPET =
     '''
 class MinorEnemy ... {
-  ...$_HURT_SNIPPET}
+  ...
+$_HURT_SNIPPET}
 ''';
 
 /// The hurt code inside HeroPlayer, so the learner sees it goes in the class.
 const _HERO_PLAYER_HURT_SNIPPET =
     '''
 class HeroPlayer ... {
-  ...$_HURT_SNIPPET}
+  ...
+$_HURT_SNIPPET}
 ''';
 
 /// Enemy lesson 4, "Respond to Hurt": registers a damage listener in

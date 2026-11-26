@@ -98,7 +98,8 @@ MinorEnemy(Vector2 position)
 MinorEnemy(Vector2 position)
     : super(
         ...
-      )
+-       );
++       )
 + {
 +   lifeBar.setup(
 +     backgroundColor: Colors.red,
@@ -140,7 +141,8 @@ HeroPlayer(Vector2 position)
 HeroPlayer(Vector2 position)
     : super(
         ...
-      )
+-       );
++       )
 + {
 +   lifeBar.setup(
 +     backgroundColor: Colors.green,
