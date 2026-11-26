@@ -57,7 +57,7 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Add the FollowAction enum above the Companion class: the four things the companion can do each tick while following.',
+              'Add the FollowAction enum above the Companion class, and update the class comment to say what the companion now does.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// What the companion does this tick while following the hero.
@@ -75,17 +75,6 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
 +   right,
 + }
 +
-/// A friendly NPC that stands on the map and talks to the hero.
-///
-...
-class Companion extends SimpleAlly with WithCollision, WithForces {
-''',
-        ),
-        CodeStep(
-          description:
-              'Update the class comment to say what the companion now does.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
 - /// A friendly NPC that stands on the map and talks to the hero.
 + /// A friendly NPC that talks to the hero, waves hello, and then follows
 + /// them around.
@@ -93,48 +82,34 @@ class Companion extends SimpleAlly with WithCollision, WithForces {
 /// [SimpleAlly] is Bonfire's Ally: an NPC on the player's side. Bonfire 4.0
 /// has no `PlatformAlly`, so [WithCollision] and [WithForces] give it the
 /// same platform behaviour the hero gets from [PlatformPlayer].
-class Companion extends SimpleAlly with WithCollision, WithForces {
+class Companion extends SimpleAlly with WithCollision, WithForces { ... }
 ''',
         ),
         CodeStep(
           description:
-              'Add the follow distances after _talkRadius: how close the companion walks up to the hero, and how far it can see them.',
+              'Add the follow fields after _talkRadius: how close the companion walks up to the hero, how far it can see them, and whether it is following yet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  /// How close (in pixels) the hero must be before the companion talks.
-  static const _talkRadius = 48.0;
-
-+   /// How close (centre to centre, in pixels) the companion walks up to the
-+   /// hero before stopping. Both are 32 wide, so this leaves a 4px gap.
-+   ///
-+   /// It is less than [_talkRadius] on purpose, so the companion can stand
-+   /// beside the hero without crowding them. Following never reopens the
-+   /// dialogue: once the companion follows, it has had its one talk.
-+   static const followDistance = 36.0;
+/// How close (in pixels) the hero must be before the companion talks.
+static const _talkRadius = 48.0;
 +
-+   /// How far (in pixels) the companion can see the hero while following.
-+   /// If the hero gets farther than this, the companion stops and waits.
-+   static const followRadius = 160.0;
++ /// How close (centre to centre, in pixels) the companion walks up to the
++ /// hero before stopping. Both are 32 wide, so this leaves a 4px gap.
++ ///
++ /// It is less than [_talkRadius] on purpose, so the companion can stand
++ /// beside the hero without crowding them. Following never reopens the
++ /// dialogue: once the companion follows, it has had its one talk.
++ static const followDistance = 36.0;
 +
-  /// True once the companion has talked. It never resets: the dialogue opens
-  /// only once, and after it the companion follows the hero.
-  bool _hasTalked = false;
-''',
-        ),
-        CodeStep(
-          description:
-              'After _hasTalked, add _isFollowing: whether the companion is following the hero yet.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-  bool _hasTalked = false;
-
-+   /// True after the first conversation: from then on the companion follows
-+   /// the hero around.
-+   bool _isFollowing = false;
++ /// How far (in pixels) the companion can see the hero while following.
++ /// If the hero gets farther than this, the companion stops and waits.
++ static const followRadius = 160.0;
+...
+bool _hasTalked = false;
 +
-  /// Creates the companion at [position] (in pixels from the map's top-left).
-  Companion(Vector2 position)
++ /// True after the first conversation: from then on the companion follows
++ /// the hero around.
++ bool _isFollowing = false;
 ''',
         ),
         CodeStep(
@@ -161,13 +136,9 @@ Future<void> onLoad() async {
         ),
         CodeStep(
           description:
-              'Below onLoad, override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
+              'Override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-Future<void> onLoad() async {
-  ...
-}
-
 + /// Draw order: Bonfire draws components with a higher priority on top,
 + /// based on how low they stand on screen. The companion takes one less
 + /// than the hero, so the hero is always drawn in front, even when they
@@ -182,13 +153,29 @@ Future<void> onLoad() async {
         ),
         CodeStep(
           description:
-              'Below update, write the static followAction function, which decides what to do from three plain values: how far across the hero is, how far away they are, and whether the way is clear.',
+              'Update update: follow the hero once _isFollowing is true, before checking whether to talk.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
+- /// Called every game tick to check whether the hero is close.
++ /// Called every game tick: follows the hero (after the first talk) and
++ /// checks whether the hero is close enough to talk.
+@override
 void update(double dt) {
-  ...
++   if (_isFollowing) _follow();
++
+  vision.seePlayer(
+    radiusVision: _talkRadius,
+    observed: (_) => _talk(),
+  );
+  super.update(dt);
 }
-
+''',
+        ),
+        CodeStep(
+          description:
+              'Write the static followAction function, which decides what to do from three plain values: how far across the hero is, how far away they are, and whether the way is clear.',
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
 + /// Decides what the companion does this tick while following.
 + ///
 + /// [dx] is the hero's centre minus the companion's, along x (positive
@@ -214,28 +201,9 @@ void update(double dt) {
         ),
         CodeStep(
           description:
-              'Below followAction, add _stopWalking, which clears only the horizontal speed so a fall carries on.',
+              'Write _follow, which measures the hero from the hitbox centres, asks followAction what to do and walks left, right or stops. Add _stopWalking, which clears only the horizontal speed so a fall carries on.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-static FollowAction followAction({ ... }) {
-  ...
-}
-
-+ /// Stops walking sideways without cancelling a fall.
-+ void _stopWalking() {
-+   if (velocity.x != 0) velocity = velocity.copyWith(x: 0);
-+ }
-''',
-        ),
-        CodeStep(
-          description:
-              'Between followAction and _stopWalking, write _follow, which measures the hero from the hitbox centres, asks followAction what to do and walks left, right or stops.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-static FollowAction followAction({ ... }) {
-  ...
-}
-
 + /// Walks along the ground towards the hero and stops a short way off.
 + ///
 + /// Only the horizontal speed is set; the vertical speed is left alone so
@@ -272,39 +240,17 @@ static FollowAction followAction({ ... }) {
 +   }
 + }
 +
-/// Stops walking sideways without cancelling a fall.
-void _stopWalking() {
++ /// Stops walking sideways without cancelling a fall.
++ void _stopWalking() {
++   if (velocity.x != 0) velocity = velocity.copyWith(x: 0);
++ }
 ''',
         ),
         CodeStep(
           description:
-              'Update update: follow the hero once _isFollowing is true, before checking whether to talk, and update its comment.',
+              'Below the Companion class, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-- /// Called every game tick to check whether the hero is close.
-+ /// Called every game tick: follows the hero (after the first talk) and
-+ /// checks whether the hero is close enough to talk.
-@override
-void update(double dt) {
-+   if (_isFollowing) _follow();
-+
-  vision.seePlayer(
-    radiusVision: _talkRadius,
-    observed: (_) => _talk(),
-  );
-  super.update(dt);
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'At the bottom of the file, below _Face, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-class _Face extends StatelessWidget {
-  ...
-}
-
 + /// The companion's face in the first line of dialogue: waves hello once,
 + /// then switches to [_talkingFace].
 + class _WaveThenTalk extends StatefulWidget {
@@ -347,31 +293,14 @@ class _Face extends StatelessWidget {
         ),
         CodeStep(
           description:
-              'Add a _waveAnimation key after followRadius: the name of the in-world wave in the animation\'s others map.',
+              'Add the in-world wave: a _waveAnimation key with the other fields, and the wave sheet in the SimpleDirectionAnimation\'s others map after runLeft. loop: false plays it once.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-  static const followRadius = 160.0;
-
-+   /// Key of the wave animation in the animation's `others` map.
-+   static const _waveAnimation = 'wave';
-+
-  /// True once the companion has talked. It never resets: the dialogue opens
-  /// only once, and after it the companion follows the hero.
-  bool _hasTalked = false;
-''',
-        ),
-        CodeStep(
-          description:
-              'Add the in-world wave to the SimpleDirectionAnimation\'s others map, after runLeft. loop: false plays it once.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
++ /// Key of the wave animation in the animation's `others` map.
++ static const _waveAnimation = 'wave';
+...
 animation: SimpleDirectionAnimation(
-  ... // idleRight, idleLeft, runRight
-  runLeft: AnimationUtils.loadAnimation(
-    STRAWBERRY_WALK,
-    amount: 4,
-    stepTime: 0.08,
-  ),
+  ... // idleRight, idleLeft, runRight, runLeft
 +   // Played once when the dialogue closes, as a "let's go" wave
 +   // before following the hero (see [_talk]).
 +   others: {
@@ -387,9 +316,12 @@ animation: SimpleDirectionAnimation(
         ),
         CodeStep(
           description:
-              'In _talk, stop the companion too, right after the hero, in case it was following.',
+              'Update _talk: stop the companion too, give the first line the _WaveThenTalk face, and in onClose resume the game, play the in-world wave with playOnceOther and start following when its Future completes.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
+          codeSnippet: r'''
+- /// Pauses the game and opens the dialogue (only once).
++ /// Pauses the game and opens the dialogue (only once). When it closes,
++ /// the companion waves and then follows the hero.
 void _talk() {
   if (_hasTalked) return;
   _hasTalked = true;
@@ -399,43 +331,22 @@ void _talk() {
     JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
   );
 +   _stopWalking();
-  ...
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'Still in _talk, give the first line of dialogue the _WaveThenTalk face, so Berry waves hello in the portrait.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: r'''
-TalkDialog.show(
-  context,
-  [
--     _say('Oh, hi there! I\'m Berry.'),
-+     // The first line waves hello in the dialogue itself, since the game
-+     // (and the companion in it) is frozen.
-+     _say('Oh, hi there! I\'m Berry.', face: const _WaveThenTalk()),
-    _say('Watch your step, the hills around here are tricky.'),
-    _say('Mind if I tag along?'),
-  ],
-  onClose: gameRef.resumeEngine,
-);
-''',
-        ),
-        CodeStep(
-          description:
-              'Replace onClose: resume the game, play the in-world wave with playOnceOther and start following when its Future completes. Update _talk\'s comment to match.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-- /// Pauses the game and opens the dialogue (only once).
-+ /// Pauses the game and opens the dialogue (only once). When it closes,
-+ /// the companion waves and then follows the hero.
-void _talk() {
-  ...
+
+  // Freeze the game right away, before the dialogue opens. Opening it can
+  // stall the app for a moment; if the game kept running, that stall would
+  // become one huge physics step and a hero in mid-jump could fall
+  // straight through the ground.
+  gameRef.pauseEngine();
+
   TalkDialog.show(
     context,
     [
-      ... // the three lines
++       // The first line waves hello in the dialogue itself, since the game
++       // (and the companion in it) is frozen.
+-       _say('Oh, hi there! I\'m Berry.'),
++       _say('Oh, hi there! I\'m Berry.', face: const _WaveThenTalk()),
+      _say('Watch your step, the hills around here are tricky.'),
+      _say('Mind if I tag along?'),
     ],
 -     onClose: gameRef.resumeEngine,
 +     // Runs once the dialogue is gone from the screen.

@@ -32,16 +32,11 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'By default, the player doesn’t have a shape for the physics engine to detect. Below the constructor, override onLoad and add a hitbox to give the hero volume.',
+              'By default, the player doesn’t have a shape for the physics engine to detect. Add a hitbox to give the hero volume.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class HeroPlayer extends PlatformPlayer with WithForces {
+class HeroPlayer extends PlatformPlayer ... {
   ...
-  HeroPlayer(Vector2 position)
-      : super(
-          ...
-        );
-
 +   /// Runs once when the hero is added to the game.
 +   @override
 +   Future<void> onLoad() async {

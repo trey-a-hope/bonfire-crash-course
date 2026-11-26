@@ -38,27 +38,13 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description: 'Add all imports at the top.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-// The same helper the hero uses to turn a sprite sheet into an animation.
-+ import 'package:counter_app/presentation/characters/util/animation_utils.dart';
-''',
-        ),
-        CodeStep(
           description:
-              'Pass a SimpleDirectionAnimation to super(...) with the idle and walk animations. SimpleDirectionAnimation needs both idleRight and runRight, so they go in together. The strawberry faces the camera, so left and right share the same sheet.',
+              'Pass a SimpleDirectionAnimation to super(...). The strawberry faces the camera, so left and right share the same sheet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)
     : super(
-        position: position,
-        // Size on screen; matches one 32x32 frame.
-        size: Vector2.all(TILE_SIZE),
-        life: 100,
-        // Same speed as the hero (Bonfire's default, 80), so it keeps up
-        // instead of falling behind and losing sight of them.
-        speed: 80,
+        ... // position, size, life, speed
 +         // The strawberry faces the camera, so left and right share a sheet.
 +         animation: SimpleDirectionAnimation(
 +           // Idle breathes, sways its stem and blinks: 8 frames, played slowly.

@@ -33,59 +33,36 @@ class AddParallaxBackground extends StatelessWidget {
           description: 'Add all imports at the top.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// The ParallaxBackground class from the last lesson.
-+ import 'package:counter_app/presentation/backgrounds/parallax_background.dart';
+// The background you just built and the template's camera drag component.
+import 'package:bonfire/bonfire.dart';
++ import 'package:bonfire_crash_course_playground/presentation/backgrounds/parallax_background.dart';
++ import 'package:bonfire_crash_course_playground/presentation/components/camera_drag.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Create an instance of the ParallaxBackground class below your camera config.',
+              'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-final _cameraConfig = CameraConfig(
-  initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
-  moveOnlyMapArea: true,
-);
-+ final _background = ParallaxBackground();
+class _GameScreenState extends State<GameScreen> {
++   final _background = ParallaxBackground();
++   final _cameraDrag = CameraDrag();
+  ...
+}
 ''',
         ),
+
         CodeStep(
           description:
-              'In the build method, pass the background to BonfireWidget\'s background parameter.',
+              'In the build method, pass the background to BonfireWidget\'s background parameter and add a CameraDrag instance to its components list.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
 +     background: _background,
-    cameraConfig: _cameraConfig,
-    map: WorldMapBySpritefusion(
-      WorldMapReader.fromAsset(MAP_ONE),
-    ),
-  );
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'Create an instance of the CameraDrag class below the background.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-final _background = ParallaxBackground();
-+ final _cameraDrag = CameraDrag();
-''',
-        ),
-        CodeStep(
-          description:
-              'Add the CameraDrag instance to BonfireWidget\'s components list.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-@override
-Widget build(BuildContext context) {
-  return BonfireWidget(
-    background: _background,
-    cameraConfig: _cameraConfig,
 +     components: [_cameraDrag],
+    cameraConfig: _cameraConfig,
     map: WorldMapBySpritefusion(
       WorldMapReader.fromAsset(MAP_ONE),
     ),

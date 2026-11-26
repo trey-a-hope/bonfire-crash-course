@@ -44,208 +44,86 @@ class CreateEnemyComponentPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top of minor_enemy.dart.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''
+// PlatformEnemy, Vector2, the hitbox and the attack API.
++ import 'package:bonfire/bonfire.dart';
+// The sprite sheet paths for each character.
++ import 'package:bonfire_crash_course_playground/core/constants/character_asset.dart';
+// TILE_SIZE and the attack animation names.
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
+// The ScreenBoundaryChecker mixin copied over from HeroPlayer.
++ import 'package:bonfire_crash_course_playground/core/mixins/screen_boundary_checker.dart';
+// SpriteTools, which builds and plays the character's animations.
++ import 'package:bonfire_crash_course_playground/core/utils/sprite_tools.dart';
+''',
+        ),
+        CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// The MinorEnemy class you're about to create.
-+ import 'package:counter_app/presentation/characters/minor_enemy.dart';
+// The MinorEnemy class you're about to write.
++ import 'package:bonfire_crash_course_playground/presentation/characters/minor_enemy.dart';
 ''',
         ),
         CodeStep(
+          // Shown as plain text, so each "\n• " starts a new bullet line.
           description:
-              'Create minor_enemy.dart and paste in everything from hero.dart, imports included. Then rename the class from HeroPlayer to MinorEnemy and change the component type from PlatformPlayer to PlatformEnemy.',
+              'Create the MinorEnemy class in minor_enemy.dart from the hero\'s code:'
+              '\n• Copy and paste the HeroPlayer into the MinorEnemy.'
+              '\n• Change the class name from HeroPlayer to MinorEnemy.'
+              '\n• Change the component type from PlatformPlayer to PlatformEnemy.'
+              '\n• Remove the KeyboardEventListener.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // The "- " and "+ " markers show the constructor's rename; the
+          // lines below it stay as they were copied.
           codeSnippet: '''
-- class HeroPlayer extends PlatformPlayer
-+ class MinorEnemy extends PlatformEnemy
-    with
-        WithForces,
-        KeyboardEventListener,
-        ScreenBoundaryChecker,
-        WithAttack {
-  static const _asset = CharacterAsset.wizard;
-''',
-        ),
-        CodeStep(
-          description:
-              'Rename the constructor from HeroPlayer to MinorEnemy too, and point its comment at the enemy. The rest of the copied code (_asset, the animations, onLoad and its hitbox, update and the attacks) stays as it is for now.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''
-- /// Creates the hero at [position] (in pixels from the map's top-left).
-+ /// Creates the enemy at [position] (in pixels from the map's top-left).
+/// Creates the enemy at [position] (in pixels from the map's top-left).
 - HeroPlayer(Vector2 position)
 + MinorEnemy(Vector2 position)
     : super(
         position: position,
-        ...
+        size: Vector2.all(TILE_SIZE),
+        animation: SpriteTools.buildAnimation(asset: _asset),
       );
+
+// The rest stays as it was copied from HeroPlayer for now: _asset, onLoad
+// and its hitbox, _isAttacking, _meleeAttack, _rangeAttack and
+// onJoystickAction. The next step deletes the last two.
 ''',
         ),
         CodeStep(
+          // Shown as plain text, so each "\n• " starts a new bullet line.
           description:
-              'Remove the KeyboardEventListener mixin. Nothing presses keys for an enemy, and with three mixins left the list fits on one line.',
+              'Remove the player-only controls that MinorEnemy no longer needs:'
+              '\n• Delete onJoystickAction.'
+              '\n• Delete the _rangeAttack.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // Mirrors the signatures from the Player lessons so the learner can
+          // spot both members in the copied code. The "- " markers show each
+          // line as removed.
           codeSnippet: '''
-class MinorEnemy extends PlatformEnemy
--     with
--         WithForces,
--         KeyboardEventListener,
--         ScreenBoundaryChecker,
--         WithAttack {
-+     with WithForces, ScreenBoundaryChecker, WithAttack {
-''',
-        ),
-        CodeStep(
-          description:
-              'Delete onKeyboard, the keyboard handler copied from the hero.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          // Only removed lines, so there is nothing to copy and the Copy
-          // button stays hidden.
-          codeSnippet: '''
-// The keyboard handler. Nothing presses keys for an enemy.
-- /// Called for every key press and release while the game has focus.
+// The joystick and keyboard handler. Nothing presses keys for an enemy.
 - @override
-- bool onKeyboard(
--   KeyEvent event,
--   Set<LogicalKeyboardKey> keysPressed,
-- ) {
--   if (event is KeyDownEvent) {
--     switch (event.logicalKey) {
--       case LogicalKeyboardKey.space:
--         jumper.jump();
--         return true;
--       case LogicalKeyboardKey.keyW:
--         _rangeAttack();
--         return true;
--       case LogicalKeyboardKey.keyS:
--         _meleeAttack();
--         return true;
--       case LogicalKeyboardKey.keyA:
--         onJoystickChangeDirectional(
--           JoystickDirectionalEvent(
--             directional: JoystickMoveDirectional.MOVE_LEFT,
--           ),
--         );
--         return true;
--       case LogicalKeyboardKey.keyD:
--         onJoystickChangeDirectional(
--           JoystickDirectionalEvent(
--             directional: JoystickMoveDirectional.MOVE_RIGHT,
--           ),
--         );
--         return true;
--     }
--   } else if (event is KeyUpEvent) {
--     switch (event.logicalKey) {
--       case LogicalKeyboardKey.keyA:
--         onJoystickChangeDirectional(
--           JoystickDirectionalEvent(
--             directional: keysPressed.contains(LogicalKeyboardKey.keyD)
--                 ? JoystickMoveDirectional.MOVE_RIGHT
--                 : JoystickMoveDirectional.IDLE,
--           ),
--         );
--         return true;
--       case LogicalKeyboardKey.keyD:
--         onJoystickChangeDirectional(
--           JoystickDirectionalEvent(
--             directional: keysPressed.contains(LogicalKeyboardKey.keyA)
--                 ? JoystickMoveDirectional.MOVE_LEFT
--                 : JoystickMoveDirectional.IDLE,
--           ),
--         );
--         return true;
--     }
--   }
--
--   return super.onKeyboard(event, keysPressed);
+- void onJoystickAction(JoystickActionEvent event) {
+-   ...
 - }
-''',
-        ),
-        CodeStep(
-          description:
-              'At the top of minor_enemy.dart, delete the flutter/services.dart import. Only onKeyboard used it.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''
-// KeyEvent and LogicalKeyboardKey, which only onKeyboard used.
-- import 'package:flutter/services.dart';
-''',
-        ),
-        CodeStep(
-          description:
-              'Delete _rangeAttack. This enemy only uses _meleeAttack.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''
+
 // The projectile attack. This enemy only uses _meleeAttack.
 - void _rangeAttack() {
--   if (_isAttacking) return;
--   // Remember the facing now, in case the hero turns while casting.
--   final facingLeft = _isFacingLeft;
--   _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
--
--   // Fire the projectile on the sheet's release frame so it picks up where
--   // the projectile drawn in the hero's hand leaves off.
--   final releaseDelay = Duration(
--     milliseconds:
--         ((_asset.attackRangeReleaseFrame - 1) * ATTACK_STEP_TIME * 1000)
--             .round(),
--   );
--
--   Future.delayed(releaseDelay, () {
--     // No projectile if the hero was removed while casting.
--     if (!isMounted) return;
--     attack.range(
--       // The projectile is its own 16x16 sheet, not the hero's cast sheet.
--       animation: AnimationUtils.loadAnimation(
--         facingLeft ? _asset.projectileLeft : _asset.projectileRight,
--         textureSize: Vector2.all(16),
--       ),
--       size: Vector2.all(16),
--       destroySize: Vector2.all(TILE_SIZE),
--       direction: facingLeft ? Direction.left : Direction.right,
--       speed: 220,
--       damage: 15,
--       marginFromOrigin: 8,
--       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
--     );
--   });
+-   ...
 - }
 ''',
         ),
         CodeStep(
-          description:
-              'In the constructor\'s others map, delete the two range attack animations. Only _rangeAttack played them.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          // Only removed lines, so the Copy button stays hidden.
-          codeSnippet: '''
-// In the others map, below MELEE_ATTACK_RIGHT.
-- RANGE_ATTACK_LEFT: AnimationUtils.loadAnimation(
--   _asset.attackRangeLeft,
--   amount: _asset.attackRangeFrames,
--   stepTime: ATTACK_STEP_TIME,
--   loop: false,
-- ),
-- RANGE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
--   _asset.attackRangeRight,
--   amount: _asset.attackRangeFrames,
--   stepTime: ATTACK_STEP_TIME,
--   loop: false,
-- ),
-''',
-        ),
-        CodeStep(
-          description:
-              'In game_screen.dart, add a MinorEnemy to BonfireWidget\'s components list, after the camera drag.',
+          description: 'Add the minor enemy to the game.',
           fileName: _DART_FILE_GAME_SCREEN,
+          // The "+ " marker shows components as the line to add; Copy
+          // copies only that line.
           codeSnippet: '''
 return BonfireWidget(
-  ...
--   components: [_cameraDrag],
-+   components: [
-+     _cameraDrag,
-+     MinorEnemy(Vector2(1000, 100)),
-+   ],
-  ...
++   components: [ MinorEnemy(Vector2(1000, 100)) ],
 );
 ''',
         ),

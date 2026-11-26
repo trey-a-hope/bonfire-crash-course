@@ -54,20 +54,18 @@ class ApplyBehaviorPage extends StatelessWidget {
               'Add the UseBehavior mixin to the MinorEnemy class, after its other mixins.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy extends PlatformEnemy
--     with WithForces, ScreenBoundaryChecker, WithAttack {
-+     with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
+class MinorEnemy extends PlatformEnemy ...
++     with UseBehavior
+{ ... }
 ''',
         ),
         CodeStep(
           description:
-              'Override the behaviors getter at the bottom of MinorEnemy. It starts as an empty list; the next steps fill it.',
+              'Override the behaviors getter in MinorEnemy. It starts as an empty list; the next steps fill it.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-class MinorEnemy extends PlatformEnemy
-    with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
+class MinorEnemy ... {
   ...
-
 +   /// AI behavior tree, evaluated every frame from top to bottom.
 +   ///
 +   /// - Player within 5 tiles: chase and melee when adjacent.
@@ -89,9 +87,9 @@ List<Behavior> get behaviors => [];
 + /// Idle patrol: wander up to 4 tiles at half speed.
 + /// A getter, so each use gets its own fresh instance.
 + Behavior get randomMovement => BRandomMovement(
-+   speed: speed / 2,
-+   maxDistance: TILE_SIZE * 4,
-+ );
++       speed: speed / 2,
++       maxDistance: (TILE_SIZE * 4),
++     );
 ''',
         ),
         CodeStep(
@@ -100,10 +98,9 @@ List<Behavior> get behaviors => [];
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 @override
-- List<Behavior> get behaviors => [];
-+ List<Behavior> get behaviors => [
-+   BCondition(),
-+ ];
+List<Behavior> get behaviors => [
++   BCondition()
+];
 ''',
         ),
         CodeStep(
@@ -111,16 +108,12 @@ List<Behavior> get behaviors => [];
               'Give the BCondition its condition: true only while the game has a player who is still alive.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-@override
-List<Behavior> get behaviors => [
--   BCondition(),
-+   BCondition(
-+     // Only engage while there's a living player to target.
-+     condition: (dt, component, game) {
-+       return game.player != null && game.player?.isDead == false;
-+     },
-+   ),
-];
+BCondition(
++   // Only engage while there's a living player to target.
++   condition: (dt, component, game) {
++     return game.player != null && game.player?.isDead == false;
++   },
+)
 ''',
         ),
         CodeStep(
@@ -129,9 +122,8 @@ List<Behavior> get behaviors => [
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-  // Only engage while there's a living player to target.
   condition: (dt, component, game) {
-    return game.player != null && game.player?.isDead == false;
+    ...
   },
 +   // Player within 5 tiles: chase them down,
 +   // and melee as soon as we're close enough to touch.
@@ -142,7 +134,7 @@ BCondition(
 +     onClose: (dt, target) => _meleeAttack(),
 +     doElseBehavior: randomMovement,
 +   ),
-),
+)
 ''',
         ),
         CodeStep(
@@ -151,37 +143,28 @@ BCondition(
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
-  ...
+  condition: (dt, component, game) {
+    ...
+  },
   doBehavior: BSeeAndMoveToTarget(
-    target: gameRef.player!,
-    radiusVision: TILE_SIZE * 5,
-    onClose: (dt, target) => _meleeAttack(),
-    doElseBehavior: randomMovement,
+    ...
   ),
 +   // No player, or the player is dead: patrol.
 +   doElseBehavior: randomMovement,
-),
+)
 ''',
         ),
         CodeStep(
           description:
               'In MinorEnemy\'s _meleeAttack, set attackFrom to AttackOriginEnum.ENEMY. The code copied from HeroPlayer still says PLAYER_OR_ALLY, so the enemy\'s strike would never hurt the hero.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          // The "- " line is the attackFrom copied from HeroPlayer's
+          // _meleeAttack; the "+ " line replaces it.
           codeSnippet: '''
-void _meleeAttack() {
-  if (_isAttacking) return;
-  _playAttackAnimation(MELEE_ATTACK_LEFT, MELEE_ATTACK_RIGHT);
-  ...
-  attack.melee(
-    damage: 20,
-    size: Vector2.all(TILE_SIZE),
-    direction: _isFacingLeft ? Direction.left : Direction.right,
-    withPush: true,
-    sizePush: 8,
--     attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
-+     attackFrom: AttackOriginEnum.ENEMY,
-  );
-}
+_meleeAttack(
+-       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
++       attackFrom: AttackOriginEnum.ENEMY,
+)
 ''',
         ),
       ],

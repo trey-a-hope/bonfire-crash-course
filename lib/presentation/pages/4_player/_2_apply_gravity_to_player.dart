@@ -38,40 +38,37 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
+          description: 'Add all imports at the top of game_screen.dart.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-@override
-Widget build(BuildContext context) {
-  return BonfireWidget(
-    player: HeroPlayer(Vector2(100, 100)),
-    background: _background,
-+     // Gravity for the whole game. It pulls on every character with the
-+     // WithForces mixin (the hero, the companion and the foe).
-+     globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY)),
-    cameraConfig: _cameraConfig,
-    ...
-  );
-}
+// The game's constants, for GRAVITY.
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Add the WithForces mixin to the HeroPlayer class so the world\'s gravity acts on it.',
+              'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          // The "+ " marker shows globalForces as the line to add.
+          codeSnippet: '''
+return BonfireWidget(
+  // Gravity for the whole game. It pulls on every character with the
+  // WithForces mixin (the hero, the companion and the foe).
++   globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY))
+);
+''',
+        ),
+        CodeStep(
+          description:
+              'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// The playable hero character.
-///
-/// [PlatformPlayer] gives us side-scroller movement and jumping.
-- class HeroPlayer extends PlatformPlayer {
-+ class HeroPlayer extends PlatformPlayer with WithForces {
-  static const _asset = CharacterAsset.wizard;
++ class Hero ... with WithForces { ... }
 ''',
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to turn on gravity for the whole game with globalForces on BonfireWidget, and add the WithForces mixin to HeroPlayer.',
+          'You\'re about to turn on gravity for the whole game with globalForces on BonfireWidget, and add the WithForces mixin to Hero.',
       proTip:
           'Don\'t worry if the hero now falls straight through the floor; it has no solid shape yet, and the hitbox in the next lesson fixes that. Bonfire also has forces.setGravity for a single character, but don\'t use it on top of globalForces: the two add up, and that character falls twice as fast.',
     );

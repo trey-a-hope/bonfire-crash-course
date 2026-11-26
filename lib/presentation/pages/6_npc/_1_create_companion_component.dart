@@ -46,26 +46,17 @@ class CreateCompanionComponentPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Create companion.dart, then add all imports at the top.',
+          description: 'Add all imports at the top of companion.dart.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-// Bonfire for SimpleAlly and Vector2, and the globals for TILE_SIZE.
+// Bonfire's components, plus the shared constants like TILE_SIZE.
 + import 'package:bonfire/bonfire.dart';
-+ import 'package:counter_app/core/constants/globals.dart';
-''',
-        ),
-        CodeStep(
-          description: 'Add all imports at the top.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-// The new Companion class, so GameScreen can add one to the world.
-+ import 'package:counter_app/presentation/characters/companion.dart';
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Below the imports in companion.dart, add a class named Companion that extends SimpleAlly.',
+              'Create companion.dart and a class named Companion that extends SimpleAlly.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// A friendly NPC that stands on the map and talks to the hero.
@@ -77,39 +68,43 @@ class CreateCompanionComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description:
-              'Inside the class, define the Companion constructor, passing the spawn position, the frame size, its life and its speed to the superclass.',
+              'Define the Companion constructor, passing the spawn position, the frame size, its life and its speed to the superclass.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly {
-+   /// Creates the companion at [position] (in pixels from the map's top-left).
-+   Companion(Vector2 position)
-+       : super(
-+           position: position,
-+           // Size on screen; matches one 32x32 frame.
-+           size: Vector2.all(TILE_SIZE),
-+           life: 100,
-+           // Same speed as the hero (Bonfire's default, 80), so it keeps up
-+           // instead of falling behind and losing sight of them.
-+           speed: 80,
-+         );
-}
++ /// Creates the companion at [position] (in pixels from the map's top-left).
++ Companion(Vector2 position)
++     : super(
++         position: position,
++         // Size on screen; matches one 32x32 frame.
++         size: Vector2.all(TILE_SIZE),
++         life: 100,
++         // Same speed as the hero (Bonfire's default, 80), so it keeps up
++         // instead of falling behind and losing sight of them.
++         speed: 80,
++       );
+''',
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of game_screen.dart.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
++ import 'package:bonfire_crash_course_playground/presentation/characters/companion.dart';
 ''',
         ),
         CodeStep(
           description:
-              'In game_screen.dart, add a Companion to BonfireWidget\'s components list, after the enemy. Place it by map tile instead of by pixel: tile (24, 7) is the row just above the ground in map 01, on a flat stretch of open ground, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
+              'Add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (24, 7) is the row just above the ground in map 01, on a flat stretch of open ground, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
-  ...
-  components: [
-    _cameraDrag,
-    MinorEnemy(Vector2(1000, 100)),
+  player: Hero(Vector2(100, 100)),
++   // Everything else in the world: the friendly companion, for now.
++   components: [
 +     // Tile (24, 7): the row just above the ground (row 8) in map 01, so
 +     // the companion is already standing when the map loads. Columns
 +     // 23-29 are flat open ground there, so it has room to follow the hero.
 +     Companion(Vector2(24, 7) * TILE_SIZE),
-  ],
++   ],
   ...
 );
 ''',

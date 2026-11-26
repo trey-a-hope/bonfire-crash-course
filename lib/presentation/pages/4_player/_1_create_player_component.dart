@@ -52,39 +52,36 @@ class CreatePlayerComponentPage extends StatelessWidget {
           description: 'Add all imports at the top of hero.dart.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-// PlatformPlayer, PlatformAnimations and Vector2.
+// Bonfire, the game's constants (TILE_SIZE), the character sprite sets and
+// the SpriteTools animation helper.
 + import 'package:bonfire/bonfire.dart';
-// The sprite sheet paths for each character.
-+ import 'package:counter_app/core/constants/character_asset.dart';
-// TILE_SIZE, the size of one map tile.
-+ import 'package:counter_app/core/constants/globals.dart';
-// AnimationUtils, which turns a sprite sheet into an animation.
-+ import 'package:counter_app/presentation/characters/util/animation_utils.dart';
++ import 'package:bonfire_crash_course_playground/core/constants/character_asset.dart';
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
++ import 'package:bonfire_crash_course_playground/core/utils/sprite_tools.dart';
 ''',
         ),
         CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// The HeroPlayer class you're about to write.
-+ import 'package:counter_app/presentation/characters/hero.dart';
+// The hero you are about to create in hero.dart.
++ import 'package:bonfire_crash_course_playground/presentation/characters/hero.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Create a new class named HeroPlayer that extends PlatformPlayer to enable side-scroller movement and jumping.',
+              'Create a new class named Hero that extends PlatformPlayer to enable side-scroller movement and jumping.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + /// The playable hero character.
 + ///
 + /// [PlatformPlayer] gives us side-scroller movement and jumping.
-+ class HeroPlayer extends PlatformPlayer {
-+ }
++ class HeroPlayer extends PlatformPlayer { ... }
 ''',
         ),
         CodeStep(
           description:
-              'Define the HeroPlayer constructor, passing the initial spawn position and frame dimensions to the superclass.',
+              'Define the Hero constructor, passing the initial spawn position and frame dimensions to the superclass.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer {
@@ -101,62 +98,48 @@ class HeroPlayer extends PlatformPlayer {
         ),
         CodeStep(
           description:
-              'Above the constructor, pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
+              'Pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer {
-+   /// The character's sprite sheets.
 +   static const _asset = CharacterAsset.wizard;
-+
-  /// Creates the hero at [position] (in pixels from the map's top-left).
+
   HeroPlayer(Vector2 position)
+  ...
+}
 ''',
         ),
         CodeStep(
           description:
-              'Below size, configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
+              'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
         position: position,
-        ...
         size: Vector2.all(TILE_SIZE),
 +         // Which animation to play for each state and direction.
-+         animation: PlatformAnimations(
-+           runLeft: AnimationUtils.loadAnimation(_asset.runLeft),
-+           runRight: AnimationUtils.loadAnimation(_asset.runRight),
-+           // Idle uses a larger stepTime so it plays slower than walking.
-+           idleLeft:
-+               AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
-+           idleRight:
-+               AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
-+         ),
++         animation: SpriteTools.buildAnimation(asset: _asset),
       );
 ''',
         ),
         CodeStep(
           description:
-              'Instantiate HeroPlayer with an initial position and pass it to the player property in BonfireWidget.',
+              'Instantiate Hero with an initial position and pass it to the player property in BonfireWidget.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
 +     player: HeroPlayer(Vector2(100, 100)),
-    background: _background,
-    cameraConfig: _cameraConfig,
-    components: [_cameraDrag],
-    map: WorldMapBySpritefusion(
-      WorldMapReader.fromAsset(MAP_ONE),
-    ),
+    ...
   );
 }
 ''',
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to create the HeroPlayer class in hero.dart with its constructor and idle and run animations (built with the AnimationUtils helper), and pass a HeroPlayer to BonfireWidget\'s player.',
+          'You\'re about to create the Hero class in hero.dart with its constructor and idle and run animations, write the AnimationUtils helper, and pass a Hero to BonfireWidget\'s player.',
       proTip:
           'To try a different character, change CharacterAsset.wizard to CharacterAsset.shark and save; every sprite path comes from that one value, so nothing else has to change.',
     );

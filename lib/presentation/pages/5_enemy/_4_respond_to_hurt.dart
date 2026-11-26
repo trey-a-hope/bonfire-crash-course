@@ -7,49 +7,44 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_CHARACTERS_MINOR_ENEMY =
     'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
+const _DART_FILE_CHARACTERS_HERO_PLAYER =
+    'lib/presentation/characters/hero_player.dart';
 
-/// The hurt animations step, shared word for word by MinorEnemy and
-/// HeroPlayer: two one-shot sheets added at the end of the others map.
-const _HURT_ANIMATIONS_SNIPPET = '''
-others: {
-  ...
-+   // Plays once each time the character is hit, one per direction.
-+   HURT_LEFT: AnimationUtils.loadAnimation(
-+     _asset.hurtLeft,
-+     amount: _asset.hurtFrames,
-+     loop: false,
-+   ),
-+   HURT_RIGHT: AnimationUtils.loadAnimation(
-+     _asset.hurtRight,
-+     amount: _asset.hurtFrames,
-+     loop: false,
-+   ),
-},
+/// The hurt code, shared word for word by MinorEnemy and HeroPlayer. Every
+/// line is marked "+ " as added, indented to sit inside the class.
+const _HURT_SNIPPET = '''
++   @override
++   void onMount() {
++     super.onMount();
++     life.onReceiveDamageListener(_onHurt);
++   }
++
++   /// Called every time an attack hits the foe.
++   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
++     animation?.playOnceOther(
++       hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
++       runToTheEnd: true,
++     );
++   }
 ''';
 
-/// The _onHurt step, shared word for word by MinorEnemy and HeroPlayer.
-/// onMount from the step before is unmarked context showing where _onHurt
-/// goes; only _onHurt is marked as added, so Copy pastes just the method.
-const _ON_HURT_SNIPPET = '''
-@override
-void onMount() {
-  super.onMount();
-  life.onReceiveDamageListener(_onHurt);
-}
-
-+ /// Called every time an attack hits the character.
-+ void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
-+   animation?.playOnceOther(
-+     hDirection.isLeftSide ? HURT_LEFT : HURT_RIGHT,
-+     runToTheEnd: true,
-+   );
-+ }
+/// The hurt code inside MinorEnemy, so the learner sees it goes in the class.
+const _MINOR_ENEMY_HURT_SNIPPET =
+    '''
+class MinorEnemy ... {
+  ...$_HURT_SNIPPET}
 ''';
 
-/// Enemy lesson 4, "Respond to Hurt": registers the hurt animations for
-/// MinorEnemy and HeroPlayer, and a damage listener in onMount that plays
-/// them once for the direction the character faces. Routed at `/enemy/respond-to-hurt`
+/// The hurt code inside HeroPlayer, so the learner sees it goes in the class.
+const _HERO_PLAYER_HURT_SNIPPET =
+    '''
+class HeroPlayer ... {
+  ...$_HURT_SNIPPET}
+''';
+
+/// Enemy lesson 4, "Respond to Hurt": registers a damage listener in
+/// onMount for MinorEnemy and HeroPlayer that plays the hurt animation once
+/// for the direction the character faces. Routed at `/enemy/respond-to-hurt`
 /// in `lib/core/pane_config.dart`.
 class RespondToHurtPage extends StatelessWidget {
   const RespondToHurtPage({super.key});
@@ -89,72 +84,15 @@ class RespondToHurtPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'In the MinorEnemy constructor\'s others map, after the last animation, register the two hurt animations. Each plays once, one per direction.',
+              'In MinorEnemy, override onMount to listen for damage, and add _onHurt to play the hurt animation for the direction the enemy faces.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: _HURT_ANIMATIONS_SNIPPET,
+          codeSnippet: _MINOR_ENEMY_HURT_SNIPPET,
         ),
         CodeStep(
           description:
-              'At the bottom of MinorEnemy, override onMount to listen for damage. It calls _onHurt, which you add next.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''
-class MinorEnemy extends PlatformEnemy
-    with
-        WithForces,
-        ScreenBoundaryChecker,
-        WithAttack,
-        UseBehavior,
-        WithLifeBar {
-  ...
-
-+   /// Runs once the enemy is in the game, when its life is ready.
-+   @override
-+   void onMount() {
-+     super.onMount();
-+     life.onReceiveDamageListener(_onHurt);
-+   }
-}
-''',
-        ),
-        CodeStep(
-          description:
-              'Below onMount, add _onHurt to play the hurt animation for the direction the enemy faces.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: _ON_HURT_SNIPPET,
-        ),
-        CodeStep(
-          description:
-              'Register the same two hurt animations at the end of the HeroPlayer constructor\'s others map.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: _HURT_ANIMATIONS_SNIPPET,
-        ),
-        CodeStep(
-          description:
-              'At the bottom of HeroPlayer, override onMount the same way.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-class HeroPlayer extends PlatformPlayer
-    with
-        WithForces,
-        KeyboardEventListener,
-        ScreenBoundaryChecker,
-        WithAttack,
-        WithLifeBar {
-  ...
-
-+   /// Runs once the hero is in the game, when its life is ready.
-+   @override
-+   void onMount() {
-+     super.onMount();
-+     life.onReceiveDamageListener(_onHurt);
-+   }
-}
-''',
-        ),
-        CodeStep(
-          description: 'Below it, copy the exact same _onHurt into HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: _ON_HURT_SNIPPET,
+              'Copy the exact same onMount and _onHurt into HeroPlayer.',
+          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          codeSnippet: _HERO_PLAYER_HURT_SNIPPET,
         ),
       ],
       timeToCodeStatement:

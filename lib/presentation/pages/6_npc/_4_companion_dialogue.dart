@@ -47,8 +47,8 @@ class CompanionDialoguePage extends StatelessWidget {
           description: 'Add all imports at the top.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-// Flutter's widgets, for the dialogue's TextSpan, SizedBox and faces.
-+ import 'package:flutter/material.dart';
+// For TextSpan, SizedBox and Widget in the dialogue.
++ import 'package:material_ui/material_ui.dart';
 ''',
         ),
         CodeStep(
@@ -56,105 +56,86 @@ class CompanionDialoguePage extends StatelessWidget {
               'Add the fields the dialogue needs at the top of the Companion class: how close the hero must be, and whether the companion has already talked. _hasTalked never resets, so the dialogue opens only once.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-+   /// How close (in pixels) the hero must be before the companion talks.
-+   static const _talkRadius = 48.0;
++ /// How close (in pixels) the hero must be before the companion talks.
++ static const _talkRadius = 48.0;
 +
-+   /// True once the companion has talked. It never resets: the dialogue opens
-+   /// only once, and after it the companion follows the hero.
-+   bool _hasTalked = false;
-+
-  /// Creates the companion at [position] (in pixels from the map's top-left).
-  Companion(Vector2 position)
-  ...
-}
++ /// True once the companion has talked. It never resets: the dialogue opens
++ /// only once, and after it the companion follows the hero.
++ bool _hasTalked = false;
 ''',
         ),
         CodeStep(
           description:
-              'Below onLoad, override update and check for the hero with vision.seePlayer. observed runs every tick the hero is in range, so _talk (next step) returns early once it has talked.',
+              'Override update and check for the hero with vision.seePlayer. observed runs every tick the hero is in range, so _talk returns early once it has talked.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  ... // fields, constructor and onLoad
-
-+   /// Called every game tick to check whether the hero is close.
-+   @override
-+   void update(double dt) {
-+     vision.seePlayer(
-+       radiusVision: _talkRadius,
-+       observed: (_) => _talk(),
-+     );
-+     super.update(dt);
-+   }
-}
++ /// Called every game tick to check whether the hero is close.
++ @override
++ void update(double dt) {
++   vision.seePlayer(
++     radiusVision: _talkRadius,
++     observed: (_) => _talk(),
++   );
++   super.update(dt);
++ }
 ''',
         ),
         CodeStep(
           description:
-              'Below update, write _talk: stop the hero, pause the game right away, and show the dialogue. onClose resumes the game when the last line is done.',
+              'Write _talk: stop the hero, pause the game right away, and show the dialogue. onClose resumes the game when the last line is done.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  ... // fields, constructor, onLoad and update
-
-+   /// Pauses the game and opens the dialogue (only once).
-+   void _talk() {
-+     if (_hasTalked) return;
-+     _hasTalked = true;
++ /// Pauses the game and opens the dialogue (only once).
++ void _talk() {
++   if (_hasTalked) return;
++   _hasTalked = true;
 +
-+     gameRef.player?.onJoystickChangeDirectional(
-+       JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
-+     );
++   gameRef.player?.onJoystickChangeDirectional(
++     JoystickDirectionalEvent(directional: JoystickMoveDirectional.IDLE),
++   );
 +
-+     // Freeze the game right away, before the dialogue opens. Opening it can
-+     // stall the app for a moment; if the game kept running, that stall would
-+     // become one huge physics step and a hero in mid-jump could fall
-+     // straight through the ground.
-+     gameRef.pauseEngine();
++   // Freeze the game right away, before the dialogue opens. Opening it can
++   // stall the app for a moment; if the game kept running, that stall would
++   // become one huge physics step and a hero in mid-jump could fall
++   // straight through the ground.
++   gameRef.pauseEngine();
 +
-+     TalkDialog.show(
-+       context,
-+       [
-+         _say('Oh, hi there! I\'m Berry.'),
-+         _say('Watch your step, the hills around here are tricky.'),
-+         _say('Mind if I tag along?'),
-+       ],
-+       onClose: gameRef.resumeEngine,
-+     );
-+   }
-}
++   TalkDialog.show(
++     context,
++     [
++       _say('Oh, hi there! I\'m Berry.'),
++       _say('Watch your step, the hills around here are tricky.'),
++       _say('Mind if I tag along?'),
++     ],
++     onClose: gameRef.resumeEngine,
++   );
++ }
 ''',
         ),
         CodeStep(
           description:
-              'Below _talk, write _say, which builds one line of dialogue with a face beside it, shown at 96px (three times the sprite) so it is easy to see. The face is a widget, so later lines can swap in another one; by default it is the talking face, which the next two steps add.',
+              'Write _say, which builds one line of dialogue with a face beside it, shown at 96px (three times the sprite) so it is easy to see. The face is a widget, so later lines can swap in another one; by default it is the talking face.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  ... // fields, constructor, onLoad, update and _talk
-
-+   /// One line of dialogue, with the companion's [face] beside it (its
-+   /// talking face unless another is given).
-+   Say _say(String text, {Widget face = _talkingFace}) {
-+     return Say(
-+       text: [TextSpan(text: text)],
-+       // 96px, three times the sprite's size, so it is easy to see.
-+       person: SizedBox.square(dimension: 96, child: face),
-+     );
-+   }
-}
++ /// One line of dialogue, with the companion's [face] beside it (its
++ /// talking face unless another is given).
++ Say _say(String text, {Widget face = _talkingFace}) {
++   return Say(
++     text: [TextSpan(text: text)],
++     // 96px, three times the sprite's size, so it is easy to see.
++     person: SizedBox.square(dimension: 96, child: face),
++   );
++ }
 ''',
         ),
         CodeStep(
           description:
-              'Below the Companion class, write _Face: a widget that plays one of the strawberry sheets with SpriteAnimationWidget.asset.',
+              'Below the Companion class, write _Face: a widget that plays one of the strawberry sheets with SpriteAnimationWidget.asset. Then define _talkingFace, the 2-frame talk sheet (mouth closed and open), as a const so _say can use it as its default.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  ...
-}
-
++ /// The companion's talking face in the dialogue: its mouth opens and closes.
++ const _talkingFace = _Face(STRAWBERRY_TALK, amount: 2, stepTime: 0.15);
++
 + /// One of the companion's sprite sheets, played as a widget in the dialogue.
 + class _Face extends StatelessWidget {
 +   const _Face(
@@ -195,24 +176,6 @@ class Companion extends SimpleAlly with WithCollision, WithForces {
 +     );
 +   }
 + }
-''',
-        ),
-        CodeStep(
-          description:
-              'Between the Companion class and _Face, define _talkingFace: the 2-frame talk sheet (mouth closed and open), as a const so _say can use it as its default.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  ...
-}
-
-+ /// The companion's talking face in the dialogue: its mouth opens and closes.
-+ const _talkingFace = _Face(STRAWBERRY_TALK, amount: 2, stepTime: 0.15);
-+
-/// One of the companion's sprite sheets, played as a widget in the dialogue.
-class _Face extends StatelessWidget {
-  ...
-}
 ''',
         ),
       ],

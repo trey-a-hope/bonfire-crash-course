@@ -45,7 +45,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Add the WithCollision and WithForces mixins to the Companion class, and update its comment to say why. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
+              'Add the WithCollision and WithForces mixins to the Companion class. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// A friendly NPC that stands on the map and talks to the hero.
@@ -55,31 +55,22 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
 + /// has no `PlatformAlly`, so [WithCollision] and [WithForces] give it the
 + /// same platform behaviour the hero gets from [PlatformPlayer].
 - class Companion extends SimpleAlly {
-+ class Companion extends SimpleAlly with WithCollision, WithForces {
-  ...
-}
++ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
 ''',
         ),
         CodeStep(
           description:
-              'Below the constructor, override onLoad and add a RectangleHitbox the same size as the companion.',
+              'Override onLoad and add a RectangleHitbox the same size as the companion.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
-class Companion extends SimpleAlly with WithCollision, WithForces {
-  Companion(Vector2 position)
-      : super(
-          ... // position, size, life, speed, animation
-        );
-
-+   /// Runs once when the companion is added to the game.
-+   @override
-+   Future<void> onLoad() async {
-+     // The hitbox is the companion's solid shape: it stands on the ground
-+     // and stops at walls.
-+     add(RectangleHitbox(size: size));
-+     return super.onLoad();
-+   }
-}
++ /// Runs once when the companion is added to the game.
++ @override
++ Future<void> onLoad() async {
++   // The hitbox is the companion's solid shape: it stands on the ground
++   // and stops at walls.
++   add(RectangleHitbox(size: size));
++   return super.onLoad();
++ }
 ''',
         ),
       ],

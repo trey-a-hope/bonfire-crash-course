@@ -32,111 +32,59 @@ class PlayerAttackRangePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Inside the others map, below the melee animations, register the two range attack animations.',
+              'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-others: {
-  MELEE_ATTACK_LEFT: AnimationUtils.loadAnimation(
-    ...
-  ),
-  MELEE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
-    ...
-  ),
-+   RANGE_ATTACK_LEFT: AnimationUtils.loadAnimation(
-+     _asset.attackRangeLeft,
-+     amount: _asset.attackRangeFrames,
-+     stepTime: ATTACK_STEP_TIME,
-+     loop: false,
-+   ),
-+   RANGE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
-+     _asset.attackRangeRight,
-+     amount: _asset.attackRangeFrames,
-+     stepTime: ATTACK_STEP_TIME,
-+     loop: false,
-+   ),
-},
-''',
-        ),
-        CodeStep(
-          description:
-              'Below _meleeAttack, create the range attack and play the cast for the direction the hero faces.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-void _meleeAttack() {
+class HeroPlayer extends PlatformPlayer ... {
   ...
-}
-
-+ void _rangeAttack() {
-+   if (_isAttacking) return;
-+   // Remember the facing now, in case the hero turns while casting.
-+   final facingLeft = _isFacingLeft;
-+   _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
-+ }
-''',
-        ),
-        CodeStep(
-          description:
-              'At the end of _rangeAttack, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-void _rangeAttack() {
-  if (_isAttacking) return;
-  final facingLeft = _isFacingLeft;
-  _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
-
-+   // Fire the projectile on the sheet's release frame so it picks up where
-+   // the projectile drawn in the hero's hand leaves off.
-+   final releaseDelay = Duration(
-+     milliseconds:
-+         ((_asset.attackRangeReleaseFrame - 1) * ATTACK_STEP_TIME * 1000)
-+             .round(),
-+   );
++   void _rangeAttack() {
++     if (_isAttacking) return;
++     _isAttacking = true;
 +
-+   Future.delayed(releaseDelay, () {
-+     // No projectile if the hero was removed while casting.
-+     if (!isMounted) return;
++     SpriteTools.playAttackAnimation(
++       attackLeft: RANGE_ATTACK_LEFT,
++       attackRight: RANGE_ATTACK_RIGHT,
++       animation: animation!,
++       direction: hDirection,
++       onFinish: () => _isAttacking = false,
++     );
++
 +     attack.range(
-+       // The projectile is its own 16x16 sheet, not the hero's cast sheet.
-+       animation: AnimationUtils.loadAnimation(
-+         facingLeft ? _asset.projectileLeft : _asset.projectileRight,
-+         textureSize: Vector2.all(16),
++       animation: SpriteTools.loadProjectileAnimation(
++         asset: _asset,
++         direction: hDirection,
 +       ),
 +       size: Vector2.all(16),
 +       destroySize: Vector2.all(TILE_SIZE),
-+       direction: facingLeft ? Direction.left : Direction.right,
++       direction: hDirection,
 +       speed: 220,
 +       damage: 15,
 +       marginFromOrigin: 8,
 +       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
 +     );
-+   });
++   }
 }
 ''',
         ),
         CodeStep(
           description:
-              'Map W to the range attack inside the KeyDownEvent switch in onKeyboard.',
+              'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-if (event is KeyDownEvent) {
-  switch (event.logicalKey) {
-    case LogicalKeyboardKey.space:
-      jumper.jump();
-      return true;
-+     case LogicalKeyboardKey.keyW:
-+       _rangeAttack();
-+       return true;
-    case LogicalKeyboardKey.keyS:
-      _meleeAttack();
-      return true;
-    ...
+@override
+void onJoystickAction(JoystickActionEvent event) {
+  if (event.event == ActionEvent.DOWN) {
+    if (event.id == LogicalKeyboardKey.space) jumper.jump();
+    if (event.id == LogicalKeyboardKey.keyD) _meleeAttack();
++     if (event.id == LogicalKeyboardKey.keyA) _rangeAttack();
   }
+  super.onJoystickAction(event);
 }
 ''',
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to register the range attack animations on HeroPlayer, write a projectile attack, and map it to W in onKeyboard.',
+          'You\'re about to add WithAttack to Hero, register the four attack animations, write a melee attack and a projectile attack, and map them to S and W in onKeyboard.',
       proTip:
           'Tune damage, speed and size to change how the attacks feel, but keep the _isAttacking check at the top of each one so holding a key can\'t fire faster than the animation plays.',
     );
