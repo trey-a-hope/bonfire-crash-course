@@ -68,10 +68,11 @@ class CreateEnemyComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description:
-              'Rename the constructor from HeroPlayer to MinorEnemy too. The rest of the copied code (_asset, the animations, onLoad and its hitbox, update and the attacks) stays as it is for now.',
+              'Rename the constructor from HeroPlayer to MinorEnemy too, and point its comment at the enemy. The rest of the copied code (_asset, the animations, onLoad and its hitbox, update and the attacks) stays as it is for now.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
-/// Creates the enemy at [position] (in pixels from the map's top-left).
+- /// Creates the hero at [position] (in pixels from the map's top-left).
++ /// Creates the enemy at [position] (in pixels from the map's top-left).
 - HeroPlayer(Vector2 position)
 + MinorEnemy(Vector2 position)
     : super(

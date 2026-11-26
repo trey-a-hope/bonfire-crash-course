@@ -47,7 +47,7 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
         ),
         CodeStep(
           description:
-              'Pass a SimpleDirectionAnimation to super(...) with the idle animation. The strawberry faces the camera, so left and right share the same sheet.',
+              'Pass a SimpleDirectionAnimation to super(...) with the idle and walk animations. SimpleDirectionAnimation needs both idleRight and runRight, so they go in together. The strawberry faces the camera, so left and right share the same sheet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)
@@ -72,35 +72,20 @@ Companion(Vector2 position)
 +             amount: 8,
 +             stepTime: 0.15,
 +           ),
++           // Walk steps quickly enough to match the speed, so the feet
++           // don't look like they're sliding.
++           runRight: AnimationUtils.loadAnimation(
++             STRAWBERRY_WALK,
++             amount: 4,
++             stepTime: 0.08,
++           ),
++           runLeft: AnimationUtils.loadAnimation(
++             STRAWBERRY_WALK,
++             amount: 4,
++             stepTime: 0.08,
++           ),
 +         ),
       );
-''',
-        ),
-        CodeStep(
-          description:
-              'Add the walk animation to the same SimpleDirectionAnimation, after idleLeft, so Berry steps along when it moves.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
-          codeSnippet: '''
-animation: SimpleDirectionAnimation(
-  ... // idleRight
-  idleLeft: AnimationUtils.loadAnimation(
-    STRAWBERRY_IDLE,
-    amount: 8,
-    stepTime: 0.15,
-  ),
-+   // Walk steps quickly enough to match the speed, so the feet
-+   // don't look like they're sliding.
-+   runRight: AnimationUtils.loadAnimation(
-+     STRAWBERRY_WALK,
-+     amount: 4,
-+     stepTime: 0.08,
-+   ),
-+   runLeft: AnimationUtils.loadAnimation(
-+     STRAWBERRY_WALK,
-+     amount: 4,
-+     stepTime: 0.08,
-+   ),
-),
 ''',
         ),
       ],

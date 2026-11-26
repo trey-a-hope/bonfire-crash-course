@@ -201,7 +201,7 @@ void _talk() {
 +   final zoom = gameRef.camera.zoom;
 +
 +   // A scene runs its actions one after another. While it runs the hero
-+   // ignores input and stands still (see Hero.update), so the player gets
++   // ignores input and stands still (see HeroPlayer.update), so the player gets
 +   // control back only once the camera is back on the hero.
 +   gameRef.startScene([
 +     // Pan (and zoom in a little) to the companion.
