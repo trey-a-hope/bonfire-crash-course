@@ -1,6 +1,5 @@
 Bonfire Crash Course v26.11.11
 
 What's new
-
 - Code snippets in the Create Enemy and Apply Gravity lessons now highlight added lines in green and removed lines in red, so you can see exactly what to change.
 - Copy skips removed lines and leaves out the +/- markers, and it hides when there is nothing left to paste.
