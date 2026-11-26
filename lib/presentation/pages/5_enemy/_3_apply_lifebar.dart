@@ -33,21 +33,18 @@ class ApplyLifebarPage extends StatelessWidget {
         Concept(
           title: 'WithLifeBar',
           short: 'Draws a life bar over a character.',
-          codeMatch: 'WithLifeBar',
           subtitle:
               'A Bonfire mixin that draws a bar over the character showing how much of its life is left. The bar updates on its own every time the character takes damage.',
         ),
         Concept(
           title: 'life',
           short: 'How much damage a character can take.',
-          codeMatch: 'life:',
           subtitle:
               'The character\'s starting (and maximum) life. Every hit subtracts its damage, and when life reaches 0 the character dies.',
         ),
         Concept(
           title: 'lifeBar.setup',
           short: 'Styles the life bar.',
-          codeMatch: 'lifeBar.setup',
           subtitle:
               'Sets how the life bar looks, like its background color and its rounded corners.',
         ),

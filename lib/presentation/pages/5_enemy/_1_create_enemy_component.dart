@@ -32,14 +32,12 @@ class CreateEnemyComponentPage extends StatelessWidget {
         Concept(
           title: 'PlatformEnemy',
           short: 'The enemy twin of PlatformPlayer.',
-          codeMatch: 'PlatformEnemy',
           subtitle:
               'The enemy version of PlatformPlayer. It moves, jumps and animates the same way, has life that the hero\'s attacks can take away, and is never driven by the keyboard or a joystick.',
         ),
         Concept(
           title: 'components',
           short: 'BonfireWidget\'s list for everything but the player.',
-          codeMatch: 'components:',
           subtitle:
               'A BonfireWidget list for everything in the world that isn\'t the player, like enemies, allies and decorations. Each entry is placed by its position in pixels from the map\'s top-left.',
         ),
@@ -76,25 +74,27 @@ MinorEnemy(Vector2 position)
               '\n• Delete the _rangeAttack.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           // Mirrors the signatures from the Player lessons so the learner can
-          // spot both members in the copied code.
+          // spot both members in the copied code. The "- " markers show each
+          // line as removed.
           codeSnippet: '''
-// Delete: the joystick and keyboard handler. Nothing presses keys for
-// an enemy.
-@override
-void onJoystickAction(JoystickActionEvent event) {
-  ...
-}
+// The joystick and keyboard handler. Nothing presses keys for an enemy.
+- @override
+- void onJoystickAction(JoystickActionEvent event) {
+-   ...
+- }
 
-// Delete: the projectile attack. This enemy only uses _meleeAttack.
-void _rangeAttack() {
-  ...
-}
+// The projectile attack. This enemy only uses _meleeAttack.
+- void _rangeAttack() {
+-   ...
+- }
 ''',
         ),
         CodeStep(
           description: 'Add the minor enemy to the game.',
           fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''components: [ MinorEnemy(Vector2(1000, 100)) ],
+          // Just the added line, so Copy pastes straight into BonfireWidget.
+          codeSnippet: '''
++ components: [ MinorEnemy(Vector2(1000, 100)) ],
 ''',
         ),
       ],

@@ -49,21 +49,18 @@ class RespondToHurtPage extends StatelessWidget {
         Concept(
           title: 'onMount',
           short: 'Runs once the component joins the game.',
-          codeMatch: 'onMount',
           subtitle:
               'Called once, when the component has been added to the game. A good place to hook up listeners, because the character\'s life is ready by then. Always call super.onMount() first.',
         ),
         Concept(
           title: 'onReceiveDamageListener',
           short: 'Calls you back on every hit.',
-          codeMatch: 'onReceiveDamageListener',
           subtitle:
               'Registers a function that Bonfire calls every time the character takes damage, with who attacked, how much damage was done and the attack\'s id.',
         ),
         Concept(
           title: 'playOnceOther',
           short: 'Plays an animation one time.',
-          codeMatch: 'playOnceOther',
           subtitle:
               'Plays a one-off animation over the current one, then goes back. runToTheEnd: true keeps walking or idling from cutting it short.',
         ),

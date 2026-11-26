@@ -24,7 +24,6 @@ class AddParallaxBackground extends StatelessWidget {
         Concept(
           title: 'MoveCameraUsingGesture',
           short: 'Drag to move the camera.',
-          codeMatch: 'MoveCameraUsingGesture',
           subtitle:
               'A Bonfire mixin for game components that moves the camera when you drag with a mouse or finger, so you can look around the map without moving the player.',
         ),

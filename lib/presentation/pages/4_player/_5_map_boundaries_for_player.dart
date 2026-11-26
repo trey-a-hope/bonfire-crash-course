@@ -25,7 +25,6 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
         Concept(
           title: 'Map Boundaries',
           short: 'Keeps the hero inside the map.',
-          codeMatch: 'checkBoundaries',
           subtitle: 'Map Boundaries prevent the player from leaving the map.',
         ),
       ],

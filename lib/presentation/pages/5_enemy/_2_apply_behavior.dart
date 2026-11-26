@@ -32,21 +32,18 @@ class ApplyBehaviorPage extends StatelessWidget {
         Concept(
           title: 'UseBehavior',
           short: 'Runs a list of behaviors every frame.',
-          codeMatch: 'UseBehavior',
           subtitle:
               'A Bonfire mixin that gives a component a behaviors list and runs it every frame, top to bottom. The component\'s AI is just that list, with no update code of your own.',
         ),
         Concept(
           title: 'BCondition',
           short: 'If this, do that; otherwise, do something else.',
-          codeMatch: 'BCondition',
           subtitle:
               'A behavior that checks its condition every frame. When it returns true, doBehavior runs; when it returns false, doElseBehavior runs. Nest them to build a decision tree.',
         ),
         Concept(
           title: 'BSeeAndMoveToTarget and BRandomMovement',
           short: 'Chase a target in sight, or wander at random.',
-          codeMatch: 'BSeeAndMoveToTarget',
           subtitle:
               'BSeeAndMoveToTarget walks toward its target while it is within radiusVision, calls onClose when they touch, and runs doElseBehavior when the target is out of sight. BRandomMovement wanders to random spots up to maxDistance away.',
         ),
@@ -63,7 +60,8 @@ class ApplyBehaviorPage extends StatelessWidget {
           description:
               'Override the behaviors getter in MinorEnemy. It starts as an empty list; the next steps fill it.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''/// AI behavior tree, evaluated every frame from top to bottom.
+          codeSnippet:
+              '''/// AI behavior tree, evaluated every frame from top to bottom.
 ///
 /// - Player within 5 tiles: chase and melee when adjacent.
 /// - Player out of sight: patrol.
@@ -95,7 +93,8 @@ Behavior get randomMovement => BRandomMovement(
           description:
               'Give the BCondition its condition: true only while the game has a player who is still alive.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''// Only engage while there's a living player to target.
+          codeSnippet:
+              '''// Only engage while there's a living player to target.
 condition: (dt, component, game) {
   return game.player != null && game.player?.isDead == false;
 },

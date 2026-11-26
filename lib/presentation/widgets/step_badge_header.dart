@@ -30,7 +30,7 @@ class StepBadgeHeader extends StatelessWidget {
             border: Border.all(color: color.withValues(alpha: 0.35)),
           ),
           child: Text(
-            '$title • STEP $currentStep OF $totalSteps',
+            '$title • LESSON $currentStep OF $totalSteps',
             style: textTheme.labelSmall?.copyWith(
               color: color,
               fontWeight: FontWeight.bold,

@@ -29,41 +29,44 @@ class LoadingTheMap extends StatelessWidget {
         Concept(
           title: 'BonfireWidget',
           short: 'Runs the game loop, camera and components.',
-          codeMatch: 'BonfireWidget(',
           subtitle:
               'The central orchestrator widget that bridges Flame and Bonfire within your Flutter widget tree, running the 60 FPS game loop, tile culling, physics, components, and camera.',
         ),
         Concept(
           title: 'WorldMapBySpritefusion',
           short: 'Turns map.json into floor tiles and walls.',
-          codeMatch: 'WorldMapBySpritefusion',
           subtitle:
               'Bonfire\'s built-in map loader for Spritefusion maps. It reads map.json and its associated tileset to construct both visual floor tiles and collision boundary grids.',
         ),
         Concept(
           title: 'CameraConfig',
           short: 'Fits the map and keeps the camera on it.',
-          codeMatch: 'CameraConfig(',
           subtitle:
               'Configures viewport zoom levels (initialMapZoomFit) and clamps camera movement strictly to the map area (moveOnlyMapArea: true) so players cannot wander into empty space.',
         ),
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// This will bring in all the tools we need from the Bonfire package.
++ import 'package:bonfire/bonfire.dart';
+''',
+        ),
+        CodeStep(
           description:
               'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
           fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
+          codeSnippet: ''' 
 @override
 Widget build(BuildContext context) {
-    // Bonfire widget that manages the game loop, rendering, and components.
-    return BonfireWidget(
-        // Represents the 2D world where game entities interact.
-        map: WorldMapBySpritefusion(
-            // Load the map asset bundled with your project.
-            WorldMapReader.fromAsset(MAP_ONE),
-        ),
-    );
+-    return Placeholder(color: Colors.green);
++    return BonfireWidget(
++        map: WorldMapBySpritefusion(
++            WorldMapReader.fromAsset(MAP_ONE),
++        ),
++    );
 }
 ''',
         ),
@@ -72,21 +75,25 @@ Widget build(BuildContext context) {
               'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
-// Class use to configure camera behavior.
-final _cameraConfig = CameraConfig(
-    // Automatic zoom with base some configurations.
-    initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
-    // When this true the camera remains within the map area
-    moveOnlyMapArea: true,
-);
-
-@override
-Widget build(BuildContext context) {
-    return BonfireWidget(
-        cameraConfig: _cameraConfig,
-        ... // Other parameters
-    );
-}
++ final _cameraConfig = CameraConfig(
++     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
++     moveOnlyMapArea: true,
++ );
+''',
+        ),
+        CodeStep(
+          description: 'Tell BonfireWidget to use your camera config.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+  @override
+  Widget build(BuildContext context) {
+      return BonfireWidget(
++           cameraConfig: _cameraConfig,
+          map: WorldMapBySpritefusion(
+              WorldMapReader.fromAsset(MAP_ONE),
+          ),
+      );
+  }
 ''',
         ),
       ],
