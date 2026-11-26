@@ -38,14 +38,6 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description: 'Add all imports at the top of game_screen.dart.',
-          fileName: _DART_FILE_GAME_SCREEN,
-          codeSnippet: '''
-// The game's constants, for GRAVITY.
-+ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
-''',
-        ),
-        CodeStep(
           description:
               'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
           fileName: _DART_FILE_GAME_SCREEN,

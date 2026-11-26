@@ -52,6 +52,7 @@ class LoadingTheMap extends StatelessWidget {
           codeSnippet: '''
 // This will bring in all the tools we need from the Bonfire package.
 + import 'package:bonfire/bonfire.dart';
++ import 'package:bonfire_crash_course_playground/core/constants/globals.dart';
 ''',
         ),
         CodeStep(
