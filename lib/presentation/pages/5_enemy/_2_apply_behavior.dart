@@ -53,65 +53,95 @@ class ApplyBehaviorPage extends StatelessWidget {
           description:
               'Add the UseBehavior mixin to the MinorEnemy class, after its other mixins.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''with UseBehavior
+          codeSnippet: '''
+class MinorEnemy extends PlatformEnemy
+-     with WithForces, ScreenBoundaryChecker, WithAttack {
++     with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
 ''',
         ),
         CodeStep(
           description:
-              'Override the behaviors getter in MinorEnemy. It starts as an empty list; the next steps fill it.',
+              'Override the behaviors getter at the bottom of MinorEnemy. It starts as an empty list; the next steps fill it.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet:
-              '''/// AI behavior tree, evaluated every frame from top to bottom.
-///
-/// - Player within 5 tiles: chase and melee when adjacent.
-/// - Player out of sight: patrol.
-/// - No player, or player is dead: patrol.
-@override
-List<Behavior> get behaviors => [];
+          codeSnippet: '''
+class MinorEnemy extends PlatformEnemy
+    with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
+  ...
+
++   /// AI behavior tree, evaluated every frame from top to bottom.
++   ///
++   /// - Player within 5 tiles: chase and melee when adjacent.
++   /// - Player out of sight: patrol.
++   /// - No player, or player is dead: patrol.
++   @override
++   List<Behavior> get behaviors => [];
+}
 ''',
         ),
         CodeStep(
           description:
               'Add a randomMovement getter below behaviors. It is the patrol the enemy falls back to whenever it isn\'t chasing.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''/// Idle patrol: wander up to 4 tiles at half speed.
-/// A getter, so each use gets its own fresh instance.
-Behavior get randomMovement => BRandomMovement(
-      speed: speed / 2,
-      maxDistance: (TILE_SIZE * 4),
-    );
+          codeSnippet: '''
+@override
+List<Behavior> get behaviors => [];
+
++ /// Idle patrol: wander up to 4 tiles at half speed.
++ /// A getter, so each use gets its own fresh instance.
++ Behavior get randomMovement => BRandomMovement(
++   speed: speed / 2,
++   maxDistance: TILE_SIZE * 4,
++ );
 ''',
         ),
         CodeStep(
           description:
               'Inside the square brackets of the behaviors list, add a BCondition. The next three steps go inside its parentheses.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''BCondition()
+          codeSnippet: '''
+@override
+- List<Behavior> get behaviors => [];
++ List<Behavior> get behaviors => [
++   BCondition(),
++ ];
 ''',
         ),
         CodeStep(
           description:
               'Give the BCondition its condition: true only while the game has a player who is still alive.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet:
-              '''// Only engage while there's a living player to target.
-condition: (dt, component, game) {
-  return game.player != null && game.player?.isDead == false;
-},
+          codeSnippet: '''
+@override
+List<Behavior> get behaviors => [
+-   BCondition(),
++   BCondition(
++     // Only engage while there's a living player to target.
++     condition: (dt, component, game) {
++       return game.player != null && game.player?.isDead == false;
++     },
++   ),
+];
 ''',
         ),
         CodeStep(
           description:
               'Below condition, add doBehavior: what the enemy does while the condition is true. It chases the hero within 5 tiles and melee attacks when it reaches them, or patrols when the hero is out of sight.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''// Player within 5 tiles: chase them down,
-// and melee as soon as we're close enough to touch.
-// Otherwise, patrol.
-doBehavior: BSeeAndMoveToTarget(
-  target: gameRef.player!,
-  radiusVision: TILE_SIZE * 5,
-  onClose: (dt, target) => _meleeAttack(),
-  doElseBehavior: randomMovement,
+          codeSnippet: '''
+BCondition(
+  // Only engage while there's a living player to target.
+  condition: (dt, component, game) {
+    return game.player != null && game.player?.isDead == false;
+  },
++   // Player within 5 tiles: chase them down,
++   // and melee as soon as we're close enough to touch.
++   // Otherwise, patrol.
++   doBehavior: BSeeAndMoveToTarget(
++     target: gameRef.player!,
++     radiusVision: TILE_SIZE * 5,
++     onClose: (dt, target) => _meleeAttack(),
++     doElseBehavior: randomMovement,
++   ),
 ),
 ''',
         ),
@@ -119,17 +149,39 @@ doBehavior: BSeeAndMoveToTarget(
           description:
               'Below doBehavior, add doElseBehavior: what the enemy does while the condition is false. With no living player to chase, it patrols.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''// No player, or the player is dead: patrol.
-doElseBehavior: randomMovement,
+          codeSnippet: '''
+BCondition(
+  ...
+  doBehavior: BSeeAndMoveToTarget(
+    target: gameRef.player!,
+    radiusVision: TILE_SIZE * 5,
+    onClose: (dt, target) => _meleeAttack(),
+    doElseBehavior: randomMovement,
+  ),
++   // No player, or the player is dead: patrol.
++   doElseBehavior: randomMovement,
+),
 ''',
         ),
         CodeStep(
           description:
               'In MinorEnemy\'s _meleeAttack, set attackFrom to AttackOriginEnum.ENEMY. The code copied from HeroPlayer still says PLAYER_OR_ALLY, so the enemy\'s strike would never hurt the hero.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''_meleeAttack(
-      attackFrom: AttackOriginEnum.ENEMY,
-)
+          codeSnippet: '''
+void _meleeAttack() {
+  if (_isAttacking) return;
+  _playAttackAnimation(MELEE_ATTACK_LEFT, MELEE_ATTACK_RIGHT);
+  ...
+  attack.melee(
+    damage: 20,
+    size: Vector2.all(TILE_SIZE),
+    direction: _isFacingLeft ? Direction.left : Direction.right,
+    withPush: true,
+    sizePush: 8,
+-     attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
++     attackFrom: AttackOriginEnum.ENEMY,
+  );
+}
 ''',
         ),
       ],

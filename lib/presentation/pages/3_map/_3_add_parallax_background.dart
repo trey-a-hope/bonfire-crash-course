@@ -30,25 +30,65 @@ class AddParallaxBackground extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// The ParallaxBackground class from the last lesson.
++ import 'package:counter_app/presentation/backgrounds/parallax_background.dart';
+''',
+        ),
+        CodeStep(
           description:
-              'Create an instance of the ParallaxBackground class and an instance of the CameraDrag class.',
+              'Create an instance of the ParallaxBackground class below your camera config.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+final _cameraConfig = CameraConfig(
+  initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
+  moveOnlyMapArea: true,
+);
++ final _background = ParallaxBackground();
+''',
+        ),
+        CodeStep(
+          description:
+              'In the build method, pass the background to BonfireWidget\'s background parameter.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+@override
+Widget build(BuildContext context) {
+  return BonfireWidget(
++     background: _background,
+    cameraConfig: _cameraConfig,
+    map: WorldMapBySpritefusion(
+      WorldMapReader.fromAsset(MAP_ONE),
+    ),
+  );
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Create an instance of the CameraDrag class below the background.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 final _background = ParallaxBackground();
-final _cameraDrag = CameraDrag();
++ final _cameraDrag = CameraDrag();
 ''',
         ),
-
         CodeStep(
           description:
-              'In the build method, pass the background to BonfireWidget\'s background parameter and add a CameraDrag instance to its components list.',
+              'Add the CameraDrag instance to BonfireWidget\'s components list.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
     background: _background,
-    components: [_cameraDrag],
+    cameraConfig: _cameraConfig,
++     components: [_cameraDrag],
+    map: WorldMapBySpritefusion(
+      WorldMapReader.fromAsset(MAP_ONE),
+    ),
   );
 }
 ''',

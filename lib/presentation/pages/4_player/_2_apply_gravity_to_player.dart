@@ -41,21 +41,32 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
           description:
               'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
           fileName: _DART_FILE_GAME_SCREEN,
-          // The "+ " marker shows globalForces as the line to add.
           codeSnippet: '''
-return BonfireWidget(
-  // Gravity for the whole game. It pulls on every character with the
-  // WithForces mixin (the hero, the companion and the foe).
-+   globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY))
-);
+@override
+Widget build(BuildContext context) {
+  return BonfireWidget(
+    player: HeroPlayer(Vector2(100, 100)),
+    background: _background,
++     // Gravity for the whole game. It pulls on every character with the
++     // WithForces mixin (the hero, the companion and the foe).
++     globalForces: GlobalForcesSettings(gravity: Vector2(0, GRAVITY)),
+    cameraConfig: _cameraConfig,
+    ...
+  );
+}
 ''',
         ),
         CodeStep(
           description:
-              'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
+              'Add the WithForces mixin to the HeroPlayer class so the world\'s gravity acts on it.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero ... with WithForces { ... }
+/// The playable hero character.
+///
+/// [PlatformPlayer] gives us side-scroller movement and jumping.
+- class HeroPlayer extends PlatformPlayer {
++ class HeroPlayer extends PlatformPlayer with WithForces {
+  static const _asset = CharacterAsset.wizard;
 ''',
         ),
       ],

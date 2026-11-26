@@ -7,8 +7,7 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_CHARACTERS_MINOR_ENEMY =
     'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO_PLAYER =
-    'lib/presentation/characters/hero_player.dart';
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 /// Enemy lesson 3, "Apply Lifebar": gives MinorEnemy (50 life, red bar) and
 /// HeroPlayer (100 life, green bar) the WithLifeBar mixin, a starting life
@@ -51,59 +50,131 @@ class ApplyLifebarPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add the WithLifeBar mixin to the MinorEnemy class, after its other mixins.',
+          description: 'Add all imports at the top of minor_enemy.dart.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''with WithLifeBar
+          codeSnippet: '''
+// Colors, BorderRadius and Radius, for styling the life bar.
++ import 'package:flutter/material.dart';
+''',
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of hero.dart.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+// Colors, BorderRadius and Radius, for styling the life bar.
++ import 'package:flutter/material.dart';
+''',
+        ),
+        CodeStep(
+          description:
+              'Add the WithLifeBar mixin to the MinorEnemy class, after its other mixins. The list no longer fits on one line, so each mixin gets its own.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''
+class MinorEnemy extends PlatformEnemy
+-     with WithForces, ScreenBoundaryChecker, WithAttack, UseBehavior {
++     with
++         WithForces,
++         ScreenBoundaryChecker,
++         WithAttack,
++         UseBehavior,
++         WithLifeBar {
 ''',
         ),
         CodeStep(
           description:
               'In the MinorEnemy constructor\'s super(...) call, give the enemy 50 life.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''life: 50,
+          codeSnippet: '''
+MinorEnemy(Vector2 position)
+    : super(
+        position: position,
+        size: Vector2.all(TILE_SIZE),
+        countJumps: 2,
++         life: 50,
+        // Which animation to play for each state and direction.
+        animation: PlatformAnimations(
+          ...
+        ),
+      );
 ''',
         ),
         CodeStep(
           description:
               'Give the MinorEnemy constructor a body, right after super(...), that sets up a red life bar with rounded corners.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''{
-  lifeBar.setup(
-    backgroundColor: Colors.red,
-    borderRadius: BorderRadius.all(
-      Radius.circular(8),
-    ),
-  );
-}
+          codeSnippet: '''
+MinorEnemy(Vector2 position)
+    : super(
+        ...
+        life: 50,
+        animation: PlatformAnimations(
+          ...
+        ),
+-       );
++       ) {
++   lifeBar.setup(
++     backgroundColor: Colors.red,
++     borderRadius: BorderRadius.all(
++       Radius.circular(8),
++     ),
++   );
++ }
 ''',
         ),
         CodeStep(
           description:
               'Add the WithLifeBar mixin to the HeroPlayer class, after its other mixins.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''with WithLifeBar
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+class HeroPlayer extends PlatformPlayer
+    with
+        WithForces,
+        KeyboardEventListener,
+        ScreenBoundaryChecker,
+-         WithAttack {
++         WithAttack,
++         WithLifeBar {
 ''',
         ),
         CodeStep(
           description:
               'In the HeroPlayer constructor\'s super(...) call, give the hero 100 life.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''life: 100,
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+HeroPlayer(Vector2 position)
+    : super(
+        position: position,
+        size: Vector2.all(TILE_SIZE),
+        countJumps: 2,
++         life: 100,
+        // Which animation to play for each state and direction.
+        animation: PlatformAnimations(
+          ...
+        ),
+      );
 ''',
         ),
         CodeStep(
           description:
               'Give the HeroPlayer constructor a body, right after super(...), that sets up a green life bar with rounded corners.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''{
-  lifeBar.setup(
-    backgroundColor: Colors.green,
-    borderRadius: BorderRadius.all(
-      Radius.circular(8),
-    ),
-  );
-}
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+HeroPlayer(Vector2 position)
+    : super(
+        ...
+        life: 100,
+        animation: PlatformAnimations(
+          ...
+        ),
+-       );
++       ) {
++   lifeBar.setup(
++     backgroundColor: Colors.green,
++     borderRadius: BorderRadius.all(
++       Radius.circular(8),
++     ),
++   );
++ }
 ''',
         ),
       ],

@@ -7,17 +7,43 @@ import 'package:material_ui/material_ui.dart';
 /// Paths of the template files this page edits.
 const _DART_FILE_CHARACTERS_MINOR_ENEMY =
     'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO_PLAYER =
-    'lib/presentation/characters/hero_player.dart';
+const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
-/// The onMount that hooks up _onDie, shared by MinorEnemy and HeroPlayer.
-const _ON_MOUNT_SNIPPET = '''@override
+/// The death animations step, shared word for word by MinorEnemy and
+/// HeroPlayer: two one-shot sheets added below the hurt animations.
+const _DEATH_ANIMATIONS_SNIPPET = '''
+others: {
+  ...
+  HURT_RIGHT: AnimationUtils.loadAnimation(
+    ...
+  ),
++   // Plays once when the character's life runs out, one per direction.
++   DEATH_LEFT: AnimationUtils.loadAnimation(
++     _asset.deathLeft,
++     amount: _asset.deathFrames,
++     loop: false,
++   ),
++   DEATH_RIGHT: AnimationUtils.loadAnimation(
++     _asset.deathRight,
++     amount: _asset.deathFrames,
++     loop: false,
++   ),
+},
+''';
+
+/// The onMount change, shared by MinorEnemy and HeroPlayer: the onMount
+/// from the last lesson, with the death listener marked as added.
+const _ON_MOUNT_SNIPPET = '''
+@override
 void onMount() {
-  life.onDieListener(_onDie);
+  super.onMount();
+  life.onReceiveDamageListener(_onHurt);
++   life.onDieListener(_onDie);
 }
 ''';
 
-/// Enemy lesson 5, "Respond to Die": when life reaches 0, MinorEnemy and
+/// Enemy lesson 5, "Respond to Die": registers the death animations, and
+/// when life reaches 0, MinorEnemy and
 /// HeroPlayer drop their life bar, stop, play the death animation and are
 /// removed (the hero skips pauseBehaviors, since it has no behaviors).
 /// Routed at `/enemy/respond-to-die` in `lib/core/pane_config.dart`.
@@ -59,18 +85,32 @@ class RespondToDiePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'In MinorEnemy, add _onDie: drop the life bar, pause the behaviors, stop, and play the death animation once before removing the enemy.',
+              'In the MinorEnemy constructor\'s others map, below the hurt animations, register the two death animations.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
-          codeSnippet: '''void _onDie() {
-  lifeBar.dispose();
-  pauseBehaviors();
-  stop();
-  animation?.playOnceOther(
-    hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
-    runToTheEnd: true,
-    onFinish: removeFromParent,
-  );
+          codeSnippet: _DEATH_ANIMATIONS_SNIPPET,
+        ),
+        CodeStep(
+          description:
+              'In MinorEnemy, below _onHurt, add _onDie: drop the life bar, pause the behaviors, stop, and play the death animation once before removing the enemy.',
+          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          codeSnippet: '''
+void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
+  ...
 }
+
++ /// Called once, when the enemy's life reaches 0.
++ void _onDie() {
++   // The life bar goes straight away, before the death animation plays.
++   lifeBar.dispose();
++   // No more chasing, patrolling or attacking.
++   pauseBehaviors();
++   stop();
++   animation?.playOnceOther(
++     hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
++     runToTheEnd: true,
++     onFinish: removeFromParent,
++   );
++ }
 ''',
         ),
         CodeStep(
@@ -81,23 +121,36 @@ class RespondToDiePage extends StatelessWidget {
         ),
         CodeStep(
           description:
-              'Copy the exact same _onDie into HeroPlayer, then remove the pauseBehaviors() line. The hero has no behaviors to pause.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
-          codeSnippet: '''void _onDie() {
-  lifeBar.dispose();
-  stop();
-  animation?.playOnceOther(
-    hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
-    runToTheEnd: true,
-    onFinish: removeFromParent,
-  );
+              'Register the same two death animations in the HeroPlayer constructor\'s others map, below its hurt animations.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: _DEATH_ANIMATIONS_SNIPPET,
+        ),
+        CodeStep(
+          description:
+              'In HeroPlayer, below _onHurt, add the same _onDie without the pauseBehaviors() line. The hero has no behaviors to pause.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
+  ...
 }
+
++ /// Called once, when the hero's life reaches 0.
++ void _onDie() {
++   // The life bar goes straight away, before the death animation plays.
++   lifeBar.dispose();
++   stop();
++   animation?.playOnceOther(
++     hDirection.isLeftSide ? DEATH_LEFT : DEATH_RIGHT,
++     runToTheEnd: true,
++     onFinish: removeFromParent,
++   );
++ }
 ''',
         ),
         CodeStep(
           description:
               'In HeroPlayer\'s onMount, listen for death and call _onDie.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),
       ],

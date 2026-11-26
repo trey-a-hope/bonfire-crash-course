@@ -49,55 +49,107 @@ class CreatePlayerComponentPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Create a new class named Hero that extends PlatformPlayer to enable side-scroller movement and jumping.',
+          description: 'Add all imports at the top of hero.dart.',
           fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''/// The playable hero character.
-///
-/// [PlatformPlayer] gives us side-scroller movement and jumping.
-class HeroPlayer extends PlatformPlayer { ... }
+          codeSnippet: '''
+// PlatformPlayer, PlatformAnimations and Vector2.
++ import 'package:bonfire/bonfire.dart';
+// The sprite sheet paths for each character.
++ import 'package:counter_app/core/constants/character_asset.dart';
+// TILE_SIZE, the size of one map tile.
++ import 'package:counter_app/core/constants/globals.dart';
+// AnimationUtils, which turns a sprite sheet into an animation.
++ import 'package:counter_app/presentation/characters/util/animation_utils.dart';
+''',
+        ),
+        CodeStep(
+          description: 'Add all imports at the top of game_screen.dart.',
+          fileName: _DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+// The HeroPlayer class you're about to write.
++ import 'package:counter_app/presentation/characters/hero.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Define the Hero constructor, passing the initial spawn position and frame dimensions to the superclass.',
+              'Create a new class named HeroPlayer that extends PlatformPlayer to enable side-scroller movement and jumping.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Creates the hero at [position] (in pixels from the map's top-left).
++ /// The playable hero character.
++ ///
++ /// [PlatformPlayer] gives us side-scroller movement and jumping.
++ class HeroPlayer extends PlatformPlayer {
++ }
+''',
+        ),
+        CodeStep(
+          description:
+              'Define the HeroPlayer constructor, passing the initial spawn position and frame dimensions to the superclass.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+class HeroPlayer extends PlatformPlayer {
++   /// Creates the hero at [position] (in pixels from the map's top-left).
++   HeroPlayer(Vector2 position)
++       : super(
++           position: position,
++           // Size on screen: one tile (TILE_SIZE, 32 pixels) square,
++           // matching one 32x32 frame.
++           size: Vector2.all(TILE_SIZE),
++         );
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Above the constructor, pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+class HeroPlayer extends PlatformPlayer {
++   /// The character's sprite sheets.
++   static const _asset = CharacterAsset.wizard;
++
+  /// Creates the hero at [position] (in pixels from the map's top-left).
+  HeroPlayer(Vector2 position)
+''',
+        ),
+        CodeStep(
+          description:
+              'Below size, configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
         position: position,
-        // Size on screen: one tile (TILE_SIZE, 32 pixels) square,
-        // matching one 32x32 frame.
+        ...
         size: Vector2.all(TILE_SIZE),
++         // Which animation to play for each state and direction.
++         animation: PlatformAnimations(
++           runLeft: AnimationUtils.loadAnimation(_asset.runLeft),
++           runRight: AnimationUtils.loadAnimation(_asset.runRight),
++           // Idle uses a larger stepTime so it plays slower than walking.
++           idleLeft:
++               AnimationUtils.loadAnimation(_asset.idleLeft, stepTime: 0.2),
++           idleRight:
++               AnimationUtils.loadAnimation(_asset.idleRight, stepTime: 0.2),
++         ),
       );
 ''',
         ),
         CodeStep(
           description:
-              'Pick which character sprite set the hero uses. The template ships the wizard and the shark; try both.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''static const _asset = CharacterAsset.wizard;
-''',
-        ),
-        CodeStep(
-          description:
-              'Configure PlatformAnimations to assign sprite animations for running and idling in left and right directions.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
-          codeSnippet: '''
-// Which animation to play for each state and direction.
-animation: SpriteTools.buildAnimation(asset: _asset),
-''',
-        ),
-        CodeStep(
-          description:
-              'Instantiate Hero with an initial position and pass it to the player property in BonfireWidget.',
+              'Instantiate HeroPlayer with an initial position and pass it to the player property in BonfireWidget.',
           fileName: _DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 @override
 Widget build(BuildContext context) {
   return BonfireWidget(
-    player: HeroPlayer(Vector2(100, 100)),
++     player: HeroPlayer(Vector2(100, 100)),
+    background: _background,
+    cameraConfig: _cameraConfig,
+    components: [_cameraDrag],
+    map: WorldMapBySpritefusion(
+      WorldMapReader.fromAsset(MAP_ONE),
+    ),
   );
 }
 ''',

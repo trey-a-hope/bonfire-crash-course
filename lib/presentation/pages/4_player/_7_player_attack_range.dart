@@ -32,48 +32,105 @@ class PlayerAttackRangePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description:
-              'Create the range attack: play the cast, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
+              'Inside the others map, below the melee animations, register the two range attack animations.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-  void _rangeAttack() {
-    if (_isAttacking) return;
-    _isAttacking = true;
-
-    SpriteTools.playAttackAnimation(
-      attackLeft: RANGE_ATTACK_LEFT,
-      attackRight: RANGE_ATTACK_RIGHT,
-      animation: animation!,
-      direction: hDirection,
-      onFinish: () => _isAttacking = false,
-    );
-
-    attack.range(
-      animation: SpriteTools.loadProjectileAnimation(
-        asset: _asset,
-        direction: hDirection,
-      ),
-      size: Vector2.all(16),
-      destroySize: Vector2.all(TILE_SIZE),
-      direction: hDirection,
-      speed: 220,
-      damage: 15,
-      marginFromOrigin: 8,
-      attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
-    );
-  }
+others: {
+  MELEE_ATTACK_LEFT: AnimationUtils.loadAnimation(
+    ...
+  ),
+  MELEE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
+    ...
+  ),
++   RANGE_ATTACK_LEFT: AnimationUtils.loadAnimation(
++     _asset.attackRangeLeft,
++     amount: _asset.attackRangeFrames,
++     stepTime: ATTACK_STEP_TIME,
++     loop: false,
++   ),
++   RANGE_ATTACK_RIGHT: AnimationUtils.loadAnimation(
++     _asset.attackRangeRight,
++     amount: _asset.attackRangeFrames,
++     stepTime: ATTACK_STEP_TIME,
++     loop: false,
++   ),
+},
 ''',
         ),
         CodeStep(
           description:
-              'Map W to the range attack and S to the melee attack inside the KeyDownEvent switch in onKeyboard.',
+              'Below _meleeAttack, create the range attack and play the cast for the direction the hero faces.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-@override
-void onJoystickAction(JoystickActionEvent event) {
-  if (event.event == ActionEvent.DOWN) {
-    if (event.id == LogicalKeyboardKey.keyA) _rangeAttack();
+void _meleeAttack() {
+  ...
+}
+
++ void _rangeAttack() {
++   if (_isAttacking) return;
++   // Remember the facing now, in case the hero turns while casting.
++   final facingLeft = _isFacingLeft;
++   _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
++ }
+''',
+        ),
+        CodeStep(
+          description:
+              'At the end of _rangeAttack, wait for the release frame, then fire a 16x16 projectile in the facing direction.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+void _rangeAttack() {
+  if (_isAttacking) return;
+  final facingLeft = _isFacingLeft;
+  _playAttackAnimation(RANGE_ATTACK_LEFT, RANGE_ATTACK_RIGHT);
+
++   // Fire the projectile on the sheet's release frame so it picks up where
++   // the projectile drawn in the hero's hand leaves off.
++   final releaseDelay = Duration(
++     milliseconds:
++         ((_asset.attackRangeReleaseFrame - 1) * ATTACK_STEP_TIME * 1000)
++             .round(),
++   );
++
++   Future.delayed(releaseDelay, () {
++     // No projectile if the hero was removed while casting.
++     if (!isMounted) return;
++     attack.range(
++       // The projectile is its own 16x16 sheet, not the hero's cast sheet.
++       animation: AnimationUtils.loadAnimation(
++         facingLeft ? _asset.projectileLeft : _asset.projectileRight,
++         textureSize: Vector2.all(16),
++       ),
++       size: Vector2.all(16),
++       destroySize: Vector2.all(TILE_SIZE),
++       direction: facingLeft ? Direction.left : Direction.right,
++       speed: 220,
++       damage: 15,
++       marginFromOrigin: 8,
++       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
++     );
++   });
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Map W to the range attack inside the KeyDownEvent switch in onKeyboard.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+if (event is KeyDownEvent) {
+  switch (event.logicalKey) {
+    case LogicalKeyboardKey.space:
+      jumper.jump();
+      return true;
++     case LogicalKeyboardKey.keyW:
++       _rangeAttack();
++       return true;
+    case LogicalKeyboardKey.keyS:
+      _meleeAttack();
+      return true;
+    ...
   }
-  super.onJoystickAction(event);
 }
 ''',
         ),

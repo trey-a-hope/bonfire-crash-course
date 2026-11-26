@@ -30,26 +30,62 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
-          description: 'Add the ScreenBoundaryChecker mixin to the Hero class.',
+          description: 'Add all imports at the top.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-class Hero ... with ScreenBoundaryChecker { ... }
+// The ScreenBoundaryChecker mixin that ships with the template.
++ import 'package:counter_app/core/mixins/screen_boundary_checker.dart';
 ''',
         ),
         CodeStep(
           description:
-              'Override the update method to keep the player on the map.',
+              'Add the ScreenBoundaryChecker mixin to the HeroPlayer class.',
           fileName: _DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
-/// Called every game tick to update the player's state.
+class HeroPlayer extends PlatformPlayer
+-     with WithForces, KeyboardEventListener {
++     with WithForces, KeyboardEventListener, ScreenBoundaryChecker {
+  static const _asset = CharacterAsset.wizard;
+''',
+        ),
+        CodeStep(
+          description:
+              'Below onLoad, override the update method. It pauses the hero during cutscenes and otherwise runs PlatformPlayer\'s own update.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
+class HeroPlayer extends PlatformPlayer
+    with WithForces, KeyboardEventListener, ScreenBoundaryChecker {
+  ...
+  @override
+  Future<void> onLoad() async {
+    ...
+  }
+
++   /// Called every game tick to update the player's state.
++   @override
++   void update(double dt) {
++     // Pause player logic and movement while a cutscene/cinematic scene is active.
++     if (gameRef.sceneBuilderStatus.isRunning) return;
++     // Run standard PlatformPlayer animation updates.
++     super.update(dt);
++   }
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'After super.update(dt), call checkBoundaries() to keep the player on the map.',
+          fileName: _DART_FILE_CHARACTERS_HERO,
+          codeSnippet: '''
 @override
 void update(double dt) {
   // Pause player logic and movement while a cutscene/cinematic scene is active.
   if (gameRef.sceneBuilderStatus.isRunning) return;
-  // Constrain the player to stay within the map/screen boundaries.
-  checkBoundaries();
   // Run standard PlatformPlayer animation updates.
   super.update(dt);
++   // Constrain the player to stay within the map/screen boundaries. This
++   // runs after the move, so the hero never draws past the edge.
++   checkBoundaries();
 }
 ''',
         ),
@@ -57,7 +93,7 @@ void update(double dt) {
       timeToCodeStatement:
           'You\'re about to add the ScreenBoundaryChecker mixin to Hero and override update so it calls checkBoundaries() every tick.',
       proTip:
-          'Keep super.update(dt) as the last line of update; without it the hero stops moving and animating.',
+          'Keep the super.update(dt) call in update, before checkBoundaries(); without it the hero stops moving and animating.',
     );
   }
 }

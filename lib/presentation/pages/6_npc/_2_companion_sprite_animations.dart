@@ -38,40 +38,69 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
       ],
       codeSteps: [
         CodeStep(
+          description: 'Add all imports at the top.',
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
+// The same helper the hero uses to turn a sprite sheet into an animation.
++ import 'package:counter_app/presentation/characters/util/animation_utils.dart';
+''',
+        ),
+        CodeStep(
           description:
-              'Pass a SimpleDirectionAnimation to super(...). The strawberry faces the camera, so left and right share the same sheet.',
+              'Pass a SimpleDirectionAnimation to super(...) with the idle animation. The strawberry faces the camera, so left and right share the same sheet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)
     : super(
-        ... // position, size, life, speed
-        // The strawberry faces the camera, so left and right share a sheet.
-        animation: SimpleDirectionAnimation(
-          // Idle breathes, sways its stem and blinks: 8 frames, played slowly.
-          idleRight: AnimationUtils.loadAnimation(
-            STRAWBERRY_IDLE,
-            amount: 8,
-            stepTime: 0.15,
-          ),
-          idleLeft: AnimationUtils.loadAnimation(
-            STRAWBERRY_IDLE,
-            amount: 8,
-            stepTime: 0.15,
-          ),
-          // Walk steps quickly enough to match the speed, so the feet
-          // don't look like they're sliding.
-          runRight: AnimationUtils.loadAnimation(
-            STRAWBERRY_WALK,
-            amount: 4,
-            stepTime: 0.08,
-          ),
-          runLeft: AnimationUtils.loadAnimation(
-            STRAWBERRY_WALK,
-            amount: 4,
-            stepTime: 0.08,
-          ),
-        ),
+        position: position,
+        // Size on screen; matches one 32x32 frame.
+        size: Vector2.all(TILE_SIZE),
+        life: 100,
+        // Same speed as the hero (Bonfire's default, 80), so it keeps up
+        // instead of falling behind and losing sight of them.
+        speed: 80,
++         // The strawberry faces the camera, so left and right share a sheet.
++         animation: SimpleDirectionAnimation(
++           // Idle breathes, sways its stem and blinks: 8 frames, played slowly.
++           idleRight: AnimationUtils.loadAnimation(
++             STRAWBERRY_IDLE,
++             amount: 8,
++             stepTime: 0.15,
++           ),
++           idleLeft: AnimationUtils.loadAnimation(
++             STRAWBERRY_IDLE,
++             amount: 8,
++             stepTime: 0.15,
++           ),
++         ),
       );
+''',
+        ),
+        CodeStep(
+          description:
+              'Add the walk animation to the same SimpleDirectionAnimation, after idleLeft, so Berry steps along when it moves.',
+          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          codeSnippet: '''
+animation: SimpleDirectionAnimation(
+  ... // idleRight
+  idleLeft: AnimationUtils.loadAnimation(
+    STRAWBERRY_IDLE,
+    amount: 8,
+    stepTime: 0.15,
+  ),
++   // Walk steps quickly enough to match the speed, so the feet
++   // don't look like they're sliding.
++   runRight: AnimationUtils.loadAnimation(
++     STRAWBERRY_WALK,
++     amount: 4,
++     stepTime: 0.08,
++   ),
++   runLeft: AnimationUtils.loadAnimation(
++     STRAWBERRY_WALK,
++     amount: 4,
++     stepTime: 0.08,
++   ),
+),
 ''',
         ),
       ],
