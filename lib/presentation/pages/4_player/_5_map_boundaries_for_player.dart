@@ -91,7 +91,7 @@ void update(double dt) {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to add the ScreenBoundaryChecker mixin to Hero and override update so it calls checkBoundaries() every tick.',
+          'You\'re about to add the ScreenBoundaryChecker mixin to HeroPlayer and override update so it calls checkBoundaries() every tick.',
       proTip:
           'Keep the super.update(dt) call in update, before checkBoundaries(); without it the hero stops moving and animating.',
     );

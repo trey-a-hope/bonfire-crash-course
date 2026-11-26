@@ -174,7 +174,7 @@ if (event is KeyDownEvent) {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to add WithAttack to Hero, register the four attack animations, write a melee attack and a projectile attack, and map them to S and W in onKeyboard.',
+          'You\'re about to add WithAttack to HeroPlayer, register the melee attack animations, write a melee attack, and map it to S in onKeyboard.',
       proTip:
           'Tune damage, speed and size to change how the attacks feel, but keep the _isAttacking check at the top of each one so holding a key can\'t fire faster than the animation plays.',
     );

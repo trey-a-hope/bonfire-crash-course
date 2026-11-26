@@ -235,7 +235,7 @@ Widget build(BuildContext context) {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to add KeyboardEventListener and the jump animations to Hero, allow two jumps, handle A, D and Space in onKeyboard, and register a Keyboard controller on BonfireWidget.',
+          'You\'re about to add KeyboardEventListener and the jump animations to HeroPlayer, allow two jumps, handle A, D and Space in onKeyboard, and register a Keyboard controller on BonfireWidget.',
       proTip:
           'Click inside the game window before you press any keys, because key presses only reach the hero while the game has focus.',
     );

@@ -71,7 +71,7 @@ Widget build(BuildContext context) {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to turn on gravity for the whole game with globalForces on BonfireWidget, and add the WithForces mixin to Hero.',
+          'You\'re about to turn on gravity for the whole game with globalForces on BonfireWidget, and add the WithForces mixin to HeroPlayer.',
       proTip:
           'Don\'t worry if the hero now falls straight through the floor; it has no solid shape yet, and the hitbox in the next lesson fixes that. Bonfire also has forces.setGravity for a single character, but don\'t use it on top of globalForces: the two add up, and that character falls twice as fast.',
     );

@@ -156,7 +156,7 @@ Widget build(BuildContext context) {
         ),
       ],
       timeToCodeStatement:
-          'You\'re about to create the Hero class in hero.dart with its constructor and idle and run animations, write the AnimationUtils helper, and pass a Hero to BonfireWidget\'s player.',
+          'You\'re about to create the HeroPlayer class in hero.dart with its constructor and idle and run animations (built with the AnimationUtils helper), and pass a HeroPlayer to BonfireWidget\'s player.',
       proTip:
           'To try a different character, change CharacterAsset.wizard to CharacterAsset.shark and save; every sprite path comes from that one value, so nothing else has to change.',
     );
