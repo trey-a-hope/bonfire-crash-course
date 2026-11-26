@@ -25,20 +25,12 @@ return BonfireWidget(
 ''';
 
 /// Shows [code] in a [CodeSnippetCard] the way a lesson page does.
-Future<void> _pumpCard(
-  WidgetTester tester,
-  String code, {
-  String? highlightMatch,
-}) {
+Future<void> _pumpCard(WidgetTester tester, String code) {
   return tester.pumpWidget(
     MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
-          child: CodeSnippetCard(
-            code: code,
-            fileName: 'game_screen.dart',
-            highlightMatch: highlightMatch,
-          ),
+          child: CodeSnippetCard(code: code, fileName: 'game_screen.dart'),
         ),
       ),
     ),
@@ -245,35 +237,6 @@ void main() {
       expect(find.bySemanticsLabel('Added'), findsOneWidget);
       expect(find.bySemanticsLabel('Removed'), findsOneWidget);
       handle.dispose();
-    });
-
-    testWidgets('the concept highlight wins but the sign keeps its color', (
-      tester,
-    ) async {
-      await _pumpCard(
-        tester,
-        _removedSnippet,
-        highlightMatch: 'onJoystickAction',
-      );
-
-      expect(
-        _lineBackground(tester, 'onJoystickAction'),
-        CodeSnippetCard.highlightColor,
-      );
-      expect(
-        _lineBar(tester, 'onJoystickAction'),
-        CodeSnippetCard.highlightBarColor,
-      );
-      // A removed line without the match stays red.
-      expect(
-        _lineBackground(tester, '_rangeAttack'),
-        CodeSnippetCard.removedColor,
-      );
-      final signs = tester.widgetList<Text>(find.text('−'));
-      expect(
-        signs.map((s) => s.style?.color),
-        everyElement(CodeSnippetCard.removedBarColor),
-      );
     });
 
     testWidgets('Copy puts the snippet without removed lines on the '

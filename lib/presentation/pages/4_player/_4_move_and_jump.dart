@@ -26,14 +26,12 @@ class MoveAndJumpPage extends StatelessWidget {
         Concept(
           title: 'Move and Jump',
           short: 'A and D walk, Space jumps, twice in mid-air.',
-          codeMatch: 'jump(',
           subtitle:
               'A and D call onJoystickChangeDirectional to walk left and right, and Space calls jumper.jump(). countJumps lets the hero jump again in mid-air.',
         ),
         Concept(
           title: 'KeyDownEvent and KeyUpEvent',
           short: 'A key was pressed, or a key was let go.',
-          codeMatch: 'KeyDownEvent',
           subtitle:
               'onKeyboard receives a KeyDownEvent when a key is pressed and a KeyUpEvent when it is released. Releasing A or D either stops the hero or hands control to the other key if it is still held.',
         ),

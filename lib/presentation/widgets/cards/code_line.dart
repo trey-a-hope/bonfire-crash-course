@@ -1,17 +1,13 @@
 part of 'code_snippet_card.dart';
 
-/// One line of code in [CodeSnippetCard]: lit up yellow when the picked
-/// concept is on it, or tinted green or red when the author marked it as
-/// added or removed.
+/// One line of code in [CodeSnippetCard], tinted green or red when the
+/// author marked it as added or removed.
 class _CodeLine extends StatelessWidget {
   /// The syntax-highlighted runs of this line, marker already stripped.
   final List<TextSpan> spans;
 
   /// The monospace base style every run merges onto.
   final TextStyle style;
-
-  /// Whether the concept the learner picked is on this line.
-  final bool lit;
 
   /// Whether the author marked this line as added, removed, or neither.
   final CodeLineKind kind;
@@ -23,32 +19,26 @@ class _CodeLine extends StatelessWidget {
   const _CodeLine({
     required this.spans,
     required this.style,
-    required this.lit,
     this.kind = CodeLineKind.unchanged,
     this.showGutter = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    // The concept highlight wins over added/removed for the background and
-    // bar; the sign below keeps its own color so the meaning survives.
-    final (background, bar) = lit
-        ? (CodeSnippetCard.highlightColor, CodeSnippetCard.highlightBarColor)
-        : switch (kind) {
-            CodeLineKind.added => (
-              CodeSnippetCard.addedColor,
-              CodeSnippetCard.addedBarColor,
-            ),
-            CodeLineKind.removed => (
-              CodeSnippetCard.removedColor,
-              CodeSnippetCard.removedBarColor,
-            ),
-            CodeLineKind.unchanged => (Colors.transparent, Colors.transparent),
-          };
+    final (background, bar) = switch (kind) {
+      CodeLineKind.added => (
+        CodeSnippetCard.addedColor,
+        CodeSnippetCard.addedBarColor,
+      ),
+      CodeLineKind.removed => (
+        CodeSnippetCard.removedColor,
+        CodeSnippetCard.removedBarColor,
+      ),
+      CodeLineKind.unchanged => (Colors.transparent, Colors.transparent),
+    };
 
     final text = Text.rich(
       TextSpan(children: spans.isEmpty ? null : spans),
-      key: lit ? const ValueKey('code-line-lit') : null,
       style: style,
       softWrap: true,
     );

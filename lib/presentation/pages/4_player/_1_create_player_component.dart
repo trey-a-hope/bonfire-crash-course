@@ -31,21 +31,18 @@ class CreatePlayerComponentPage extends StatelessWidget {
         Concept(
           title: 'PlatformPlayer',
           short: 'Bonfire\'s side-scroller player: walks, jumps and animates.',
-          codeMatch: 'PlatformPlayer',
           subtitle:
               'Bonfire\'s side-scroller player. It handles horizontal movement and jumping, and swaps animations based on what the hero is doing and which way it faces.',
         ),
         Concept(
           title: 'CharacterAsset',
           short: 'One value that picks every sprite for a character.',
-          codeMatch: 'CharacterAsset',
           subtitle:
               'An enum in lib/core/constants/character_asset.dart that bundles every sprite sheet path for one character (wizard or shark). Switching characters is a one-word change.',
         ),
         Concept(
           title: 'SpriteAnimation',
           short: 'A sheet sliced into frames that play in order.',
-          codeMatch: 'stepTime',
           subtitle:
               'A sprite sheet sliced into equal frames that play in order. stepTime is how long each frame stays on screen, so a bigger number plays slower.',
         ),

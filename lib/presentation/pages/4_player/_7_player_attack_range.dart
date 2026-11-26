@@ -25,7 +25,6 @@ class PlayerAttackRangePage extends StatelessWidget {
         Concept(
           title: 'Ranged Attack (attack.range)',
           short: 'Fires a projectile the way the hero faces.',
-          codeMatch: 'range',
           subtitle:
               'Fires a flying projectile in the facing direction. It damages the first enemy it hits and is destroyed when it reaches a wall. The projectile uses its own 16x16 sheet.',
         ),

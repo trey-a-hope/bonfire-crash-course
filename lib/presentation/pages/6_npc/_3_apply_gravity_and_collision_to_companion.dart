@@ -26,21 +26,18 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
         Concept(
           title: 'WithCollision',
           short: 'Stops a moving component when it hits something solid.',
-          codeMatch: 'WithCollision',
           subtitle:
               'The mixin that makes a moving component stop when it hits something solid. PlatformPlayer already includes it for the hero, but SimpleAlly doesn\'t, so the companion adds it itself.',
         ),
         Concept(
           title: 'WithForces',
           short: 'Lets gravity pull Berry down.',
-          codeMatch: 'WithForces',
           subtitle:
               'The same mixin the hero uses. It lets the gravity you set on BonfireWidget pull the companion down every tick until it lands, so the companion needs no gravity code of its own.',
         ),
         Concept(
           title: 'RectangleHitbox',
           short: 'Berry\'s solid shape.',
-          codeMatch: 'RectangleHitbox',
           subtitle:
               'The companion\'s solid shape. It lets the companion land on the ground and stop at walls.',
         ),

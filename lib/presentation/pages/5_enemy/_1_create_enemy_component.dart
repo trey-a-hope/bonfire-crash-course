@@ -32,14 +32,12 @@ class CreateEnemyComponentPage extends StatelessWidget {
         Concept(
           title: 'PlatformEnemy',
           short: 'The enemy twin of PlatformPlayer.',
-          codeMatch: 'PlatformEnemy',
           subtitle:
               'The enemy version of PlatformPlayer. It moves, jumps and animates the same way, has life that the hero\'s attacks can take away, and is never driven by the keyboard or a joystick.',
         ),
         Concept(
           title: 'components',
           short: 'BonfireWidget\'s list for everything but the player.',
-          codeMatch: 'components:',
           subtitle:
               'A BonfireWidget list for everything in the world that isn\'t the player, like enemies, allies and decorations. Each entry is placed by its position in pixels from the map\'s top-left.',
         ),

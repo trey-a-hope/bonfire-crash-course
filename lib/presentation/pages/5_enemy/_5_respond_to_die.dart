@@ -40,21 +40,18 @@ class RespondToDiePage extends StatelessWidget {
         Concept(
           title: 'onDieListener',
           short: 'Calls you back when life hits 0.',
-          codeMatch: 'onDieListener',
           subtitle:
               'Registers a function that Bonfire calls once, when the character\'s life reaches 0.',
         ),
         Concept(
           title: 'pauseBehaviors',
           short: 'Turns off the AI.',
-          codeMatch: 'pauseBehaviors',
           subtitle:
               'Stops the UseBehavior list from running, so a dead enemy no longer chases, patrols or attacks. The hero has no behaviors, so it skips this.',
         ),
         Concept(
           title: 'removeFromParent',
           short: 'Takes the component out of the game.',
-          codeMatch: 'removeFromParent',
           subtitle:
               'Removes the component from the game. Passing it as onFinish removes the character as soon as its death animation ends.',
         ),

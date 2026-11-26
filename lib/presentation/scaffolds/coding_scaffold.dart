@@ -154,10 +154,7 @@ class _CodingScaffoldState extends State<CodingScaffold> {
                         GapSizes.mediumGap,
                       ],
                       if (widget.codeSteps.isNotEmpty)
-                        StepsWidget.code(
-                          codeSteps: widget.codeSteps,
-                          highlightMatch: picked?.codeMatch,
-                        ),
+                        StepsWidget.code(codeSteps: widget.codeSteps),
                       LessonOutcomeCard(
                         outcome: widget.outcome,
                         objective: widget.objective,

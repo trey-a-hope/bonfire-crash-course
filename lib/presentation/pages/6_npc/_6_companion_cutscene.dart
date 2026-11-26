@@ -26,21 +26,18 @@ class CompanionCutscenePage extends StatelessWidget {
         Concept(
           title: 'gameRef.startScene',
           short: 'Runs scene actions one after another.',
-          codeMatch: 'startScene',
           subtitle:
               'Runs a list of scene actions one after another, each starting when the one before it finishes. While a scene runs, gameRef.sceneBuilderStatus.isRunning is true.',
         ),
         Concept(
           title: 'CameraSceneAction.target',
           short: 'Pans and zooms the camera to a component.',
-          codeMatch: 'CameraSceneAction.target',
           subtitle:
               'Pans the camera to a component (and zooms, if you give a zoom) over a duration. It drops any fraction of a second, so use whole seconds: Duration(milliseconds: 1500) pans in 1 second.',
         ),
         Concept(
           title: 'AwaitSceneAction',
           short: 'Waits until the dialogue closes.',
-          codeMatch: 'AwaitSceneAction',
           subtitle:
               'Pauses the scene until a Future completes. Berry\'s scene waits here until the dialogue has closed, then moves on to the pan back.',
         ),

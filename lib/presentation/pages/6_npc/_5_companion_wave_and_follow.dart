@@ -26,35 +26,30 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
         Concept(
           title: 'FollowAction and followAction',
           short: 'Decides each tick: stop, wait, or walk left or right.',
-          codeMatch: 'FollowAction',
           subtitle:
               'An enum of what the companion does each tick (stop, lost, left, right) and a static function that picks one from the distance to the hero and whether the way is clear. It reads no game state, so a plain unit test can check it.',
         ),
         Concept(
           title: 'canMove, moveLeft and moveRight',
           short: 'Checks for a wall, then walks.',
-          codeMatch: 'canMove',
           subtitle:
               'canMove checks for a wall or step before walking. moveLeft and moveRight only set the horizontal speed, so gravity keeps pulling the companion down and it walks off ledges instead of floating.',
         ),
         Concept(
           title: 'onBlockMovementListener',
           short: 'Lets Berry and the hero pass through each other.',
-          codeMatch: 'onBlockMovementListener',
           subtitle:
               'Bonfire asks this before a collision stops a component. Returning false for the Player lets the hero and Berry pass through each other, so a hero who turns around never shoves Berry along; tiles still block it.',
         ),
         Concept(
           title: 'priority (draw order)',
           short: 'Draws Berry just behind the hero.',
-          codeMatch: 'priority',
           subtitle:
               'Bonfire draws higher priorities on top, based on how low a component stands on screen. Berry overrides the priority getter to sit one under the hero, so the hero is always drawn in front, which suits a side-scroller where they share the same ground.',
         ),
         Concept(
           title: 'Two waves: portrait and playOnceOther',
           short: 'Hello in the dialogue, goodbye in the world.',
-          codeMatch: 'playOnceOther',
           subtitle:
               'The game is paused while the dialogue is open, so the hello wave plays in the dialogue portrait (_WaveThenTalk). When it closes, animation.playOnceOther plays the in-world wave from the others map and returns a Future; following starts when it completes.',
         ),

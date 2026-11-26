@@ -27,14 +27,12 @@ class CreateParallaxBackground extends StatelessWidget {
         Concept(
           title: 'GameBackground',
           short: 'The base class for a custom game background.',
-          codeMatch: 'GameBackground',
           subtitle:
               'The base class for a custom game background. Extend it to build your own background; Bonfire draws it behind the map and everything else in the game.',
         ),
         Concept(
           title: 'ParallaxComponent',
           short: 'Image layers moving at different speeds, for depth.',
-          codeMatch: 'ParallaxComponent?',
           subtitle:
               'A full parallax, several layers of images drawn out on the screen and each layer moves with different velocities to give an effect of depth.',
         ),

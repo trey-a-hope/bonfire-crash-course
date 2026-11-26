@@ -169,22 +169,11 @@ class CodeSnippetCard extends SignalStatefulWidget {
   /// The name of the file or label displayed in the header bar.
   final String fileName;
 
-  /// When set, every line containing this text is lit up, so a lesson can
-  /// point at the code a concept is about.
-  final String? highlightMatch;
-
   const CodeSnippetCard({
     super.key,
     required this.code,
     required this.fileName,
-    this.highlightMatch,
   });
-
-  /// Background of a lit-up line.
-  static const highlightColor = Color(0x24FFD740);
-
-  /// Bar on the left of a lit-up line.
-  static const highlightBarColor = Color(0xFFFFD740);
 
   /// Background of an added (`+ `) line.
   static const addedColor = Color(0x333FB950);
@@ -260,9 +249,6 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
   /// The dark code area: one [_CodeLine] per line of the snippet.
   Widget _buildHighlightView() {
     final (:code, :kinds) = parseCodeSnippet(widget.code);
-    final match = widget.highlightMatch;
-    // Marker-free lines, so a concept match never hits a "+ " or "- ".
-    final sourceLines = code.split('\n');
     // The gutter only appears when something is marked, so unmarked
     // snippets keep today's spacing.
     final showGutter = kinds.any((k) => k != CodeLineKind.unchanged);
@@ -289,10 +275,6 @@ class _CodeSnippetCardState extends State<CodeSnippetCard> {
                 style: rootStyle,
                 kind: i < kinds.length ? kinds[i] : CodeLineKind.unchanged,
                 showGutter: showGutter,
-                lit:
-                    match != null &&
-                    i < sourceLines.length &&
-                    sourceLines[i].contains(match),
               ),
           ],
         ),

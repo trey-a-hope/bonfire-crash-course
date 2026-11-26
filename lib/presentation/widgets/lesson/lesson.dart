@@ -14,5 +14,5 @@ part 'walkthrough_button.dart';
 /// The card colour used across the course.
 const lessonCard = Color(0xFF1E1E2C);
 
-/// The colour that ties a picked concept to its lit-up code lines.
+/// The accent colour of a picked concept's chip and explainer.
 const lessonHighlight = Color(0xFFFFD740);

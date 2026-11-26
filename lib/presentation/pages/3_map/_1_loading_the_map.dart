@@ -29,21 +29,18 @@ class LoadingTheMap extends StatelessWidget {
         Concept(
           title: 'BonfireWidget',
           short: 'Runs the game loop, camera and components.',
-          codeMatch: 'BonfireWidget(',
           subtitle:
               'The central orchestrator widget that bridges Flame and Bonfire within your Flutter widget tree, running the 60 FPS game loop, tile culling, physics, components, and camera.',
         ),
         Concept(
           title: 'WorldMapBySpritefusion',
           short: 'Turns map.json into floor tiles and walls.',
-          codeMatch: 'WorldMapBySpritefusion',
           subtitle:
               'Bonfire\'s built-in map loader for Spritefusion maps. It reads map.json and its associated tileset to construct both visual floor tiles and collision boundary grids.',
         ),
         Concept(
           title: 'CameraConfig',
           short: 'Fits the map and keeps the camera on it.',
-          codeMatch: 'CameraConfig(',
           subtitle:
               'Configures viewport zoom levels (initialMapZoomFit) and clamps camera movement strictly to the map area (moveOnlyMapArea: true) so players cannot wander into empty space.',
         ),

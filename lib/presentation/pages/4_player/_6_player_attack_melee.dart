@@ -24,14 +24,12 @@ class PlayerAttackMeleePage extends StatelessWidget {
         Concept(
           title: 'Melee Attack (attack.melee)',
           short: 'A short, invisible hit area beside the hero.',
-          codeMatch: 'melee',
           subtitle:
               'Spawns a short-lived, invisible damage area beside the hero. Any enemy inside it takes damage and, with withPush enabled, is knocked back. The swing itself is drawn in the hero\'s own attack sheet.',
         ),
         Concept(
           title: 'playOnceOther',
           short: 'Plays an attack once, then goes back to idle.',
-          codeMatch: 'playOnceOther',
           subtitle:
               'Plays an extra animation registered under others once, then returns to the normal idle/run animation. runToTheEnd: true stops walking or landing from cutting the attack short.',
         ),

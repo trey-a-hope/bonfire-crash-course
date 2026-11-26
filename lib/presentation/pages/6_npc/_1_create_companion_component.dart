@@ -34,14 +34,12 @@ class CreateCompanionComponentPage extends StatelessWidget {
         Concept(
           title: 'SimpleAlly',
           short: 'The Ally type with direction animations.',
-          codeMatch: 'SimpleAlly',
           subtitle:
               'The Ally type with direction animations. Bonfire 4.0 has no PlatformAlly, so the companion starts from SimpleAlly and gets its platform behaviour from mixins in a later lesson.',
         ),
         Concept(
           title: 'components',
           short: 'BonfireWidget\'s list for everything but the player.',
-          codeMatch: 'components:',
           subtitle:
               'A BonfireWidget list for everything in the world that isn\'t the player, like allies, enemies and decorations.',
         ),

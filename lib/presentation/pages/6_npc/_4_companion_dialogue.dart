@@ -26,21 +26,18 @@ class CompanionDialoguePage extends StatelessWidget {
         Concept(
           title: 'vision.seePlayer',
           short: 'Checks whether the hero is close enough.',
-          codeMatch: 'seePlayer',
           subtitle:
               'Checks every tick whether the hero is within radiusVision pixels. observed runs while the hero is in range and notObserved runs while they\'re out of it.',
         ),
         Concept(
           title: 'TalkDialog and Say',
           short: 'Bonfire\'s dialogue box and its lines.',
-          codeMatch: 'TalkDialog',
           subtitle:
               'Bonfire\'s built-in dialogue box. TalkDialog.show takes a list of Say lines, types each one out, and moves on when the player presses a key or taps.',
         ),
         Concept(
           title: 'pauseEngine and resumeEngine',
           short: 'Freezes the game while you talk.',
-          codeMatch: 'Engine()',
           subtitle:
               'Freeze and restart the game loop. Pausing before the dialogue opens stops the hero from walking off mid-conversation, and keeps a hero in mid-jump from falling through the ground if opening it stalls the app for a moment.',
         ),

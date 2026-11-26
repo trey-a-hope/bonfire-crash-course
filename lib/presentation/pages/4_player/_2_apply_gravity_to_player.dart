@@ -26,14 +26,12 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
         Concept(
           title: 'WithForces',
           short: 'Lets gravity act on the hero every tick.',
-          codeMatch: 'WithForces',
           subtitle:
               'A Bonfire mixin that lets forces act on a component. Forces are applied every game tick, so gravity keeps pulling the hero down until something solid stops it.',
         ),
         Concept(
           title: 'globalForces',
           short: 'Gravity for the whole game, set once.',
-          codeMatch: 'globalForces',
           subtitle:
               'Set on BonfireWidget once, it pulls on every component with WithForces. GlobalForcesSettings(gravity: Vector2(0, GRAVITY)) pulls straight down at 300 pixels per second squared; a bigger number makes everything fall faster.',
         ),

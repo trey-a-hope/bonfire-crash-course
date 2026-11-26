@@ -25,7 +25,6 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
         Concept(
           title: 'RectangleHitbox',
           short: 'The hero\'s solid shape.',
-          codeMatch: 'RectangleHitbox',
           subtitle:
               'Defines the collision area of the player component as a rectangle.',
         ),
