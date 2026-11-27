@@ -1,4 +1,5 @@
 import '../../../core/modules/player_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -19,8 +20,7 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
       unitStep: 5,
       title: 'Map Boundaries for Player',
       outcome: 'The hero can\'t walk or fall off the map.',
-      objective:
-          'Keep the player on the map and prevent it from falling into the void.',
+      objective: 'Keep the player on the map and prevent it from falling into the void.',
       concepts: [
         Concept(
           title: 'Map Boundaries',
@@ -59,10 +59,8 @@ class HeroPlayer extends PlatformPlayer ... {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add the ScreenBoundaryChecker mixin to Hero and override update so it calls checkBoundaries() every tick.',
-      proTip:
-          'Keep super.update(dt) as the last line of update; without it the hero stops moving and animating.',
+      timeToCodeStatement: 'You\'re about to add the ScreenBoundaryChecker mixin to Hero and override update so it calls checkBoundaries() every tick.',
+      proTip: 'Keep super.update(dt) as the last line of update; without it the hero stops moving and animating.',
     );
   }
 }

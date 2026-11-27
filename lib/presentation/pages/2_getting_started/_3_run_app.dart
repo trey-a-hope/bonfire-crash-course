@@ -43,8 +43,7 @@ class RunApp extends StatelessWidget {
         ),
         GapSizes.mediumGap,
         OneLineTip(
-          text:
-              'Curious what\'s inside? Open Starter Project Files in the sidebar anytime.',
+          text: 'Curious what\'s inside? Open Starter Project Files in the sidebar anytime.',
         ),
       ],
     );

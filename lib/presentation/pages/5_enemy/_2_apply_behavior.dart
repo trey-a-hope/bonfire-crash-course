@@ -1,4 +1,5 @@
 import '../../../core/modules/enemy_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -24,28 +25,23 @@ class ApplyBehaviorPage extends StatelessWidget {
       module: ENEMY_MODULE,
       unitStep: 2,
       title: 'Apply Behavior',
-      outcome:
-          'The enemy wanders the map, then chases and strikes the hero when they come within 5 tiles.',
-      objective:
-          'Give MinorEnemy a behavior tree: patrol at random, chase and melee a living hero it can see, and go back to patrolling when the hero is gone.',
+      outcome: 'The enemy wanders the map, then chases and strikes the hero when they come within 5 tiles.',
+      objective: 'Give MinorEnemy a behavior tree: patrol at random, chase and melee a living hero it can see, and go back to patrolling when the hero is gone.',
       concepts: [
         Concept(
           title: 'UseBehavior',
           short: 'Runs a list of behaviors every frame.',
-          subtitle:
-              'A Bonfire mixin that gives a component a behaviors list and runs it every frame, top to bottom. The component\'s AI is just that list, with no update code of your own.',
+          subtitle: 'A Bonfire mixin that gives a component a behaviors list and runs it every frame, top to bottom. The component\'s AI is just that list, with no update code of your own.',
         ),
         Concept(
           title: 'BCondition',
           short: 'If this, do that; otherwise, do something else.',
-          subtitle:
-              'A behavior that checks its condition every frame. When it returns true, doBehavior runs; when it returns false, doElseBehavior runs. Nest them to build a decision tree.',
+          subtitle: 'A behavior that checks its condition every frame. When it returns true, doBehavior runs; when it returns false, doElseBehavior runs. Nest them to build a decision tree.',
         ),
         Concept(
           title: 'BSeeAndMoveToTarget and BRandomMovement',
           short: 'Chase a target in sight, or wander at random.',
-          subtitle:
-              'BSeeAndMoveToTarget walks toward its target while it is within radiusVision, calls onClose when they touch, and runs doElseBehavior when the target is out of sight. BRandomMovement wanders to random spots up to maxDistance away.',
+          subtitle: 'BSeeAndMoveToTarget walks toward its target while it is within radiusVision, calls onClose when they touch, and runs doElseBehavior when the target is out of sight. BRandomMovement wanders to random spots up to maxDistance away.',
         ),
       ],
       codeSteps: [
@@ -140,10 +136,8 @@ _meleeAttack(
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add UseBehavior to MinorEnemy, override its behaviors list, write a randomMovement patrol, and build a BCondition that chases and melees a living hero in sight and patrols otherwise, then make its melee an enemy attack.',
-      proTip:
-          'Change radiusVision to make the enemy notice the hero from farther away or only up close, and change maxDistance in randomMovement to make its patrol wider or tighter.',
+      timeToCodeStatement: 'You\'re about to add UseBehavior to MinorEnemy, override its behaviors list, write a randomMovement patrol, and build a BCondition that chases and melees a living hero in sight and patrols otherwise, then make its melee an enemy attack.',
+      proTip: 'Change radiusVision to make the enemy notice the hero from farther away or only up close, and change maxDistance in randomMovement to make its patrol wider or tighter.',
     );
   }
 }

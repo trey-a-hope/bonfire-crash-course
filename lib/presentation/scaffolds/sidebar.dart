@@ -3,9 +3,8 @@ import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
-import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/course_info/course_info_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/miscellaneous/settings_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/miscellaneous/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -16,8 +15,8 @@ import 'package:go_router/go_router.dart';
 /// * a branding header,
 /// * a scrollable list of course panes built from [panes], where parent panes
 ///   become collapsible groups,
-/// * a footer with links to the Content Outline, the starter project files
-///   and settings, plus a bar showing overall course progress.
+/// * a footer with links to Course Info and Settings, plus a bar showing
+///   overall course progress.
 class Sidebar extends StatelessWidget {
   /// The index of the active branch in
   /// [ProgressNavigationController.navigateablePanes]. Used to highlight the
@@ -210,17 +209,11 @@ class Sidebar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: SidebarItemTile(
-                icon: const Icon(Icons.list_alt),
-                title: 'Content Outline',
+                icon: const Icon(Icons.info_outline_rounded),
+                title: 'Course Info',
                 isSelected: false,
-                onTap: () => context.push(ContentOutlinePage.path),
+                onTap: () => context.push(CourseInfoPage.path),
               ),
-            ),
-            SidebarItemTile(
-              icon: const Icon(Icons.folder_open_rounded),
-              title: 'Starter Project Files',
-              isSelected: false,
-              onTap: () => context.push(StarterProjectFilesPage.path),
             ),
             SidebarItemTile(
               icon: const Icon(Icons.settings_rounded),

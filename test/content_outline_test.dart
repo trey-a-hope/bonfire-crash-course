@@ -5,7 +5,7 @@ import 'package:bonfire_crash_course/core/modules/enemy_module.dart';
 import 'package:bonfire_crash_course/core/modules/map_module.dart';
 import 'package:bonfire_crash_course/core/modules/player_module.dart';
 import 'package:bonfire_crash_course/domain/models/module.dart';
-import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -24,7 +24,9 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(const MaterialApp(home: ContentOutlinePage()));
+      await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: ContentOutlineView())),
+      );
       await tester.pump();
 
       expect(find.text('Map'), findsOneWidget);
@@ -41,20 +43,15 @@ void main() {
   // and the app copy of the diagram exists.
   for (final entry in _outlineModules.entries) {
     test('Module ${entry.key} diagram has one column per lesson', () {
-      final spec =
-          jsonDecode(
-                File(
-                  'tool/diagrams/specs/module_${entry.key}.json',
-                ).readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final spec = jsonDecode(
+        File('tool/diagrams/specs/module_${entry.key}.json').readAsStringSync(),
+      ) as Map<String, dynamic>;
       expect(spec['name'], entry.value.moduleName);
       expect((spec['lessons'] as List).length, entry.value.totalSteps);
       final slug = entry.value.moduleName.toLowerCase();
       expect(
-        File(
-          'assets/images/module_diagrams/module_${entry.key}_$slug.svg',
-        ).existsSync(),
+        File('assets/images/module_diagrams/module_${entry.key}_$slug.svg')
+            .existsSync(),
         isTrue,
       );
     });

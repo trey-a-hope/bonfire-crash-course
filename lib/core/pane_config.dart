@@ -15,7 +15,7 @@ import 'modules/_modules.dart';
 /// into routes, and Previous/Next walk the leaves in this order. The last
 /// pane, "Bonfire Crash Course Finished!", is where progress reaches 100%.
 ///
-/// Reference pages (Content Outline, Starter Project Files and Settings) are
+/// Reference pages (Course Info and Settings) are
 /// not panes: they are sidebar footer links with their own routes in
 /// `app_router.dart`, so they stay out of Previous/Next and progress.
 final List<PaneInfo> panes = [

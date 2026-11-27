@@ -1,6 +1,6 @@
-part of 'content_outline_page.dart';
+part of 'content_outline_view.dart';
 
-/// One module's section on the [ContentOutlinePage]: its "MODULE N" pill,
+/// One module's section on the [ContentOutlineView]: its "MODULE N" pill,
 /// name, tagline, lesson diagram and lesson count.
 class _ContentOutlineSection extends StatelessWidget {
   /// The module's position in the course (e.g. 3 for Map).

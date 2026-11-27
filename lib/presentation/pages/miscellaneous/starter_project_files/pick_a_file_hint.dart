@@ -1,4 +1,4 @@
-part of 'starter_project_files_page.dart';
+part of 'starter_project_files_view.dart';
 
 /// A nudge under the animation, shown until a file is picked.
 class _PickAFileHint extends StatelessWidget {
@@ -10,10 +10,8 @@ class _PickAFileHint extends StatelessWidget {
       child: Text(
         'Tap a file to see what it does',
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-        ),
+        style: Theme.of(context).textTheme.titleMedium
+            ?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
       ),
     );
   }

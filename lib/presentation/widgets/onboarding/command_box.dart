@@ -77,9 +77,8 @@ class _CommandBoxState extends State<CommandBox> {
             ),
             label: Text(
               copied ? 'Copied!' : 'Copy',
-              style: Theme.of(
-                context,
-              ).textTheme.labelLarge?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.labelLarge
+                  ?.copyWith(color: Colors.white),
             ),
             style: TextButton.styleFrom(
               foregroundColor: Colors.white,

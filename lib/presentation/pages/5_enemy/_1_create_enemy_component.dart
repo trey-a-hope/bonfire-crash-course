@@ -1,4 +1,5 @@
 import '../../../core/modules/enemy_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -25,21 +26,18 @@ class CreateEnemyComponentPage extends StatelessWidget {
       unitStep: 1,
       title: 'Creating the Enemy Component',
       outcome: 'A minor enemy stands on the map next to the hero.',
-      objective:
-          'Reuse the HeroPlayer code to build a MinorEnemy that extends PlatformEnemy, strip out the player-only controls, and add it to the game.',
+      objective: 'Reuse the HeroPlayer code to build a MinorEnemy that extends PlatformEnemy, strip out the player-only controls, and add it to the game.',
 
       concepts: [
         Concept(
           title: 'PlatformEnemy',
           short: 'The enemy twin of PlatformPlayer.',
-          subtitle:
-              'The enemy version of PlatformPlayer. It moves, jumps and animates the same way, has life that the hero\'s attacks can take away, and is never driven by the keyboard or a joystick.',
+          subtitle: 'The enemy version of PlatformPlayer. It moves, jumps and animates the same way, has life that the hero\'s attacks can take away, and is never driven by the keyboard or a joystick.',
         ),
         Concept(
           title: 'components',
           short: 'BonfireWidget\'s list for everything but the player.',
-          subtitle:
-              'A BonfireWidget list for everything in the world that isn\'t the player, like enemies, allies and decorations. Each entry is placed by its position in pixels from the map\'s top-left.',
+          subtitle: 'A BonfireWidget list for everything in the world that isn\'t the player, like enemies, allies and decorations. Each entry is placed by its position in pixels from the map\'s top-left.',
         ),
       ],
       codeSteps: [
@@ -75,8 +73,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Delete the player-only controls: onJoystickAction and _rangeAttack.',
+          description: 'Delete the player-only controls: onJoystickAction and _rangeAttack.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 - @override
@@ -102,10 +99,8 @@ return BonfireWidget(
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to copy HeroPlayer into minor_enemy.dart, turn it into a MinorEnemy that extends PlatformEnemy, remove the keyboard and joystick code and the range attack, and add a MinorEnemy to BonfireWidget\'s components.',
-      proTip:
-          'Change the CharacterAsset in MinorEnemy (for example to CharacterAsset.shark) so the enemy doesn\'t look exactly like your hero.',
+      timeToCodeStatement: 'You\'re about to copy HeroPlayer into minor_enemy.dart, turn it into a MinorEnemy that extends PlatformEnemy, remove the keyboard and joystick code and the range attack, and add a MinorEnemy to BonfireWidget\'s components.',
+      proTip: 'Change the CharacterAsset in MinorEnemy (for example to CharacterAsset.shark) so the enemy doesn\'t look exactly like your hero.',
     );
   }
 }

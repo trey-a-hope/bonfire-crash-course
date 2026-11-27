@@ -7,8 +7,7 @@ const PLAYER_MODULE = Module(
   totalSteps: 7,
   moduleName: 'Player',
   completionHeadline: 'Player Character Ready!',
-  completionSubtitle:
-      'Your hero is now fully assembled, animated, responding to keyboard controls, and ready to fight.',
+  completionSubtitle: 'Your hero is now fully assembled, animated, responding to keyboard controls, and ready to fight.',
   badgeText: 'HERO CONTROLLER',
   badgeIcon: Icons.person_rounded,
   accentColor: Colors.cyanAccent,
@@ -22,8 +21,7 @@ const PLAYER_MODULE = Module(
     MilestoneAchievement(
       icon: Icons.sports_esports_rounded,
       title: 'Moves and jumps',
-      description:
-          'A and D to move, Space to jump (twice for a double jump), with gravity and collision.',
+      description: 'A and D to move, Space to jump (twice for a double jump), with gravity and collision.',
     ),
     MilestoneAchievement(
       icon: Icons.flash_on_rounded,
@@ -33,6 +31,5 @@ const PLAYER_MODULE = Module(
   ],
   nextLottie: EnemyLottie(height: 100),
   nextModuleTitle: 'NPC (Allies)',
-  nextModuleDescription:
-      'Add a friendly companion that talks to the hero when they come close, waves hello, and then follows them around.',
+  nextModuleDescription: 'Add a friendly companion that talks to the hero when they come close, waves hello, and then follows them around.',
 );

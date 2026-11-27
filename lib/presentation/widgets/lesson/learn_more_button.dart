@@ -22,9 +22,8 @@ class LearnMoreButton extends StatelessWidget {
         foregroundColor: Colors.lightBlueAccent,
         padding: EdgeInsets.zero,
         minimumSize: const Size(0, 32),
-        textStyle: Theme.of(
-          context,
-        ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+        textStyle: Theme.of(context).textTheme.labelMedium
+            ?.copyWith(fontWeight: FontWeight.w600),
       ),
       child: Text(
         expanded ? 'Show less' : 'Learn more',

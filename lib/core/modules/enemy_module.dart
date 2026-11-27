@@ -28,8 +28,7 @@ const ENEMY_MODULE = Module(
     MilestoneAchievement(
       icon: Icons.sports_esports_rounded,
       title: 'Moves and jumps',
-      description:
-          'A and D to move, Space to jump (twice for a double jump), with gravity and collision.',
+      description: 'A and D to move, Space to jump (twice for a double jump), with gravity and collision.',
     ),
     MilestoneAchievement(
       icon: Icons.flash_on_rounded,
@@ -39,6 +38,5 @@ const ENEMY_MODULE = Module(
   ],
   nextLottie: EnemyLottie(height: 100),
   nextModuleTitle: 'NPC (Allies)',
-  nextModuleDescription:
-      'Add a friendly companion that talks to the hero when they come close, waves hello, and then follows them around.',
+  nextModuleDescription: 'Add a friendly companion that talks to the hero when they come close, waves hello, and then follows them around.',
 );

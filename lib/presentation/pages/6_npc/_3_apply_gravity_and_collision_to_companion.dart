@@ -1,4 +1,5 @@
 import '../../../core/modules/npc_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,32 +21,27 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       unitStep: 3,
       title: 'Apply Gravity and Collision to Companion',
       outcome: 'Berry lands on the ground and stops at walls.',
-      objective:
-          'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and stops at walls.',
+      objective: 'Make the companion fall onto the ground and give it a solid shape, so it stands on the map and stops at walls.',
       concepts: [
         Concept(
           title: 'WithCollision',
           short: 'Stops a moving component when it hits something solid.',
-          subtitle:
-              'The mixin that makes a moving component stop when it hits something solid. PlatformPlayer already includes it for the hero, but SimpleAlly doesn\'t, so the companion adds it itself.',
+          subtitle: 'The mixin that makes a moving component stop when it hits something solid. PlatformPlayer already includes it for the hero, but SimpleAlly doesn\'t, so the companion adds it itself.',
         ),
         Concept(
           title: 'WithForces',
           short: 'Lets gravity pull Berry down.',
-          subtitle:
-              'The same mixin the hero uses. It lets the gravity you set on BonfireWidget pull the companion down every tick until it lands, so the companion needs no gravity code of its own.',
+          subtitle: 'The same mixin the hero uses. It lets the gravity you set on BonfireWidget pull the companion down every tick until it lands, so the companion needs no gravity code of its own.',
         ),
         Concept(
           title: 'RectangleHitbox',
           short: 'Berry\'s solid shape.',
-          subtitle:
-              'The companion\'s solid shape. It lets the companion land on the ground and stop at walls.',
+          subtitle: 'The companion\'s solid shape. It lets the companion land on the ground and stop at walls.',
         ),
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add the WithCollision and WithForces mixins to the Companion class. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
+          description: 'Add the WithCollision and WithForces mixins to the Companion class. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// A friendly NPC that stands on the map and talks to the hero.
@@ -59,8 +55,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Override onLoad and add a RectangleHitbox the same size as the companion.',
+          description: 'Override onLoad and add a RectangleHitbox the same size as the companion.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Runs once when the companion is added to the game.
@@ -74,10 +69,8 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add the WithCollision and WithForces mixins to Companion and add a RectangleHitbox in onLoad.',
-      proTip:
-          'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground. For now the hero bumps into Berry too; lesson 5 lets them pass through each other.',
+      timeToCodeStatement: 'You\'re about to add the WithCollision and WithForces mixins to Companion and add a RectangleHitbox in onLoad.',
+      proTip: 'Leave out WithCollision and the companion falls straight through the floor even with a hitbox, because nothing tells it to stop moving when it touches the ground. For now the hero bumps into Berry too; lesson 5 lets them pass through each other.',
     );
   }
 }

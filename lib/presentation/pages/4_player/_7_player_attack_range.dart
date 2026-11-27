@@ -1,4 +1,5 @@
 import '../../../core/modules/player_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -19,14 +20,12 @@ class PlayerAttackRangePage extends StatelessWidget {
       unitStep: 7,
       title: 'Player Attack Range',
       outcome: 'D fires a range attack.',
-      objective:
-          'Give the hero a close-range melee strike on S and a projectile attack on W, each with its own one-shot animation played on the hero.',
+      objective: 'Give the hero a close-range melee strike on S and a projectile attack on W, each with its own one-shot animation played on the hero.',
       concepts: [
         Concept(
           title: 'Ranged Attack (attack.range)',
           short: 'Fires a projectile the way the hero faces.',
-          subtitle:
-              'Fires a flying projectile in the facing direction. It damages the first enemy it hits and is destroyed when it reaches a wall. The projectile uses its own 16x16 sheet.',
+          subtitle: 'Fires a flying projectile in the facing direction. It damages the first enemy it hits and is destroyed when it reaches a wall. The projectile uses its own 16x16 sheet.',
         ),
       ],
       codeSteps: [
@@ -96,10 +95,8 @@ void onJoystickAction(JoystickActionEvent event) {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add WithAttack to Hero, register the four attack animations, write a melee attack and a projectile attack, and map them to S and W in onKeyboard.',
-      proTip:
-          'Tune damage, speed and size to change how the attacks feel, but keep the _isAttacking check at the top of each one so holding a key can\'t fire faster than the animation plays.',
+      timeToCodeStatement: 'You\'re about to add WithAttack to Hero, register the four attack animations, write a melee attack and a projectile attack, and map them to S and W in onKeyboard.',
+      proTip: 'Tune damage, speed and size to change how the attacks feel, but keep the _isAttacking check at the top of each one so holding a key can\'t fire faster than the animation plays.',
     );
   }
 }

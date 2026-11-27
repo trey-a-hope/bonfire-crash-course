@@ -1,4 +1,5 @@
 import '../../../core/modules/enemy_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -37,34 +38,28 @@ class RespondToDiePage extends StatelessWidget {
       module: ENEMY_MODULE,
       unitStep: 5,
       title: 'Respond to Die',
-      outcome:
-          'When the enemy or the hero runs out of life, it stops, plays its death animation and disappears.',
-      objective:
-          'Listen for death on MinorEnemy and HeroPlayer: drop the life bar, stop moving, play the death animation and remove the character.',
+      outcome: 'When the enemy or the hero runs out of life, it stops, plays its death animation and disappears.',
+      objective: 'Listen for death on MinorEnemy and HeroPlayer: drop the life bar, stop moving, play the death animation and remove the character.',
       concepts: [
         Concept(
           title: 'onDieListener',
           short: 'Calls you back when life hits 0.',
-          subtitle:
-              'Registers a function that Bonfire calls once, when the character\'s life reaches 0.',
+          subtitle: 'Registers a function that Bonfire calls once, when the character\'s life reaches 0.',
         ),
         Concept(
           title: 'pauseBehaviors',
           short: 'Turns off the AI.',
-          subtitle:
-              'Stops the UseBehavior list from running, so a dead enemy no longer chases, patrols or attacks. The hero has no behaviors, so it skips this.',
+          subtitle: 'Stops the UseBehavior list from running, so a dead enemy no longer chases, patrols or attacks. The hero has no behaviors, so it skips this.',
         ),
         Concept(
           title: 'removeFromParent',
           short: 'Takes the component out of the game.',
-          subtitle:
-              'Removes the component from the game. Passing it as onFinish removes the character as soon as its death animation ends.',
+          subtitle: 'Removes the component from the game. Passing it as onFinish removes the character as soon as its death animation ends.',
         ),
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add _onDie to MinorEnemy to drop the bar, stop and play the death animation.',
+          description: 'Add _onDie to MinorEnemy to drop the bar, stop and play the death animation.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy {
@@ -109,10 +104,8 @@ class HeroPlayer {
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add _onDie to MinorEnemy and HeroPlayer and hook it up in onMount, so each one plays its death animation and leaves the game when its life runs out.',
-      proTip:
-          'Lower the enemy\'s life to 20 so one melee hit is enough, and watch the whole death play out.',
+      timeToCodeStatement: 'You\'re about to add _onDie to MinorEnemy and HeroPlayer and hook it up in onMount, so each one plays its death animation and leaves the game when its life runs out.',
+      proTip: 'Lower the enemy\'s life to 20 so one melee hit is enough, and watch the whole death play out.',
     );
   }
 }

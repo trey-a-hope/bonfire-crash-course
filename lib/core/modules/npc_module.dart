@@ -7,8 +7,7 @@ const NPC_MODULE = Module(
   totalSteps: 6,
   moduleName: 'NPC (Ally)',
   completionHeadline: 'NPC Companion Ready!',
-  completionSubtitle:
-      'Your companion now stands on the map, animates, collides with the world, talks to the hero in a short camera-pan cutscene, waves hello, and follows them around.',
+  completionSubtitle: 'Your companion now stands on the map, animates, collides with the world, talks to the hero in a short camera-pan cutscene, waves hello, and follows them around.',
   badgeText: 'COMPANION ARCHITECT',
   badgeIcon: Icons.smart_toy_rounded,
   accentColor: Colors.purpleAccent,
@@ -22,8 +21,7 @@ const NPC_MODULE = Module(
     MilestoneAchievement(
       icon: Icons.chat_bubble_rounded,
       title: 'Talks and waves',
-      description:
-          'When the hero comes close, the camera pans to Berry, a dialogue opens and Berry waves hello.',
+      description: 'When the hero comes close, the camera pans to Berry, a dialogue opens and Berry waves hello.',
     ),
     MilestoneAchievement(
       icon: Icons.directions_walk_rounded,
@@ -34,6 +32,5 @@ const NPC_MODULE = Module(
   ],
   nextLottie: BonfireLottie(height: 100),
   nextModuleTitle: 'Course Finale & Publishing',
-  nextModuleDescription:
-      'Package your 2D game, polish sound and game loops, and get ready to deploy!',
+  nextModuleDescription: 'Package your 2D game, polish sound and game loops, and get ready to deploy!',
 );

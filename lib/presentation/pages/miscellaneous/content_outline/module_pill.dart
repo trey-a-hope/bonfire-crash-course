@@ -1,4 +1,4 @@
-part of 'content_outline_page.dart';
+part of 'content_outline_view.dart';
 
 /// The rounded, accent-tinted "MODULE N" label at the top of each
 /// [_ContentOutlineSection], in the same style as the lesson step badges.

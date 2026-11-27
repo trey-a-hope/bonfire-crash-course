@@ -21,9 +21,8 @@ class OneLineTip extends StatelessWidget {
         Flexible(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.75),
-            ),
+            style: Theme.of(context).textTheme.bodyMedium
+                ?.copyWith(color: Colors.white.withValues(alpha: 0.75)),
           ),
         ),
       ],

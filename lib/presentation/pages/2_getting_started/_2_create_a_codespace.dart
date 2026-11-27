@@ -48,8 +48,7 @@ class CreateACodespace extends StatelessWidget {
         ),
         GapSizes.largeGap,
         OneLineTip(
-          text:
-              'Codespace usage: free to use! Each GitHub account gets about 60 hours a month on this template\'s machine. If you use them all, your codespace pauses until next month and you\'re never charged. Stop your codespace when you\'re done to make the hours last.',
+          text: 'Codespace usage: free to use! Each GitHub account gets about 60 hours a month on this template\'s machine. If you use them all, your codespace pauses until next month and you\'re never charged. Stop your codespace when you\'re done to make the hours last.',
         ),
       ],
     );

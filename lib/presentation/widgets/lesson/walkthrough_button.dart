@@ -32,9 +32,8 @@ class WalkthroughButton extends StatelessWidget {
       icon: const Icon(Icons.play_arrow_rounded, size: 18),
       label: Text(
         'Watch the walkthrough',
-        style: Theme.of(
-          context,
-        ).textTheme.labelLarge?.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.labelLarge
+            ?.copyWith(color: Colors.white),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import '../../../core/modules/npc_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,26 +21,22 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
       unitStep: 2,
       title: 'Companion Sprite Animations',
       outcome: 'Berry the strawberry stands on the ground and animates.',
-      objective:
-          'Give the companion idle and walk animations from the strawberry sprite sheets, using the same AnimationUtils helper as the hero.',
+      objective: 'Give the companion idle and walk animations from the strawberry sprite sheets, using the same AnimationUtils helper as the hero.',
       concepts: [
         Concept(
           title: 'SimpleDirectionAnimation',
           short: 'Idle and run animations for each direction.',
-          subtitle:
-              'Holds an NPC\'s idle and run animations for each direction. Bonfire picks the right one from which way the NPC faces and whether it\'s moving.',
+          subtitle: 'Holds an NPC\'s idle and run animations for each direction. Bonfire picks the right one from which way the NPC faces and whether it\'s moving.',
         ),
         Concept(
           title: 'Frame Count (amount)',
           short: 'How many frames to slice from a sheet.',
-          subtitle:
-              'How many 32x32 frames AnimationUtils slices from a sheet. The strawberry idle sheet has 8 frames (a breath, a stem sway and a blink) and the walk sheet has 4. A wrong amount makes the animation jitter or show half-frames.',
+          subtitle: 'How many 32x32 frames AnimationUtils slices from a sheet. The strawberry idle sheet has 8 frames (a breath, a stem sway and a blink) and the walk sheet has 4. A wrong amount makes the animation jitter or show half-frames.',
         ),
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Pass a SimpleDirectionAnimation to super(...). The strawberry faces the camera, so left and right share the same sheet.',
+          description: 'Pass a SimpleDirectionAnimation to super(...). The strawberry faces the camera, so left and right share the same sheet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)
@@ -75,10 +72,8 @@ Companion(Vector2 position)
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to pass a SimpleDirectionAnimation with the strawberry\'s idle and walk sheets to the Companion constructor.',
-      proTip:
-          'The companion now appears standing on the ground at tile (24, 7). Walk the hero into it and you\'ll pass straight through; it has no hitbox yet, and the next lesson adds one.',
+      timeToCodeStatement: 'You\'re about to pass a SimpleDirectionAnimation with the strawberry\'s idle and walk sheets to the Companion constructor.',
+      proTip: 'The companion now appears standing on the ground at tile (24, 7). Walk the hero into it and you\'ll pass straight through; it has no hitbox yet, and the next lesson adds one.',
     );
   }
 }

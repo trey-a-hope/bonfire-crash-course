@@ -1,4 +1,5 @@
 import '../../../core/modules/npc_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,26 +21,22 @@ class CompanionDialoguePage extends StatelessWidget {
       unitStep: 4,
       title: 'Companion Dialogue',
       outcome: 'Berry talks to the hero once, when they come close.',
-      objective:
-          'Make the companion talk when the hero comes close: watch for the hero with vision.seePlayer, pause the game, and show a TalkDialog once, with the strawberry\'s talking face beside each line.',
+      objective: 'Make the companion talk when the hero comes close: watch for the hero with vision.seePlayer, pause the game, and show a TalkDialog once, with the strawberry\'s talking face beside each line.',
       concepts: [
         Concept(
           title: 'vision.seePlayer',
           short: 'Checks whether the hero is close enough.',
-          subtitle:
-              'Checks every tick whether the hero is within radiusVision pixels. observed runs while the hero is in range and notObserved runs while they\'re out of it.',
+          subtitle: 'Checks every tick whether the hero is within radiusVision pixels. observed runs while the hero is in range and notObserved runs while they\'re out of it.',
         ),
         Concept(
           title: 'TalkDialog and Say',
           short: 'Bonfire\'s dialogue box and its lines.',
-          subtitle:
-              'Bonfire\'s built-in dialogue box. TalkDialog.show takes a list of Say lines, types each one out, and moves on when the player presses a key or taps.',
+          subtitle: 'Bonfire\'s built-in dialogue box. TalkDialog.show takes a list of Say lines, types each one out, and moves on when the player presses a key or taps.',
         ),
         Concept(
           title: 'pauseEngine and resumeEngine',
           short: 'Freezes the game while you talk.',
-          subtitle:
-              'Freeze and restart the game loop. Pausing before the dialogue opens stops the hero from walking off mid-conversation, and keeps a hero in mid-jump from falling through the ground if opening it stalls the app for a moment.',
+          subtitle: 'Freeze and restart the game loop. Pausing before the dialogue opens stops the hero from walking off mid-conversation, and keeps a hero in mid-jump from falling through the ground if opening it stalls the app for a moment.',
         ),
       ],
       codeSteps: [
@@ -52,8 +49,7 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Add the fields the dialogue needs at the top of the Companion class: how close the hero must be, and whether the companion has already talked. _hasTalked never resets, so the dialogue opens only once.',
+          description: 'Add the fields the dialogue needs at the top of the Companion class: how close the hero must be, and whether the companion has already talked. _hasTalked never resets, so the dialogue opens only once.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// How close (in pixels) the hero must be before the companion talks.
@@ -65,8 +61,7 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Override update and check for the hero with vision.seePlayer. observed runs every tick the hero is in range, so _talk returns early once it has talked.',
+          description: 'Override update and check for the hero with vision.seePlayer. observed runs every tick the hero is in range, so _talk returns early once it has talked.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Called every game tick to check whether the hero is close.
@@ -81,8 +76,7 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Write _talk: stop the hero, pause the game right away, and show the dialogue. onClose resumes the game when the last line is done.',
+          description: 'Write _talk: stop the hero, pause the game right away, and show the dialogue. onClose resumes the game when the last line is done.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 + /// Pauses the game and opens the dialogue (only once).
@@ -113,8 +107,7 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Write _say, which builds one line of dialogue with a face beside it, shown at 96px (three times the sprite) so it is easy to see. The face is a widget, so later lines can swap in another one; by default it is the talking face.',
+          description: 'Write _say, which builds one line of dialogue with a face beside it, shown at 96px (three times the sprite) so it is easy to see. The face is a widget, so later lines can swap in another one; by default it is the talking face.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// One line of dialogue, with the companion's [face] beside it (its
@@ -129,8 +122,7 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Below the Companion class, write _Face: a widget that plays one of the strawberry sheets with SpriteAnimationWidget.asset. Then define _talkingFace, the 2-frame talk sheet (mouth closed and open), as a const so _say can use it as its default.',
+          description: 'Below the Companion class, write _Face: a widget that plays one of the strawberry sheets with SpriteAnimationWidget.asset. Then define _talkingFace, the 2-frame talk sheet (mouth closed and open), as a const so _say can use it as its default.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// The companion's talking face in the dialogue: its mouth opens and closes.
@@ -179,10 +171,8 @@ class CompanionDialoguePage extends StatelessWidget {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add the _talkRadius and _hasTalked fields to Companion, override update with vision.seePlayer, write _talk and _say to show a TalkDialog, and add the _Face widget and _talkingFace below the class.',
-      proTip:
-          'TalkDialog moves to the next line on any key, so if you\'re still pressing Space as you reach the companion you can skip a line; try a bigger _talkRadius to start the talk earlier.',
+      timeToCodeStatement: 'You\'re about to add the _talkRadius and _hasTalked fields to Companion, override update with vision.seePlayer, write _talk and _say to show a TalkDialog, and add the _Face widget and _talkingFace below the class.',
+      proTip: 'TalkDialog moves to the next line on any key, so if you\'re still pressing Space as you reach the companion you can skip a line; try a bigger _talkRadius to start the talk earlier.',
     );
   }
 }

@@ -1,4 +1,5 @@
 import '../../../core/modules/enemy_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -25,28 +26,23 @@ class RespondToHurtPage extends StatelessWidget {
       module: ENEMY_MODULE,
       unitStep: 4,
       title: 'Respond to Hurt',
-      outcome:
-          'The enemy and the hero flinch with their hurt animation every time an attack lands.',
-      objective:
-          'Listen for damage on MinorEnemy and HeroPlayer and play the hurt animation for the way each one faces.',
+      outcome: 'The enemy and the hero flinch with their hurt animation every time an attack lands.',
+      objective: 'Listen for damage on MinorEnemy and HeroPlayer and play the hurt animation for the way each one faces.',
       concepts: [
         Concept(
           title: 'onMount',
           short: 'Runs once the component joins the game.',
-          subtitle:
-              'Called once, when the component has been added to the game. A good place to hook up listeners, because the character\'s life is ready by then. Always call super.onMount() first.',
+          subtitle: 'Called once, when the component has been added to the game. A good place to hook up listeners, because the character\'s life is ready by then. Always call super.onMount() first.',
         ),
         Concept(
           title: 'onReceiveDamageListener',
           short: 'Calls you back on every hit.',
-          subtitle:
-              'Registers a function that Bonfire calls every time the character takes damage, with who attacked, how much damage was done and the attack\'s id.',
+          subtitle: 'Registers a function that Bonfire calls every time the character takes damage, with who attacked, how much damage was done and the attack\'s id.',
         ),
         Concept(
           title: 'playOnceOther',
           short: 'Plays an animation one time.',
-          subtitle:
-              'Plays a one-off animation over the current one, then goes back. runToTheEnd: true keeps walking or idling from cutting it short.',
+          subtitle: 'Plays a one-off animation over the current one, then goes back. runToTheEnd: true keeps walking or idling from cutting it short.',
         ),
       ],
       codeSteps: [
@@ -64,8 +60,7 @@ class MinorEnemy {
 ''',
         ),
         CodeStep(
-          description:
-              'Add _onHurt to play the hurt animation for the facing direction.',
+          description: 'Add _onHurt to play the hurt animation for the facing direction.',
           fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy {
@@ -106,10 +101,8 @@ class HeroPlayer {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to override onMount in MinorEnemy and HeroPlayer, listen for damage, and play the hurt animation every time either one is hit.',
-      proTip:
-          'Hit the enemy a few times and watch its life bar from the last lesson shrink as it flinches.',
+      timeToCodeStatement: 'You\'re about to override onMount in MinorEnemy and HeroPlayer, listen for damage, and play the hurt animation every time either one is hit.',
+      proTip: 'Hit the enemy a few times and watch its life bar from the last lesson shrink as it flinches.',
     );
   }
 }

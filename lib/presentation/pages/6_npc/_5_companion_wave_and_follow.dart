@@ -1,4 +1,5 @@
 import '../../../core/modules/npc_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,44 +21,37 @@ class CompanionWaveAndFollowPage extends StatelessWidget {
       unitStep: 5,
       title: 'Make Berry Wave and Follow the Hero',
       outcome: 'Berry waves, then follows the hero along the ground.',
-      objective:
-          'Make Berry wave hello in the dialogue, then wave goodbye in the world and follow the hero along the ground: stopping beside them, waiting at walls or when the hero is out of sight, passing through the hero instead of bumping, and always drawn just behind them.',
+      objective: 'Make Berry wave hello in the dialogue, then wave goodbye in the world and follow the hero along the ground: stopping beside them, waiting at walls or when the hero is out of sight, passing through the hero instead of bumping, and always drawn just behind them.',
       concepts: [
         Concept(
           title: 'FollowAction and followAction',
           short: 'Decides each tick: stop, wait, or walk left or right.',
-          subtitle:
-              'An enum of what the companion does each tick (stop, lost, left, right) and a static function that picks one from the distance to the hero and whether the way is clear. It reads no game state, so a plain unit test can check it.',
+          subtitle: 'An enum of what the companion does each tick (stop, lost, left, right) and a static function that picks one from the distance to the hero and whether the way is clear. It reads no game state, so a plain unit test can check it.',
         ),
         Concept(
           title: 'canMove, moveLeft and moveRight',
           short: 'Checks for a wall, then walks.',
-          subtitle:
-              'canMove checks for a wall or step before walking. moveLeft and moveRight only set the horizontal speed, so gravity keeps pulling the companion down and it walks off ledges instead of floating.',
+          subtitle: 'canMove checks for a wall or step before walking. moveLeft and moveRight only set the horizontal speed, so gravity keeps pulling the companion down and it walks off ledges instead of floating.',
         ),
         Concept(
           title: 'onBlockMovementListener',
           short: 'Lets Berry and the hero pass through each other.',
-          subtitle:
-              'Bonfire asks this before a collision stops a component. Returning false for the Player lets the hero and Berry pass through each other, so a hero who turns around never shoves Berry along; tiles still block it.',
+          subtitle: 'Bonfire asks this before a collision stops a component. Returning false for the Player lets the hero and Berry pass through each other, so a hero who turns around never shoves Berry along; tiles still block it.',
         ),
         Concept(
           title: 'priority (draw order)',
           short: 'Draws Berry just behind the hero.',
-          subtitle:
-              'Bonfire draws higher priorities on top, based on how low a component stands on screen. Berry overrides the priority getter to sit one under the hero, so the hero is always drawn in front, which suits a side-scroller where they share the same ground.',
+          subtitle: 'Bonfire draws higher priorities on top, based on how low a component stands on screen. Berry overrides the priority getter to sit one under the hero, so the hero is always drawn in front, which suits a side-scroller where they share the same ground.',
         ),
         Concept(
           title: 'Two waves: portrait and playOnceOther',
           short: 'Hello in the dialogue, goodbye in the world.',
-          subtitle:
-              'The game is paused while the dialogue is open, so the hello wave plays in the dialogue portrait (_WaveThenTalk). When it closes, animation.playOnceOther plays the in-world wave from the others map and returns a Future; following starts when it completes.',
+          subtitle: 'The game is paused while the dialogue is open, so the hello wave plays in the dialogue portrait (_WaveThenTalk). When it closes, animation.playOnceOther plays the in-world wave from the others map and returns a Future; following starts when it completes.',
         ),
       ],
       codeSteps: [
         CodeStep(
-          description:
-              'Add the FollowAction enum above the Companion class, and update the class comment to say what the companion now does.',
+          description: 'Add the FollowAction enum above the Companion class, and update the class comment to say what the companion now does.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// What the companion does this tick while following the hero.
@@ -86,8 +80,7 @@ class Companion extends SimpleAlly with WithCollision, WithForces { ... }
 ''',
         ),
         CodeStep(
-          description:
-              'Add the follow fields after _talkRadius: how close the companion walks up to the hero, how far it can see them, and whether it is following yet.',
+          description: 'Add the follow fields after _talkRadius: how close the companion walks up to the hero, how far it can see them, and whether it is following yet.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// How close (in pixels) the hero must be before the companion talks.
@@ -113,8 +106,7 @@ bool _hasTalked = false;
 ''',
         ),
         CodeStep(
-          description:
-              'In onLoad, after the hitbox, add collision.onBlockMovementListener so the hero and the companion pass through each other. Return false (let the movement through) only when the other component is the Player.',
+          description: 'In onLoad, after the hitbox, add collision.onBlockMovementListener so the hero and the companion pass through each other. Return false (let the movement through) only when the other component is the Player.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// Runs once when the companion is added to the game.
@@ -135,8 +127,7 @@ Future<void> onLoad() async {
 ''',
         ),
         CodeStep(
-          description:
-              'Override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
+          description: 'Override the priority getter so the companion always sits one under the hero and the hero is drawn in front. hasGameRef guards the first frames, before the companion is in the game.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Draw order: Bonfire draws components with a higher priority on top,
@@ -152,8 +143,7 @@ Future<void> onLoad() async {
 ''',
         ),
         CodeStep(
-          description:
-              'Update update: follow the hero once _isFollowing is true, before checking whether to talk.',
+          description: 'Update update: follow the hero once _isFollowing is true, before checking whether to talk.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 - /// Called every game tick to check whether the hero is close.
@@ -172,8 +162,7 @@ void update(double dt) {
 ''',
         ),
         CodeStep(
-          description:
-              'Write the static followAction function, which decides what to do from three plain values: how far across the hero is, how far away they are, and whether the way is clear.',
+          description: 'Write the static followAction function, which decides what to do from three plain values: how far across the hero is, how far away they are, and whether the way is clear.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Decides what the companion does this tick while following.
@@ -200,8 +189,7 @@ void update(double dt) {
 ''',
         ),
         CodeStep(
-          description:
-              'Write _follow, which measures the hero from the hitbox centres, asks followAction what to do and walks left, right or stops. Add _stopWalking, which clears only the horizontal speed so a fall carries on.',
+          description: 'Write _follow, which measures the hero from the hitbox centres, asks followAction what to do and walks left, right or stops. Add _stopWalking, which clears only the horizontal speed so a fall carries on.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Walks along the ground towards the hero and stops a short way off.
@@ -247,8 +235,7 @@ void update(double dt) {
 ''',
         ),
         CodeStep(
-          description:
-              'Below the Companion class, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
+          description: 'Below the Companion class, write _WaveThenTalk: the face for the first line of dialogue. It plays the 6-frame wave sheet once with _Face (loop: false), then switches to _talkingFace, which is built hidden from the start so it shows up without a blank frame.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// The companion's face in the first line of dialogue: waves hello once,
@@ -292,8 +279,7 @@ void update(double dt) {
 ''',
         ),
         CodeStep(
-          description:
-              'Add the in-world wave: a _waveAnimation key with the other fields, and the wave sheet in the SimpleDirectionAnimation\'s others map after runLeft. loop: false plays it once.',
+          description: 'Add the in-world wave: a _waveAnimation key with the other fields, and the wave sheet in the SimpleDirectionAnimation\'s others map after runLeft. loop: false plays it once.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Key of the wave animation in the animation's `others` map.
@@ -315,8 +301,7 @@ animation: SimpleDirectionAnimation(
 ''',
         ),
         CodeStep(
-          description:
-              'Update _talk: stop the companion too, give the first line the _WaveThenTalk face, and in onClose resume the game, play the in-world wave with playOnceOther and start following when its Future completes.',
+          description: 'Update _talk: stop the companion too, give the first line the _WaveThenTalk face, and in onClose resume the game, play the in-world wave with playOnceOther and start following when its Future completes.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 - /// Pauses the game and opens the dialogue (only once).
@@ -367,10 +352,8 @@ void _talk() {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add the FollowAction enum, follow fields, onBlockMovementListener and a priority override to companion.dart, write followAction, _follow, _stopWalking and the _WaveThenTalk widget, and update update and _talk so Berry waves and then follows.',
-      proTip:
-          'Jump the hero up onto a ledge after the talk: Berry can\'t jump, so canMove stops it at the wall below until you come back down. Run more than followRadius (160 px) away and it waits where it is, then picks up following again when you come back within range.',
+      timeToCodeStatement: 'You\'re about to add the FollowAction enum, follow fields, onBlockMovementListener and a priority override to companion.dart, write followAction, _follow, _stopWalking and the _WaveThenTalk widget, and update update and _talk so Berry waves and then follows.',
+      proTip: 'Jump the hero up onto a ledge after the talk: Berry can\'t jump, so canMove stops it at the wall below until you come back down. Run more than followRadius (160 px) away and it waits where it is, then picks up following again when you come back within range.',
     );
   }
 }

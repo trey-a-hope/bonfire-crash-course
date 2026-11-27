@@ -1,4 +1,5 @@
 import '../../../core/modules/npc_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,38 +21,32 @@ class CompanionCutscenePage extends StatelessWidget {
       unitStep: 6,
       title: 'Berry\'s First-Meeting Cutscene',
       outcome: 'The camera pans to Berry for the talk, then back to the hero.',
-      objective:
-          'Turn the first conversation into a short cutscene with Bonfire\'s scene builder: the camera pans and zooms to Berry, the dialogue opens, and when it closes the camera pans back to the hero while Berry waves. The hero gets control back only once the camera is home.',
+      objective: 'Turn the first conversation into a short cutscene with Bonfire\'s scene builder: the camera pans and zooms to Berry, the dialogue opens, and when it closes the camera pans back to the hero while Berry waves. The hero gets control back only once the camera is home.',
       concepts: [
         Concept(
           title: 'gameRef.startScene',
           short: 'Runs scene actions one after another.',
-          subtitle:
-              'Runs a list of scene actions one after another, each starting when the one before it finishes. While a scene runs, gameRef.sceneBuilderStatus.isRunning is true.',
+          subtitle: 'Runs a list of scene actions one after another, each starting when the one before it finishes. While a scene runs, gameRef.sceneBuilderStatus.isRunning is true.',
         ),
         Concept(
           title: 'CameraSceneAction.target',
           short: 'Pans and zooms the camera to a component.',
-          subtitle:
-              'Pans the camera to a component (and zooms, if you give a zoom) over a duration. It drops any fraction of a second, so use whole seconds: Duration(milliseconds: 1500) pans in 1 second.',
+          subtitle: 'Pans the camera to a component (and zooms, if you give a zoom) over a duration. It drops any fraction of a second, so use whole seconds: Duration(milliseconds: 1500) pans in 1 second.',
         ),
         Concept(
           title: 'AwaitSceneAction',
           short: 'Waits until the dialogue closes.',
-          subtitle:
-              'Pauses the scene until a Future completes. Berry\'s scene waits here until the dialogue has closed, then moves on to the pan back.',
+          subtitle: 'Pauses the scene until a Future completes. Berry\'s scene waits here until the dialogue has closed, then moves on to the pan back.',
         ),
         Concept(
           title: 'sceneBuilderStatus',
           short: 'Tells you a cutscene is running.',
-          subtitle:
-              'The hero already returns early from update while a scene runs (Module 4, Map Boundaries for Player), so it stands still and ignores input. Enemies can check it too, so they freeze during cutscenes.',
+          subtitle: 'The hero already returns early from update while a scene runs (Module 4, Map Boundaries for Player), so it stands still and ignores input. Enemies can check it too, so they freeze during cutscenes.',
         ),
         Concept(
           title: 'Other scene actions',
           short: 'More actions for your own cutscenes.',
-          subtitle:
-              'DelaySceneAction waits for a duration. MoveToPositionSceneAction walks a component to a position, and MoveWhileSceneAction moves it while a condition holds. CallbackSceneAction runs a function. CameraSceneAction.position pans to a point instead of a component. Extend SceneAction to write your own, and call gameRef.stopScene() to end a running scene early.',
+          subtitle: 'DelaySceneAction waits for a duration. MoveToPositionSceneAction walks a component to a position, and MoveWhileSceneAction moves it while a condition holds. CallbackSceneAction runs a function. CameraSceneAction.position pans to a point instead of a component. Extend SceneAction to write your own, and call gameRef.stopScene() to end a running scene early.',
         ),
       ],
       codeSteps: [
@@ -64,8 +59,7 @@ class CompanionCutscenePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Add two constants to the Companion class, above _talk: how much the camera zooms in on Berry, and how long each pan takes.',
+          description: 'Add two constants to the Companion class, above _talk: how much the camera zooms in on Berry, and how long each pan takes.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// How much closer the camera zooms in on the companion while it talks.
@@ -79,8 +73,7 @@ class CompanionCutscenePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Replace _talk with the cutscene. It still runs only once and stops the hero and Berry, then remembers the current zoom and starts a scene with three actions: pan to Berry, wait for the dialogue, and pan back to the hero.',
+          description: 'Replace _talk with the cutscene. It still runs only once and stops the hero and Berry, then remembers the current zoom and starts a scene with three actions: pan to Berry, wait for the dialogue, and pan back to the hero.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 - /// Pauses the game and opens the dialogue (only once). When it closes,
@@ -129,8 +122,7 @@ class CompanionCutscenePage extends StatelessWidget {
 ''',
         ),
         CodeStep(
-          description:
-              'Move the dialogue into _showDialogue, which AwaitSceneAction waits on. It is the dialogue code from the last lesson, with one change: a Completer. Its future is returned straight away, and completing it in onClose tells the scene the dialogue is done.',
+          description: 'Move the dialogue into _showDialogue, which AwaitSceneAction waits on. It is the dialogue code from the last lesson, with one change: a Completer. Its future is returned straight away, and completing it in onClose tells the scene the dialogue is done.',
           fileName: _DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 + /// Pauses the game and shows the dialogue. Completes once it has closed
@@ -174,10 +166,8 @@ class CompanionCutscenePage extends StatelessWidget {
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to import dart:async, add _talkZoom and _panDuration to Companion, replace _talk with a gameRef.startScene cutscene, and move the dialogue into _showDialogue, which completes a Completer when the dialogue closes.',
-      proTip:
-          'Try a DelaySceneAction(const Duration(seconds: 1)) before the pan back, so the camera lingers on Berry for a moment after the dialogue closes. Keep the pans in whole seconds: CameraSceneAction ignores the fraction in Duration(milliseconds: 1500).',
+      timeToCodeStatement: 'You\'re about to import dart:async, add _talkZoom and _panDuration to Companion, replace _talk with a gameRef.startScene cutscene, and move the dialogue into _showDialogue, which completes a Completer when the dialogue closes.',
+      proTip: 'Try a DelaySceneAction(const Duration(seconds: 1)) before the pan back, so the camera lingers on Berry for a moment after the dialogue closes. Keep the pans in whole seconds: CameraSceneAction ignores the fraction in Duration(milliseconds: 1500).',
     );
   }
 }

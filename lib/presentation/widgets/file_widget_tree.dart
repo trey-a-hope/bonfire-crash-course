@@ -50,8 +50,7 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'sky.png',
-                  description:
-                      'Back layer of the parallax background. Scrolls on its own.',
+                  description: 'Back layer of the parallax background. Scrolls on its own.',
                 ),
                 FileNode(
                   name: 'clouds.png',
@@ -65,8 +64,7 @@ const _projectTree = FileNode(
                 ),
                 FileNode(
                   name: 'hills.png',
-                  description:
-                      'Front hill layer. Moves with the camera faster than the mountains.',
+                  description: 'Front hill layer. Moves with the camera faster than the mountains.',
                 ),
               ],
             ),
@@ -80,8 +78,7 @@ const _projectTree = FileNode(
                   children: [
                     FileNode(
                       name: 'shark_*.png',
-                      description:
-                          'Shark sprite sheets: idle, walk, jump, bite and range attacks, hurt, and a water ball projectile. Left and right versions of each.',
+                      description: 'Shark sprite sheets: idle, walk, jump, bite and range attacks, hurt, and a water ball projectile. Left and right versions of each.',
                     ),
                   ],
                 ),
@@ -91,8 +88,7 @@ const _projectTree = FileNode(
                   children: [
                     FileNode(
                       name: 'strawberry_*.png',
-                      description:
-                          'Strawberry companion sprite sheets: idle (breathing and blinking), walk, talk and wave. It faces the camera, so one sheet covers both directions.',
+                      description: 'Strawberry companion sprite sheets: idle (breathing and blinking), walk, talk and wave. It faces the camera, so one sheet covers both directions.',
                     ),
                   ],
                 ),
@@ -102,8 +98,7 @@ const _projectTree = FileNode(
                   children: [
                     FileNode(
                       name: 'wizard_*.png',
-                      description:
-                          'Wizard sprite sheets: idle, walk, jump, melee and range attacks, hurt, and a magic bolt projectile. Left and right versions of each.',
+                      description: 'Wizard sprite sheets: idle, walk, jump, melee and range attacks, hurt, and a magic bolt projectile. Left and right versions of each.',
                     ),
                   ],
                 ),
@@ -119,8 +114,7 @@ const _projectTree = FileNode(
                   children: [
                     FileNode(
                       name: '01.json',
-                      description:
-                          'The Spritefusion project file for level 1. Open it in Spritefusion to edit the level, then export map/ again.',
+                      description: 'The Spritefusion project file for level 1. Open it in Spritefusion to edit the level, then export map/ again.',
                     ),
                     FileNode(
                       name: 'map',
@@ -128,13 +122,11 @@ const _projectTree = FileNode(
                       children: [
                         FileNode(
                           name: 'map.json',
-                          description:
-                              'The level exported from Spritefusion: tile layers plus which tiles are solid. Loaded through the MAP_ONE constant.',
+                          description: 'The level exported from Spritefusion: tile layers plus which tiles are solid. Loaded through the MAP_ONE constant.',
                         ),
                         FileNode(
                           name: 'spritesheet.png',
-                          description:
-                              'The tileset image map.json draws its tiles from.',
+                          description: 'The tileset image map.json draws its tiles from.',
                         ),
                       ],
                     ),
@@ -144,8 +136,7 @@ const _projectTree = FileNode(
             ),
             FileNode(
               name: 'brass_key.png',
-              description:
-                  'A key sprite included for later lessons. Not used in the game yet.',
+              description: 'A key sprite included for later lessons. Not used in the game yet.',
             ),
           ],
         ),
@@ -157,8 +148,7 @@ const _projectTree = FileNode(
       children: [
         FileNode(
           name: 'main.dart',
-          description:
-              'The entry point of the application. It runs the app and opens GameScreen.',
+          description: 'The entry point of the application. It runs the app and opens GameScreen.',
         ),
         FileNode(
           name: 'core',
@@ -170,13 +160,11 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'globals.dart',
-                  description:
-                      'Default file: comes with the template and is never edited in the course.',
+                  description: 'Default file: comes with the template and is never edited in the course.',
                 ),
                 FileNode(
                   name: 'character_asset.dart',
-                  description:
-                      'The CharacterAsset enum. Each value (wizard, shark) lists every sprite sheet and frame count one character needs.',
+                  description: 'The CharacterAsset enum. Each value (wizard, shark) lists every sprite sheet and frame count one character needs.',
                 ),
               ],
             ),
@@ -186,8 +174,7 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'screen_boundary_checker.dart',
-                  description:
-                      'Default file: comes with the template and is never edited in the course.',
+                  description: 'Default file: comes with the template and is never edited in the course.',
                 ),
               ],
             ),
@@ -203,8 +190,7 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'parallax_background.dart',
-                  description:
-                      'ParallaxBackground: layered sky, clouds, mountains and hills that scroll at different speeds.',
+                  description: 'ParallaxBackground: layered sky, clouds, mountains and hills that scroll at different speeds.',
                 ),
               ],
             ),
@@ -214,13 +200,11 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'companion.dart',
-                  description:
-                      'The friendly Companion (Ally): strawberry animations, gravity, collision, a one-time dialogue with an animated face that waves hello, and following the hero (passing through them, drawn just behind).',
+                  description: 'The friendly Companion (Ally): strawberry animations, gravity, collision, a one-time dialogue with an animated face that waves hello, and following the hero (passing through them, drawn just behind).',
                 ),
                 FileNode(
                   name: 'hero.dart',
-                  description:
-                      'The playable Hero: animations, gravity, collision, keyboard movement, jumping, and attacks.',
+                  description: 'The playable Hero: animations, gravity, collision, keyboard movement, jumping, and attacks.',
                 ),
                 FileNode(
                   name: 'util',
@@ -228,8 +212,7 @@ const _projectTree = FileNode(
                   children: [
                     FileNode(
                       name: 'animation_utils.dart',
-                      description:
-                          'AnimationUtils.loadAnimation turns a sprite sheet into a SpriteAnimation.',
+                      description: 'AnimationUtils.loadAnimation turns a sprite sheet into a SpriteAnimation.',
                     ),
                   ],
                 ),
@@ -241,8 +224,7 @@ const _projectTree = FileNode(
               children: [
                 FileNode(
                   name: 'game_screen.dart',
-                  description:
-                      'GameScreen builds the BonfireWidget: map, hero, companion, background, camera, and keyboard controls.',
+                  description: 'GameScreen builds the BonfireWidget: map, hero, companion, background, camera, and keyboard controls.',
                 ),
               ],
             ),
@@ -256,30 +238,25 @@ const _projectTree = FileNode(
       children: [
         FileNode(
           name: 'character_asset_test.dart',
-          description:
-              'Checks every character sprite sheet exists and has the frame count CharacterAsset expects.',
+          description: 'Checks every character sprite sheet exists and has the frame count CharacterAsset expects.',
         ),
         FileNode(
           name: 'companion_asset_test.dart',
-          description:
-              'Checks the strawberry sheets have the frame counts the Companion uses.',
+          description: 'Checks the strawberry sheets have the frame counts the Companion uses.',
         ),
         FileNode(
           name: 'companion_follow_test.dart',
-          description:
-              'Checks Companion.followAction walks towards the hero, stops beside them or at a wall, and waits when they\'re out of sight.',
+          description: 'Checks Companion.followAction walks towards the hero, stops beside them or at a wall, and waits when they\'re out of sight.',
         ),
         FileNode(
           name: 'companion_spawn_test.dart',
-          description:
-              'Checks the Companion\'s spawn tile is open and has ground right beneath it.',
+          description: 'Checks the Companion\'s spawn tile is open and has ground right beneath it.',
         ),
       ],
     ),
     FileNode(
       name: 'pubspec.yaml',
-      description:
-          'Dependencies (bonfire) and the asset folders Flutter bundles with the game.',
+      description: 'Dependencies (bonfire) and the asset folders Flutter bundles with the game.',
     ),
   ],
 );

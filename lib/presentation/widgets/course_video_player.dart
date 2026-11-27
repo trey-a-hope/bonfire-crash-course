@@ -422,10 +422,8 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
             GapSizes.smallGap,
             Text(
               'Unable to load video',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall
+                  ?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             if (errorText != null) ...[
               GapSizes.xsGap,
@@ -434,9 +432,8 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                style: Theme.of(context).textTheme.bodySmall
+                    ?.copyWith(color: Colors.white70),
               ),
             ],
             GapSizes.smallGap,
@@ -560,10 +557,7 @@ class _CourseVideoPlayerState extends State<CourseVideoPlayer> {
                     inactiveTrackColor: Colors.white24,
                     thumbColor: Colors.white,
                   ),
-                  child: Slider(
-                    value: _volume,
-                    onChanged: _setVolume,
-                  ),
+                  child: Slider(value: _volume, onChanged: _setVolume),
                 ),
               ),
               IconButton(

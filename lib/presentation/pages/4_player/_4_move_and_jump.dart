@@ -1,4 +1,5 @@
 import '../../../core/modules/player_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -20,20 +21,17 @@ class MoveAndJumpPage extends StatelessWidget {
       unitStep: 4,
       title: 'Move and Jump',
       outcome: 'A and D walk the hero, and Space double jumps.',
-      objective:
-          'Move the hero left and right with the A and D keys and double jump with Space.',
+      objective: 'Move the hero left and right with the A and D keys and double jump with Space.',
       concepts: [
         Concept(
           title: 'Move and Jump',
           short: 'A and D walk, Space jumps, twice in mid-air.',
-          subtitle:
-              'A and D call onJoystickChangeDirectional to walk left and right, and Space calls jumper.jump(). countJumps lets the hero jump again in mid-air.',
+          subtitle: 'A and D call onJoystickChangeDirectional to walk left and right, and Space calls jumper.jump(). countJumps lets the hero jump again in mid-air.',
         ),
         Concept(
           title: 'KeyDownEvent and KeyUpEvent',
           short: 'A key was pressed, or a key was let go.',
-          subtitle:
-              'onKeyboard receives a KeyDownEvent when a key is pressed and a KeyUpEvent when it is released. Releasing A or D either stops the hero or hands control to the other key if it is still held.',
+          subtitle: 'onKeyboard receives a KeyDownEvent when a key is pressed and a KeyUpEvent when it is released. Releasing A or D either stops the hero or hands control to the other key if it is still held.',
         ),
       ],
       codeSteps: [
@@ -99,10 +97,8 @@ return BonfireWidget(
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add KeyboardEventListener and the jump animations to Hero, allow two jumps, handle A, D and Space in onKeyboard, and register a Keyboard controller on BonfireWidget.',
-      proTip:
-          'Click inside the game window before you press any keys, because key presses only reach the hero while the game has focus.',
+      timeToCodeStatement: 'You\'re about to add KeyboardEventListener and the jump animations to Hero, allow two jumps, handle A, D and Space in onKeyboard, and register a Keyboard controller on BonfireWidget.',
+      proTip: 'Click inside the game window before you press any keys, because key presses only reach the hero while the game has focus.',
     );
   }
 }

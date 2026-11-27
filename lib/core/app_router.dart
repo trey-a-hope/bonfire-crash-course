@@ -1,8 +1,7 @@
 import 'package:bonfire_crash_course/core/pane_config.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
-import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_page.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/course_info/course_info_page.dart';
 import 'package:bonfire_crash_course/presentation/pages/miscellaneous/settings_page.dart';
-import 'package:bonfire_crash_course/presentation/pages/miscellaneous/starter_project_files/starter_project_files_page.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/desktop_scaffold.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
@@ -34,19 +33,12 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const SettingsPage(),
     ),
 
-    // The starter project tour is a reference page, also outside progress
+    // Course Info (the Content Outline and the starter project tour) is a
+    // reference page, also outside progress
     GoRoute(
-      path: StarterProjectFilesPage.path,
+      path: CourseInfoPage.path,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => const StarterProjectFilesPage(),
-    ),
-
-    // The Content Outline maps every module's lessons; a reference page too,
-    // so it never counts toward progress
-    GoRoute(
-      path: ContentOutlinePage.path,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => const ContentOutlinePage(),
+      builder: (context, state) => const CourseInfoPage(),
     ),
 
     StatefulShellRoute.indexedStack(

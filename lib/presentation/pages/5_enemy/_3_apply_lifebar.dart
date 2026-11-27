@@ -1,4 +1,5 @@
 import '../../../core/modules/enemy_module.dart';
+
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
@@ -32,28 +33,23 @@ class ApplyLifebarPage extends StatelessWidget {
       module: ENEMY_MODULE,
       unitStep: 3,
       title: 'Apply Lifebar',
-      outcome:
-          'A red life bar floats over the enemy and a green one over the hero, and each shrinks as they take hits.',
-      objective:
-          'Give MinorEnemy and HeroPlayer a life total and a life bar drawn over their heads.',
+      outcome: 'A red life bar floats over the enemy and a green one over the hero, and each shrinks as they take hits.',
+      objective: 'Give MinorEnemy and HeroPlayer a life total and a life bar drawn over their heads.',
       concepts: [
         Concept(
           title: 'WithLifeBar',
           short: 'Draws a life bar over a character.',
-          subtitle:
-              'A Bonfire mixin that draws a bar over the character showing how much of its life is left. The bar updates on its own every time the character takes damage.',
+          subtitle: 'A Bonfire mixin that draws a bar over the character showing how much of its life is left. The bar updates on its own every time the character takes damage.',
         ),
         Concept(
           title: 'life',
           short: 'How much damage a character can take.',
-          subtitle:
-              'The character\'s starting (and maximum) life. Every hit subtracts its damage, and when life reaches 0 the character dies.',
+          subtitle: 'The character\'s starting (and maximum) life. Every hit subtracts its damage, and when life reaches 0 the character dies.',
         ),
         Concept(
           title: 'lifeBar.setup',
           short: 'Styles the life bar.',
-          subtitle:
-              'Sets how the life bar looks, like its background color and its rounded corners.',
+          subtitle: 'Sets how the life bar looks, like its background color and its rounded corners.',
         ),
       ],
       codeSteps: [
@@ -134,10 +130,8 @@ HeroPlayer(Vector2 position)
 ''',
         ),
       ],
-      timeToCodeStatement:
-          'You\'re about to add WithLifeBar to MinorEnemy and HeroPlayer, give the enemy 50 life and the hero 100, and style a red bar for the enemy and a green bar for the hero.',
-      proTip:
-          'Change the life values to make fights shorter or longer: with the hero\'s melee doing 20 damage, a 50-life enemy goes down in 3 hits.',
+      timeToCodeStatement: 'You\'re about to add WithLifeBar to MinorEnemy and HeroPlayer, give the enemy 50 life and the hero 100, and style a red bar for the enemy and a green bar for the hero.',
+      proTip: 'Change the life values to make fights shorter or longer: with the hero\'s melee doing 20 damage, a 50-life enemy goes down in 3 hits.',
     );
   }
 }

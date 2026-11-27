@@ -28,9 +28,8 @@ class ConceptChips extends StatelessWidget {
       children: [
         Text(
           'Key concepts of this chapter',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.white.withValues(alpha: 0.7),
-          ),
+          style: Theme.of(context).textTheme.bodyMedium
+              ?.copyWith(color: Colors.white.withValues(alpha: 0.7)),
         ),
         GapSizes.smallGap,
         Wrap(
