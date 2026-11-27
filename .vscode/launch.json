@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "bonfire_crash_course",
+            "name": "debug",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "bonfire_crash_course (profile mode)",
+            "name": "profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "bonfire_crash_course (release mode)",
+            "name": "release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
