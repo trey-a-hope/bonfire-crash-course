@@ -33,6 +33,10 @@ class Sidebar extends StatelessWidget {
   /// Course progress from 0.0 to 1.0, used as the progress bar's value.
   final double progressFraction;
 
+  /// Whether to show the progress label and bar. False before the Getting
+  /// Started module, where progress hasn't started yet.
+  final bool showProgress;
+
   /// Switches the shell route to the branch at [index].
   ///
   /// [initialLocation] is true when the user taps the item that is already
@@ -44,6 +48,7 @@ class Sidebar extends StatelessWidget {
     required this.progressPercentage,
     required this.progressColor,
     required this.progressFraction,
+    required this.showProgress,
     required this.goBranch,
     super.key,
   });
@@ -122,9 +127,8 @@ class Sidebar extends StatelessWidget {
             // Middle: Navigation Items List
             Expanded(
               child: Theme(
-                data: Theme.of(
-                  context,
-                ).copyWith(dividerColor: Colors.transparent),
+                data: Theme.of(context)
+                    .copyWith(dividerColor: Colors.transparent),
                 child: ListView.builder(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   itemCount: panes.length,
@@ -225,42 +229,48 @@ class Sidebar extends StatelessWidget {
               onTap: () => context.push(SettingsPage.path),
             ),
             // Course progress: label + percentage, then a rounded bar.
-            Padding(
-              padding: const EdgeInsetsGeometry.all(16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Progress',
-                        style: textTheme.bodySmall?.copyWith(
-                          color: Colors.white54,
-                          fontWeight: FontWeight.w500,
+            // Hidden until the Getting Started module.
+            if (showProgress) ...[
+              const Divider(height: 1, thickness: 1, color: Color(0xFF26262B)),
+              Padding(
+                padding: const EdgeInsetsGeometry.all(16),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Progress',
+                          style: textTheme.bodySmall?.copyWith(
+                            color: Colors.white54,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${progressPercentage.toInt()}%',
-                        style: textTheme.bodySmall?.copyWith(
-                          color: progressColor,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          '${progressPercentage.toInt()}%',
+                          style: textTheme.bodySmall?.copyWith(
+                            color: progressColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  GapSizes.xsGap,
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4.0),
-                    child: LinearProgressIndicator(
-                      value: progressFraction,
-                      minHeight: 5.0,
-                      backgroundColor: Colors.white.withValues(alpha: 0.08),
-                      valueColor: AlwaysStoppedAnimation<Color>(progressColor),
+                      ],
                     ),
-                  ),
-                ],
+                    GapSizes.xsGap,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4.0),
+                      child: LinearProgressIndicator(
+                        value: progressFraction,
+                        minHeight: 5.0,
+                        backgroundColor: Colors.white.withValues(alpha: 0.08),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          progressColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),

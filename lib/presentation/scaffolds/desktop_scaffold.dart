@@ -121,6 +121,9 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
               progressPercentage: progressPercentage,
               progressColor: progressColor,
               progressFraction: progressFraction,
+              showProgress: ProgressNavigationController.isProgressVisible(
+                widget.navigationShell,
+              ),
               goBranch: (val, {bool initialLocation = false}) =>
                   widget.navigationShell.goBranch(
                     val,
