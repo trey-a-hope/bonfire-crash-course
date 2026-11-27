@@ -17,7 +17,7 @@ class WindowService {
   /// Throws an [UnsupportedError] if executed on a non-desktop platform.
   static Future<void> initializeDesktopWindow(Size size) async {
     if (!PlatformResolver.isDesktop) {
-      throw UnsupportedError('This app only supports desktop platforms.');
+      return;
     }
 
     await windowManager.ensureInitialized();

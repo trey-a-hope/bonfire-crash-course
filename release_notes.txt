@@ -1,7 +1,3 @@
-Bonfire Crash Course v26.11.11
+Bonfire Crash Course v26.11.12
 
 What's new
-- Code snippets in the Create Enemy and Apply Gravity lessons now highlight added lines in green and removed lines in red, so you can see exactly what to change.
-- Copy takes just the green added lines, without the + markers, and hides when there is nothing left to paste.
-- Picking a concept still shows its explanation above the code, but no longer highlights code lines in yellow.
-- Every coding lesson (Map, Player, Enemy and Companion) now starts with an "Add all imports at the top" step where needed, and shows each change as green added and red removed lines with the code around them, one change per step.

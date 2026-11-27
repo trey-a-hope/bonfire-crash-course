@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/core/pane_config.dart';
+import 'package:bonfire_crash_course/core/platform_resolver.dart';
 import 'package:bonfire_crash_course/domain/controllers/progress_navigation_controller.dart';
 import 'package:bonfire_crash_course/domain/models/pane_info.dart';
 import 'package:bonfire_crash_course/presentation/pages/miscellaneous/content_outline/content_outline_page.dart';
@@ -59,7 +60,16 @@ class Sidebar extends StatelessWidget {
           children: [
             // Top Header: Branding & Progress
             Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 16.0),
+              // On phones/tablets, push the header below the status bar and
+              // any notch or camera cutout. Desktop keeps the original 20px.
+              padding: EdgeInsets.fromLTRB(
+                16.0,
+                PlatformResolver.isMobile
+                    ? MediaQuery.paddingOf(context).top + 20.0
+                    : 20.0,
+                16.0,
+                16.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:bonfire_crash_course/core/app_router.dart';
+import 'package:bonfire_crash_course/core/platform_resolver.dart';
+import 'package:bonfire_crash_course/presentation/pages/miscellaneous/unsupported_device_page.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rive/rive.dart';
@@ -37,6 +39,11 @@ class DesktopApp extends StatelessWidget {
     darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
     themeMode: ThemeMode.dark,
     routerConfig: appRouter,
+    // Block normal phones: only tablets and unfolded foldables can run the app.
+    builder: (context, child) =>
+        PlatformResolver.isUnsupportedPhone(MediaQuery.sizeOf(context))
+        ? const UnsupportedDevicePage()
+        : child!,
   );
 }
 
