@@ -39,7 +39,7 @@ lib/
 - Flutter, Dart SDK `^3.12.2`
 - `go_router` for navigation and `signals` for state
 - `media_kit` / `media_kit_video` for lesson videos (with macOS and Windows video libs)
-- `flutter_inappwebview` for the game window (WKWebView on macOS, WebView2 on Windows; building for Windows needs NuGet on the machine)
+- `webview_flutter` for the game window (Android WebView, WKWebView on iOS and macOS; on Windows the game opens in the browser instead)
 - `lottie` and `rive` for animations, `flutter_svg` for module diagrams
 - `flutter_highlight` / `highlight` for code snippets
 - `window_manager` for desktop window setup, `package_info_plus` for the version label
