@@ -201,10 +201,10 @@ packages:
     dependency: "direct main"
     description:
       name: gap
-      sha256: f19387d4e32f849394758b91377f9153a1b41d79513ef7668c088c77dbc6955d
+      sha256: ba305c9fb29d48b4ddfc59cbe4a437fc67b2e18824ec7729196289504d50570b
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   get_it:
     dependency: transitive
     description:
@@ -429,6 +429,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.2"
+  phone_gate:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "2b1a9a9873144822220a53e011251ba34b819cc4"
+      url: "https://github.com/trey-a-hope/phone-gate.git"
+    source: git
+    version: "0.0.1"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -827,5 +836,5 @@ packages:
     source: hosted
     version: "3.1.4"
 sdks:
-  dart: ">=3.13.0 <4.0.0"
+  dart: ">=3.14.0 <4.0.0"
   flutter: ">=3.47.0"
