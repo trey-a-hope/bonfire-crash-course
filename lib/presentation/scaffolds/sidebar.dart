@@ -9,7 +9,7 @@ import 'package:bonfire_crash_course/presentation/widgets/sidebar_item_tile.dart
 import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
-/// The fixed-width navigation sidebar shown by the desktop scaffold.
+/// The fixed-width, closable navigation sidebar shown by the desktop scaffold.
 ///
 /// It has three sections, from top to bottom:
 /// * a branding header,
@@ -42,6 +42,9 @@ class Sidebar extends StatelessWidget {
   /// selected, which resets that branch to its root route.
   final Function(int index, {bool initialLocation}) goBranch;
 
+  /// Called when the user taps the close button in the header.
+  final VoidCallback onClose;
+
   const Sidebar({
     required this.currentIndex,
     required this.progressPercentage,
@@ -49,6 +52,7 @@ class Sidebar extends StatelessWidget {
     required this.progressFraction,
     required this.showProgress,
     required this.goBranch,
+    required this.onClose,
     super.key,
   });
 
@@ -115,6 +119,16 @@ class Sidebar extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                      IconButton(
+                        tooltip: 'Close sidebar',
+                        visualDensity: VisualDensity.compact,
+                        iconSize: 20.0,
+                        color: Colors.white54,
+                        icon: const Icon(
+                          Icons.keyboard_double_arrow_left_rounded,
+                        ),
+                        onPressed: onClose,
                       ),
                     ],
                   ),
