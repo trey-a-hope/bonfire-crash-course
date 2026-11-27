@@ -2,6 +2,7 @@ import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/instructions_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/hero_image.dart';
 import 'package:bonfire_crash_course/presentation/widgets/onboarding/onboarding.dart';
+import 'package:bonfire_crash_course/presentation/widgets/web_game_view.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/modules/getting_started_module.dart';
@@ -27,6 +28,8 @@ class RunApp extends StatelessWidget {
           fit: BoxFit.fitWidth,
           borderRadius: BorderRadius.circular(16),
         ),
+        GapSizes.mediumGap,
+        const WebGameView(),
       ],
       rightPaneWidets: const [
         QuickSteps(

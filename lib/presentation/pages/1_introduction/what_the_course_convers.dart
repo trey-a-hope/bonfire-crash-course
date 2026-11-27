@@ -1,5 +1,6 @@
 import 'package:bonfire_crash_course/core/gap_sizes.dart';
 import 'package:bonfire_crash_course/presentation/widgets/cards/_cards.dart';
+import 'package:bonfire_crash_course/presentation/widgets/web_game_view.dart';
 import 'package:material_ui/material_ui.dart';
 
 class WhatTheCourseConvers extends StatelessWidget {
@@ -71,7 +72,7 @@ class WhatTheCourseConvers extends StatelessWidget {
                   ),
                 ),
                 GapSizes.largeGap,
-                const Placeholder(),
+                const WebGameView(),
                 GapSizes.largeGap,
                 // The five course modules, split into two even columns.
                 const Row(
