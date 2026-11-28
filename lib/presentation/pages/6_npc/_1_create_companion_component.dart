@@ -1,14 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/npc_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_COMPANION =
-    'lib/presentation/characters/companion.dart';
 
 class CreateCompanionComponentPage extends StatelessWidget {
   const CreateCompanionComponentPage({super.key});
@@ -44,7 +41,7 @@ class CreateCompanionComponentPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top of companion.dart.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 // Bonfire's components, plus the shared constants like TILE_SIZE.
 + import 'package:bonfire/bonfire.dart';
@@ -53,7 +50,7 @@ class CreateCompanionComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Create companion.dart and a class named Companion that extends SimpleAlly.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// A friendly NPC that stands on the map and talks to the hero.
 + ///
@@ -64,7 +61,7 @@ class CreateCompanionComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Define the Companion constructor, passing the spawn position, the frame size, its life and its speed to the superclass.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Creates the companion at [position] (in pixels from the map's top-left).
 + Companion(Vector2 position)
@@ -81,14 +78,14 @@ class CreateCompanionComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 + import 'package:bonfire_crash_course_playground/presentation/characters/companion.dart';
 ''',
         ),
         CodeStep(
           description: 'Add a Companion to BonfireWidget\'s components list. Place it by map tile instead of by pixel: tile (24, 7) is the row just above the ground in map 01, on a flat stretch of open ground, and multiplying by TILE_SIZE (32) turns it into a world position, so the companion starts standing on the ground.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
   player: Hero(Vector2(100, 100)),

@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/npc_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_COMPANION =
-    'lib/presentation/characters/companion.dart';
 
 class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
   const ApplyGravityAndCollisionToCompanionPage({super.key});
@@ -42,7 +40,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add the WithCollision and WithForces mixins to the Companion class. WithForces is all it takes for the world\'s gravity to act on it; the companion already starts on the ground, so gravity just keeps it planted there.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 /// A friendly NPC that stands on the map and talks to the hero.
 ///
@@ -56,7 +54,7 @@ class ApplyGravityAndCollisionToCompanionPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Override onLoad and add a RectangleHitbox the same size as the companion.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Runs once when the companion is added to the game.
 + @override

@@ -1,12 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class PlayerAttackMeleePage extends StatelessWidget {
   const PlayerAttackMeleePage({super.key});
@@ -36,7 +35,7 @@ class PlayerAttackMeleePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add the WithAttack mixin to HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + class HeroPlayer extends PlatformPlayer ... with WithAttack { ... }
 ''',
@@ -44,7 +43,7 @@ class PlayerAttackMeleePage extends StatelessWidget {
         CodeStep(
           description:
               'Track whether a swing is playing so attacks can\'t be spammed.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
 +   bool _isAttacking = false;
@@ -53,7 +52,7 @@ class HeroPlayer extends PlatformPlayer ... {
         ),
         CodeStep(
           description: 'Create _meleeAttack and play the swing animation.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
 +   void _meleeAttack() {
@@ -72,7 +71,7 @@ class HeroPlayer extends PlatformPlayer ... {
         ),
         CodeStep(
           description: 'Add an invisible melee hitbox in front of the hero.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 void _meleeAttack() {
      if (_isAttacking) return;
@@ -97,7 +96,7 @@ void _meleeAttack() {
         ),
         CodeStep(
           description: 'Map S to the melee attack in onJoystickAction.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
 void onJoystickAction(JoystickActionEvent event) {

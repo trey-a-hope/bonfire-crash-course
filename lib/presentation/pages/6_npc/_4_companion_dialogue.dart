@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/npc_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_COMPANION =
-    'lib/presentation/characters/companion.dart';
 
 class CompanionDialoguePage extends StatelessWidget {
   const CompanionDialoguePage({super.key});
@@ -42,7 +40,7 @@ class CompanionDialoguePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 // For TextSpan, SizedBox and Widget in the dialogue.
 + import 'package:material_ui/material_ui.dart';
@@ -50,7 +48,7 @@ class CompanionDialoguePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Add the fields the dialogue needs at the top of the Companion class: how close the hero must be, and whether the companion has already talked. _hasTalked never resets, so the dialogue opens only once.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// How close (in pixels) the hero must be before the companion talks.
 + static const _talkRadius = 48.0;
@@ -62,7 +60,7 @@ class CompanionDialoguePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Override update and check for the hero with vision.seePlayer. observed runs every tick the hero is in range, so _talk returns early once it has talked.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// Called every game tick to check whether the hero is close.
 + @override
@@ -77,7 +75,7 @@ class CompanionDialoguePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Write _talk: stop the hero, pause the game right away, and show the dialogue. onClose resumes the game when the last line is done.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 + /// Pauses the game and opens the dialogue (only once).
 + void _talk() {
@@ -108,7 +106,7 @@ class CompanionDialoguePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Write _say, which builds one line of dialogue with a face beside it, shown at 96px (three times the sprite) so it is easy to see. The face is a widget, so later lines can swap in another one; by default it is the talking face.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// One line of dialogue, with the companion's [face] beside it (its
 + /// talking face unless another is given).
@@ -123,7 +121,7 @@ class CompanionDialoguePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Below the Companion class, write _Face: a widget that plays one of the strawberry sheets with SpriteAnimationWidget.asset. Then define _talkingFace, the 2-frame talk sheet (mouth closed and open), as a const so _say can use it as its default.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// The companion's talking face in the dialogue: its mouth opens and closes.
 + const _talkingFace = _Face(STRAWBERRY_TALK, amount: 2, stepTime: 0.15);

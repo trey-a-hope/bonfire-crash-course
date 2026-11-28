@@ -1,15 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/enemy_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_MINOR_ENEMY =
-    'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO_PLAYER =
-    'lib/presentation/characters/hero_player.dart';
 
 /// The import both character files need for the life bar's colors and
 /// corners.
@@ -55,24 +51,24 @@ class ApplyLifebarPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top of minor_enemy.dart.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: _IMPORTS_SNIPPET,
         ),
         CodeStep(
           description: 'Add all imports at the top of hero_player.dart.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: _IMPORTS_SNIPPET,
         ),
         CodeStep(
           description: 'Add the WithLifeBar mixin to MinorEnemy.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 + WithLifeBar {
 ''',
         ),
         CodeStep(
           description: 'Give MinorEnemy 50 life.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 MinorEnemy(Vector2 position)
     : super(
@@ -85,7 +81,7 @@ MinorEnemy(Vector2 position)
         CodeStep(
           description:
               'Style MinorEnemy\'s life bar in red with rounded corners.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 MinorEnemy(Vector2 position)
 -    : super();
@@ -99,14 +95,14 @@ MinorEnemy(Vector2 position)
         ),
         CodeStep(
           description: 'Add the WithLifeBar mixin to HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 + WithLifeBar 
 ''',
         ),
         CodeStep(
           description: 'Give HeroPlayer 100 life.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
@@ -118,7 +114,7 @@ HeroPlayer(Vector2 position)
         CodeStep(
           description:
               'Style HeroPlayer\'s life bar in green with rounded corners.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(...) {

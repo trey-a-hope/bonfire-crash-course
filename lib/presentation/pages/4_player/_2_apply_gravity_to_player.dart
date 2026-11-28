@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class ApplyGravityToPlayerPage extends StatelessWidget {
   const ApplyGravityToPlayerPage({super.key});
@@ -37,7 +35,7 @@ class ApplyGravityToPlayerPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Pass globalForces to BonfireWidget in game_screen.dart to turn on gravity for the whole game.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           // The "+ " marker shows globalForces as the line to add.
           codeSnippet: '''
 return BonfireWidget(
@@ -49,7 +47,7 @@ return BonfireWidget(
         ),
         CodeStep(
           description: 'Add the WithForces mixin to the Hero class so the world\'s gravity acts on it.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + class Hero ... with WithForces { ... }
 ''',

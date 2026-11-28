@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/map_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_PARALLAX_BACKGROUND =
-    'lib/presentation/backgrounds/parallax_background.dart';
 
 class CreateParallaxBackground extends StatelessWidget {
   const CreateParallaxBackground({super.key});
@@ -37,7 +35,7 @@ class CreateParallaxBackground extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 // Bonfire for GameBackground, the game's constants for the cave layers,
 // and dart:ui for FilterQuality.
@@ -48,7 +46,7 @@ class CreateParallaxBackground extends StatelessWidget {
         ),
         CodeStep(
           description: 'Create a new class that extends the GameBackground class. Title it "ParallaxBackground."',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
   // A custom [GameBackground] that renders layered parallax scrolling backgrounds.
 + class ParallaxBackground extends GameBackground {}
@@ -57,7 +55,7 @@ class CreateParallaxBackground extends StatelessWidget {
 
         CodeStep(
           description: 'Add variables for building the parallax',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   // How fast the back layer slides, per pixel the camera moves.
@@ -68,7 +66,7 @@ class ParallaxBackground extends GameBackground {
 
         CodeStep(
           description: 'Add variables for building the parallax',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   // How fast the back layer slides, per pixel the camera moves.
@@ -81,7 +79,7 @@ class ParallaxBackground extends GameBackground {
         ),
         CodeStep(
           description: 'Add variables for building the parallax',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   // How fast the back layer slides, per pixel the camera moves.
@@ -97,7 +95,7 @@ class ParallaxBackground extends GameBackground {
         ),
         CodeStep(
           description: 'Add a property that holds the cave component, so it can be removed when the layers reload.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   // How fast the back layer slides, per pixel the camera moves.
@@ -116,7 +114,7 @@ class ParallaxBackground extends GameBackground {
         ),
         CodeStep(
           description: 'Define an asynchronous helper method to handle loading and mounting the parallax layers.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   /// Asynchronously loads and attaches the parallax components to the background.
@@ -127,7 +125,7 @@ class ParallaxBackground extends GameBackground {
 
         CodeStep(
           description: 'Inside the addParallax method, define the list of parallax layers.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
 +   final layers = _layers.map(ParallaxImageData.new);
@@ -136,7 +134,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, define the base velocity that sets how fast the scene scrolls.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -148,7 +146,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, define the velocity multiplier delta that sets how much faster each layer moves than the one behind it.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -163,7 +161,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, define the filter quality so pixel art stays crisp instead of blurry.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -181,7 +179,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, load the parallax layers into the cave background component.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -207,7 +205,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, remove the old cave layers from the background.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -236,7 +234,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, remember the new cave component so the next resize knows which one to remove.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -268,7 +266,7 @@ void _addParallax() async {
         ),
         CodeStep(
           description: 'Inside the addParallax method, add the new cave layers to the background so they draw.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 void _addParallax() async {
   final layers = _layers.map(ParallaxImageData.new);
@@ -304,7 +302,7 @@ void _addParallax() async {
 
         CodeStep(
           description: 'Invoke _addParallax inside onLoad so the background layers load when the component mounts. It should come after the "await super.onLoad();"',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   /// Overrides the default onLoad method to load the parallax layers.
@@ -319,7 +317,7 @@ class ParallaxBackground extends GameBackground {
 
         CodeStep(
           description: 'Override onGameResize to handle changes whenever the top-level game canvas or window size changes.',
-          fileName: _DART_FILE_PARALLAX_BACKGROUND,
+          fileName: DART_FILE_PARALLAX_BACKGROUND,
           codeSnippet: '''
 class ParallaxBackground extends GameBackground {
   // Called whenever the size of the top-level Canvas changes.

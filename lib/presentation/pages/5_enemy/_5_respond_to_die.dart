@@ -1,15 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/enemy_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_MINOR_ENEMY =
-    'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO_PLAYER =
-    'lib/presentation/characters/hero_player.dart';
 
 /// The onMount that hooks up _onDie, shared by MinorEnemy and HeroPlayer.
 /// The unmarked lines are the onMount from the Respond to Hurt lesson; the
@@ -60,7 +56,7 @@ class RespondToDiePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add _onDie to MinorEnemy to drop the bar, stop and play the death animation.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy {
 +   void _onDie() {
@@ -78,12 +74,12 @@ class MinorEnemy {
         ),
         CodeStep(
           description: 'Listen for death in MinorEnemy\'s onMount.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),
         CodeStep(
           description: 'Copy _onDie into HeroPlayer, without pauseBehaviors().',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 class HeroPlayer {
 +   void _onDie() {
@@ -100,7 +96,7 @@ class HeroPlayer {
         ),
         CodeStep(
           description: 'Listen for death in HeroPlayer\'s onMount.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: _ON_MOUNT_SNIPPET,
         ),
       ],

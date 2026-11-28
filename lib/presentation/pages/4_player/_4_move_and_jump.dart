@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class MoveAndJumpPage extends StatelessWidget {
   const MoveAndJumpPage({super.key});
@@ -37,21 +35,21 @@ class MoveAndJumpPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top of hero.dart.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + import 'package:flutter/services.dart';
 ''',
         ),
         CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 + import 'package:bonfire_crash_course_playground/core/keyboards/default_keyboard.dart';
 ''',
         ),
         CodeStep(
           description: 'Add the KeyboardEventListener mixin to HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + class HeroPlayer ... with KeyboardEventListener { ... }
 ''',
@@ -59,7 +57,7 @@ class MoveAndJumpPage extends StatelessWidget {
         CodeStep(
           description:
               'Set countJumps to 2 in the constructor to allow a double jump.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
@@ -72,7 +70,7 @@ HeroPlayer(Vector2 position)
         CodeStep(
           description:
               'Override onJoystickAction so Space makes the hero jump.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
 +   @override
@@ -87,7 +85,7 @@ class HeroPlayer extends PlatformPlayer ... {
         ),
         CodeStep(
           description: 'Register the keyboard controller on BonfireWidget.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
 +   playerControllers: [DefaultKeyboard()],

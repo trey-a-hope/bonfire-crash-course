@@ -1,12 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/map_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
 
 class LoadingTheMap extends StatelessWidget {
   const LoadingTheMap({super.key});
@@ -44,7 +43,7 @@ class LoadingTheMap extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 // This will bring in all the tools we need from the Bonfire package.
 + import 'package:bonfire/bonfire.dart';
@@ -53,7 +52,7 @@ class LoadingTheMap extends StatelessWidget {
         ),
         CodeStep(
           description: 'Replace the placeholder widget in GameScreen with BonfireWidget and load the map.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: ''' 
 @override
 Widget build(BuildContext context) {
@@ -68,7 +67,7 @@ Widget build(BuildContext context) {
         ),
         CodeStep(
           description: 'Define a CameraConfig to clamp the viewport and adjust the zoom fit.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 + final _cameraConfig = CameraConfig(
 +     initialMapZoomFit: InitialMapZoomFitEnum.fitHeight,
@@ -78,7 +77,7 @@ Widget build(BuildContext context) {
         ),
         CodeStep(
           description: 'Tell BonfireWidget to use your camera config.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
   @override
   Widget build(BuildContext context) {

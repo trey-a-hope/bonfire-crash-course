@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/npc_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_COMPANION =
-    'lib/presentation/characters/companion.dart';
 
 class CompanionCutscenePage extends StatelessWidget {
   const CompanionCutscenePage({super.key});
@@ -52,7 +50,7 @@ class CompanionCutscenePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 // For the Completer the dialogue uses.
 + import 'dart:async';
@@ -60,7 +58,7 @@ class CompanionCutscenePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Add two constants to the Companion class, above _talk: how much the camera zooms in on Berry, and how long each pan takes.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 + /// How much closer the camera zooms in on the companion while it talks.
 + static const _talkZoom = 1.25;
@@ -74,7 +72,7 @@ class CompanionCutscenePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Replace _talk with the cutscene. It still runs only once and stops the hero and Berry, then remembers the current zoom and starts a scene with three actions: pan to Berry, wait for the dialogue, and pan back to the hero.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 - /// Pauses the game and opens the dialogue (only once). When it closes,
 - /// the companion waves and then follows the hero.
@@ -123,7 +121,7 @@ class CompanionCutscenePage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Move the dialogue into _showDialogue, which AwaitSceneAction waits on. It is the dialogue code from the last lesson, with one change: a Completer. Its future is returned straight away, and completing it in onClose tells the scene the dialogue is done.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: r'''
 + /// Pauses the game and shows the dialogue. Completes once it has closed
 + /// and the game is running again; the companion starts its wave then.

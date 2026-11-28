@@ -1,12 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class PlayerAttackRangePage extends StatelessWidget {
   const PlayerAttackRangePage({super.key});
@@ -31,7 +30,7 @@ class PlayerAttackRangePage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Create _rangeAttack and play the cast animation.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
 +   void _rangeAttack() {
@@ -50,7 +49,7 @@ class HeroPlayer extends PlatformPlayer ... {
         ),
         CodeStep(
           description: 'Fire a 16x16 projectile in the facing direction.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 void _rangeAttack() {
      if (_isAttacking) return;
@@ -81,7 +80,7 @@ void _rangeAttack() {
         ),
         CodeStep(
           description: 'Map W to the range attack in onJoystickAction.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 @override
 void onJoystickAction(JoystickActionEvent event) {

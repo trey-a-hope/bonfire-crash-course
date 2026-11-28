@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 /// Player lesson 1, "Creating the Player Component": creates the HeroPlayer
 /// class in hero.dart and passes it to BonfireWidget's player in
@@ -47,7 +45,7 @@ class CreatePlayerComponentPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top of hero.dart.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + import 'package:bonfire/bonfire.dart';
 + import 'package:bonfire_crash_course_playground/core/constants/character_asset.dart';
@@ -57,21 +55,21 @@ class CreatePlayerComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 + import 'package:bonfire_crash_course_playground/presentation/characters/hero.dart';
 ''',
         ),
         CodeStep(
           description: 'Create a HeroPlayer class that extends PlatformPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + class HeroPlayer extends PlatformPlayer { ... }
 ''',
         ),
         CodeStep(
           description: 'Add the constructor. It sets the spawn position and a one-tile size.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer {
 +   HeroPlayer(Vector2 position)
@@ -82,7 +80,7 @@ class HeroPlayer extends PlatformPlayer {
         CodeStep(
           description:
               'Pick the character sprite set. Try CharacterAsset.shark too.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer {
 +   static const _asset = CharacterAsset.wizard;
@@ -92,7 +90,7 @@ class HeroPlayer extends PlatformPlayer {
         ),
         CodeStep(
           description: 'Add the idle and run animations with SpriteTools.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 HeroPlayer(Vector2 position)
     : super(
@@ -105,7 +103,7 @@ HeroPlayer(Vector2 position)
         CodeStep(
           description:
               'Pass a HeroPlayer to the player property in BonfireWidget.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
 +   player: HeroPlayer(Vector2(100, 100)),

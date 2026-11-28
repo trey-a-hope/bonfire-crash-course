@@ -1,14 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/enemy_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_GAME_SCREEN = 'lib/presentation/screens/game_screen.dart';
-const _DART_FILE_CHARACTERS_MINOR_ENEMY =
-    'lib/presentation/characters/minor_enemy.dart';
 
 /// Enemy lesson 1, "Creating the Enemy Component": turns a copy of the
 /// HeroPlayer class into a MinorEnemy that extends PlatformEnemy, then adds
@@ -43,7 +40,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add all imports at the top of game_screen.dart.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 + import 'package:bonfire_crash_course_playground/presentation/characters/minor_enemy.dart';
 ''',
@@ -51,7 +48,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
         CodeStep(
           description:
               'Copy HeroPlayer into minor_enemy.dart and rename it MinorEnemy.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 - class HeroPlayer extends PlatformPlayer
     with WithForces, KeyboardEventListener, ScreenBoundaryChecker, WithAttack {
@@ -61,7 +58,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Rename the constructor to match the class.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 - HeroPlayer(Vector2 position)
 + MinorEnemy(Vector2 position)
@@ -74,7 +71,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Delete the player-only controls: onJoystickAction and _rangeAttack.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 - @override
 - void onJoystickAction(JoystickActionEvent event) {
@@ -88,7 +85,7 @@ class CreateEnemyComponentPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Add the minor enemy to the game.',
-          fileName: _DART_FILE_GAME_SCREEN,
+          fileName: DART_FILE_GAME_SCREEN,
           codeSnippet: '''
 return BonfireWidget(
     components: [

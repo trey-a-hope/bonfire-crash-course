@@ -1,12 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class ApplyCollisionToPlayerPage extends StatelessWidget {
   const ApplyCollisionToPlayerPage({super.key});
@@ -32,16 +31,85 @@ class ApplyCollisionToPlayerPage extends StatelessWidget {
         CodeStep(
           description:
               'Add a RectangleHitbox in onLoad so the hero has a solid shape.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
-  ...
 +   @override
 +   Future<void> onLoad() async {
 +     add(RectangleHitbox(size: size));
 +     return super.onLoad();
 +   }
 }
+''',
+        ),
+        CodeStep(
+          description:
+              'Add a ValueNotifier to control whether hitbox outlines show.',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+class _GameScreenState extends State<GameScreen> {
++   final _collisionBoxesVisible = ValueNotifier<bool>(false);
+}
+''',
+        ),
+        CodeStep(
+          description:
+              'Add a ValueNotifier to control whether hitbox outlines show.',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+@override
+void dispose() {
++ _collisionBoxesVisible.dispose();
+  super.dispose();
+}
+''',
+        ),
+        CodeStep(
+          description: '?',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+return BonfireWidget(
+  cameraConfig: _cameraConfig,
++   components: [
++     CollisionBoxes.shared(_collisionBoxesVisible),
++   ],
+)
+''',
+        ),
+        CodeStep(
+          description: '?',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+return BonfireWidget(
+  cameraConfig: _cameraConfig,
+  components: [
+    CollisionBoxes.shared(_collisionBoxesVisible),
+  ],
++   overlayBuilderMap: {
++     CollisionBoxesToggle.overlayName: (context, game) =>
++       CollisionBoxesToggle(visible: _collisionBoxesVisible),
++   },
+)
+''',
+        ),
+
+        CodeStep(
+          description: '?',
+          fileName: DART_FILE_GAME_SCREEN,
+          codeSnippet: '''
+return BonfireWidget(
+  cameraConfig: _cameraConfig,
+  components: [
+    CollisionBoxes.shared(_collisionBoxesVisible),
+  ],
+  overlayBuilderMap: {
+    CollisionBoxesToggle.overlayName: (context, game) =>
+      CollisionBoxesToggle(visible: _collisionBoxesVisible),
+  },
++  initialActiveOverlays: [
++     CollisionBoxesToggle.overlayName,
++  ],
+)
 ''',
         ),
       ],

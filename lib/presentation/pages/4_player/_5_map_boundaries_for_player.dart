@@ -1,12 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/player_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_HERO = 'lib/presentation/characters/hero.dart';
 
 class MapBoundariesForPlayerPage extends StatelessWidget {
   const MapBoundariesForPlayerPage({super.key});
@@ -32,21 +31,21 @@ class MapBoundariesForPlayerPage extends StatelessWidget {
         CodeStep(
           description:
               'Add the ScreenBoundaryChecker import at the top of hero.dart.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + import 'package:bonfire_crash_course_playground/core/mixins/screen_boundary_checker.dart';
 ''',
         ),
         CodeStep(
           description: 'Add the ScreenBoundaryChecker mixin to HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 + class HeroPlayer ... with ScreenBoundaryChecker { ... }
 ''',
         ),
         CodeStep(
           description: 'Override update to keep the hero on the map.',
-          fileName: _DART_FILE_CHARACTERS_HERO,
+          fileName: DART_FILE_CHARACTERS_HERO,
           codeSnippet: '''
 class HeroPlayer extends PlatformPlayer ... {
 +   @override

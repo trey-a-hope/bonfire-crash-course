@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/npc_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_COMPANION =
-    'lib/presentation/characters/companion.dart';
 
 class CompanionSpriteAnimationsPage extends StatelessWidget {
   const CompanionSpriteAnimationsPage({super.key});
@@ -37,7 +35,7 @@ class CompanionSpriteAnimationsPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Pass a SimpleDirectionAnimation to super(...). The strawberry faces the camera, so left and right share the same sheet.',
-          fileName: _DART_FILE_CHARACTERS_COMPANION,
+          fileName: DART_FILE_CHARACTERS_COMPANION,
           codeSnippet: '''
 Companion(Vector2 position)
     : super(

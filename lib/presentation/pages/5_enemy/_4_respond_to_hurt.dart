@@ -1,15 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/enemy_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_MINOR_ENEMY =
-    'lib/presentation/characters/minor_enemy.dart';
-const _DART_FILE_CHARACTERS_HERO_PLAYER =
-    'lib/presentation/characters/hero_player.dart';
 
 /// Enemy lesson 4, "Respond to Hurt": registers a damage listener in
 /// onMount for MinorEnemy and HeroPlayer that plays the hurt animation once
@@ -48,7 +44,7 @@ class RespondToHurtPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Override onMount in MinorEnemy to listen for damage.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy {
 +   @override
@@ -61,7 +57,7 @@ class MinorEnemy {
         ),
         CodeStep(
           description: 'Add _onHurt to play the hurt animation for the facing direction.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy {
 +   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {
@@ -75,7 +71,7 @@ class MinorEnemy {
         ),
         CodeStep(
           description: 'Copy the same onMount and _onHurt into HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 class HeroPlayer {
 +   @override
@@ -88,7 +84,7 @@ class HeroPlayer {
         ),
         CodeStep(
           description: 'Copy the same onMount and _onHurt into HeroPlayer.',
-          fileName: _DART_FILE_CHARACTERS_HERO_PLAYER,
+          fileName: DART_FILE_CHARACTERS_HERO_PLAYER,
           codeSnippet: '''
 class HeroPlayer {
 +   void _onHurt(AttackOriginEnum attacker, double damage, dynamic identify) {

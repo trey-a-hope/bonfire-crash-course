@@ -1,13 +1,11 @@
+import 'package:bonfire_crash_course/core/config/constants.dart';
+
 import '../../../core/modules/enemy_module.dart';
 
 import 'package:bonfire_crash_course/domain/models/concept.dart';
 import 'package:bonfire_crash_course/presentation/scaffolds/coding_scaffold.dart';
 import 'package:bonfire_crash_course/presentation/widgets/steps_widget.dart';
 import 'package:material_ui/material_ui.dart';
-
-/// Paths of the template files this page edits.
-const _DART_FILE_CHARACTERS_MINOR_ENEMY =
-    'lib/presentation/characters/minor_enemy.dart';
 
 /// Enemy lesson 2, "Apply Behavior": gives MinorEnemy an AI with the
 /// UseBehavior mixin, a behaviors list and a BCondition that chases and
@@ -47,7 +45,7 @@ class ApplyBehaviorPage extends StatelessWidget {
       codeSteps: [
         CodeStep(
           description: 'Add the UseBehavior mixin to MinorEnemy.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
  class MinorEnemy extends PlatformEnemy
 -    with WithForces, ScreenBoundaryChecker, WithAttack {
@@ -57,7 +55,7 @@ class ApplyBehaviorPage extends StatelessWidget {
         ),
         CodeStep(
           description: 'Override the behaviors getter. It starts empty.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 class MinorEnemy ... {
 +   @override
@@ -68,7 +66,7 @@ class MinorEnemy ... {
         CodeStep(
           description:
               'Add randomMovement, the patrol the enemy falls back to.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 + Behavior get randomMovement => BRandomMovement(
 +       speed: speed / 2,
@@ -78,7 +76,7 @@ class MinorEnemy ... {
         ),
         CodeStep(
           description: 'Add a BCondition inside the behaviors list.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 @override
 List<Behavior> get behaviors => [
@@ -89,7 +87,7 @@ List<Behavior> get behaviors => [
         CodeStep(
           description:
               'Give the BCondition a condition: a living player exists.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
 +   condition: (dt, component, game) {
@@ -100,7 +98,7 @@ BCondition(
         ),
         CodeStep(
           description: 'Chase and melee the hero within 5 tiles in doBehavior.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
 +   doBehavior: BSeeAndMoveToTarget(
@@ -115,7 +113,7 @@ BCondition(
         CodeStep(
           description:
               'Patrol in doElseBehavior when there is no living player.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 BCondition(
   condition: ...,
@@ -127,7 +125,7 @@ BCondition(
         CodeStep(
           description:
               'Make the enemy\'s melee hurt the hero: set attackFrom to ENEMY.',
-          fileName: _DART_FILE_CHARACTERS_MINOR_ENEMY,
+          fileName: DART_FILE_CHARACTERS_MINOR_ENEMY,
           codeSnippet: '''
 _meleeAttack(
 -       attackFrom: AttackOriginEnum.PLAYER_OR_ALLY,
