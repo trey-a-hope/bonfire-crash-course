@@ -92,7 +92,16 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(32.0),
+            // Same as the sidebar: on phones/tablets, push the content below
+            // the status bar and any notch or camera cutout.
+            padding: EdgeInsets.fromLTRB(
+              32.0,
+              PlatformResolver.isMobile
+                  ? MediaQuery.paddingOf(context).top + 32.0
+                  : 32.0,
+              32.0,
+              32.0,
+            ),
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: SlideTransition(
